@@ -1,4 +1,4 @@
-// Generated on 2017-01-24 using generator-oas 0.0.10
+// Generated on 2017-02-06 using generator-oas 0.0.12
 'use strict';
 
 // # Globbing
@@ -38,14 +38,14 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/{,*/,*/*/,*/*/*/}*.js'],
         tasks: ['newer:jshint:all', 'newer:jscs:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
-        files: ['test/spec/{,*/}*.js'],
+        files: ['test/spec/controllers/plan_cuentas/crear_cuentas.js'],
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
       },
       styles: {
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= yeoman.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/{,*/,*/*/,*/*/*/}*.html',
           '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -72,7 +72,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '0.0.0.0',
+        hostname: 'localhost',
         livereload: 35729
       },
       livereload: {
@@ -220,7 +220,7 @@ module.exports = function (grunt) {
             }
           }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -338,7 +338,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'clientePruebaApp',
+          module: 'financieraClienteApp',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -392,14 +392,34 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
-        }]
-      },
-      styles: {
-        expand: true,
-        cwd: '<%= yeoman.app %>/styles',
-        dest: '.tmp/styles/',
-        src: '{,*/}*.css'
-      }
+          },{
+            expand: true,
+            cwd: '<%= yeoman.app %>/views',
+            src: '**/*.html',
+            dest: '<%= yeoman.dist %>/views'
+          },{
+            expand : true,
+            cwd : 'bower_components/angular-ui-grid',
+            src : ['*.eot','*.svg','*.ttf','*.woff'],
+            dest : '<%= yeoman.dist %>/styles'
+           },{
+             expand : true,
+             cwd : 'bower_components/angular-tree-control/fonts',
+             src : ['*.eot','*.svg','*.ttf','*.woff'],
+             dest : '<%= yeoman.dist %>/styles'
+           },{
+             expand : true,
+             cwd : 'bower_components/angular-tree-control/images',
+             src : ['*.png'],
+             dest : '<%= yeoman.dist %>/images'
+            }]
+          },
+          styles: {
+            expand: true,
+            cwd: '<%= yeoman.app %>/styles',
+            dest: '.tmp/styles/',
+            src: '{,*/}*.css'
+          }
     },
 
     // Run some tasks in parallel to speed up the build process

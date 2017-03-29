@@ -45,6 +45,9 @@
                         <tr ng-repeat="concepto in preliquidacionDetalle.seleccion_conceptos" ng-show="concepto.Naturaleza === 'descuento'"class="descuento">
                             <td class="texto">{{concepto.Nombre}}</td><td class="dinero">{{concepto.Valor | currency}}</td><td>{{concepto.Naturaleza}}</td>
                         </tr>
+                        <tr ng-repeat="concepto in preliquidacionDetalle.seleccion_conceptos" ng-show="concepto.Naturaleza === 'seguridad_social'"class="seguridad_social">
+                            <td class="texto">{{concepto.Nombre}}</td><td class="dinero">{{concepto.Valor | currency}}</td><td>{{concepto.Naturaleza}}</td>
+                        </tr>
                     </table>
                     <br>
                     <table class="table">

@@ -4,6 +4,9 @@ tr.devengo{
 tr.descuento{
   background:#FFB2B2;
 }
+tr.seguridad_social{
+  background:#A9F5D0;
+}
 td.dinero{
   text-align:right;
 }

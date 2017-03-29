@@ -125,9 +125,9 @@ angular.module('titanClienteV2App')
         console.log(seleccion_personas)
         console.log(personas)
 
-        titanMidRequest.post('detalle_liquidacion',personas).then(function(response) {
+       titanMidRequest.post('detalle_liquidacion',personas).then(function(response) {
 
-        });
+      });
       });
       };
   });
