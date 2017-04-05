@@ -230,8 +230,8 @@ titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(respo
 
 }
 
-if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
-self.gridOptions = {
+if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
+  self.gridOptions = {
 enableFiltering : true,
 enableSorting : true,
 enableRowSelection: true,

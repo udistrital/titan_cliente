@@ -84,6 +84,16 @@ angular
         controller: 'LiquidacionCtrl',
         controllerAs: 'liquidacion'
       })
+      .when('/pensiones/sustituto',{
+       templateUrl: 'views/pensiones/sustituto.html',
+       controller:'SustitutoCtrl',
+       controllerAs: 'sustituto'
+     })
+      .when('/pensiones/beneficiarios', {
+        templateUrl: 'views/pensiones/beneficiarios.html',
+        controller: 'BeneficiariosCtrl',
+        controllerAs: 'beneficiarios'
+      })
       .otherwise({
         redirectTo: '/'
       });
