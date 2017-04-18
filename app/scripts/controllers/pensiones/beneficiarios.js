@@ -91,16 +91,18 @@ angular.module('titanClienteV2App')
         alert(lastId);
       }
 
+      var ciudad = {Id : 96 };
+      var estado = {Id : 1 };
       var info_proveedor = {
         Id : lastId +1,
         Tipopersona: 'NATURAL',
         NumDocumento :parseFloat(self.numDocumento),
-        IdCiudadContacto: 96,
+        IdCiudadContacto: ciudad,
         Direccion: 'SIN INFORMACION',
         Correo: self.correo,
         TelAsesor: self.telefono,
         Anexorut: 'PRUEBA',
-        Estado: 1,
+        Estado: estado,
         TipoCuentaBancaria: self.tipoCuenta,
         NumCuentaBancaria: self.numeroCuenta,
         IdEntidadBancaria: banco.Id,
@@ -115,15 +117,17 @@ angular.module('titanClienteV2App')
           var idbeneficiario = parseInt(response.data.Id);
           console.log("idbeneficiario"+idbeneficiario);
           alert("Dato registrado" + response.data.Id);
-          titanRequest.get('informacion_proveedor','limit=5000').then(function(response){
+          titanRequest.get('informacion_proveedor','limit=0').then(function(response){
             self.proveedor = response.data;
             var prov = self.proveedor;
-            titanRequest.get('informacion_pensionado','limit=750').then(function(response){
+            alert("informacion proveedor")
+            titanRequest.get('informacion_pensionado','limit=0').then(function(response){
               self.pension = response.data;
               var pn = self.pension;
-              //console.log(pn);
+              alert(pn);
               var encontrado ;
-              titanRequest.get('beneficiarios','limit=1&sortby=Id&order=desc').then(function(response){
+
+              titanRequest.get('beneficiarios','limit=0&sortby=Id&order=desc').then(function(response){
                 self.idbe = response.data;
                 var idbenef = self.idbe;
                 console.log(idbenef.length + "longitud beneficiarios")
@@ -134,22 +138,12 @@ angular.module('titanClienteV2App')
                   alert(lastIdB + "idbeneficiario" + idbenef[c].Id);
                 }
 
-              for (var i = 0; i < prov.length; i++) {
-                if(self.pensionado == prov[i].NumDocumento){
-                  alert("entro a for")
-                  for (var j = 0; j < pn.length; j++) {
-                    if(prov[i].Id == pn[j].InformacionProveedor){
-                      encontrado = 'S';
-                    }
-                  }
+                var query = "query=NumDocumento:" + parseInt(self.pensionado)
 
-                  if(encontrado == 'S'){
-                    console.log("Encontrado");
-                    var idproveedorpens = parseInt(prov[i].Id);
-                    console.log("last"+lastIdB);
-                    console.log("last"+ (lastIdB+1));
+                titanRequest.get('informacion_proveedor',query).then(function(response){
+                    var idproveedorpens = response.data[0].Id;
                     var beneficiario = {
-                      Id : lastIdB + 1,
+                      //Id : lastIdB + 1,
                       InformacionPensionado : idproveedorpens,
                       InformacionProveedor : idbeneficiario,
                       FechaNacBeneficiario : self.fechaNac,
@@ -158,6 +152,7 @@ angular.module('titanClienteV2App')
                       SubEstudios : self.subsidioE,
                       Estado : self.estado
                     }
+
                     console.log("beneficiario")
                     console.log(beneficiario)
                     titanRequest.post('beneficiarios', beneficiario).then(function(response){
@@ -169,10 +164,11 @@ angular.module('titanClienteV2App')
                       }
 
                     });
-                  }
-                   break;
-                }         //var prov = self.proveedor;
-              }////
+
+                });
+
+
+
               });
             });
           });
