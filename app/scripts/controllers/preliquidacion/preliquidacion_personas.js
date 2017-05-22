@@ -26,6 +26,10 @@ angular.module('titanClienteV2App')
           {field: 'NumeroContrato' ,  displayName: 'Numero de Contrato'},
 	        {field: 'NombreProveedor',  displayName: 'Nombre'},
 	        {field: 'NumDocumento',  displayName: 'Documento'},
+          {field: 'IdEPS',  visible : false},
+          {field: 'IdARL',  visible : false},
+          {field: 'IdFondoPension',  visible : false},
+          {field: 'IdCajaCompensacion',  visible : false},
 	      ],
 	      onRegisterApi : function( gridApi ) {
 	        self.gridApi = gridApi;
@@ -94,29 +98,56 @@ angular.module('titanClienteV2App')
          var personas = self.gridApi.selection.getSelectedRows();
          var personas_a_liquidar = [];
          for (var i=0; i < personas.length; i++){
-          var persona = { IdPersona : personas[i].Id ,
-                           NumeroContrato :  personas[i].NumeroContrato
+           if(personas[i].IdEPS === 0 || personas[i].IdARL === 0 || personas[i].IdFondoPension === 0 || personas[i].IdCajaCompensacion === 0){
+             //swal("¡ERROR!","No se puede realizar liquidación","error")
 
-                         };
-             personas_a_liquidar.push(persona)
+             swal({
+                html: "La persona<br>"+personas[i].NombreProveedor+"<br> no puede ser liquidada",
+                type: "error",
+                showCancelButton: true,
+                confirmButtonColor: "#449D44",
+                cancelButtonColor: "#C9302C",
+                confirmButtonText: "VOLVER",
+                cancelButtonText: "SALIR",
+              }).then(function() {
+                //si da click en ir a contratistas
+                $window.location.href = '#/nomina/nomina_consulta';
+              }, function(dismiss) {
+
+                if (dismiss === 'cancel') {
+                  //si da click en Salir
+                  $window.location.href = '#/nomina/nomina_consulta';
+                }
+              })
+
+           }
+           else{
+             var persona = { IdPersona : personas[i].Id ,
+                              NumeroContrato :  personas[i].NumeroContrato
+                            };
+                personas_a_liquidar.push(persona)
+
+                var datos_preliquidacion = {
+                 Preliquidacion : self.preliquidacion,
+                 PersonasPreLiquidacion : personas_a_liquidar
+
+                };
+                titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
+
+               });
+
+               self.saving =true;
+               self.btnGenerartxt = "Generando...";
+                titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
+
+                      self.saving =false;
+                      self.btnGenerartxt="Generar";
+                      $window.location.href = '#/preliquidacion/preliquidacion_detalle';
+                    });;
+
+           }
          }
-         var datos_preliquidacion = {
-          Preliquidacion : self.preliquidacion,
-          PersonasPreLiquidacion : personas_a_liquidar
 
-         };
-         titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
-
-        });
-
-        self.saving =true;
-        self.btnGenerartxt = "Generando...";
-         titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-
-               self.saving =false;
-               self.btnGenerartxt="Generar";
-               $window.location.href = '#/preliquidacion/preliquidacion_detalle';
-             });;
 
      };
 
@@ -176,7 +207,7 @@ angular.module('titanClienteV2App')
 
 }
 
-if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
+if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
   self.gridOptions = {
 enableFiltering : true,
 enableSorting : true,
