@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name titanClienteApp.controller:NotificacionesCtrl
+ * @name titanClienteV2App.controller:NotificacionesCtrl
  * @description
  * # NotificacionesCtrl
- * Controller of the titanClienteApp
+ * Controller of the titanClienteV2App
  */
-angular.module('titanClienteApp')
+angular.module('titanClienteV2App')
   .controller('NotificacionesCtrl', function($scope, notificacion) {
     $scope.imagePath = 'images/yeoman.png';
     $scope.notificacion = notificacion;

@@ -1,0 +1,71 @@
+<br>
+ <div class="alert alert-warning text-center" ng-show='preliquidacionRegistro.loading'>
+            <div class="row">
+              <h1 class="col-sm-7">Generando Preliquidación...</h1>
+              <div class="loader col-sm-5" ></div>
+            </div>
+</div>
+<div class="row jumbotron" ng-hide='preliquidacionRegistro.loading'>
+<button class="btn btn-success" ng-click='preliquidacionRegistro.ShowForm()' ng-hide="preliquidacionRegistro.formVisibility">Añadir Preliquidación</button>
+    <div  class="col-sm-12 panel panel-default" ng-show='preliquidacionRegistro.formVisibility' >
+
+
+            <h2>Registro de Preliquidacion</h2>
+          <form>
+
+          <div class="form-group row">
+            <input name="id_nomina" type="hidden" ng-model="preliquidacionRegistro.idNomina" disabled="true">
+            <label for="input_nombre" class="col-sm-5 col-form-label">Nombre de la Preliquidacion</label>
+            <input name="input_nombre" type="text" ng-model="preliquidacionRegistro.nombrePreliquidacion" placeholder="Nombre">
+          </div>
+          <div class="form-group row">
+            <label for="input_descripcion" class="col-sm-5 col-form-label">Descripción</label>
+            <textarea name="input_descripcion" ng-model="preliquidacionRegistro.descripcionPreliquidacion"  placeholder="Descripción"></textarea>
+
+          </div>
+           <div class="form-group row">
+            <label for="select_estado_preliqu" class="col-sm-5 col-form-label">Estado </label>
+            <select name="select_estado_preliqu" id="select_estado_preliqu" ng-model="preliquidacionRegistro.selectEstado">
+              <option selected disabled>Seleccione...</option>
+              <option selected="selected" value="Activo">Activo</option>
+              <option selected="selected" value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+
+          <div class="form-group row">
+           <label for="select_tipo_preliqu" class="col-sm-5 col-form-label">TIpo de preliquidacion </label>
+           <select name="select_tipo_preliqu" id="select_tipo_preliqu" ng-model="preliquidacionRegistro.selectTipo">
+             <option selected disabled>Seleccione...</option>
+             <option selected="selected" value="151">Primera quincena</option>
+             <option selected="selected" value="152">Segunda quincena</option>
+             <option selected="selected" value="30">Mes completo</option>
+           </select>
+         </div>
+
+
+            <button ng-click='preliquidacionRegistro.limpiar()' class="btn btn-danger">Cancelar</button>
+            <button ng-click='preliquidacionRegistro.registrar_preliqu()' class="btn btn-success">Registrar</button>
+
+         </form>
+
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row jumbotron">
+        <span id ="fecha">fecha actual: {{preliquidacionRegistro.CurrentDate | date:'yyyy-MM-dd'}}</span>
+       <h2>Preliquidaciones para la nomina <b>{{preliquidacionRegistro.nomina.TipoNomina.Nombre}}</b> :</h2>
+
+          <table  style="width:95%;">
+            <tr>
+              <td width="10%">
+              </td>
+
+              <td>
+                <div  ui-grid="preliquidacionRegistro.gridOptions"  class="myGrid"></div>
+              </td>
+            </tr>
+          </table>
+    </div>
+</div>

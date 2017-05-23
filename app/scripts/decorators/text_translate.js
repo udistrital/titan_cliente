@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name titanClienteApp.decorator:TextTranslate
+ * @name titanClienteV2App.decorator:TextTranslate
  * @description
  * # TextTranslate
- * Decorator of the titanClienteApp
+ * Decorator of the titanClienteV2App
  */
 var text_es = {
   TITULO: "GENERATOR-OAS",
@@ -17,7 +17,7 @@ var text_en = {
   MENSAJE_INICIAL: "Now get to start to develop ..."
 };
 
-angular.module('titanClienteApp')
+angular.module('titanClienteV2App')
   .config(function($translateProvider) {
     $translateProvider
       .translations("es", text_es)

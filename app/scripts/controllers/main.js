@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name titanClienteApp.controller:MainCtrl
+ * @name titanClienteV2App.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the titanClienteApp
+ * Controller of the titanClienteV2App
  */
-angular.module('titanClienteApp')
+angular.module('titanClienteV2App')
   .controller('MainCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

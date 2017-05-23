@@ -1,0 +1,135 @@
+<br>
+
+<div class="row">
+    <div class="row">
+      <div class="col-md-5 panel panel-default">
+        <div class="panel-heading">Registro de la Novedad</div>
+        <div class="panel-body">
+          <form class="form-horizontal">
+              <fieldset>
+
+              <!-- Form Name -->
+              <legend>Detalle de la novedad</legend>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtConcepto">Concepto</label>
+                <div class="col-md-4">
+                <input id="txtConcepto" name ="txtConcepto" type="text" class="form-control input-md" required="" disabled ng-model="concepto.AliasConcepto">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtNaturalezaConcepto">Naturaleza Concepto</label>
+                <div class="col-md-4">
+                <input id="txtNaturalezaConcepto" name="txtNaturalezaConcepto" type="text"  class="form-control input-md" required="" disabled ng-model="concepto.Naturaleza">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtDescrNomina">Nomina</label>
+                <div class="col-md-4">
+                <input id="txtDescrNomina" name="txtDescrNomina" type="text"  class="form-control input-md" required="" disabled ng-model="nomina.Nombre">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtPersona">Descripción Nomina</label>
+                <div class="col-md-4">
+                <input id="txtPersona" name="txtPersona" type="text"  class="form-control input-md" required="" disabled ng-model="nomina.Descripcion">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtDocumentoPers">Persona</label>
+                <div class="col-md-4">
+                <input id="txtDocumentoPers" name="txtDocumentoPers" type="text"  class="form-control input-md" required="" disabled ng-model="persona.NombreProveedor">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtValNovedad">Documento</label>
+                <div class="col-md-4">
+                <input id="txtValNovedad" name="txtValNovedad" type="text"  class="form-control input-md" required="" disabled ng-model="persona.NumDocumento">
+
+                </div>
+              </div>
+
+              <!-- Select Basic -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="selectbasic">Tipó</label>
+                <div class="col-md-4">
+                  <select id="selectbasic" name="selectbasic" class="form-control" ng-model="novedadRegistro.tipo">
+                    <option value="porcentaje">Porcentaje</option>
+                    <option value="fijo">Fijo</option>
+                  </select>
+                </div>
+              </div>
+
+
+
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtFechaDesde">Fecha de Inicio</label>
+                <div class="col-md-4">
+                  <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaInicio" md-placeholder="Fecha de inicio"></md-datepicker>
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtFechaDesde">Fecha de Finalización</label>
+                <div class="col-md-4">
+                  <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaFin" md-placeholder="Fecha de inicio"></md-datepicker>
+
+                </div>
+              </div>
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="txtValNovedad">Valor</label>
+                <div class="col-md-4">
+                <input min="0" max="100" id="txtValNovedad" name="txtValNovedad" type="text" placeholder="valor de la novedad" class="form-control input-md" required="" ng-model="novedadRegistro.valor">
+
+                </div>
+              </div>
+
+              <!-- Button (Double) -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="btnRegistrar"></label>
+                <div class="col-md-8">
+                  <button id="btnRegistrar" name="btnRegistrar" class="btn btn-success" ng-click="novedadRegistro.Registrar()">Registrar</button>
+                  <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">Cancelar</button>
+                </div>
+              </div>
+
+              </fieldset>
+            </form>
+        </div>
+      </div>
+      <div>
+
+          <div class="col-md-3 panel panel-default">
+            <div class="panel-heading">Selección de Concepto de la novedad</div>
+            <div class="panel-body"><div ui-grid="novedadRegistro.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
+          </div>
+
+
+          <div class="col-md-4 panel panel-default">
+            <div class="panel-heading">Seleccion de la Nomina</div>
+            <div class="panel-body">
+              <div ui-grid="novedadRegistro.gridOptions_nominas" ui-grid-selection ui-grid-auto-resize class="myGrid"></div>
+            </div>
+          </div>
+
+
+            <div class=" col-md-7 panel panel-default" ng-show="nomina">
+              <div class="panel-heading">Selección de Persona</div>
+              <div class="panel-body">
+                <div ui-grid="gridOptions_personas" ui-grid-selection ui-grid-auto-resize class="myGrid"></div>
+              </div>
+            </div>
+
+      </div>
+
+
+
+    </div>
+
+
+</div>

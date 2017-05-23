@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc service
- * @name titanClienteApp.token
+ * @name titanClienteV2App.token
  * @description
  * # token
- * Factory in the titanClienteApp.
+ * Factory in the titanClienteV2App.
  */
 
 
@@ -39,7 +39,7 @@ req.onreadystatechange = function(e) {
   }
 };
 
-angular.module('titanClienteApp')
+angular.module('titanClienteV2App')
   .factory('token_service', function($location, $http, $localStorage) {
     var service = {
       local: $localStorage.$default(params),

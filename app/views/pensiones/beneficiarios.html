@@ -1,0 +1,125 @@
+<div class="row jumbotron">
+
+    <div  class="col-sm-12 panel panel-default">
+
+
+            <h2>Registro beneficiario</h2>
+          <form>
+
+          <div class="form-group row">
+            <select id="select_Tipo_Documento" name="select_Tipo_Documento" ng-model ="beneficiarios.tipoDocumento">
+              <option selected disabled>Seleccione...</option>
+              <option value="7">Cedula de ciudadania</option>
+              <option value="10">Cedula de extranjeria</option>
+              <option value="2">Tarjeta de identidad</option>
+            </select>
+            <label for="input_id" class="col-sm-5 col-form-label">*Numero de identificacion</label>
+            <input type="text" name="input_id" ng-model="beneficiarios.numDocumento" placeholder="ingrese identificacion">
+          </div>
+
+          <div class="form-group row">
+            <label for="input_nombre" class="col-sm-5 col-form-label">*Nombres del beneficiario</label>
+            <input name="input_nombre" type="text" ng-model="beneficiarios.primerNombre" placeholder="Primer nombre">
+            <input name="input_nombre" type="text" ng-model="beneficiarios.segundoNombre" placeholder="Segundo nombre">
+          </div>
+
+          <div class="form-group row">
+            <label for="input_apellido" class="col-sm-5 col-form-label">*Apellidos del beneficiario</label>
+            <input name="input_apellido" type="text" ng-model="beneficiarios.primerApellido" placeholder="Primer apellido ">
+            <input name="input_apellido" type="text" ng-model="beneficiarios.segundoApellido" placeholder="Segundo apellido">
+          </div>
+
+          <div class="form-group row">
+            <label for="select_categoria_beneficiario" class="col-sm-5 col-form-label">*Parentesco</label>
+            <select name="select_categoria_beneficiario" id="select_categoria_beneficiario" ng-model="beneficiarios.selectCategoria">
+              <option selected disabled>Seleccione..</option>
+              <option  ng-repeat="tcategoria in beneficiarios.categoria" value="{{tcategoria.Id}}">{{tcategoria.NombreTipoBeneficiario}}</option>
+            </select>
+          </div>
+
+          <div class="form-group row">
+           <label for="select_parentesco con" class="col-sm-5 col-form-label">*Pariente directo de</label>
+           <input name="select_pensionado" type="text" ng-model="beneficiarios.pensionado" placeholder="Identificacion del pariente">
+         </div>
+         <!--<div class="form-group row">
+           <label for="input_nombre" class="col-sm-5 col-form-label">Nombre del pariente</label>
+           <input name="input_nombre" type="text" ng-model="nombresPariente" placeholder="Nombres">
+           <input name="input_nombre" type="text" ng-model="apellidoPariente" placeholder="Apellido">
+         </div>-->
+
+          <div class="form-group row">
+           <label for="select_genero" class="col-sm-5 col-form-label">*Genero </label>
+           <select name="select_genero" id="select_genero" ng-model="beneficiarios.genero">
+             <option selected disabled>Seleccione..</option>
+             <option  value="MASCULINO">MASCULINO</option>
+             <option  value="FEMENINO">FEMENINO</option>
+           </select>
+         </div>
+           <div class="form-group row">
+            <label for="select_email" class="col-sm-5 col-form-label">Correo electronico </label>
+            <input type="text" name="email" ng-model = "beneficiarios.correo"placeholder="Correo electronico">
+          </div>
+           <div class="form-group row">
+            <label for="select_numcontacto" class="col-sm-5 col-form-label">Numero de contacto</label>
+            <input type="text" name="numero_contacto" ng-model = "beneficiarios.telefono" placeholder="numero de contacto">
+          </div>
+           <div class="form-group row">
+            <label for="input_fechaNac" class="col-sm-5 col-form-label">Fecha de Nacimiento</label>
+            <md-datepicker ng-model="beneficiarios.fechaNac" md-placeholder="Fecha de nacimiento"></md-datepicker>
+          </div>
+          <div class="form-group row">
+           <label for="select_estado_civil" class="col-sm-5 col-form-label">*Aplicar subsidio familiar: </label>
+           <select name="select_estcivil" ng-model="beneficiarios.subsidioF">
+             <option selected disabled>Seleccione..</option>
+             <option  value="S">Si</option>
+             <option  value="N">No</option>
+           </select>
+         </div>
+
+         <div class="form-group row">
+          <label for="select_estado_civil" class="col-sm-5 col-form-label">*Aplicar subsidio de estudio: </label>
+          <select name="select_estcivil"  ng-model="beneficiarios.subsidioE">
+            <option selected disabled>Seleccione..</option>
+            <option  value="S">Si</option>
+            <option  value="N">No</option>
+          </select>
+        </div>
+
+         <div class="form-group row">
+           <label for="tipo_cuenta_banco" class="col-sm-5 col-form-label" >*Tipo de cuenta bancaria:</label>
+           <select class="tipo_cuenta_banc" ng-model="beneficiarios.tipoCuenta">
+             <option selected disabled>Seleccione..</option>
+             <option value="AHORROS">AHORROS</option>
+             <option value="CORRIENTE">CORRIENTE</option>
+           </select>
+          </div>
+
+          <div class="form-group row">
+            <label for="num_cuenta_bancaria" class="col-sm-5 col-form-label">*Numero de cuenta bancaria</label>
+             <input type="text" name="num_cuenta" ng-model="beneficiarios.numeroCuenta" placeholder="ingrese numero cuenta">
+          </div>
+
+          <div class="form-group row">
+            <label for="nombre_banco" class="col-sm-5 col-form-label">*Banco asociado</label>
+            <select name="select_banco"  ng-model="beneficiarios.selectBanco">
+              <option selected disabled>Seleccione...</option>
+              <option ng-repeat="tbanco in beneficiarios.banco"  value="{{tbanco.Id}}">{{tbanco.NombreBanco}}</option>
+            </select>
+          </div>
+
+         <div class="form-group row">
+          <label for="select_numcontacto" class="col-sm-5 col-form-label">*Estado</label>
+          <select class="estado" name="estado" ng-model = "beneficiarios.estado">
+            <option selected disabled>Seleccione..</option>
+            <option value="A">ACTIVO</option>
+            <option value="I">INACTIVO</option>
+
+          </select>
+        </div>
+
+            <button ng-click='beneficiarios.limpiar()' class="btn btn-danger">Cancelar</button>
+            <button ng-click='beneficiarios.registrar_perNatural()' class="btn btn-success">Registrar</button>
+         </form>
+         <br>
+         <br>
+</div>

@@ -1,12 +1,12 @@
 'use strict';
 /**
  * @ngdoc function
- * @name titanClienteApp.controller:menuCtrl
+ * @name titanClienteV2App.controller:menuCtrl
  * @description
  * # menuCtrl
- * Controller of the titanClienteApp
+ * Controller of the titanClienteV2App
  */
-angular.module('titanClienteApp')
+angular.module('titanClienteV2App')
 .controller('menuCtrl', function($location, $http, $scope, token_service, notificacion, $translate) {
     var paths = [];
     $scope.language = {

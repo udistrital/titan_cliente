@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('titanClienteApp')
+angular.module('titanClienteV2App')
 .controller("footerCtrl", function($scope) {
     //var ctrl = this;
     $scope.enlaces_universitarios = [{

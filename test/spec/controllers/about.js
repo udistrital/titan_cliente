@@ -3,7 +3,7 @@
 describe('Controller: AboutCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('titanClienteApp'));
+  beforeEach(module('titanClienteV2App'));
 
   var AboutCtrl,
     scope;
