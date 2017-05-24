@@ -10,11 +10,15 @@
 var text_es = {
   TITULO: "GENERATOR-OAS",
   MENSAJE_INICIAL: "Ahora puede comenzar con el desarrollo ...",
+  VOLVER: "Volver",
+  SALIR: "Salir"
 };
 
 var text_en = {
   TITULO: "GENERATOR-OAS",
-  MENSAJE_INICIAL: "Now get to start to develop ..."
+  MENSAJE_INICIAL: "Now get to start to develop ...",
+  VOLVER: "Back",
+  SALIR: "Exit"
 };
 
 angular.module('titanClienteV2App')

@@ -1,4 +1,18 @@
 /* NOTIFICATION*/
+.personas_liquidar {
+  background-color: #2dff07;
+  color: blue;
+}
+
+.personas_no_liquidar {
+  background-color: #1fe0f0;
+  color:#d10000
+}
+
+.ui-grid-cell.lightGrey {
+   background-color: #d3d3d3 !important ;
+   color: #000 !important;
+}
 
 .img-responsive{
     max-width: 100px;
