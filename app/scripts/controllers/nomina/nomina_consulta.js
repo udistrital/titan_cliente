@@ -11,7 +11,7 @@ angular.module('titanClienteV2App')
    .factory("nomina",function(){
 	    return {};
    })
-  .controller('NominaNominaConsultaCtrl', function (titanRequest, $window,nomina) {
+  .controller('NominaNominaConsultaCtrl', function (titanRequest, $window,nomina,$translate) {
 
   var self = this;
 
@@ -31,13 +31,13 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'Nombre',  displayName: 'Nombre' },
-        {field: 'Descripcion'        },
-        {field: 'Vinculacion.Nombre',    displayName: 'Vinculacion'},
-        {field: 'TipoNomina.Nombre',     displayName: 'Tipo'},
-        {field: 'Estado'},
-        {field: 'Periodo'},
-        {field: 'Opciones',    cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.consulta_preliquidacion(row)">Preliquidaciones</button>'}
+        {field: 'Nombre',  displayName: $translate.instant('NOMBRE_NOMINA')},
+        {field: 'Descripcion',displayName: $translate.instant('DESC_NOMINA')},
+        {field: 'Vinculacion.Nombre',    displayName: $translate.instant('VINC_NOMINA')},
+        {field: 'TipoNomina.Nombre',     displayName: $translate.instant('TIPO_NOMINA')},
+        {field: 'Estado', displayName: $translate.instant('ESTADO_NOMINA')},
+        {field: 'Periodo', displayName: $translate.instant('PERIODO_NOMINA')},
+        {field: 'Opciones',displayName:$translate.instant('OPCIONES_NOMINA'),  cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.consulta_preliquidacion(row)">Preliquidaciones</button>'}
       ]
 
     };

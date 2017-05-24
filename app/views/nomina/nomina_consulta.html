@@ -1,37 +1,37 @@
 <br>
 <div class="row jumbotron">
-<button class="btn btn-success" ng-click='nominaConsulta.ShowForm()' ng-hide="nominaConsulta.formVisibility">Añadir Nomina</button>
+<button class="btn btn-success" ng-click='nominaConsulta.ShowForm()' ng-hide="nominaConsulta.formVisibility">{{'ANADIR_NOMINA' | translate}}</button>
     <div  class="col-sm-12 panel panel-default" ng-show='nominaConsulta.formVisibility' >
-        
 
-            <h2>Registro de Nomina</h2>
+
+            <h2>{{'TITULO_REG_NOMINA' | translate }}</h2>
           <form>
-             
+
           <div class="form-group row">
-            <label for="input_nombre" class="col-sm-5 col-form-label">Nombre de la Nomina</label>
+            <label for="input_nombre" class="col-sm-5 col-form-label">{{'NOMBRE_NOMINA' | translate}}</label>
             <input name="input_nombre" type="text" ng-model="nominaConsulta.nombreNomina" placeholder="Nombre">
           </div>
           <div class="form-group row">
-            <label for="input_descripcion" class="col-sm-5 col-form-label">Descripción</label>
+            <label for="input_descripcion" class="col-sm-5 col-form-label">{{'DESC_NOMINA' | translate}}</label>
             <textarea name="input_descripcion" ng-model="nominaConsulta.descripcionNomina"  placeholder="Descripción"></textarea>
 
           </div>
           <div class="form-group row">
-            <label for="select_vinculacion_nomina" class="col-sm-5 col-form-label">Vinculación </label>
+            <label for="select_vinculacion_nomina" class="col-sm-5 col-form-label">{{'VINC_NOMINA' | translate}} </label>
             <select name="select_vinculacion_nomina" id="select_vinculacion_nomina" ng-model="nominaConsulta.selectVinculacion">
               <option selected disabled>Seleccione...</option>
               <option ng-repeat="tvinculacion in nominaConsulta.tipoVinculacion"  value="{{tvinculacion.Id}}">{{tvinculacion.Nombre}}</option>
             </select>
           </div>
            <div class="form-group row">
-            <label for="select_tipo_nomina" class="col-sm-5 col-form-label">Tipo </label>
+            <label for="select_tipo_nomina" class="col-sm-5 col-form-label">{{'TIPO_NOMINA' | translate}}  </label>
             <select name="select_tipo_nomina" id="select_tipo_nomina"  ng-model="nominaConsulta.selectTipoNomina">
               <option selected disabled selected="selected">Seleccione...</option>
               <option ng-repeat="tnomina in nominaConsulta.tipoNomina"  value="{{tnomina.Id}}">{{tnomina.Nombre}}</option>
             </select>
           </div>
            <div class="form-group row">
-            <label for="select_estado_nomina" class="col-sm-5 col-form-label">Estado </label>
+            <label for="select_estado_nomina" class="col-sm-5 col-form-label">{{'ESTADO_NOMINA' | translate}} </label>
             <select name="select_estado_nomina" id="select_estado_nomina" ng-model="nominaConsulta.selectEstado">
               <option selected disabled>Seleccione...</option>
               <option selected="selected" value="Activo">Activo</option>
@@ -39,22 +39,22 @@
             </select>
           </div>
            <div class="form-group row">
-            <label for="input_periodo" class="col-sm-5 col-form-label">Periodo</label>
+            <label for="input_periodo" class="col-sm-5 col-form-label">{{'PERIODO_NOMINA' | translate}} </label>
              <input name="input_periodo" type="text"  ng-model="nominaConsulta.periodoNomina" placeholder="Periodo">
 
           </div>
-            <button ng-click='nominaConsulta.limpiar()' class="btn btn-danger">Cancelar</button>
-            <button ng-click='nominaConsulta.registrar_nomina()' class="btn btn-success">Registrar</button>
+            <button ng-click='nominaConsulta.limpiar()' class="btn btn-danger">{{'CANCELAR' | translate}}</button>
+            <button ng-click='nominaConsulta.registrar_nomina()' class="btn btn-success">{{'REGISTRAR' | translate}}</button>
 
          </form>
-        
+
 
     </div>
     <br>
     <br>
     <br>
     <div class="row jumbotron" style="width:95%;">
-       <h2>Nominas Registradas</h2>
+       <h2>{{'TITULO_NOMINA_REGIS' | translate}}</h2>
 
           <table style="width:100%;">
               <td>

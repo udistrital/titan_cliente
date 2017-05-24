@@ -7,7 +7,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-.controller('menuCtrl', function($location, $http, $scope, token_service, notificacion, $translate) {
+.controller('menuCtrl', function($location, $http, $scope, token_service, notificacion, $translate,$route) {
     var paths = [];
     $scope.language = {
         es:"btn btn-primary btn-circle btn-outline active",
@@ -89,6 +89,7 @@ angular.module('titanClienteV2App')
                 break;
             default:
         }
+        $route.reload();
     };
     //Pendiente por definir json del menu
     (function($) {
