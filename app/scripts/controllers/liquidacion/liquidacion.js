@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('LiquidacionCtrl', function ($scope,titanMidRequest,titanRequest,preliquidacion) {
+  .controller('LiquidacionCtrl', function ($scope,titanMidRequest,titanRequest,preliquidacion,$translate) {
     var self = this;
     self.resumen_conceptos;
     self.seleccion_sueldoNeto = 0;
@@ -20,9 +20,9 @@ angular.module('titanClienteV2App')
 	      enableSelectAll: true,
 	      columnDefs : [
 	        {field: 'IdPersona',             visible : false},
-          	{field: 'NumeroContrato' , displayName: 'No Contrato', cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.liquidacion.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
-	        {field: 'NomProveedor',  displayName: 'Nombre'},
-	        {field: 'NumDocumento',  displayName: 'Documento'},
+          {field: 'NumeroContrato' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.liquidacion.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
+	        {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+	        {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
 	      ],
 	      onRegisterApi : function( gridApi ) {
 	        self.gridApi = gridApi;

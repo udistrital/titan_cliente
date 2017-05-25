@@ -11,7 +11,7 @@ angular.module('titanClienteV2App')
 .factory("preliquidacion",function(){
         return {};
   })
-  .controller('PreliquidacionPreliquidacionRegistroCtrl', function (titanRequest,nomina,preliquidacion,$window) {
+  .controller('PreliquidacionPreliquidacionRegistroCtrl', function (titanRequest,nomina,preliquidacion,$window,$translate) {
   	var self = this;
   	self.formVisibility = false;
     self.loading = false;
@@ -32,12 +32,12 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'Nombre',displayName: 'Nombre' },
-        {field: 'Descripcion'},
-        {field: 'Fecha', displayName: 'F registro', cellTemplate: '<span>{{row.entity.Fecha | date:"yyyy-MM-dd" :"+0900"}}</span>'},
-        {field: 'Estado'},
-        {field: 'Tipo'},
-        {field: 'Opciones',cellTemplate: '<button class="btn btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.generar_preliquidacion(row)">Generar</button><button class="btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.detalle_preliquidacion(row)">Detalle</button>'},
+        {field: 'Nombre',displayName: $translate.instant('NOMBRE_PRELIQ')},
+        {field: 'Descripcion', displayName: $translate.instant('DESC_PRELIQ')},
+        {field: 'Fecha', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.Fecha | date:"yyyy-MM-dd" :"+0900"}}</span>'},
+        {field: 'Estado', displayName: $translate.instant('ESTADO_PRELIQ')},
+        {field: 'Tipo', displayName: $translate.instant('TIPO_PRELIQ')},
+        {field: 'Opciones',displayName: $translate.instant('OPCIONES_PRELIQ'),cellTemplate: '<button class="btn btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.generar_preliquidacion(row)">'+$translate.instant('GENERAR')+'</button><button class="btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.detalle_preliquidacion(row)">'+$translate.instant('DETALLE')+'</button>'},
                  /*{field: 'tipo',width: '10%', enableCellEdit: true, editableCellTemplate: 'ui-grid/dropdownEditor', cellClass:'aligncenter', editDropdownValueLabel: 'tipo', resizable : false, displayName: 'TIPO' , editDropdownOptionsArray: [
                       { id: 'C', tipo: 'Cerrada' },
                       { id: 'A', tipo: 'Abierta' },

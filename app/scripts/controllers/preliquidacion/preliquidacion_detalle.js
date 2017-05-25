@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('PreliquidacionPreliquidacionDetalleCtrl', function ($scope,titanMidRequest,titanRequest,preliquidacion,$window) {
+  .controller('PreliquidacionPreliquidacionDetalleCtrl', function ($scope,titanMidRequest,titanRequest,preliquidacion,$window,$translate) {
     var self = this;
     self.resumen_conceptos;
     self.seleccion_sueldoNeto = 0;
@@ -20,9 +20,9 @@ angular.module('titanClienteV2App')
 	      enableSelectAll: true,
 	      columnDefs : [
 	        {field: 'IdPersona',             visible : false},
-          	{field: 'NumeroContrato' , displayName: 'No Contrato', cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
-	        {field: 'NomProveedor',  displayName: 'Nombre'},
-	        {field: 'NumDocumento',  displayName: 'Documento'},
+          {field: 'NumeroContrato' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
+	        {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+	        {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
 	      ],
 	      onRegisterApi : function( gridApi ) {
 	        self.gridApi = gridApi;
@@ -128,10 +128,28 @@ angular.module('titanClienteV2App')
           console.log(response.data)
         if(response.data === "Ok"){
           self.saving =false;
-          self.btnGenerartxt="Generar";
+          self.btnGenerartxt= $translate.instant('GENERAR');;
           $window.location.href = '#/liquidacion/liquidacion_detalle';
         }else{
-          alert("No se puede liquidar")
+          swal({
+             html: "Esta preliquidación ya ha sido liquidada",
+             type: "error",
+             showCancelButton: true,
+             confirmButtonColor: "#449D44",
+             cancelButtonColor: "#C9302C",
+             confirmButtonText: $translate.instant('VOLVER'),
+             cancelButtonText: $translate.instant('SALIR'),
+           }).then(function() {
+             //si da click en ir a contratistas
+             $window.location.href = '#/nomina/nomina_consulta';
+           }, function(dismiss) {
+
+             if (dismiss === 'cancel') {
+               //si da click en Salir
+               $window.location.href = '#/nomina/nomina_consulta';
+             }
+           })
+
         }
 
 

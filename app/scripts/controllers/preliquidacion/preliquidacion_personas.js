@@ -12,7 +12,7 @@ angular.module('titanClienteV2App')
    var self = this;
    self.preliquidacion = preliquidacion;
    self.generar_disponibilidad;
-   self.btnGenerartxt = "Generar";
+   self.btnGenerartxt = $translate.instant('GENERAR');
    self.saving = false;
     console.log(self.preliquidacion);
     if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HC" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HC-SALARIOS"){
@@ -23,30 +23,17 @@ angular.module('titanClienteV2App')
 	      enableSelectAll: true,
 	      columnDefs : [
 	        {field: 'Id',             visible : false},
-          {field: 'NumeroContrato' ,  displayName: 'Numero de Contrato'},
-	        {field: 'NombreProveedor',  displayName: 'Nombre'},
-	        {field: 'NumDocumento',  displayName: 'Documento'},
-          {name: 'eps', field: 'IdEPS',  visible : false},
+          {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
+          {field: 'NombreProveedor',  displayName:  $translate.instant('NOMBRE_PERSONA')},
+          {field: 'NumeroContrato' ,  displayName: $translate.instant('NUM_CONTRATO')},
+	        {field: 'IdEPS',  visible : false},
           {field: 'IdARL',  visible : false},
           {field: 'IdFondoPension',  visible : false},
           {field: 'IdCajaCompensacion',  visible : false},
 	      ],
 	      onRegisterApi : function( gridApi ) {
 	        self.gridApi = gridApi;
-	      },
-        rowStyle: function(row){
-                if(row.entity.eps === 0){
-
-                  return 'green';
-                }else{
-                  return 'red';
-                }
-              },
-            rowTemplate : `<div ng-class="myGrid.options.rowStyle(row)"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" ui-grid-one-bind-id-grid="rowRenderIndex + '-' + col.uid + '-cell'"
-              ng-class="{ 'ui-grid-row-header-cell': col.isRowHeader}" class="ui-grid-cell"
-              role="{{col.isRowHeader ? 'rowheader' : 'gridcell'}}" ui-grid-cell>
-            </div></div>`
-
+	      }
 	    };
     	 titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
       	 self.gridOptions.data = response.data;
@@ -77,7 +64,7 @@ angular.module('titanClienteV2App')
         titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
               self.saving =false;
-              self.btnGenerartxt="Generar";
+              self.btnGenerartxt= $translate.instant('GENERAR');
               $window.location.href = '#/preliquidacion/preliquidacion_detalle';
             });;
 
@@ -94,9 +81,9 @@ angular.module('titanClienteV2App')
           rowTemplate:rowtpl,
   	      columnDefs : [
   	        {field: 'Id',             visible : false},
-            {field: 'NombreProveedor',  displayName: 'Nombre'},
-            {field: 'NumDocumento',  displayName: 'Numero de cedula'},
-            {field: 'NumeroContrato',  displayName: 'Numero de contrato'},
+            {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
+            {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+            {field: 'NumeroContrato',  displayName:  $translate.instant('NUM_CONTRATO')},
   	      ],
   	      onRegisterApi : function( gridApi ) {
   	        self.gridApi = gridApi;
@@ -160,7 +147,7 @@ angular.module('titanClienteV2App')
                 titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
                       self.saving =false;
-                      self.btnGenerartxt="Generar";
+                      self.btnGenerartxt=$translate.instant('GENERAR');
                       $window.location.href = '#/preliquidacion/preliquidacion_detalle';
                     });;
 
@@ -174,24 +161,25 @@ angular.module('titanClienteV2App')
 
 
       if (self.preliquidacion.Nomina.TipoNomina.Nombre === "DP"){
-  self.gridOptions = {
-    enableFiltering : true,
-    enableSorting : true,
-    enableRowSelection: true,
-    enableSelectAll: true,
-    columnDefs : [
-      {field: 'Id',             visible : false},
-      {field: 'NombreProveedor',  displayName: 'Nombre'},
-      {field: 'NumeroContrato' ,  displayName: 'Numero de Contrato'},
-      {field: 'NumDocumento',  displayName: 'Documento'},
-    ],
-    onRegisterApi : function( gridApi ) {
-      self.gridApi = gridApi;
-    }
+          self.gridOptions = {
+            enableFiltering : true,
+            enableSorting : true,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs : [
+              {field: 'Id',             visible : false},
+              {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
+              {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+              {field: 'NumeroContrato' ,  displayName:  $translate.instant('NUM_CONTRATO')},
 
-  };
-   titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
-     self.gridOptions.data = response.data;
+            ],
+            onRegisterApi : function( gridApi ) {
+              self.gridApi = gridApi;
+            }
+
+          };
+           titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+             self.gridOptions.data = response.data;
  });
 
   self.generar_preliquidacion = function(){
@@ -218,7 +206,7 @@ angular.module('titanClienteV2App')
     titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
           self.saving =false;
-         self.btnGenerartxt="Generar";
+         self.btnGenerartxt=$translate.instant('GENERAR')
         $window.location.href = '#/preliquidacion/preliquidacion_detalle';
         });;
 
@@ -227,110 +215,112 @@ angular.module('titanClienteV2App')
 }
 
 if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
-  self.gridOptions = {
-enableFiltering : true,
-enableSorting : true,
-enableRowSelection: true,
-enableSelectAll: true,
-columnDefs : [
-{field: 'Id',             visible : false},
-{field: 'NombreProveedor',  displayName: 'Nombre'},
-{field: 'NumeroContrato' ,  displayName: 'Numero de Contrato'},
-{field: 'NumDocumento',  displayName: 'Documento'},
-],
-onRegisterApi : function( gridApi ) {
-self.gridApi = gridApi;
-}
+        self.gridOptions = {
+            enableFiltering : true,
+            enableSorting : true,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs : [
+            {field: 'Id',             visible : false},
+            {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
+            {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+            {field: 'NumeroContrato' ,  displayName:  $translate.instant('NUM_CONTRATO')},
 
-};
-titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
-self.gridOptions.data = response.data;
+            ],
+            onRegisterApi : function( gridApi ) {
+            self.gridApi = gridApi;
+            }
+
+      };
+      titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+      self.gridOptions.data = response.data;
 });
 
-self.generar_preliquidacion = function(){
-var personas = self.gridApi.selection.getSelectedRows();
+      self.generar_preliquidacion = function(){
+        var personas = self.gridApi.selection.getSelectedRows();
 
-var personas_a_liquidar = [];
-for (var i=0; i < personas.length; i++){
-var persona = { IdPersona : personas[i].Id ,
-               NumeroContrato :  personas[i].NumeroContrato
-              };
+        var personas_a_liquidar = [];
+        for (var i=0; i < personas.length; i++){
+        var persona = { IdPersona : personas[i].Id ,
+                       NumeroContrato :  personas[i].NumeroContrato
+                      };
 
-personas_a_liquidar.push(persona)
-}
-var datos_preliquidacion = {
-Preliquidacion : self.preliquidacion,
-PersonasPreLiquidacion : personas_a_liquidar
+        personas_a_liquidar.push(persona)
+        }
+        var datos_preliquidacion = {
+        Preliquidacion : self.preliquidacion,
+        PersonasPreLiquidacion : personas_a_liquidar
 
-};
-titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
+      };
+      titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
 
-});
+      });
 
-self.saving =true;
-self.btnGenerartxt = "Generando...";
-titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
+      self.saving =true;
+      self.btnGenerartxt = "Generando...";
+      titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
-    self.saving =false;
-   self.btnGenerartxt="Generar";
-  $window.location.href = '#/preliquidacion/preliquidacion_detalle';
-  });;
+          self.saving =false;
+         self.btnGenerartxt=$translate.instant('GENERAR')
+        $window.location.href = '#/preliquidacion/preliquidacion_detalle';
+        });;
 
-};
+    };
 
-}
+    }
 
 if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
   self.gridOptions = {
-enableFiltering : true,
-enableSorting : true,
-enableRowSelection: true,
-enableSelectAll: true,
-columnDefs : [
-{field: 'Id',             visible : false},
-{field: 'NombreProveedor',  displayName: 'Nombre'},
-{field: 'NumeroContrato' ,  displayName: 'Numero de Contrato'},
-{field: 'NumDocumento',  displayName: 'Documento'},
-],
-onRegisterApi : function( gridApi ) {
-self.gridApi = gridApi;
-}
+      enableFiltering : true,
+      enableSorting : true,
+      enableRowSelection: true,
+      enableSelectAll: true,
+      columnDefs : [
+      {field: 'Id',             visible : false},
+      {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
+      {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+      {field: 'NumeroContrato' ,  displayName:  $translate.instant('NUM_CONTRATO')},
 
-};
-titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
-self.gridOptions.data = response.data;
+      ],
+      onRegisterApi : function( gridApi ) {
+      self.gridApi = gridApi;
+      }
+
+    };
+    titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+      self.gridOptions.data = response.data;
+    });
+
+    self.generar_preliquidacion = function(){
+        var personas = self.gridApi.selection.getSelectedRows();
+
+        var personas_a_liquidar = [];
+        for (var i=0; i < personas.length; i++){
+        var persona = { IdPersona : personas[i].Id ,
+                       NumeroContrato :  personas[i].NumeroContrato
+                      };
+
+        personas_a_liquidar.push(persona)
+    }
+    var datos_preliquidacion = {
+    Preliquidacion : self.preliquidacion,
+    PersonasPreLiquidacion : personas_a_liquidar
+
+    };
+    titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
+
 });
 
-self.generar_preliquidacion = function(){
-var personas = self.gridApi.selection.getSelectedRows();
+    self.saving =true;
+    self.btnGenerartxt = "Generando...";
+    titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
-var personas_a_liquidar = [];
-for (var i=0; i < personas.length; i++){
-var persona = { IdPersona : personas[i].Id ,
-               NumeroContrato :  personas[i].NumeroContrato
-              };
+        self.saving =false;
+       self.btnGenerartxt=$translate.instant('GENERAR');
+      $window.location.href = '#/preliquidacion/preliquidacion_detalle';
+      });;
 
-personas_a_liquidar.push(persona)
-}
-var datos_preliquidacion = {
-Preliquidacion : self.preliquidacion,
-PersonasPreLiquidacion : personas_a_liquidar
+    };
 
-};
-titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
-
-});
-
-self.saving =true;
-self.btnGenerartxt = "Generando...";
-titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-
-    self.saving =false;
-   self.btnGenerartxt="Generar";
-  $window.location.href = '#/preliquidacion/preliquidacion_detalle';
-  });;
-
-};
-
-}
+    }
   });

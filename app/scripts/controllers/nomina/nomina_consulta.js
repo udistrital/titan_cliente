@@ -37,7 +37,7 @@ angular.module('titanClienteV2App')
         {field: 'TipoNomina.Nombre',     displayName: $translate.instant('TIPO_NOMINA')},
         {field: 'Estado', displayName: $translate.instant('ESTADO_NOMINA')},
         {field: 'Periodo', displayName: $translate.instant('PERIODO_NOMINA')},
-        {field: 'Opciones',displayName:$translate.instant('OPCIONES_NOMINA'),  cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.consulta_preliquidacion(row)">Preliquidaciones</button>'}
+        {field: 'Opciones',displayName:$translate.instant('OPCIONES_NOMINA'),  cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.consulta_preliquidacion(row)">'+$translate.instant('PRELIQUIDACION')+'</button>'}
       ]
 
     };
