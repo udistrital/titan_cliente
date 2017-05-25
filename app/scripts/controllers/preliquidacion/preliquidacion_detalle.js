@@ -118,21 +118,10 @@ angular.module('titanClienteV2App')
         for (var i=0; i < seleccion_personas.length; i++){
           personas[i] = seleccion_personas[i].IdPersona
         }
-        var tam = seleccion_personas.length
-        personas[tam] = preliquidacion.Id
-        console.log(seleccion_personas)
-        console.log(personas)
-        var datos = { preliquidacion:preliquidacion, personas: personas}
 
-        titanMidRequest.post('liquidacion',datos).then(function(response) {
-          console.log(response.data)
-        if(response.data === "Ok"){
-          self.saving =false;
-          self.btnGenerartxt= $translate.instant('GENERAR');;
-          $window.location.href = '#/liquidacion/liquidacion_detalle';
-        }else{
+        if(personas.length ===0){
           swal({
-             html: "Esta preliquidación ya ha sido liquidada",
+             html: "Debe seleccionar personas para ser liquidadas",
              type: "error",
              showCancelButton: true,
              confirmButtonColor: "#449D44",
@@ -141,7 +130,7 @@ angular.module('titanClienteV2App')
              cancelButtonText: $translate.instant('SALIR'),
            }).then(function() {
              //si da click en ir a contratistas
-             $window.location.href = '#/nomina/nomina_consulta';
+             $window.location.href = '#/preliquidacion/preliquidacion_detalle';
            }, function(dismiss) {
 
              if (dismiss === 'cancel') {
@@ -149,10 +138,43 @@ angular.module('titanClienteV2App')
                $window.location.href = '#/nomina/nomina_consulta';
              }
            })
+        }else{
+          var tam = seleccion_personas.length
+          personas[tam] = preliquidacion.Id
 
+          var datos = { Preliquidacion: self.preliquidacion, Personas: personas}
+          console.log(datos)
+          titanMidRequest.post('liquidacion',datos).then(function(response) {
+            console.log(response.data)
+          if(response.data === "Ok"){
+            self.saving =false;
+            self.btnGenerartxt= $translate.instant('GENERAR');;
+            $window.location.href = '#/liquidacion/liquidacion_detalle';
+          }else{
+            swal({
+               html: "Esta preliquidación ya ha sido liquidada",
+               type: "error",
+               showCancelButton: true,
+               confirmButtonColor: "#449D44",
+               cancelButtonColor: "#C9302C",
+               confirmButtonText: $translate.instant('VOLVER'),
+               cancelButtonText: $translate.instant('SALIR'),
+             }).then(function() {
+               //si da click en ir a contratistas
+               $window.location.href = '#/nomina/nomina_consulta';
+             }, function(dismiss) {
+
+               if (dismiss === 'cancel') {
+                 //si da click en Salir
+                 $window.location.href = '#/nomina/nomina_consulta';
+               }
+             })
+
+          }
+
+
+        });
         }
 
-
-      });
       };
   });
