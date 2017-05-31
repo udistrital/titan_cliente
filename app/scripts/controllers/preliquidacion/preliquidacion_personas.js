@@ -106,7 +106,7 @@ angular.module('titanClienteV2App')
                             };
              personas_sin_ss.push(persona)
            }
-
+         }
            if(personas_sin_ss.length != 0){
              swal({
                 html: "No es posible realizar la liquidacion. Las personas resaltadas no cuentan con sus datos de seguridad social completos",
@@ -128,16 +128,18 @@ angular.module('titanClienteV2App')
               })
            }
            else{
-             var persona = { IdPersona : personas[i].Id ,
+             for (var i=0; i < personas.length; i++){
+              var persona = { IdPersona : personas[i].Id ,
                               NumeroContrato :  personas[i].NumeroContrato
-                            };
-                personas_a_liquidar.push(persona)
+                             };
 
-                var datos_preliquidacion = {
-                 Preliquidacion : self.preliquidacion,
-                 PersonasPreLiquidacion : personas_a_liquidar
+               personas_a_liquidar.push(persona)
+             }
+             var datos_preliquidacion = {
+               Preliquidacion : self.preliquidacion,
+               PersonasPreLiquidacion : personas_a_liquidar
 
-                };
+             };
                 titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
 
                });
@@ -157,7 +159,7 @@ angular.module('titanClienteV2App')
 
      };
 
-      }
+
 
 
       if (self.preliquidacion.Nomina.TipoNomina.Nombre === "DP"){
