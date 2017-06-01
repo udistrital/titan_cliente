@@ -63,8 +63,21 @@ var text_es = {
 
   //Interfaz de detalle de liquidacion
   TITULO_DETALLE_LIQ :"Detalle de liquidación de la nómina",
-  RESUMEN_LIQ: "Resumen de la liquidación"
+  RESUMEN_LIQ: "Resumen de la liquidación",
 
+  //REGISTRO NOVEDADES
+  REGISTRO_NOVEDAD: "Registro de novedad",
+  DETALLE_NOVEDAD: "Detalle de novedad",
+  TIPO_CONCEPTO: "Tipo",
+  VALOR_CONCEPTO: "Valor",
+  FECHA_INICIO:"Fecha de inicio",
+  FECHA_FIN:"Fecha de finalización",
+  PORCENTAJE: "Porcentaje",
+  FIJO: "Fijo",
+  PERSONA: "Persona",
+  SELECCION_CONCEPTO: "Selección de concepto de novedad",
+  SELECCION_NOMINA:"Selección de nómina",
+  SELECCION_PERSONA:"Selección de persona"
 
 };
 
@@ -124,7 +137,22 @@ var text_en = {
 
   //Interfaz de detalle de liquidacion
   TITULO_DETALLE_LIQ :"Liquidation payslip detail: ",
-  RESUMEN_LIQ: "Liquidation's summary"
+  RESUMEN_LIQ: "Liquidation's summary",
+
+  //REGISTRO novedades
+  REGISTRO_NOVEDAD: "Changes's record",
+  DETALLE_NOVEDAD: "Changes's detail",
+  TIPO_CONCEPTO: "Type",
+  VALOR_CONCEPTO: "Value",
+  FECHA_INICIO:"Start date",
+  FECHA_FIN:"End date",
+  PORCENTAJE: "Percentage",
+  FIJO: "Fixed",
+  PERSONA: "Person",
+  SELECCION_CONCEPTO: "Change's concept selection",
+  SELECCION_NOMINA:"Payslip's selection",
+  SELECCION_PERSONA:"Person selection"
+
 
 };
 

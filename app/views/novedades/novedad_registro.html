@@ -3,50 +3,50 @@
 <div class="row">
     <div class="row">
       <div class="col-md-5 panel panel-default">
-        <div class="panel-heading">Registro de la Novedad</div>
+        <div class="panel-heading">{{'REGISTRO_NOVEDAD' | translate}}</div>
         <div class="panel-body">
           <form class="form-horizontal">
               <fieldset>
 
               <!-- Form Name -->
-              <legend>Detalle de la novedad</legend>
+              <legend>{{'DETALLE_NOVEDAD'|translate}}</legend>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtConcepto">Concepto</label>
+                <label class="col-md-4 control-label" for="txtConcepto">{{'CONCEPTO'| translate}}</label>
                 <div class="col-md-4">
                 <input id="txtConcepto" name ="txtConcepto" type="text" class="form-control input-md" required="" disabled ng-model="concepto.AliasConcepto">
 
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtNaturalezaConcepto">Naturaleza Concepto</label>
+                <label class="col-md-4 control-label" for="txtNaturalezaConcepto">{{'NATURALEZA'| translate}}</label>
                 <div class="col-md-4">
                 <input id="txtNaturalezaConcepto" name="txtNaturalezaConcepto" type="text"  class="form-control input-md" required="" disabled ng-model="concepto.Naturaleza">
 
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtDescrNomina">Nomina</label>
+                <label class="col-md-4 control-label" for="txtDescrNomina">{{'NOMBRE_NOMINA'| translate}}</label>
                 <div class="col-md-4">
                 <input id="txtDescrNomina" name="txtDescrNomina" type="text"  class="form-control input-md" required="" disabled ng-model="nomina.Nombre">
 
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtPersona">Descripción Nomina</label>
+                <label class="col-md-4 control-label" for="txtPersona">{{'DESC_NOMINA'| translate}}</label>
                 <div class="col-md-4">
                 <input id="txtPersona" name="txtPersona" type="text"  class="form-control input-md" required="" disabled ng-model="nomina.Descripcion">
 
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtDocumentoPers">Persona</label>
+                <label class="col-md-4 control-label" for="txtDocumentoPers">{{'PERSONA'|translate}}</label>
                 <div class="col-md-4">
                 <input id="txtDocumentoPers" name="txtDocumentoPers" type="text"  class="form-control input-md" required="" disabled ng-model="persona.NombreProveedor">
 
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtValNovedad">Documento</label>
+                <label class="col-md-4 control-label" for="txtValNovedad">{{'DOCUMENTO' | translate}}</label>
                 <div class="col-md-4">
                 <input id="txtValNovedad" name="txtValNovedad" type="text"  class="form-control input-md" required="" disabled ng-model="persona.NumDocumento">
 
@@ -55,11 +55,11 @@
 
               <!-- Select Basic -->
               <div class="form-group">
-                <label class="col-md-4 control-label" for="selectbasic">Tipó</label>
+                <label class="col-md-4 control-label" for="selectbasic">{{'TIPO_CONCEPTO' | translate}}</label>
                 <div class="col-md-4">
                   <select id="selectbasic" name="selectbasic" class="form-control" ng-model="novedadRegistro.tipo">
-                    <option value="porcentaje">Porcentaje</option>
-                    <option value="fijo">Fijo</option>
+                    <option value="porcentaje">{{'PORCENTAJE'| translate}}</option>
+                    <option value="fijo">{{'FIJO'| translate}}</option>
                   </select>
                 </div>
               </div>
@@ -67,24 +67,24 @@
 
 
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtFechaDesde">Fecha de Inicio</label>
+                <label class="col-md-4 control-label" for="txtFechaDesde">{{'FECHA_INICIO'| translate}}</label>
                 <div class="col-md-4">
-                  <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaInicio" md-placeholder="Fecha de inicio"></md-datepicker>
+                  <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
 
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtFechaDesde">Fecha de Finalización</label>
+                <label class="col-md-4 control-label" for="txtFechaDesde">{{'FECHA_FIN'| translate}}</label>
                 <div class="col-md-4">
-                  <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaFin" md-placeholder="Fecha de inicio"></md-datepicker>
+                  <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
 
                 </div>
               </div>
               <!-- Text input-->
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtValNovedad">Valor</label>
+                <label class="col-md-4 control-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                 <div class="col-md-4">
-                <input min="0" max="100" id="txtValNovedad" name="txtValNovedad" type="text" placeholder="valor de la novedad" class="form-control input-md" required="" ng-model="novedadRegistro.valor">
+                <input min="0" max="100" id="txtValNovedad" name="txtValNovedad" type="text" placeholder="{{'VALOR_CONCEPTO' | translate}}" class="form-control input-md" required="" ng-model="novedadRegistro.valor">
 
                 </div>
               </div>
@@ -93,8 +93,8 @@
               <div class="form-group">
                 <label class="col-md-4 control-label" for="btnRegistrar"></label>
                 <div class="col-md-8">
-                  <button id="btnRegistrar" name="btnRegistrar" class="btn btn-success" ng-click="novedadRegistro.Registrar()">Registrar</button>
-                  <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">Cancelar</button>
+                  <button id="btnRegistrar" name="btnRegistrar" class="btn btn-success" ng-click="novedadRegistro.Registrar()">{{'REGISTRAR' | translate}}</button>
+                  <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">{{'CANCELAR' | translate}}</button>
                 </div>
               </div>
 
@@ -105,13 +105,13 @@
       <div>
 
           <div class="col-md-3 panel panel-default">
-            <div class="panel-heading">Selección de Concepto de la novedad</div>
+            <div class="panel-heading">{{'SELECCION_CONCEPTO'| translate}}</div>
             <div class="panel-body"><div ui-grid="novedadRegistro.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
           </div>
 
 
           <div class="col-md-4 panel panel-default">
-            <div class="panel-heading">Seleccion de la Nomina</div>
+            <div class="panel-heading">{{'SELECCION_NOMINA'| translate}}</div>
             <div class="panel-body">
               <div ui-grid="novedadRegistro.gridOptions_nominas" ui-grid-selection ui-grid-auto-resize class="myGrid"></div>
             </div>
@@ -119,7 +119,7 @@
 
 
             <div class=" col-md-7 panel panel-default" ng-show="nomina">
-              <div class="panel-heading">Selección de Persona</div>
+              <div class="panel-heading">{{'SELECCION_PERSONA'| translate}}</div>
               <div class="panel-body">
                 <div ui-grid="gridOptions_personas" ui-grid-selection ui-grid-auto-resize class="myGrid"></div>
               </div>

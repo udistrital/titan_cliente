@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('NovedadesNovedadConsultaCtrl', function (titanRequest) {
+  .controller('NovedadesNovedadConsultaCtrl', function (titanRequest,$translate) {
     var self = this;
     self.gridOptions = {
 
@@ -19,16 +19,16 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'Concepto.AliasConcepto',  displayName: 'Concepto' },
-        {field: 'Concepto.Naturaleza' , displayName: 'Naturaleza'  },
-        {field: 'Tipo'  },
-        {field: 'ValorNovedad' , displayName: 'Valor'  },
-        {field: 'FechaDesde' , displayName: 'Fecha de Inicio' , cellTemplate: '<span>{{row.entity.FechaDesde | date:"yyyy-MM-dd":"+0900"}}</span>' },
-        {field: 'FechaHasta' , displayName: 'Fecha Finalización' , cellTemplate: '<span>{{row.entity.FechaHasta | date:"yyyy-MM-dd":"+0900"}}</span>' },
-        {field: 'Nomina.Nombre' , displayName: 'Nomina'  },
-        {field: 'Nomina.Periodo' , displayName: 'Vigencia'  },
-        {field: 'Persona.NomProveedor' , displayName: 'Vigencia'  },
-        {field: 'Persona.NumDocumento' , displayName: 'Vigencia'  },
+        {field: 'Concepto.AliasConcepto',  displayName:  $translate.instant('CONCEPTO')},
+        {field: 'Concepto.Naturaleza' , displayName: $translate.instant('NATURALEZA')},
+        {field: 'Tipo', displayName: $translate.instant('TIPO_CONCEPTO')  },
+        {field: 'ValorNovedad' , displayName: $translate.instant('VALOR_CONCEPTO')  },
+        {field: 'FechaDesde' , displayName: $translate.instant('FECHA_INICIO') , cellTemplate: '<span>{{row.entity.FechaDesde | date:"yyyy-MM-dd":"+0900"}}</span>' },
+        {field: 'FechaHasta' , displayName: $translate.instant('FECHA_FIN') , cellTemplate: '<span>{{row.entity.FechaHasta | date:"yyyy-MM-dd":"+0900"}}</span>' },
+        {field: 'Nomina.Nombre' , displayName: $translate.instant('NOMBRE_NOMINA')  },
+        {field: 'Nomina.Periodo' , displayName: $translate.instant('PERIODO_NOMINA')  },
+        {field: 'Persona.NomProveedor' , displayName: $translate.instant('NOMBRE_PERSONA') },
+        {field: 'Persona.NumDocumento' , displayName: $translate.instant('DOCUMENTO')  },
         ]
 
     };

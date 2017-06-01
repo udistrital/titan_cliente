@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('NovedadesNovedadRegistroCtrl', function (titanRequest,$scope) {
+  .controller('NovedadesNovedadRegistroCtrl', function (titanRequest,$scope,$translate) {
     var self = this;
     self.tipo="porcentaje";
     self.gridOptions_conceptos = {
@@ -20,8 +20,8 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'AliasConcepto',  displayName: 'Nombre' },
-        {field: 'Naturaleza'        },
+        {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO')},
+        {field: 'Naturaleza',  displayName: $translate.instant('NATURALEZA')},
         ]
 
     };
@@ -34,9 +34,9 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'Nombre',  displayName: 'Nombre' },
-        {field: 'Descripcion'        },
-          {field: 'Periodo'        },
+        {field: 'Nombre',  displayName: $translate.instant('NOMBRE_NOMINA') },
+        {field: 'Descripcion' ,  displayName: $translate.instant('DESC_NOMINA')},
+          {field: 'Periodo',  displayName: $translate.instant('  PERIODO_NOMINA')        },
         ]
 
     };
@@ -47,9 +47,9 @@ angular.module('titanClienteV2App')
       enableRowHeaderSelection: false,
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'NumeroContrato' ,  displayName: 'Numero de Contrato'},
-        {field: 'NombreProveedor',  displayName: 'Nombre'},
-        {field: 'NumDocumento',  displayName: 'Documento'},
+        {field: 'NumeroContrato' ,  displayName: $translate.instant('NUM_CONTRATO')},
+        {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+        {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
 
 
 

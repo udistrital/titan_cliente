@@ -9,6 +9,16 @@
   color:#d10000
 }
 
+tr.devengo{
+  background:#8BB9CD;
+}
+tr.descuento{
+  background:#FFB2B2;
+}
+tr.seguridad_social{
+  background:#A9F5D0;
+}
+
 .ui-grid-cell.lightGrey {
    background-color: #d3d3d3 !important ;
    color: #000 !important;
