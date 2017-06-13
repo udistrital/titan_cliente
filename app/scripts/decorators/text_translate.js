@@ -16,6 +16,7 @@ var text_es = {
   CANCELAR: "Cancelar",
   GENERAR: "Generar",
   DETALLE: "Detalle",
+  GENERAR_PDF: "Generar PDF",
   //Formulario registro nómina
   ANADIR_NOMINA: "Añadir nómina",
   TITULO_REG_NOMINA: "Registro de nómina",
@@ -90,6 +91,7 @@ var text_en = {
   CANCELAR: "Cancel",
   GENERAR: "Generate",
   DETALLE: "Detail",
+  GENERAR_PDF: "Generate PDF",
   //Formulario registro y visualizaión nómina
   ANADIR_NOMINA: "Add payslip",
   TITULO_REG_NOMINA: "Payslip's record",

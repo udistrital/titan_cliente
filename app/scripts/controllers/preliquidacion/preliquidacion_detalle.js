@@ -12,26 +12,28 @@ angular.module('titanClienteV2App')
     var self = this;
     self.resumen_conceptos;
     self.seleccion_sueldoNeto = 0;
+    self.respuesta_persona;
+    self.respuesta_conceptos;
     self.preliquidacion = preliquidacion;
     self.gridOptions = {
-	      enableFiltering : false,
-	      enableSorting : true,
-	      enableRowSelection: true,
-	      enableSelectAll: true,
-	      columnDefs : [
-	        {field: 'IdPersona',             visible : false},
-          {field: 'NumeroContrato' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
-	        {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
-	        {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
-	      ],
-	      onRegisterApi : function( gridApi ) {
-	        self.gridApi = gridApi;
-	        self.gridApi.selection.on.rowSelectionChanged($scope,function(row){
-        		$scope.cdp = $scope.gridApi.selection.getSelectedRows();
-        		alert("ece");
-      		});
-	      }
-	    };
+      enableFiltering : false,
+      enableSorting : true,
+      enableRowSelection: true,
+      enableSelectAll: true,
+      columnDefs : [
+        {field: 'IdPersona',             visible : false},
+        {field: 'NumeroContrato' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
+        {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
+        {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
+      ],
+      onRegisterApi : function( gridApi ) {
+        self.gridApi = gridApi;
+        self.gridApi.selection.on.rowSelectionChanged($scope,function(row){
+          $scope.cdp = $scope.gridApi.selection.getSelectedRows();
+          alert("ece");
+        });
+      }
+};
 
 	    self.CalcularTotalesNomina = function(){
 	    	var seleccion_personas = self.gridApi.selection.getSelectedRows();
@@ -66,6 +68,7 @@ angular.module('titanClienteV2App')
       	 	var temp_sueldo_neto = 0;
       	 	for (var i=0; i < response.data.length; i++){
       	 		for (var j=0; j< response.data[i].Conceptos.length; j++){
+
       	 			if(response.data[i].Conceptos[j].Naturaleza === "devengo"){
      					temp_sueldo_neto = temp_sueldo_neto+parseInt(response.data[i].Conceptos[j].Valor);
      					if(temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] != null){
@@ -87,6 +90,8 @@ angular.module('titanClienteV2App')
       	 	self.gridOptions.data = response.data;
       	 	self.total_sueldos_neto = temp_sueldo_neto;
       	 	self.resumen_conceptos = temp_resumen_conceptos;
+          self.respuesta_persona = response.data;
+
 
      	});
 
@@ -176,5 +181,53 @@ angular.module('titanClienteV2App')
         });
         }
 
+      };
+
+      self.generarReporte = function(){
+
+        var valores_tabla = [
+          [{text: 'Nombre', style: 'tableHeader'}, {text: 'Valor', style: 'tableHeader'}]
+          ];
+
+        var valores_persona = []
+      //  var docDefinition = { content: [] };
+            var docDefinition = {
+              content: [
+
+                {
+                    text: valores_persona
+
+                },
+                {
+                table: {
+    				         headerRows: 1,
+                    body: valores_tabla
+                      }
+                }
+              ]
+            };
+
+        for (var i=0; i < self.respuesta_persona.length; i++){
+          //DATOS DE PERSONA
+          valores_persona.push({ text: self.respuesta_persona[i].NomProveedor, fontSize: 15, bold: true }, '\n\n')
+          valores_persona.push({ text: self.respuesta_persona[i].NumDocumento, fontSize: 15, bold: true }, '\n\n')
+
+          for (var j=0; j< self.respuesta_persona[i].Conceptos.length; j++){
+            if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "devengo"){
+
+                valores_tabla.push([self.respuesta_persona[i].Conceptos[j].Nombre, self.respuesta_persona[i].Conceptos[j].Valor])
+            //  value.push({ text: self.respuesta_persona[i].Conceptos[j].Naturaleza.Valor, style: 'tableHeader'});
+              }
+
+            if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "descuento"){
+
+              valores_tabla.push([self.respuesta_persona[i].Conceptos[j].Nombre, self.respuesta_persona[i].Conceptos[j].Valor])
+
+            }
+          }
+
+        }
+
+           pdfMake.createPdf(docDefinition).open();
       };
   });

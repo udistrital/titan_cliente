@@ -7,7 +7,7 @@
                     <table style="width:95%;">
                         <tr>
                           <td>
-                            <div ui-grid="preliquidacionDetalle.gridOptions" ui-grid-selection class="myGrid"></div>
+                            <div ui-grid="preliquidacionDetalle.gridOptions" ui-grid-selection ui-grid-exporter class="myGrid"></div>
                           </td>
                         </tr>
                         <tr>
@@ -28,6 +28,7 @@
                         </tr>
                     </table>
                       <button ng-click="preliquidacionDetalle.liquidar()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'LIQUIDAR' | translate}}</button>
+                      <button ng-click="preliquidacionDetalle.generarReporte()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>
                 </div>
             </div>
         </div>
