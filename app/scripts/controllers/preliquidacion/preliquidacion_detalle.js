@@ -10,6 +10,7 @@
 angular.module('titanClienteV2App')
   .controller('PreliquidacionPreliquidacionDetalleCtrl', function ($scope,titanMidRequest,titanRequest,preliquidacion,$window,$translate) {
     var self = this;
+    self.numero_conceptos = 0;
     self.resumen_conceptos;
     self.seleccion_sueldoNeto = 0;
     self.respuesta_persona;
@@ -67,9 +68,11 @@ angular.module('titanClienteV2App')
       	 	var temp_resumen_conceptos = {};
       	 	var temp_sueldo_neto = 0;
       	 	for (var i=0; i < response.data.length; i++){
+
       	 		for (var j=0; j< response.data[i].Conceptos.length; j++){
 
       	 			if(response.data[i].Conceptos[j].Naturaleza === "devengo"){
+                  self.numero_conceptos = self.numero_conceptos + 1
      					temp_sueldo_neto = temp_sueldo_neto+parseInt(response.data[i].Conceptos[j].Valor);
      					if(temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] != null){
      						temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] += parseInt(response.data[i].Conceptos[j].Valor);
@@ -77,6 +80,7 @@ angular.module('titanClienteV2App')
      						temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] = parseInt(response.data[i].Conceptos[j].Valor);
      					}
 	     			}else if (response.data[i].Conceptos[j].Naturaleza === "descuento"){
+              self.numero_conceptos = self.numero_conceptos + 1
 	     				temp_sueldo_neto = temp_sueldo_neto-parseInt(response.data[i].Conceptos[j].Valor);
 	     				if(temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] != null){
      						temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] += parseInt(response.data[i].Conceptos[j].Valor);
@@ -185,44 +189,74 @@ angular.module('titanClienteV2App')
 
       self.generarReporte = function(){
 
+        var num_conceptos = self.numero_conceptos;
+        num_conceptos = (3 + num_conceptos)  //numero de filas anteriores a los conceptos: 3
+          var cuerpo_tabla = [
+            [{text: 'Pagos periodo yyyy-mm', style: 'tableHeader', colSpan: 5, alignment: 'center'}, {},{},{},{}],
+            [{text: 'Rubro',style: 'tableHeader', alignment: 'center'},{text: 'Beneficiario', style: 'tableHeader', alignment: 'center'},{text: 'Orden de pago', style: 'tableHeader', alignment: 'center'},{text: 'Fecha', style: 'tableHeader', alignment: 'center'},{text: 'Concepto', style: 'tableHeader', alignment: 'center'}],
+            [{rowSpan: num_conceptos, text: 'Rubro asociado'}, 'Nombre persona', '12345','yyyy-mm-dd','Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'],
+            [{}, {text: 'Detalle de pago', style: 'tableHeader', colSpan: 4, alignment: 'center'}, {},{},{}],
+            [{},{text: 'Conceptos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}],
+          ]
+        var valor;
         var valores_tabla = [
-          [{text: 'Nombre', style: 'tableHeader'}, {text: 'Valor', style: 'tableHeader'}]
+          [{text: 'Detalle de pago', style: 'tableHeader', colSpan: 2, alignment: 'center'}, {}],
+          [{text: 'Concepto',style: 'tableHeader', alignment: 'center'},{text: 'Valor', style: 'tableHeader', alignment: 'center'}]
           ];
 
-        var valores_persona = []
+        var valores_persona = [
+          [{text: 'Beneficiario',style: 'tableHeader', alignment: 'center'},{text: 'Orden de pago', style: 'tableHeader', alignment: 'center'},{text: 'Fecha', style: 'tableHeader', alignment: 'center'},{text: 'Concepto', style: 'tableHeader', alignment: 'center'}]
+          ];
       //  var docDefinition = { content: [] };
             var docDefinition = {
               content: [
-
                 {
-                    text: valores_persona
+                  table: {
+                       headerRows: 1,
+                       body: cuerpo_tabla
+                     },
 
                 },
-                {
-                table: {
-    				         headerRows: 1,
-                    body: valores_tabla
-                      }
-                }
-              ]
+              ],
+              styles: {
+                    header: {
+                      fontSize: 18,
+                      bold: true,
+                      margin: [0, 0, 0, 10]
+                    },
+                    subheader: {
+                      fontSize: 16,
+                      bold: true,
+                      margin: [0, 10, 0, 5]
+                    },
+                    tableExample: {
+                      margin: [0, 5, 0, 15]
+                    },
+                    tableHeader: {
+                      bold: true,
+                      fontSize: 13,
+                      color: 'black'
+                    }
+                  },
+
             };
 
         for (var i=0; i < self.respuesta_persona.length; i++){
           //DATOS DE PERSONA
-          valores_persona.push({ text: self.respuesta_persona[i].NomProveedor, fontSize: 15, bold: true }, '\n\n')
-          valores_persona.push({ text: self.respuesta_persona[i].NumDocumento, fontSize: 15, bold: true }, '\n\n')
-
+          valores_persona.push([{text: self.respuesta_persona[i].NomProveedor}, 'Orden de pago #', 'Fecha','Concepto'])
+      //    valores_persona.push({ text: self.respuesta_persona[i].NumDocumento, fontSize: 15, bold: true }, '\n\n')
+          num_conceptos = self.respuesta_persona[i].Conceptos.length
           for (var j=0; j< self.respuesta_persona[i].Conceptos.length; j++){
+            valor = self.respuesta_persona[i].Conceptos[j].Valor;
+            valor = '$'+valor.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "devengo"){
 
-                valores_tabla.push([self.respuesta_persona[i].Conceptos[j].Nombre, self.respuesta_persona[i].Conceptos[j].Valor])
+                cuerpo_tabla.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
+              //  valores_tabla.push([self.respuesta_persona[i].Conceptos[j].Nombre, valor])
             //  value.push({ text: self.respuesta_persona[i].Conceptos[j].Naturaleza.Valor, style: 'tableHeader'});
               }
-
             if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "descuento"){
-
-              valores_tabla.push([self.respuesta_persona[i].Conceptos[j].Nombre, self.respuesta_persona[i].Conceptos[j].Valor])
-
+              cuerpo_tabla.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
             }
           }
 
