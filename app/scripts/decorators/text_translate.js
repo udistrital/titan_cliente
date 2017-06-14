@@ -22,6 +22,7 @@ var text_es = {
   NO:"No",
   ACTIVO:"Activo",
   INACTIVO:"Inactivo",
+  SELECCIONE: "Seleccione...",
   //Formulario registro nómina
   ANADIR_NOMINA: "Añadir nómina",
   TITULO_REG_NOMINA: "Registro de nómina",
@@ -109,18 +110,35 @@ var text_es = {
   NUMERO_CUENTA: "Número de cuenta bancaria",
   BANCO_ASOCIADO: "Banco asociado",
   ESTADO_BEN: "Estado",
-  SELECCIONE: "Seleccione...",
   CED_CIU: "Cédula de ciudadania",
   CEDULA_EXTRAN: "Cédula de extranjería",
   TARJETA_IDEN: "Tarjeta de identidad",
   MASCULINO: "Masculino",
   FEMENINO: "Femenino",
-  PRI_APE_BEN:"Primer apellido",
-  SEG_APE_BEN:"Segundo apellido",
-  PRI_NOM_BEN:"Primer nombre",
-  SEG_NOM_BEN:"Segundo nombre",
+  PRI_APE:"Primer apellido",
+  SEG_APE:"Segundo apellido",
+  PRI_NOM:"Primer nombre",
+  SEG_NOM:"Segundo nombre",
   AHORROS:"Ahorros",
-  CORRIENTE:"Corriente"
+  CORRIENTE:"Corriente",
+
+  //FORMULARIO DE SUSTITUTOS
+  TITULO_SUS: "Registro de sustituto",
+  DOC_FUN_PEN: "Documento funcionario pensionado",
+  DOC_BEN_SUS: "Documento beneficiario sustituto",
+  PORCENTAJE: "Porcentaje asignado sobre pensión",
+  ESTADO_SUS: "Estado",
+  TITULO_TUTOR: "  Si el sustituto es menor de edad, se debe ingresar con el respectivo tutor",
+
+  //FORMULARIO tutor
+  TITULO_REG_TUTOR: "Registro de tutor",
+  TIPO_DOC_TUTOR:"Tipo de documento",
+  NUM_DOC_TUTOR:"Número de documento",
+  NOM_TUTOR: "Nombres del tutor",
+  APE_TUTOR: "Apellidos del tutor",
+  BEN_ASOCIADO: "Beneficiario asociado",
+  HABILITAR_BENEFICIARIO: "Habilitar beneficiario",
+  ID_BENEFICIARIO: "Identificacion del beneficiario"
 
 };
 
@@ -233,12 +251,30 @@ var text_en = {
   TARJETA_IDEN: "Identity card",
   MASCULINO: "Male",
   FEMENINO: "Female",
-  PRI_APE_BEN:"First surname",
-  SEG_APE_BEN:"Second surname",
-  PRI_NOM_BEN:"First name",
-  SEG_NOM_BEN:"Second name",
+  PRI_APE:"First surname",
+  SEG_APE: "Second surname",
+  PRI_NOM:"First name",
+  SEG_NOM:"Second name",
   AHORROS:"Savings",
-  CORRIENTE:"Checking"
+  CORRIENTE:"Checking",
+
+  //FORMULARIO DE SUSTITUTOS
+  TITULO_SUS: "Substitute record",
+  DOC_FUN_PEN: "Pensioned worker's ID",
+  DOC_BEN_SUS: "Substitute ID",
+  PORCENTAJE: "Pension's Percentage assigned to substitute",
+  ESTADO_SUS: "Status",
+  TITULO_TUTOR: "  If substitute is under eighteen, you must record a tutor",
+
+  //FORMULARIO tutor
+  TITULO_REG_TUTOR: "Tutor's record",
+  TIPO_DOC_TUTOR:"Identification type",
+  NUM_DOC_TUTOR:"Identification",
+  NOM_TUTOR: "Tutor's names",
+  APE_TUTOR: "Tutor's surnames",
+  BEN_ASOCIADO: "Associated beneficiary",
+  HABILITAR_BENEFICIARIO: "Set up beneficiary",
+  ID_BENEFICIARIO: "Beneficiary ID"
 
 };
 
