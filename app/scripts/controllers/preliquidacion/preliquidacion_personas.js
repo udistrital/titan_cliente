@@ -60,7 +60,7 @@ angular.module('titanClienteV2App')
      	});
 
      	self.saving =true;
-     	self.btnGenerartxt = "Generando...";
+     	self.btnGenerartxt = $translate.instant('GENERANDO');
         titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
               self.saving =false;
@@ -109,7 +109,7 @@ angular.module('titanClienteV2App')
          }
            if(personas_sin_ss.length != 0){
              swal({
-                html: "No es posible realizar la liquidacion. Las personas resaltadas no cuentan con sus datos de seguridad social completos",
+                html: $translate.instant('ALERTA_PERSONAS_SIN_SS'),
                 type: "error",
                 showCancelButton: true,
                 confirmButtonColor: "#449D44",
@@ -145,7 +145,7 @@ angular.module('titanClienteV2App')
                });
 
                self.saving =true;
-               self.btnGenerartxt = "Generando...";
+               self.btnGenerartxt = $translate.instant('GENERANDO');
                 titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
                       self.saving =false;
@@ -204,7 +204,7 @@ angular.module('titanClienteV2App')
   });
 
   self.saving =true;
-  self.btnGenerartxt = "Generando...";
+  self.btnGenerartxt = $translate.instant('GENERANDO');
     titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
           self.saving =false;
@@ -259,7 +259,7 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
       });
 
       self.saving =true;
-      self.btnGenerartxt = "Generando...";
+      self.btnGenerartxt = $translate.instant('GENERANDO');
       titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
           self.saving =false;
@@ -314,7 +314,7 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
 });
 
     self.saving =true;
-    self.btnGenerartxt = "Generando...";
+    self.btnGenerartxt = $translate.instant('GENERANDO');
     titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
         self.saving =false;

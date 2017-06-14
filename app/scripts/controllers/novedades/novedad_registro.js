@@ -121,11 +121,28 @@ angular.module('titanClienteV2App')
       console.log(novedad_por_persona);
       titanRequest.post('concepto_por_persona',novedad_por_persona).then(function(response) {
         if(typeof(response.data)=="object"){
-          alert("Novedad registrada correctamente");
+          swal({
+             html: $translate.instant('NOVEDAD_REG_CORRECTO'),
+             type: "success",
+             showCancelButton: false,
+             confirmButtonColor: "#449D44",
+             confirmButtonText: $translate.instant('VOLVER'),
+             }).then(function() {
+            $window.location.href = '#/novedades/novedad_registro';
+           })
 
         }
         if(typeof(response.data)=="string"){
-          alert("error: "+response.data);
+          swal({
+             html: $translate.instant('NOVEDAD_REG_ERROR'),
+             type: "error",
+             showCancelButton: false,
+             confirmButtonColor: "#449D44",
+             confirmButtonText: $translate.instant('VOLVER'),
+             }).then(function() {
+            $window.location.href = '#/novedades/novedad_registro';
+           })
+          console.log("error: "+response.data);
         }
       });
 

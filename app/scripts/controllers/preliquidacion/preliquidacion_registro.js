@@ -74,13 +74,31 @@ angular.module('titanClienteV2App')
             titanRequest.post('preliquidacion', pliquidacion).then(function(response) {
               console.log(response.data);
               if(typeof(response.data)=="object"){
-                alert("Preliquidacion "+response.data.Nombre+" registrada correctamente");
+                swal({
+                   html: $translate.instant('PRELIQ_REG_CORRECTA'),
+                   type: "success",
+                   showCancelButton: false,
+                   confirmButtonColor: "#449D44",
+                   confirmButtonText: $translate.instant('VOLVER'),
+                   }).then(function() {
+                  $window.location.href = '#/nomina/nomina_consulta';
+                 })
+
                 titanRequest.get('preliquidacion','limit=0&query=Nomina.Id:'+self.nomina.Id+'&sortby=Id&order=desc').then(function(response) {
                   self.gridOptions.data = response.data;
                  });
               }
               if(typeof(response.data)=="string"){
-                alert("error: "+response.data);
+                swal({
+                   html: $translate.instant('PRELIQ_REG_INCORRECTA'),
+                   type: "error",
+                   showCancelButton: false,
+                   confirmButtonColor: "#449D44",
+                   confirmButtonText: $translate.instant('VOLVER'),
+                   }).then(function() {
+                  $window.location.href = '#/nomina/nomina_consulta';
+                 })
+                console.log("error: "+response.data);
               }});;
 
         self.formVisibility = false;

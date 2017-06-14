@@ -130,7 +130,7 @@ angular.module('titanClienteV2App')
 
         if(personas.length ===0){
           swal({
-             html: "Debe seleccionar personas para ser liquidadas",
+             html: $translate.instant('ALERTA_PERSONAS_SELECCIONADAS'),
              type: "error",
              showCancelButton: true,
              confirmButtonColor: "#449D44",
@@ -161,7 +161,7 @@ angular.module('titanClienteV2App')
             $window.location.href = '#/liquidacion/liquidacion_detalle';
           }else{
             swal({
-               html: "Esta preliquidación ya ha sido liquidada",
+               html:  $translate.instant('ALERTA_NO_LIQUIDACION'),
                type: "error",
                showCancelButton: true,
                confirmButtonColor: "#449D44",

@@ -79,13 +79,30 @@ angular.module('titanClienteV2App')
             titanRequest.post('nomina', nomina).then(function(response) {
               console.log(response.data);
               if(typeof(response.data)=="object"){
-                alert("Nomina "+response.data.Nombre+" registrada correctamente");
+                swal({
+                   html: $translate.instant('NOMINA_REG_CORRECTA'),
+                   type: "success",
+                   showCancelButton: false,
+                   confirmButtonColor: "#449D44",
+                   confirmButtonText: $translate.instant('VOLVER'),
+                   }).then(function() {
+                  $window.location.href = '#/nomina/nomina_consulta';
+                 })
+
                 titanRequest.get('nomina','limit=0&sortby=Id&order=desc').then(function(response) {
                  self.gridOptions.data = response.data;
                 });
               }
               if(typeof(response.data)=="string"){
-                alert("error: "+response.data);
+                swal({
+                   html: $translate.instant('NOMINA_REG_INCORRECTA'),
+                   type: "error",
+                   showCancelButton: false,
+                   confirmButtonColor: "#449D44",
+                   confirmButtonText: $translate.instant('VOLVER'),
+                   }).then(function() {
+                  $window.location.href = '#/nomina/nomina_consulta';
+                 })
               }
             });;
 

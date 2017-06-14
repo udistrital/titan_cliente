@@ -15,10 +15,13 @@ var text_es = {
   REGISTRAR: "Registrar",
   CANCELAR: "Cancelar",
   GENERAR: "Generar",
+  GENERANDO: "Generando...",
   DETALLE: "Detalle",
   GENERAR_PDF: "Generar PDF",
   SI:"Sí",
   NO:"No",
+  ACTIVO:"Activo",
+  INACTIVO:"Inactivo",
   //Formulario registro nómina
   ANADIR_NOMINA: "Añadir nómina",
   TITULO_REG_NOMINA: "Registro de nómina",
@@ -31,7 +34,8 @@ var text_es = {
   OPCIONES_NOMINA: "Opciones",
   PRELIQUIDACION: "Preliquidaciones",
   TITULO_NOMINA_REGIS: "Nóminas registradas",
-
+  NOMINA_REG_CORRECTA: "Nómina registrada correctamente",
+  NOMINA_REG_INCORRECTA: "Error al registrar la nómina",
   //Formulario registro preliquidacion
   ANADIR_PRELIQ: "Añadir preliquidación",
   TITULO_REG_PRELIQ: "Registro de preliquidación",
@@ -42,12 +46,15 @@ var text_es = {
   TITULO_PRELIQ_REGIS: "Preliquidaciones para la nómina",
   FECHA_PRELIQ: "Fecha registro",
   OPCIONES_PRELIQ: "Opciones",
+  PRELIQ_REG_CORRECTA: "Preliquidación registrada correctamente",
+  PRELIQ_REG_INCORRECTA: "Error al registrar la preliquidación",
 
   //Interfaz de listado de personas a preliquidar
   PRELIQ_NOMINA: "Personas a preliquidar en nómina: ",
   NUM_CONTRATO: "Número de contrato",
   NOMBRE_PERSONA: "Nombre",
   DOCUMENTO: "Documento",
+  ALERTA_PERSONAS_SIN_SS: "No es posible realizar la liquidacion. Las personas resaltadas no cuentan con sus datos de seguridad social completos",
 
   //Interfaz de detalle de preliquidacion
   TITULO_DETALLE_PRELIQ :"Detalle de preliquidación de la nómina",
@@ -63,7 +70,8 @@ var text_es = {
   SUELDOS_NETOS: "Sueldos netos:",
   LIQUIDAR:"Liquidar",
   DETALLE_EMP: "Detalle del empleado",
-
+  ALERTA_PERSONAS_SELECCIONADAS: "Debe seleccionar personas para ser liquidadas",
+  ALERTA_NO_LIQUIDACION: "Esta preliquidación ya ha sido liquidada",
   //Interfaz de detalle de liquidacion
   TITULO_DETALLE_LIQ :"Detalle de liquidación de la nómina",
   RESUMEN_LIQ: "Resumen de la liquidación",
@@ -81,7 +89,8 @@ var text_es = {
   SELECCION_CONCEPTO: "Selección de concepto de novedad",
   SELECCION_NOMINA:"Selección de nómina",
   SELECCION_PERSONA:"Selección de persona",
-
+  NOVEDAD_REG_CORRECTO: "Novedad registrada correctamente",
+  NOVEDAD_REG_ERROR: "Error al registrar novedad",
   //FORMULARIO beneficiarios
   TITULO_REG_BEN: "Registro de beneficiarios",
   TIPO_DOC_BEN:"Tipo de documento",
@@ -110,14 +119,8 @@ var text_es = {
   SEG_APE_BEN:"Segundo apellido",
   PRI_NOM_BEN:"Primer nombre",
   SEG_NOM_BEN:"Segundo nombre",
-  ACTIVO:"Activo",
-  INACTIVO:"Inactivo",
   AHORROS:"Ahorros",
-  CORRIENTE:"Corriente",
-
-  CARGO_BEN:"Cargo",
-  PAIS_NA_BEN:"País nacimiento",
-  PERFIL_BEN:"Perfil",
+  CORRIENTE:"Corriente"
 
 };
 
@@ -129,10 +132,13 @@ var text_en = {
   REGISTRAR: "Record",
   CANCELAR: "Cancel",
   GENERAR: "Generate",
+  GENERANDO: "Generating...",
   DETALLE: "Detail",
   GENERAR_PDF: "Generate PDF",
   SI:"Yes",
   NO:"No",
+  ACTIVO:"Active",
+  INACTIVO:"Inactive",
   //Formulario registro y visualizaión nómina
   ANADIR_NOMINA: "Add payslip",
   TITULO_REG_NOMINA: "Payslip's record",
@@ -145,6 +151,8 @@ var text_en = {
   OPCIONES_NOMINA: "Options",
   PRELIQUIDACION: "Preliquidations",
   TITULO_NOMINA_REGIS: "Recorded Payslips",
+  NOMINA_REG_CORRECTA: "Payslip correctly recorded",
+  NOMINA_REG_INCORRECTA: "Error in payslip's record",
 
   //Formulario registro y visualización de preliquidacion
   ANADIR_PRELIQ: "Add pre-liquidation",
@@ -156,12 +164,15 @@ var text_en = {
   TITULO_PRELIQ_REGIS: "Pre-liquidation to the payslip",
   FECHA_PRELIQ: "Record date",
   OPCIONES_PRELIQ: "Options",
+  PRELIQ_REG_CORRECTA: "Pre-liquidation correctly recorded",
+  PRELIQ_REG_INCORRECTA: "Error in pre-liquidation record",
 
   //Interfaz de listado de personas a preliquidar
   PRELIQ_NOMINA: "People for pre-liquidation in payslip: ",
   NUM_CONTRATO: "Contract Number",
   NOMBRE_PERSONA: "Name",
   DOCUMENTO: "Identification",
+  ALERTA_PERSONAS_SIN_SS: "The selected people cannot be pay off due to incomplete data",
 
   //Interfaz de detalle de preliquidacion
   TITULO_DETALLE_PRELIQ :"Pre-liquidation payslip detail: ",
@@ -177,7 +188,8 @@ var text_en = {
   SUELDOS_NETOS: "Net salaries:",
   LIQUIDAR:"Pay off",
   DETALLE_EMP: "Employee's detail",
-
+  ALERTA_PERSONAS_SELECCIONADAS: "You must select people to pay off",
+  ALERTA_NO_LIQUIDACION: "This Pre-liquidation has already been pay off",
   //Interfaz de detalle de liquidacion
   TITULO_DETALLE_LIQ :"Liquidation payslip detail: ",
   RESUMEN_LIQ: "Liquidation's summary",
@@ -195,7 +207,8 @@ var text_en = {
   SELECCION_CONCEPTO: "Change's concept selection",
   SELECCION_NOMINA:"Payslip's selection",
   SELECCION_PERSONA:"Person selection",
-
+  NOVEDAD_REG_CORRECTO: "Changes correctly recorded",
+  NOVEDAD_REG_ERROR: "Error in changes' record",
   //FORMULARIO beneficiarios
   TITULO_REG_BEN: "Beneficiary's record",
   TIPO_DOC_BEN:"Identification type",
@@ -224,14 +237,8 @@ var text_en = {
   SEG_APE_BEN:"Second surname",
   PRI_NOM_BEN:"First name",
   SEG_NOM_BEN:"Second name",
-  ACTIVO:"Active",
-  INACTIVO:"Inactive",
   AHORROS:"Savings",
-  CORRIENTE:"Checking",
-
-  CARGO_BEN:"Cargo",
-  PAIS_NA_BEN:"País nacimiento",
-  PERFIL_BEN:"Perfil",
+  CORRIENTE:"Checking"
 
 };
 

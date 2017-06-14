@@ -9,11 +9,11 @@
 
           <div class="form-group row">
             <label for="input_nombre" class="col-sm-5 col-form-label">{{'NOMBRE_NOMINA' | translate}}</label>
-            <input name="input_nombre" type="text" ng-model="nominaConsulta.nombreNomina" placeholder="Nombre">
+            <input name="input_nombre" type="text" ng-model="nominaConsulta.nombreNomina" placeholder="{{'NOMBRE_NOMINA' | translate}}">
           </div>
           <div class="form-group row">
             <label for="input_descripcion" class="col-sm-5 col-form-label">{{'DESC_NOMINA' | translate}}</label>
-            <textarea name="input_descripcion" ng-model="nominaConsulta.descripcionNomina"  placeholder="Descripción"></textarea>
+            <textarea name="input_descripcion" ng-model="nominaConsulta.descripcionNomina"  placeholder="{{'DESC_NOMINA' | translate}}"></textarea>
 
           </div>
           <div class="form-group row">
@@ -34,13 +34,13 @@
             <label for="select_estado_nomina" class="col-sm-5 col-form-label">{{'ESTADO_NOMINA' | translate}} </label>
             <select name="select_estado_nomina" id="select_estado_nomina" ng-model="nominaConsulta.selectEstado">
               <option selected disabled>Seleccione...</option>
-              <option selected="selected" value="Activo">Activo</option>
-              <option selected="selected" value="Inactivo">Inactivo</option>
+              <option selected="selected" value="Activo">{{'ACTIVO'|translate}}</option>
+              <option selected="selected" value="Inactivo">{{'INACTIVO'|translate}}</option>
             </select>
           </div>
            <div class="form-group row">
             <label for="input_periodo" class="col-sm-5 col-form-label">{{'PERIODO_NOMINA' | translate}} </label>
-             <input name="input_periodo" type="text"  ng-model="nominaConsulta.periodoNomina" placeholder="Periodo">
+             <input name="input_periodo" type="text"  ng-model="nominaConsulta.periodoNomina" placeholder="{{'PERIODO_NOMINA' | translate}}">
 
           </div>
             <button ng-click='nominaConsulta.limpiar()' class="btn btn-danger">{{'CANCELAR' | translate}}</button>
