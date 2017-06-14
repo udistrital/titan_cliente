@@ -11,7 +11,7 @@ angular.module('titanClienteV2App')
 .factory("personaNatural",function(){
   return{};
 })
-.controller('BeneficiariosCtrl', function (titanRequest,$window) {
+.controller('BeneficiariosCtrl', function (titanRequest,$window,$translate) {
   var self = this;
 
   self.gridOptions = {
