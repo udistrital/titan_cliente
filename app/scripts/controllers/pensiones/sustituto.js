@@ -106,7 +106,15 @@ angular.module('titanClienteV2App')
         });
       });
     }else{
-        alert("No hay datos para ingresar informacion de tutor");
+      swal({
+         html: $translate.instant('ALERTA_SUS_INCOMPLETO'),
+         type: "error",
+         showCancelButton: false,
+         confirmButtonColor: "#449D44",
+         confirmButtonText: $translate.instant('VOLVER'),
+         }).then(function() {
+        $window.location.href = '#/pensiones/sustituto';
+       })
     }
 
     if(self.selectPensionado != null && self.selectBeneficiario != null){
@@ -175,10 +183,27 @@ angular.module('titanClienteV2App')
 
                   titanRequest.post('sustituto', sustituto).then(function(response){
                     if(typeof(response.data)=="object"){
-                      alert("sustituto registrado correctamente" + sustituto.Beneficiario);
+                      swal({
+                         html: $translate.instant('ALERTA_REG_SUS_CORRECTO'),
+                         type: "success",
+                         showCancelButton: false,
+                         confirmButtonColor: "#449D44",
+                         confirmButtonText: $translate.instant('VOLVER'),
+                         }).then(function() {
+                        $window.location.href = '#/pensiones/sustituto';
+                       })
                     }
                     if(typeof(response.data)=="string"){
-                      alert("error: "+response.data);
+                      swal({
+                         html: $translate.instant('ALERTA_REG_SUS_INCORRECTO'),
+                         type: "error",
+                         showCancelButton: false,
+                         confirmButtonColor: "#449D44",
+                         confirmButtonText: $translate.instant('VOLVER'),
+                         }).then(function() {
+                        $window.location.href = '#/pensiones/sustituto';
+                       })
+                      console.log("error: "+response.data);
                     }
                   });
                 });
@@ -192,7 +217,15 @@ angular.module('titanClienteV2App')
       });
     });
   }else{
-    alert("No hay suficientes datos de sustituto para validar");
+    swal({
+       html: $translate.instant('ALERTA_REG_SUS_INCORRECTO'),
+       type: "error",
+       showCancelButton: false,
+       confirmButtonColor: "#449D44",
+       confirmButtonText: $translate.instant('VOLVER'),
+       }).then(function() {
+      $window.location.href = '#/pensiones/sustituto';
+     })
     }
   }
 });

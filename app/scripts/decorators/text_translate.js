@@ -84,7 +84,7 @@ var text_es = {
   VALOR_CONCEPTO: "Valor",
   FECHA_INICIO:"Fecha de inicio",
   FECHA_FIN:"Fecha de finalización",
-  PORCENTAJE: "Porcentaje",
+  PORCENTAJE_NOV: "Porcentaje",
   FIJO: "Fijo",
   PERSONA: "Persona",
   SELECCION_CONCEPTO: "Selección de concepto de novedad",
@@ -121,7 +121,8 @@ var text_es = {
   SEG_NOM:"Segundo nombre",
   AHORROS:"Ahorros",
   CORRIENTE:"Corriente",
-
+  ALERTA_BEN_CORRECTO: "Beneficiario registrado correctamente",
+  ALERTA_BEN_INCORRECTO: "Error al registrar beneficiario",
   //FORMULARIO DE SUSTITUTOS
   TITULO_SUS: "Registro de sustituto",
   DOC_FUN_PEN: "Documento funcionario pensionado",
@@ -138,8 +139,10 @@ var text_es = {
   APE_TUTOR: "Apellidos del tutor",
   BEN_ASOCIADO: "Beneficiario asociado",
   HABILITAR_BENEFICIARIO: "Habilitar beneficiario",
-  ID_BENEFICIARIO: "Identificacion del beneficiario"
-
+  ID_BENEFICIARIO: "Identificacion del beneficiario",
+  ALERTA_SUS_INCOMPLETO: "No hay datos para ingresar información de tutor",
+  ALERTA_REG_SUS_CORRECTO: "Se ha registrado correctamente el sustituto",
+  ALERTA_REG_SUS_INCORRECTO: "Error al registrar sustituto"
 };
 
 var text_en = {
@@ -219,7 +222,7 @@ var text_en = {
   VALOR_CONCEPTO: "Value",
   FECHA_INICIO:"Start date",
   FECHA_FIN:"End date",
-  PORCENTAJE: "Percentage",
+  PORCENTAJE_NOV: "Percentage",
   FIJO: "Fixed",
   PERSONA: "Person",
   SELECCION_CONCEPTO: "Change's concept selection",
@@ -257,7 +260,8 @@ var text_en = {
   SEG_NOM:"Second name",
   AHORROS:"Savings",
   CORRIENTE:"Checking",
-
+  ALERTA_BEN_CORRECTO: "Beneficiary correctly recorded",
+  ALERTA_BEN_INCORRECTO: "Error in record",
   //FORMULARIO DE SUSTITUTOS
   TITULO_SUS: "Substitute record",
   DOC_FUN_PEN: "Pensioned worker's ID",
@@ -274,7 +278,11 @@ var text_en = {
   APE_TUTOR: "Tutor's surnames",
   BEN_ASOCIADO: "Associated beneficiary",
   HABILITAR_BENEFICIARIO: "Set up beneficiary",
-  ID_BENEFICIARIO: "Beneficiary ID"
+  ID_BENEFICIARIO: "Beneficiary ID",
+  ALERTA_SUS_INCOMPLETO: "There's no data to record information about tutor",
+  ALERTA_REG_SUS_CORRECTO: "Substitute correctly recorded",
+  ALERTA_REG_SUS_INCORRECTO: "Error in substitute's record"
+
 
 };
 

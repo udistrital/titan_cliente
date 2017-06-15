@@ -157,10 +157,28 @@ angular.module('titanClienteV2App')
                     console.log(beneficiario)
                     titanRequest.post('beneficiarios', beneficiario).then(function(response){
                       if(typeof(response.data)=="object"){
-                        alert("beniciario registrado correctamente");
+                        swal({
+                           html: $translate.instant('ALERTA_BEN_CORRECTO'),
+                           type: "success",
+                           showCancelButton: false,
+                           confirmButtonColor: "#449D44",
+                           confirmButtonText: $translate.instant('VOLVER'),
+                           }).then(function() {
+                          $window.location.href = '#/pensiones/beneficiarios';
+                         })
+
                       }
                       if(typeof(response.data)=="string"){
-                        alert("error: "+response.data);
+                        swal({
+                           html: $translate.instant('ALERTA_BEN_INCORRECTO'),
+                           type: "success",
+                           showCancelButton: false,
+                           confirmButtonColor: "#449D44",
+                           confirmButtonText: $translate.instant('VOLVER'),
+                           }).then(function() {
+                          $window.location.href = '#/pensiones/beneficiarios';
+                         })
+                        console.log("error: "+response.data);
                       }
 
                     });
