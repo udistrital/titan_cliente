@@ -64,23 +64,23 @@
             <div ng-show="concepto.TipoConcepto==='fijo'">
               <!-- Select Basic -->
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtValNovedad">Valor</label>
+                <label class="col-md-4 control-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                 <div class="col-md-4">
-                  <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="Valor novedad">
+                  <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO' | translate}}">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtCuotas">Cuotas</label>
+                <label class="col-md-4 control-label" for="txtCuotas">{{'CUOTAS_NOV' | translate}}</label>
                 <div class="col-md-4">
-                  <input id="txtCuotas" name="txtCuotas" ng-model="novedadRegistro.NumCuotas" md-placeholder="Número de cuotas">
+                  <input id="txtCuotas" name="txtCuotas" ng-model="novedadRegistro.NumCuotas" md-placeholder="{{'CUOTAS_NOV' | translate}}">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtFechaRegistro">Fecha registro</label>
+                <label class="col-md-4 control-label" for="txtFechaRegistro">{{'FECHA_REGISTRO' | translate}}</label>
                 <div class="col-md-4">
-                  <md-datepicker id="txtFechaRegistro" name="txtFechaRegistro" ng-model="novedadRegistro.FechaRegistro" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
+                  <md-datepicker id="txtFechaRegistro" name="txtFechaRegistro" ng-model="novedadRegistro.FechaRegistro" md-placeholder="{{'FECHA_REGISTRO'| translate}}"></md-datepicker>
 
                 </div>
               </div>
@@ -98,16 +98,16 @@
               <div ng-show="concepto.TipoConcepto==='porcentaje'">
                 <!-- Select Basic -->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtValNovedad">Valoooooorr</label>
+                  <label class="col-md-4 control-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                   <div class="col-md-4">
-                    <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
+                    <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}"></md-datepicker>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtFechaRegistro">Fecha registro</label>
+                  <label class="col-md-4 control-label" for="txtFechaRegistro">{{'FECHA_REGISTRO' | translate}}</label>
                   <div class="col-md-4">
-                    <md-datepicker id="txtFechaRegistro" name="txtFechaRegistro" ng-model="novedadRegistro.FechaRegistro" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
+                    <md-datepicker id="txtFechaRegistro" name="txtFechaRegistro" ng-model="novedadRegistro.FechaRegistro" md-placeholder="{{'FECHA_REGISTRO'| translate}}"></md-datepicker>
 
                   </div>
                 </div>
@@ -125,7 +125,7 @@
                 <div ng-show="concepto.TipoConcepto==='seguridad_social'">
                   <!-- Select Basic -->
                   <div class="form-group">
-                    <label class="col-md-4 control-label" for="txtFechaInicio">Fecha inicio</label>
+                    <label class="col-md-4 control-label" for="txtFechaInicio">{{'FECHA_INICIO' | translate}}</label>
                     <div class="col-md-4">
                       <md-datepicker id="txtFechaInicio" name="txtFechaInicio" ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
 
@@ -133,7 +133,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="col-md-4 control-label" for="txtFechaRegistro">Fecha fin</label>
+                    <label class="col-md-4 control-label" for="txtFechaRegistro">{{'FECHA_FIN' | translate}}</label>
                     <div class="col-md-4">
                       <md-datepicker id="txtFechaFin" name="txtFechaFin" ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
 
