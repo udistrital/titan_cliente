@@ -64,14 +64,14 @@
             <div ng-show="concepto.TipoConcepto==='fijo'">
               <!-- Select Basic -->
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtFechaDesde">Valor</label>
+                <label class="col-md-4 control-label" for="txtValNovedad">Valor</label>
                 <div class="col-md-4">
-                  <input id="txtValNovedad" name="txtFechaDesde" ng-model="novedadRegistro.ValorNovedad" md-placeholder="Valor novedad">
+                  <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="Valor novedad">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-md-4 control-label" for="txtFechaDesde">Cuotas</label>
+                <label class="col-md-4 control-label" for="txtCuotas">Cuotas</label>
                 <div class="col-md-4">
                   <input id="txtCuotas" name="txtCuotas" ng-model="novedadRegistro.NumCuotas" md-placeholder="Número de cuotas">
                 </div>
@@ -98,23 +98,16 @@
               <div ng-show="concepto.TipoConcepto==='porcentaje'">
                 <!-- Select Basic -->
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtFechaDesde">Valoooooorr</label>
+                  <label class="col-md-4 control-label" for="txtValNovedad">Valoooooorr</label>
                   <div class="col-md-4">
                     <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtFechaDesde">Cuotas</label>
+                  <label class="col-md-4 control-label" for="txtFechaRegistro">Fecha registro</label>
                   <div class="col-md-4">
-                    <input id="txtValCuotas" name="txtFechaDesde" ng-model="novedadRegistro.FechaInicio" disabled md-placeholder="999"></md-datepicker>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="txtFechaDesde">Fecha registro</label>
-                  <div class="col-md-4">
-                    <input id="txtValNovedad" name="txtFechaDesde" ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
+                    <md-datepicker id="txtFechaRegistro" name="txtFechaRegistro" ng-model="novedadRegistro.FechaRegistro" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
 
                   </div>
                 </div>
@@ -128,6 +121,34 @@
                   </div>
                 </div>
                 </div>
+
+                <div ng-show="concepto.TipoConcepto==='seguridad_social'">
+                  <!-- Select Basic -->
+                  <div class="form-group">
+                    <label class="col-md-4 control-label" for="txtFechaInicio">Fecha inicio</label>
+                    <div class="col-md-4">
+                      <md-datepicker id="txtFechaInicio" name="txtFechaInicio" ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-4 control-label" for="txtFechaRegistro">Fecha fin</label>
+                    <div class="col-md-4">
+                      <md-datepicker id="txtFechaFin" name="txtFechaFin" ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
+
+                    </div>
+                  </div>
+                  <!-- Text input-->
+                  <!-- Button (Double) -->
+                  <div class="form-group">
+                    <label class="col-md-4 control-label" for="btnRegistrar"></label>
+                    <div class="col-md-8">
+                      <button id="btnRegistrar" name="btnRegistrar" class="btn btn-success" ng-click="novedadRegistro.Registrar()">{{'REGISTRAR' | translate}}</button>
+                      <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">{{'CANCELAR' | translate}}</button>
+                    </div>
+                  </div>
+                  </div>
 
               </fieldset>
             </form>

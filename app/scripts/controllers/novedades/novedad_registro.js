@@ -10,7 +10,7 @@
 angular.module('titanClienteV2App')
   .controller('NovedadesNovedadRegistroCtrl', function (titanRequest,$scope,$translate) {
     var self = this;
-    self.tipo="porcentaje";
+  //  self.tipo="porcentaje";
     self.gridOptions_conceptos = {
 
       enableFiltering : false,
@@ -22,6 +22,7 @@ angular.module('titanClienteV2App')
         {field: 'Id',             visible : false},
         {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO')},
         {field: 'Naturaleza',  displayName: $translate.instant('NATURALEZA')},
+        {field: 'TipoConcepto',  visible: false},
         ]
 
     };
@@ -100,10 +101,18 @@ angular.module('titanClienteV2App')
     });
 
     self.Registrar = function(){
-      var valor = parseFloat(self.valor);
-      if(self.tipo === "porcentaje"){
-        valor = valor / 100;
+      var valor = parseInt(self.ValorNovedad)
+      var cuotas = parseInt(self.NumCuotas)
+
+      if($scope.concepto.TipoConcepto  === "porcentaje"){
+        cuotas = 999;
       }
+
+      if($scope.concepto.TipoConcepto === "seguridad_social"){
+        valor = 0;
+        cuotas = 0;
+      }
+
       var concepto = {Id : $scope.concepto.Id };
       var persona = {Id : $scope.persona.Id };
       var nomina = {Id : $scope.nomina.Id };
@@ -112,10 +121,10 @@ angular.module('titanClienteV2App')
         EstadoNovedad: "Activo",
         FechaDesde: self.FechaInicio,
         FechaHasta: self.FechaFin,
-        NumCuotas: 0,
+        FechaRegistro: self.FechaRegistro,
+        NumCuotas: cuotas,
         Persona: persona,
         Nomina: nomina ,
-        Tipo: self.tipo,
         ValorNovedad: valor
       };
       console.log(novedad_por_persona);
