@@ -190,13 +190,15 @@ angular.module('titanClienteV2App')
       self.generarReporte = function(){
 
         var num_conceptos = self.numero_conceptos;
-        num_conceptos = (3 + num_conceptos)  //numero de filas anteriores a los conceptos: 3
+        var cuerpo_devengos = []
+        var cuerpo_descuentos = []
+        num_conceptos = (4 + num_conceptos )  //numero de filas anteriores a los conceptos: 3
           var cuerpo_tabla = [
             [{text: 'Pagos periodo yyyy-mm', style: 'tableHeader', colSpan: 5, alignment: 'center'}, {},{},{},{}],
             [{text: 'Rubro',style: 'tableHeader', alignment: 'center'},{text: 'Beneficiario', style: 'tableHeader', alignment: 'center'},{text: 'Orden de pago', style: 'tableHeader', alignment: 'center'},{text: 'Fecha', style: 'tableHeader', alignment: 'center'},{text: 'Concepto', style: 'tableHeader', alignment: 'center'}],
             [{rowSpan: num_conceptos, text: 'Rubro asociado'}, 'Nombre persona', '12345','yyyy-mm-dd','Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'],
             [{}, {text: 'Detalle de pago', style: 'tableHeader', colSpan: 4, alignment: 'center'}, {},{},{}],
-            [{},{text: 'Conceptos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}],
+          //  [{},{text: 'Conceptos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}],
           ]
         var valor;
         var valores_tabla = [
@@ -244,22 +246,33 @@ angular.module('titanClienteV2App')
         for (var i=0; i < self.respuesta_persona.length; i++){
           //DATOS DE PERSONA
           valores_persona.push([{text: self.respuesta_persona[i].NomProveedor}, 'Orden de pago #', 'Fecha','Concepto'])
-      //    valores_persona.push({ text: self.respuesta_persona[i].NumDocumento, fontSize: 15, bold: true }, '\n\n')
-          num_conceptos = self.respuesta_persona[i].Conceptos.length
+
           for (var j=0; j< self.respuesta_persona[i].Conceptos.length; j++){
             valor = self.respuesta_persona[i].Conceptos[j].Valor;
             valor = '$'+valor.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "devengo"){
-
-                cuerpo_tabla.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
+                console.log(self.respuesta_persona[i].Conceptos[j].Nombre)
+                cuerpo_devengos.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
               //  valores_tabla.push([self.respuesta_persona[i].Conceptos[j].Nombre, valor])
             //  value.push({ text: self.respuesta_persona[i].Conceptos[j].Naturaleza.Valor, style: 'tableHeader'});
               }
             if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "descuento"){
-              cuerpo_tabla.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
+                console.log(self.respuesta_persona[i].Conceptos[j].Nombre)
+              cuerpo_descuentos.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
             }
           }
 
+        }
+        console.log(num_conceptos)
+        cuerpo_tabla.push([{},{text: 'Devengos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}])
+         for(var i=0; i < cuerpo_devengos.length; i++){
+           cuerpo_tabla.push(cuerpo_devengos[i])
+         }
+
+        cuerpo_tabla.push([{},{text: 'Descuentos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}])
+
+        for(var i=0; i < cuerpo_descuentos.length; i++){
+          cuerpo_tabla.push(cuerpo_descuentos[i])
         }
 
            pdfMake.createPdf(docDefinition).open();
