@@ -142,7 +142,20 @@ var text_es = {
   ID_BENEFICIARIO: "Identificacion del beneficiario",
   ALERTA_SUS_INCOMPLETO: "No hay datos para ingresar información de tutor",
   ALERTA_REG_SUS_CORRECTO: "Se ha registrado correctamente el sustituto",
-  ALERTA_REG_SUS_INCORRECTO: "Error al registrar sustituto"
+  ALERTA_REG_SUS_INCORRECTO: "Error al registrar sustituto",
+
+  //Desprendible de pago
+  NOMBRE_RUBRO:"Rubro",
+  NOMBRE_BENEFICIARIO: "Beneficiario",
+  NOMBRE_ORDEN_PAGO: "Orden de pago",
+  FECHA_PDF: "Fecha",
+  CONCEPTO_PDF: "Concepto",
+  NOMBRE_RUBRO_ASOCIADO: "Rubro asociado",
+  DETALLE_PAGO_PDF: "Detalle de pago",
+  DEVENGOS_PDF: "Devengos",
+  DESCUENTOS_PDF: "Descuentos",
+  VALOR_PDF: "Valor"
+
 };
 
 var text_en = {
@@ -281,7 +294,19 @@ var text_en = {
   ID_BENEFICIARIO: "Beneficiary ID",
   ALERTA_SUS_INCOMPLETO: "There's no data to record information about tutor",
   ALERTA_REG_SUS_CORRECTO: "Substitute correctly recorded",
-  ALERTA_REG_SUS_INCORRECTO: "Error in substitute's record"
+  ALERTA_REG_SUS_INCORRECTO: "Error in substitute's record",
+
+  //Desprendible pago
+  NOMBRE_RUBRO:"Rubro en inglés",
+  NOMBRE_BENEFICIARIO: "Beneficiary",
+  NOMBRE_ORDEN_PAGO: "Payment order",
+  FECHA_PDF: "Date",
+  CONCEPTO_PDF: "Concept",
+  NOMBRE_RUBRO_ASOCIADO: "Rubro asociado en inglés",
+  DETALLE_PAGO_PDF: "Payment detail",
+  DEVENGOS_PDF: "Incomes",
+  DESCUENTOS_PDF: "Discounts",
+  VALOR_PDF: "Values"
 
 
 };

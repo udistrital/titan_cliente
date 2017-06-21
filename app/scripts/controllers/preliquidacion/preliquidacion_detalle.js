@@ -26,6 +26,8 @@ angular.module('titanClienteV2App')
         {field: 'NumeroContrato' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
         {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
         {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
+      //  {field: 'GenerarPDF',displayName:"Generar PDF",  cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.generarReporte(row)">Generar PDF</button>'}
+
       ],
       onRegisterApi : function( gridApi ) {
         self.gridApi = gridApi;
@@ -192,19 +194,14 @@ angular.module('titanClienteV2App')
         var num_conceptos = self.numero_conceptos;
         var cuerpo_devengos = []
         var cuerpo_descuentos = []
+        var datos_persona;
+        var fecha_generacion = new Date().toJSON().slice(0,10).replace(/-/g,'/');
         num_conceptos = (4 + num_conceptos )  //numero de filas anteriores a los conceptos: 3
           var cuerpo_tabla = [
             [{text: 'Pagos periodo yyyy-mm', style: 'tableHeader', colSpan: 5, alignment: 'center'}, {},{},{},{}],
-            [{text: 'Rubro',style: 'tableHeader', alignment: 'center'},{text: 'Beneficiario', style: 'tableHeader', alignment: 'center'},{text: 'Orden de pago', style: 'tableHeader', alignment: 'center'},{text: 'Fecha', style: 'tableHeader', alignment: 'center'},{text: 'Concepto', style: 'tableHeader', alignment: 'center'}],
-            [{rowSpan: num_conceptos, text: 'Rubro asociado'}, 'Nombre persona', '12345','yyyy-mm-dd','Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'],
-            [{}, {text: 'Detalle de pago', style: 'tableHeader', colSpan: 4, alignment: 'center'}, {},{},{}],
-          //  [{},{text: 'Conceptos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}],
+            [{text: $translate.instant('NOMBRE_RUBRO'),style: 'tableHeader', alignment: 'center'},{text: $translate.instant('NOMBRE_BENEFICIARIO'), style: 'tableHeader', alignment: 'center'},{text: $translate.instant('NOMBRE_ORDEN_PAGO'), style: 'tableHeader', alignment: 'center'},{text: $translate.instant('FECHA_PDF'), style: 'tableHeader', alignment: 'center'},{text: $translate.instant('CONCEPTO_PDF'), style: 'tableHeader', alignment: 'center'}],
           ]
         var valor;
-        var valores_tabla = [
-          [{text: 'Detalle de pago', style: 'tableHeader', colSpan: 2, alignment: 'center'}, {}],
-          [{text: 'Concepto',style: 'tableHeader', alignment: 'center'},{text: 'Valor', style: 'tableHeader', alignment: 'center'}]
-          ];
 
         var valores_persona = [
           [{text: 'Beneficiario',style: 'tableHeader', alignment: 'center'},{text: 'Orden de pago', style: 'tableHeader', alignment: 'center'},{text: 'Fecha', style: 'tableHeader', alignment: 'center'},{text: 'Concepto', style: 'tableHeader', alignment: 'center'}]
@@ -245,7 +242,12 @@ angular.module('titanClienteV2App')
 
         for (var i=0; i < self.respuesta_persona.length; i++){
           //DATOS DE PERSONA
-          valores_persona.push([{text: self.respuesta_persona[i].NomProveedor}, 'Orden de pago #', 'Fecha','Concepto'])
+          datos_persona = self.respuesta_persona[i].NomProveedor + "\n\n" + self.respuesta_persona[i].NumDocumento
+          cuerpo_tabla.push([{rowSpan: num_conceptos, text: 'Rubro asociado'}, {text: datos_persona}, '12345',{text: fecha_generacion},'Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'],
+                            [{}, {text: $translate.instant('DETALLE_PAGO_PDF'), style: 'tableHeader', colSpan: 4, alignment: 'center'}, {},{},{}])
+
+
+        //  valores_persona.push([{text: self.respuesta_persona[i].NomProveedor}, 'Orden de pago #', 'Fecha','Concepto'])
 
           for (var j=0; j< self.respuesta_persona[i].Conceptos.length; j++){
             valor = self.respuesta_persona[i].Conceptos[j].Valor;
@@ -264,12 +266,12 @@ angular.module('titanClienteV2App')
 
         }
         console.log(num_conceptos)
-        cuerpo_tabla.push([{},{text: 'Devengos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}])
+        cuerpo_tabla.push([{},{text: $translate.instant('DEVENGOS_PDF'), style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: $translate.instant('VALOR_PDF'), style: 'tableHeader', alignment: 'center'}])
          for(var i=0; i < cuerpo_devengos.length; i++){
            cuerpo_tabla.push(cuerpo_devengos[i])
          }
 
-        cuerpo_tabla.push([{},{text: 'Descuentos', style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: 'Valor', style: 'tableHeader', alignment: 'center'}])
+        cuerpo_tabla.push([{},{text: $translate.instant('DESCUENTOS_PDF'), style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: $translate.instant('VALOR_PDF'), style: 'tableHeader', alignment: 'center'}])
 
         for(var i=0; i < cuerpo_descuentos.length; i++){
           cuerpo_tabla.push(cuerpo_descuentos[i])
