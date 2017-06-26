@@ -60,6 +60,11 @@ angular
         controller: 'NominaNominaConsultaCtrl',
         controllerAs: 'nominaConsulta'
       })
+      .when('/conceptos/modulo_conceptos', {
+        templateUrl: 'views/conceptos/modulo_conceptos.html',
+        controller: 'ConceptoConceptosConsultaCtrl',
+        controllerAs: 'conceptosConsulta'
+      })
       .when('/preliquidacion/preliquidacion_registro', {
         templateUrl: 'views/preliquidacion/preliquidacion_registro.html',
         controller: 'PreliquidacionPreliquidacionRegistroCtrl',
