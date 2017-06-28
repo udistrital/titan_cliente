@@ -1,6 +1,5 @@
-<br>
-</div>
-</div>
+
+<button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">Añadir concepto</button>
 <div class="col-md-8 panel panel-default">
   <div class="panel-heading">TITULO</div>
   <div class="panel-body"><div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
@@ -17,15 +16,15 @@
            <h3 class="panel-title">EDICION DE CONCEPTO</h3>
          </div>
          <div class="panel-body">
-           <form name="formplan" ng-submit="formplan.$valid && crearPlan.confirmar_plan(formplan)">
+           <form name="formplan" ng-submit="formplan.$valid">
              <fieldset class="form-group">
-               <label for="nombreplan">Nombre del concepto:</label>
-               <input type="text" class="form-control" id="nombre_concepto" placeholder="Nombre del concepto" ng-model="conceptosConsulta.alias_concepto" required>
+               <label for="nombreconceptoedicion">Nombre del concepto:</label>
+               <input type="text" class="form-control" id="nombre_concepto_edicion" placeholder="Nombre del concepto" ng-model="conceptosConsulta.alias_concepto_edicion" required>
              </fieldset>
 
              <fieldset class="form-group">
-               <label for="unidadplan">Naturaleza:</label>
-               <select class="form-control" id="naturaleza_concepto" ng-model="conceptosConsulta.naturaleza" required>
+               <label for="naturalezaconceptoedicion">Naturaleza:</label>
+               <select class="form-control" id="naturaleza_concepto_edicion" ng-model="conceptosConsulta.naturaleza_edicion" required>
                  <option selected="selected" value="seguridad_social">Seguridad social</option>
                  <option selected="selected" value="devengo">Devengo</option>
                  <option selected="selected" value="descuento">Descuento</option>
@@ -34,14 +33,58 @@
              </fieldset>
 
              <fieldset class="form-group">
-               <label for="unidadplan">Tipo:</label>
-               <select class="form-control" id="tipo_concepto" ng-model="conceptosConsulta.tipo" required>
+               <label for="tipoedicion">Tipo:</label>
+               <select class="form-control" id="tipo_concepto_edicion" ng-model="conceptosConsulta.tipo_edicion" required>
                  <option selected="selected" value="seguridad_social">Seguridad social</option>
                  <option selected="selected" value="fijo">Fijo</option>
                  <option selected="selected" value="porcentaje">Porcentaje</option>
                </select>
              </fieldset>
              <center><button  ng-click='conceptosConsulta.actualizar()' class="btn btn-outline btn-primary" >Confirmar </button></center>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+
+</div>
+
+<div id="modal_adicion" class="modal fade" role="dialog">
+   <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">
+     <div class="modal-header">
+       <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
+     </div>
+     <div class="modal-body">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h3 class="panel-title">NUEVO CONCEPTO</h3>
+         </div>
+         <div class="panel-body">
+           <form name="formplan" ng-submit="formplan.$valid">
+             <fieldset class="form-group">
+               <label for="nombreconceptoadicion">Nombre del concepto:</label>
+               <input type="text" class="form-control" id="nombre_concepto_adicion" placeholder="Nombre del concepto" ng-model="conceptosConsulta.alias_concepto_adicion" required>
+             </fieldset>
+
+             <fieldset class="form-group">
+               <label for="naturalezaconceptoadicion">Naturaleza:</label>
+               <select class="form-control" id="naturaleza_concepto_adicion" ng-model="conceptosConsulta.naturaleza_adicion" required>
+                 <option selected="selected" value="seguridad_social">Seguridad social</option>
+                 <option selected="selected" value="devengo">Devengo</option>
+                 <option selected="selected" value="descuento">Descuento</option>
+
+               </select>
+             </fieldset>
+
+             <fieldset class="form-group">
+               <label for="tipoadicion">Tipo:</label>
+               <select class="form-control" id="tipo_concepto_adicion" ng-model="conceptosConsulta.tipo_adicion" required>
+                 <option selected="selected" value="seguridad_social">Seguridad social</option>
+                 <option selected="selected" value="fijo">Fijo</option>
+                 <option selected="selected" value="porcentaje">Porcentaje</option>
+               </select>
+             </fieldset>
+             <center><button  ng-click='conceptosConsulta.anadir()' class="btn btn-outline btn-primary">Confirmar </button></center>
            </form>
          </div>
        </div>
