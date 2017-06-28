@@ -1,8 +1,10 @@
 
-<button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">Añadir concepto</button>
 <div class="col-md-8 panel panel-default">
-  <div class="panel-heading">TITULO</div>
-  <div class="panel-body"><div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
+  <div class="panel-heading">{{'TITULO_GENERAL' | translate}}</div>
+  <div class="panel-body">
+    <button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">{{'ANADIR_CONCEPTO'| translate}}</button>
+  <br></br>
+  <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
 </div>
 
 <div id="modal_edicion" class="modal fade" role="dialog">
@@ -13,34 +15,34 @@
      <div class="modal-body">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h3 class="panel-title">EDICION DE CONCEPTO</h3>
+           <h3 class="panel-title">{{'TITULO_EDICION' | translate}}</h3>
          </div>
          <div class="panel-body">
            <form name="formplan" ng-submit="formplan.$valid">
              <fieldset class="form-group">
-               <label for="nombreconceptoedicion">Nombre del concepto:</label>
+               <label for="nombreconceptoedicion">{{'CONCEPTO_NOMBRE' | translate}}:</label>
                <input type="text" class="form-control" id="nombre_concepto_edicion" placeholder="Nombre del concepto" ng-model="conceptosConsulta.alias_concepto_edicion" required>
              </fieldset>
 
              <fieldset class="form-group">
-               <label for="naturalezaconceptoedicion">Naturaleza:</label>
+               <label for="naturalezaconceptoedicion">{{'NATURALEZA_NOMBRE' | translate}}:</label>
                <select class="form-control" id="naturaleza_concepto_edicion" ng-model="conceptosConsulta.naturaleza_edicion" required>
-                 <option selected="selected" value="seguridad_social">Seguridad social</option>
-                 <option selected="selected" value="devengo">Devengo</option>
-                 <option selected="selected" value="descuento">Descuento</option>
+                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}</option>
+                 <option selected="selected" value="devengo">{{'DEVENGO_CONCEPTO' | translate}}</option>
+                 <option selected="selected" value="descuento">{{'DESCUENTO_CONCEPTO' | translate}}</option>
 
                </select>
              </fieldset>
 
              <fieldset class="form-group">
-               <label for="tipoedicion">Tipo:</label>
+               <label for="tipoedicion">{{'TIPO_NOMBRE' | translate}}:</label>
                <select class="form-control" id="tipo_concepto_edicion" ng-model="conceptosConsulta.tipo_edicion" required>
-                 <option selected="selected" value="seguridad_social">Seguridad social</option>
-                 <option selected="selected" value="fijo">Fijo</option>
-                 <option selected="selected" value="porcentaje">Porcentaje</option>
+                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}</option>
+                 <option selected="selected" value="fijo">{{'FIJO_CONCEPTO' | translate}}</option>
+                 <option selected="selected" value="porcentaje">{{'PORCENTAJE_CONCEPTO' | translate}}</option>
                </select>
              </fieldset>
-             <center><button  ng-click='conceptosConsulta.actualizar()' class="btn btn-outline btn-primary" >Confirmar </button></center>
+             <center><button  ng-click='conceptosConsulta.actualizar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
            </form>
          </div>
        </div>
@@ -57,34 +59,34 @@
      <div class="modal-body">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h3 class="panel-title">NUEVO CONCEPTO</h3>
+           <h3 class="panel-title">{{'TITULO_ADICION' | translate}}</h3>
          </div>
          <div class="panel-body">
            <form name="formplan" ng-submit="formplan.$valid">
              <fieldset class="form-group">
-               <label for="nombreconceptoadicion">Nombre del concepto:</label>
-               <input type="text" class="form-control" id="nombre_concepto_adicion" placeholder="Nombre del concepto" ng-model="conceptosConsulta.alias_concepto_adicion" required>
+               <label for="nombreconceptoadicion">{{'CONCEPTO_NOMBRE' | translate}}:</label>
+               <input type="text" class="form-control" id="nombre_concepto_adicion" placeholder="{{'CONCEPTO_NOMBRE' | translate}}" ng-model="conceptosConsulta.alias_concepto_adicion" required>
              </fieldset>
 
              <fieldset class="form-group">
-               <label for="naturalezaconceptoadicion">Naturaleza:</label>
+               <label for="naturalezaconceptoadicion">{{'NATURALEZA_NOMBRE' | translate}}:</label>
                <select class="form-control" id="naturaleza_concepto_adicion" ng-model="conceptosConsulta.naturaleza_adicion" required>
-                 <option selected="selected" value="seguridad_social">Seguridad social</option>
-                 <option selected="selected" value="devengo">Devengo</option>
-                 <option selected="selected" value="descuento">Descuento</option>
+                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}l</option>
+                 <option selected="selected" value="devengo">{{'DEVENGO_CONCEPTO' | translate}}</option>
+                 <option selected="selected" value="descuento">{{'DESCUENTO_CONCEPTO' | translate}}</option>
 
                </select>
              </fieldset>
 
              <fieldset class="form-group">
-               <label for="tipoadicion">Tipo:</label>
+               <label for="tipoadicion">{{'TIPO_NOMBRE' | translate}}:</label>
                <select class="form-control" id="tipo_concepto_adicion" ng-model="conceptosConsulta.tipo_adicion" required>
-                 <option selected="selected" value="seguridad_social">Seguridad social</option>
-                 <option selected="selected" value="fijo">Fijo</option>
-                 <option selected="selected" value="porcentaje">Porcentaje</option>
+                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}</option>
+                 <option selected="selected" value="fijo">{{'FIJO_CONCEPTO' | translate}}</option>
+                 <option selected="selected" value="porcentaje">{{'PORCENTAJE_CONCEPTO' | translate}}</option>
                </select>
              </fieldset>
-             <center><button  ng-click='conceptosConsulta.anadir()' class="btn btn-outline btn-primary">Confirmar </button></center>
+             <center><button  ng-click='conceptosConsulta.anadir()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
            </form>
          </div>
        </div>

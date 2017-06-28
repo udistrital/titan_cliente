@@ -27,10 +27,10 @@ angular.module('titanClienteV2App')
       columnDefs : [
         {field: 'Id',             visible : false},
         {field: 'NombreConcepto',  visible : false},
-        {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO'), },
-        {field: 'Naturaleza',  displayName: $translate.instant('NATURALEZA')},
-        {field: 'TipoConcepto',  displayName: 'Tipo'},
-        {field: 'Acciones',
+        {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO_NOMBRE'), },
+        {field: 'Naturaleza',  displayName: $translate.instant('NATURALEZA_NOMBRE')},
+        {field: 'TipoConcepto',  displayName: $translate.instant('TIPO_NOMBRE')},
+        {field: 'Acciones', displayName: $translate.instant('ACCIONES'),
         cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.borrar(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
         ]
 
@@ -59,16 +59,16 @@ angular.module('titanClienteV2App')
 
       swal({
              html:
-             "¿Está seguro de querer actualizar el concepto:"+
-             "<br><b>Nombre:</b> "+self.alias_concepto_edicion+
-             "<br><b>Naturaleza:</b> "+self.naturaleza_edicion+
-             "<br><b>Tipo:</b> "+self.tipo_edicion+"?",
+             $translate.instant('CONFIRMACION_EDICION')+
+             "<br><b>"+$translate.instant('CONCEPTO_NOMBRE')+":</b> "+self.alias_concepto_edicion+
+             "<br><b>"+$translate.instant('NATURALEZA_NOMBRE')+":</b> "+self.naturaleza_edicion+
+             "<br><b>"+$translate.instant('TIPO')+":</b> "+self.tipo_edicion+"?",
              type: "warning",
              showCancelButton: true,
              confirmButtonColor: "#449D44",
              cancelButtonColor: "#C9302C",
-             confirmButtonText: "Confirmar",
-             cancelButtonText: "Cancelar",
+             confirmButtonText: $translate.instant('CONFIRMAR'),
+             cancelButtonText: $translate.instant('CANCELAR'),
            }).then(function() {
 
              var concepto_editado = {
@@ -82,23 +82,25 @@ angular.module('titanClienteV2App')
                     console.log(response.data);
                     if(response.data=="OK"){
                       swal({
-                         html: "Registrado correctamente",
+                         html: $translate.instant('ACTUALIZACION_CORRECTA'),
                          type: "success",
                          showCancelButton: false,
                          confirmButtonColor: "#449D44",
                          confirmButtonText: $translate.instant('VOLVER'),
                          }).then(function() {
+                        $('#modal_edicion').modal('hide');
                         $window.location.href = '#/conceptos/modulo_conceptos';
                        })
                     }
                     else{
                       swal({
-                         html: "Error",
+                         html: $translate.instant('ACTUALIZACION_INCORRECTA'),
                          type: "error",
                          showCancelButton: false,
                          confirmButtonColor: "#449D44",
                          confirmButtonText: $translate.instant('VOLVER'),
                          }).then(function() {
+                          $('#modal_edicion').modal('hide');
                         $window.location.href = '#/conceptos/modulo_conceptos';
                        })
                     }
@@ -107,7 +109,7 @@ angular.module('titanClienteV2App')
            }, function(dismiss) {
              if (dismiss === 'cancel') {
 
-               //NO HACER NADA
+                 $('#modal_edicion').modal('hide');   
                $window.location.href = '#/conceptos/modulo_conceptos';
              }
            })
@@ -115,20 +117,20 @@ angular.module('titanClienteV2App')
 
      $scope.borrar = function(row) {
        swal({
-              html: "¿Está seguro de querer eliminar el concepto <b>"+row.entity.AliasConcepto+"</b>?",
+              html: $translate.instant('CONFIRMACION_ELIMINACION')+"<b>"+row.entity.AliasConcepto+"</b>?",
               type: "warning",
               showCancelButton: true,
               confirmButtonColor: "#449D44",
               cancelButtonColor: "#C9302C",
-              confirmButtonText: "Confirmar",
-              cancelButtonText: "Cancelar",
+              confirmButtonText: $translate.instant('CONFIRMAR'),
+              cancelButtonText: $translate.instant('CANCELAR'),
             }).then(function() {
 
               titanRequest.delete('concepto', row.entity.Id).then(function(response) {
                 console.log(response.data);
                 if(response.data=="OK"){
                   swal({
-                     html: "Eliminado correctamente",
+                     html: $translate.instant('ELIMINACION_CORRECTA'),
                      type: "success",
                      showCancelButton: false,
                      confirmButtonColor: "#449D44",
@@ -139,7 +141,7 @@ angular.module('titanClienteV2App')
                 }
                 else{
                   swal({
-                     html: "Error",
+                     html: $translate.instant('ELIMINACION_INCORRECTA'),
                      type: "error",
                      showCancelButton: false,
                      confirmButtonColor: "#449D44",
@@ -164,16 +166,16 @@ angular.module('titanClienteV2App')
 
             swal({
                    html:
-                   "¿Está seguro de querer añadir el concepto:"+
-                   "<br><b>Nombre:</b> "+self.alias_concepto_adicion+
-                   "<br><b>Naturaleza:</b> "+self.naturaleza_adicion+
-                   "<br><b>Tipo:</b> "+self.tipo_adicion+"?",
+                   $translate.instant('CONFIRMACION_ADICION')+
+                   "<br><b>"+$translate.instant('CONCEPTO_NOMBRE')+":</b> "+self.alias_concepto_adicion+
+                   "<br><b>"+$translate.instant('NATURALEZA_NOMBRE')+":</b> "+self.naturaleza_adicion+
+                   "<br><b>"+$translate.instant('TIPO')+":</b> "+self.tipo_adicion+"?",
                    type: "warning",
                    showCancelButton: true,
                    confirmButtonColor: "#449D44",
                    cancelButtonColor: "#C9302C",
-                   confirmButtonText: "Confirmar",
-                   cancelButtonText: "Cancelar",
+                   confirmButtonText: $translate.instant('CONFIRMAR'),
+                   cancelButtonText: $translate.instant('CANCELAR'),
                  }).then(function() {
 
                    var concepto_nuevo_temp = {
@@ -201,33 +203,47 @@ angular.module('titanClienteV2App')
                               console.log(response.data);
                               if(response.data=="OK"){
                                 swal({
-                                   html: "Registrado correctamente",
+                                   html:  $translate.instant('ADICION_CORRECTA'),
                                    type: "success",
                                    showCancelButton: false,
                                    confirmButtonColor: "#449D44",
                                    confirmButtonText: $translate.instant('VOLVER'),
                                    }).then(function() {
+                                  $('#modal_adicion').modal('hide');
                                   $window.location.href = '#/conceptos/modulo_conceptos';
                                  })
                               }
-                              else{
+                              if(typeof(response.data)=="string"){
                                 swal({
-                                   html: "Error",
+                                   html:  $translate.instant('ADICION_INCORRECTA'),
                                    type: "error",
                                    showCancelButton: false,
                                    confirmButtonColor: "#449D44",
                                    confirmButtonText: $translate.instant('VOLVER'),
                                    }).then(function() {
+                                   $('#modal_adicion').modal('hide');
                                   $window.location.href = '#/conceptos/modulo_conceptos';
                                  })
                               }
                             });
                           }
+                          if(typeof(response.data)=="string"){
+                            swal({
+                               html:  $translate.instant('ADICION_INCORRECTA'),
+                               type: "error",
+                               showCancelButton: false,
+                               confirmButtonColor: "#449D44",
+                               confirmButtonText: $translate.instant('VOLVER'),
+                               }).then(function() {
+                              $('#modal_adicion').modal('hide');
+                              $window.location.href = '#/conceptos/modulo_conceptos';
+                             })
+                          }
                         });
 
                  }, function(dismiss) {
                    if (dismiss === 'cancel') {
-
+                     $('#modal_adicion').modal('hide');
                      $window.location.href = '#/conceptos/modulo_conceptos';
                    }
                  })

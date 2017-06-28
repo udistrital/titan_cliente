@@ -23,6 +23,8 @@ var text_es = {
   ACTIVO:"Activo",
   INACTIVO:"Inactivo",
   SELECCIONE: "Seleccione...",
+  CONFIRMAR: "Confirmar",
+  CANCELAR: "Cancelar",
   //Formulario registro nómina
   ANADIR_NOMINA: "Añadir nómina",
   TITULO_REG_NOMINA: "Registro de nómina",
@@ -154,8 +156,31 @@ var text_es = {
   DETALLE_PAGO_PDF: "Detalle de pago",
   DEVENGOS_PDF: "Devengos",
   DESCUENTOS_PDF: "Descuentos",
-  VALOR_PDF: "Valor"
+  VALOR_PDF: "Valor",
 
+  //MÓDULO DE conceptos
+  TITULO_GENERAL: "CONCEPTOS REGISTRADOS",
+  TITULO_EDICION: "EDICIÓN DE CONCEPTO",
+  TITULO_ADICION: "NUEVO CONCEPTO",
+  ANADIR_CONCEPTO: "Añadir concepto",
+  CONCEPTO_NOMBRE: "Nombre de concepto",
+  NATURALEZA_NOMBRE: "Naturaleza",
+  TIPO_NOMBRE: "Tipo",
+  ACCIONES: "Acciones",
+  CONFIRMACION_EDICION: "¿Está seguro de querer actualizar el concepto:",
+  ACTUALIZACION_CORRECTA: "Concepto actualizado correctamente",
+  ACTUALIZACION_INCORRECTA: "Error al actualizar concepto",
+  CONFIRMACION_ELIMINACION: "¿Está seguro de querer eliminar el concepto:",
+  ELIMINACION_CORRECTA: "Concepto eliminado correctamente",
+  ELIMINACION_INCORRECTA: "Error al eliminar concepto",
+  CONFIRMACION_ADICION: "¿Está seguro de querer agregar el concepto:",
+  ADICION_CORRECTA: "Concepto agregado correctamente",
+  ADICION_INCORRECTA: "Error al agregado concepto",
+  SEG_SOCIAL: "Seguridad social",
+  DEVENGO_CONCEPTO: "Devengo",
+  DESCUENTO_CONCEPTO:"Descuento",
+  FIJO_CONCEPTO: "Fijo",
+  PORCENTAJE_CONCEPTO: "Porcentaje"
 };
 
 var text_en = {
@@ -173,6 +198,8 @@ var text_en = {
   NO:"No",
   ACTIVO:"Active",
   INACTIVO:"Inactive",
+  CONFIRMAR: "Confirm",
+  CANCELAR: "Cancel",
   //Formulario registro y visualizaión nómina
   ANADIR_NOMINA: "Add payslip",
   TITULO_REG_NOMINA: "Payslip's record",
@@ -306,7 +333,31 @@ var text_en = {
   DETALLE_PAGO_PDF: "Payment detail",
   DEVENGOS_PDF: "Incomes",
   DESCUENTOS_PDF: "Discounts",
-  VALOR_PDF: "Values"
+  VALOR_PDF: "Values",
+
+//MODULO DE CONCEPTOS
+  TITULO_GENERAL: "RECORDED CONCEPTS",
+  TITULO_EDICION: "CONCEPT EDITING",
+  TITULO_ADICION: "NEW CONCEPT",
+  ANADIR_CONCEPTO: "Add concept",
+  CONCEPTO_NOMBRE: "Concept name",
+  NATURALEZA_NOMBRE: "Nature",
+  TIPO_NOMBRE: "Type",
+  ACCIONES: "Actions",
+  CONFIRMACION_EDICION: "Are you sure you want to update the concept:",
+  ACTUALIZACION_CORRECTA: "Concept correctly updated",
+  ACTUALIZACION_INCORRECTA: "Error updating concept",
+  CONFIRMACION_ELIMINACION: "Are you sure you want to delete the concept:",
+  ELIMINACION_CORRECTA: "Concept correctly deleted",
+  ELIMINACION_INCORRECTA: "Error deleting concept",
+  CONFIRMACION_ADICION: "Are you sure you cant to add the concept:",
+  ADICION_CORRECTA: "Concept correctly added",
+  ADICION_INCORRECTA: "Error adding concepto",
+  SEG_SOCIAL: "Seguridad social",
+  DEVENGO_CONCEPTO: "Income",
+  DESCUENTO_CONCEPTO:"Discount",
+  FIJO_CONCEPTO: "Fixed",
+  PORCENTAJE_CONCEPTO: "Percentage"
 
 
 };
