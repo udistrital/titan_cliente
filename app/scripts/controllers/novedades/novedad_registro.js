@@ -13,7 +13,7 @@ angular.module('titanClienteV2App')
   //  self.tipo="porcentaje";
     self.gridOptions_conceptos = {
 
-      enableFiltering : false,
+      enableFiltering : true,
       enableSorting : true,
       enableRowSelection: true,
       enableRowHeaderSelection: false,
@@ -128,6 +128,7 @@ angular.module('titanClienteV2App')
         ValorNovedad: valor
       };
       console.log(novedad_por_persona);
+      if ($scope.concepto.TipoConcepto  === "porcentaje" && valor >= 0 && valor <= 100){
       titanRequest.post('concepto_por_persona',novedad_por_persona).then(function(response) {
         if(typeof(response.data)=="object"){
           swal({
@@ -154,6 +155,18 @@ angular.module('titanClienteV2App')
           console.log("error: "+response.data);
         }
       });
+    }
+    else{
+      swal({
+         html: "Inserte un porcentaje válido",
+         type: "error",
+         showCancelButton: false,
+         confirmButtonColor: "#449D44",
+         confirmButtonText: $translate.instant('VOLVER'),
+         }).then(function() {
+        $window.location.href = '#/novedades/novedad_registro';
+       })
+    }
 
     };
   });

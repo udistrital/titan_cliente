@@ -1,4 +1,4 @@
-</div>
+
     <div class="row">
         <div class="col-md-8">
             <div class="panel-success class">
@@ -36,7 +36,7 @@
                 <div class="panel-body" ng-show="liquidacion.seleccion_conceptos">
                     <table class="table  table-scrollable">
                         <tr>
-                          <th>{{'CONCEPTO' | translate}}</th><th>{{'VALOR'|translate}}</th><th>{{'NATURALEZA'| translate}}</th><th>{{'TIPO'| translate}}</th><
+                          <th>{{'CONCEPTO' | translate}}</th><th>{{'VALOR'|translate}}</th><th>{{'NATURALEZA'| translate}}</th><th>{{'TIPO'| translate}}</th>
                         </tr>
                         <tr ng-repeat="concepto in liquidacion.seleccion_conceptos" ng-show="concepto.Naturaleza === 'devengo'" class="devengo">
                             <td>{{concepto.Nombre}}</td><td>{{concepto.Valor | currency}}</td><td>{{concepto.Naturaleza}}</td>

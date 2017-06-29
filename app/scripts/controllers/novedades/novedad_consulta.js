@@ -21,7 +21,7 @@ angular.module('titanClienteV2App')
         {field: 'Id',             visible : false},
         {field: 'Concepto.AliasConcepto',  displayName:  $translate.instant('CONCEPTO')},
         {field: 'Concepto.Naturaleza' , displayName: $translate.instant('NATURALEZA')},
-        {field: 'Tipo', displayName: $translate.instant('TIPO_CONCEPTO')  },
+        {field: 'Concepto.TipoConcepto', displayName: $translate.instant('TIPO_CONCEPTO')  },
         {field: 'ValorNovedad' , displayName: $translate.instant('VALOR_CONCEPTO')  },
         {field: 'FechaDesde' , displayName: $translate.instant('FECHA_INICIO') , cellTemplate: '<span>{{row.entity.FechaDesde | date:"yyyy-MM-dd":"+0900"}}</span>' },
         {field: 'FechaHasta' , displayName: $translate.instant('FECHA_FIN') , cellTemplate: '<span>{{row.entity.FechaHasta | date:"yyyy-MM-dd":"+0900"}}</span>' },

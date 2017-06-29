@@ -38,7 +38,7 @@
                 <div class="panel-body" ng-show="preliquidacionDetalle.seleccion_conceptos">
                     <table class="table  table-scrollable">
                         <tr>
-                            <th>{{'CONCEPTO' | translate}}</th><th>{{'VALOR'|translate}}</th><th>{{'NATURALEZA'| translate}}</th><th>{{'TIPO'| translate}}</th><
+                            <th>{{'CONCEPTO' | translate}}</th><th>{{'VALOR'|translate}}</th><th>{{'NATURALEZA'| translate}}</th><th>{{'TIPO'| translate}}</th>
                         </tr>
                         <tr ng-repeat="concepto in preliquidacionDetalle.seleccion_conceptos" ng-show="concepto.Naturaleza === 'devengo'" class="devengo">
                             <td class="texto">{{concepto.Nombre}}</td><td class="dinero">{{concepto.Valor | currency}}</td><td>{{concepto.Naturaleza}}</td><td>{{concepto.TipoPreliquidacion}}</td>

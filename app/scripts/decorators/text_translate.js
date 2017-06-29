@@ -78,7 +78,8 @@ var text_es = {
   //Interfaz de detalle de liquidacion
   TITULO_DETALLE_LIQ :"Detalle de liquidación de la nómina",
   RESUMEN_LIQ: "Resumen de la liquidación",
-
+  //CONSULTA NOVEDADES
+  TITULO_CON_NOV: "Novedades registradas",
   //REGISTRO NOVEDADES
   REGISTRO_NOVEDAD: "Registro de novedad",
   DETALLE_NOVEDAD: "Detalle de novedad",
@@ -180,7 +181,18 @@ var text_es = {
   DEVENGO_CONCEPTO: "Devengo",
   DESCUENTO_CONCEPTO:"Descuento",
   FIJO_CONCEPTO: "Fijo",
-  PORCENTAJE_CONCEPTO: "Porcentaje"
+  PORCENTAJE_CONCEPTO: "Porcentaje",
+
+  //MENÚ GENERAL
+  PENSIONADOS_MENU: "Pensionados",
+  INGRESAR_BEN: "Ingresar beneficiarios",
+  INGRESAR_SUS:"Ingresar sustitutos",
+  NOMINA_MENU: "Nóminas",
+  CONCEPTOS_MENU: "Concepto",
+  NOVEDADES_MENU: "Novedades",
+  REG_NOV_MENU:"Registrar novedades",
+  CONS_NOV_MENU:"Consultar novedades"
+
 };
 
 var text_en = {
@@ -254,7 +266,8 @@ var text_en = {
   //Interfaz de detalle de liquidacion
   TITULO_DETALLE_LIQ :"Liquidation payslip detail: ",
   RESUMEN_LIQ: "Liquidation's summary",
-
+  //CONSULTA NOVEDADES
+  TITULO_CON_NOV: "Recorded changes",
   //REGISTRO novedades
   REGISTRO_NOVEDAD: "Changes's record",
   DETALLE_NOVEDAD: "Changes's detail",
@@ -357,8 +370,17 @@ var text_en = {
   DEVENGO_CONCEPTO: "Income",
   DESCUENTO_CONCEPTO:"Discount",
   FIJO_CONCEPTO: "Fixed",
-  PORCENTAJE_CONCEPTO: "Percentage"
+  PORCENTAJE_CONCEPTO: "Percentage",
 
+  //MENÚ GENERAL
+  PENSIONADOS_MENU: "Retirees",
+  INGRESAR_BEN: "Record beneficiaries",
+  INGRESAR_SUS:"Record substitutes",
+  NOMINA_MENU: "Payslips",
+  CONCEPTOS_MENU: "Concepts",
+  NOVEDADES_MENU: "Changes",
+  REG_NOV_MENU:"Record changes",
+  CONS_NOV_MENU:"List changes"
 
 };
 
