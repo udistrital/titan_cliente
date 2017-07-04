@@ -8,8 +8,8 @@
  * Decorator of the titanClienteV2App
  */
 var text_es = {
-  TITULO: "GENERATOR-OAS",
-  MENSAJE_INICIAL: "Ahora puede comenzar con el desarrollo ...",
+  TITULO: "SISTEMA DE GESTIÓN DE NÓMINA",
+  MENSAJE_INICIAL: "Oficina asesora de sistemas",
   VOLVER: "Volver",
   SALIR: "Salir",
   REGISTRAR: "Registrar",

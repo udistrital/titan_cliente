@@ -103,19 +103,135 @@ angular.module('titanClienteV2App')
     { //Nómina
       "Id": 4,
       "Nombre": "Novedades",
-      "Url": "conceptos/modulo_conceptos",
+      "Url": "",
       "Opciones": [
         { //Ingresar beneficiarios
           "Id": 1,
-          "Nombre": "Registrar novedades",
-          "Url": "novedades/novedad_registro",
-          "Opciones": null
+          "Nombre": "Planta",
+          "Url": "",
+          "Opciones": [
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Funcionarios administrativos",
+              "Url": "nomina/nomina_consulta/FP",
+              "Opciones": [
+                { //Ingresar beneficiarios
+                  "Id": 1,
+                  "Nombre": "Registrar novedades",
+                  "Url": "novedades/novedad_registro/FP",
+                  "Opciones": null
+                },
+                { //Ingresar sustitutos
+                  "Id": 1,
+                  "Nombre": "Consultar novedades",
+                  "Url": "novedades/novedad_consulta/FP",
+                  "Opciones": null
+                }
+              ]
+            },
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Docentes de planta",
+              "Url": "nomina/nomina_consulta/DP",
+              "Opciones": [
+                { //Ingresar beneficiarios
+                  "Id": 1,
+                  "Nombre": "Registrar novedades",
+                  "Url": "novedades/novedad_registro/DP",
+                  "Opciones": null
+                },
+                { //Ingresar sustitutos
+                  "Id": 1,
+                  "Nombre": "Consultar novedades",
+                  "Url": "novedades/novedad_consulta/DP",
+                  "Opciones": null
+                }
+              ]
+            },
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Pensionados",
+              "Url": "nomina/nomina_consulta/PE",
+              "Opciones": [
+                { //Ingresar beneficiarios
+                  "Id": 1,
+                  "Nombre": "Registrar novedades",
+                  "Url": "novedades/novedad_registro",
+                  "Opciones": null
+                },
+                { //Ingresar sustitutos
+                  "Id": 1,
+                  "Nombre": "Consultar novedades/PE",
+                  "Url": "novedades/novedad_consulta/PE",
+                  "Opciones": null
+                }
+              ]
+            }
+          ]
         },
-        { //Ingresar sustitutos
+        { //Ingresar beneficiarios
           "Id": 1,
-          "Nombre": "Consultar novedades",
-          "Url": "novedades/novedad_consulta",
-          "Opciones": null
+          "Nombre": "Hóra cátedra",
+          "Url": "",
+          "Opciones": [
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Honorarios",
+              "Url": "nomina/nomina_consulta/HC",
+              "Opciones": [
+                { //Ingresar beneficiarios
+                  "Id": 1,
+                  "Nombre": "Registrar novedades",
+                  "Url": "novedades/novedad_registro/HC",
+                  "Opciones": null
+                },
+                { //Ingresar sustitutos
+                  "Id": 1,
+                  "Nombre": "Consultar novedades",
+                  "Url": "novedades/novedad_consulta/HC",
+                  "Opciones": null
+                }
+              ]
+            },
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Salarios",
+              "Url": "nomina/nomina_consulta/HC-SALARIOS",
+              "Opciones": [
+                { //Ingresar beneficiarios
+                  "Id": 1,
+                  "Nombre": "Registrar novedades",
+                  "Url": "novedades/novedad_registro/HC-SALARIOS",
+                  "Opciones": null
+                },
+                { //Ingresar sustitutos
+                  "Id": 1,
+                  "Nombre": "Consultar novedades",
+                  "Url": "novedades/novedad_consulta/HC-SALARIOS",
+                  "Opciones": null
+                }
+              ]
+            }
+          ]
+        },
+        { //Ingresar beneficiarios
+          "Id": 1,
+          "Nombre": "Contratistas",
+          "Url": "nomina/nomina_consulta/CT",
+          "Opciones": [
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Registrar novedades",
+              "Url": "novedades/novedad_registro/CT",
+              "Opciones": null
+            },
+            { //Ingresar sustitutos
+              "Id": 1,
+              "Nombre": "Consultar novedades",
+              "Url": "novedades/novedad_consulta/CT",
+              "Opciones": null
+            }
+          ]
         }
       ]
     },

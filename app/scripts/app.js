@@ -85,13 +85,13 @@ angular
         controller: 'PreliquidacionResumenPreliquidacionCtrl',
         controllerAs: 'resumenPreliquidacion'
       })
-      .when('/novedades/novedad_registro', {
+      .when('/novedades/novedad_registro/:tipo', {
         templateUrl: 'views/novedades/novedad_registro.html',
         controller: 'NovedadesNovedadRegistroCtrl',
         controllerAs: 'novedadRegistro'
       })
 
-      .when('/novedades/novedad_consulta', {
+      .when('/novedades/novedad_consulta/:tipo', {
         templateUrl: 'views/novedades/novedad_consulta.html',
         controller: 'NovedadesNovedadConsultaCtrl',
         controllerAs: 'novedadConsulta'

@@ -8,8 +8,9 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('NovedadesNovedadConsultaCtrl', function (titanRequest,$translate) {
+  .controller('NovedadesNovedadConsultaCtrl', function (titanRequest,$translate,$routeParams) {
     var self = this;
+    self.tipo = $routeParams.tipo;
     self.gridOptions = {
 
       enableFiltering : true,
@@ -32,7 +33,7 @@ angular.module('titanClienteV2App')
         ]
 
     };
-    titanRequest.get('concepto_por_persona','limit=0&sortby=Id&order=desc').then(function(response) {
+    titanRequest.get('concepto_por_persona','limit=0&query=Nomina.TipoNomina.Nombre:'+self.tipo+'&sortby=Id&order=desc').then(function(response) {
      self.gridOptions.data = response.data;
     });
   });

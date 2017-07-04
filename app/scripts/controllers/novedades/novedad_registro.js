@@ -8,8 +8,9 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('NovedadesNovedadRegistroCtrl', function (titanRequest,$scope,$translate) {
+  .controller('NovedadesNovedadRegistroCtrl', function (titanRequest,$scope,$translate,$routeParams) {
     var self = this;
+    self.tipo = $routeParams.tipo;
   //  self.tipo="porcentaje";
     self.gridOptions_conceptos = {
 
@@ -37,7 +38,7 @@ angular.module('titanClienteV2App')
         {field: 'Id',             visible : false},
         {field: 'Nombre',  displayName: $translate.instant('NOMBRE_NOMINA') },
         {field: 'Descripcion' ,  displayName: $translate.instant('DESC_NOMINA')},
-          {field: 'Periodo',  displayName: $translate.instant('  PERIODO_NOMINA')        },
+        {field: 'Periodo',  displayName: $translate.instant('  PERIODO_NOMINA')        },
         ]
 
     };
@@ -96,7 +97,7 @@ angular.module('titanClienteV2App')
     titanRequest.get('concepto','limit=0&sortby=Id&order=desc').then(function(response) {
      self.gridOptions_conceptos.data = response.data;
     });
-    titanRequest.get('nomina','limit=0&sortby=Id&order=desc&query=Estado:Activo').then(function(response) {
+    titanRequest.get('nomina','limit=0&sortby=Id&order=desc&query=Estado:Activo,TipoNomina.Nombre:'+self.tipo).then(function(response) {
      self.gridOptions_nominas.data = response.data;
     });
 
