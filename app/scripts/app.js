@@ -55,7 +55,7 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/nomina/nomina_consulta', {
+      .when('/nomina/nomina_consulta/:tipo', {
         templateUrl: 'views/nomina/nomina_consulta.html',
         controller: 'NominaNominaConsultaCtrl',
         controllerAs: 'nominaConsulta'

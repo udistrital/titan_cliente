@@ -40,8 +40,59 @@ angular.module('titanClienteV2App')
     { //Nómina
       "Id": 2,
       "Nombre": "Nóminas",
-      "Url": "nomina/nomina_consulta",
-      "Opciones": null
+      "Url": "",
+      "Opciones": [
+        { //Ingresar beneficiarios
+          "Id": 1,
+          "Nombre": "Planta",
+          "Url": "",
+          "Opciones": [
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Funcionarios administrativos",
+              "Url": "nomina/nomina_consulta/FP",
+              "Opciones": null
+            },
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Docentes de planta",
+              "Url": "nomina/nomina_consulta/DP",
+              "Opciones": null
+            },
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Pensionados",
+              "Url": "nomina/nomina_consulta/PE",
+              "Opciones": null
+            }
+          ]
+        },
+        { //Ingresar beneficiarios
+          "Id": 1,
+          "Nombre": "Hóra cátedra",
+          "Url": "",
+          "Opciones": [
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Honorarios",
+              "Url": "nomina/nomina_consulta/HC",
+              "Opciones": null
+            },
+            { //Ingresar beneficiarios
+              "Id": 1,
+              "Nombre": "Salarios",
+              "Url": "nomina/nomina_consulta/HC-SALARIOS",
+              "Opciones": null
+            }
+          ]
+        },
+        { //Ingresar beneficiarios
+          "Id": 1,
+          "Nombre": "Contratistas",
+          "Url": "nomina/nomina_consulta/CT",
+          "Opciones": null
+        }
+      ]
     },
     { //Nómina
       "Id": 3,

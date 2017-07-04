@@ -20,13 +20,7 @@
               <option ng-repeat="tvinculacion in nominaConsulta.tipoVinculacion"  value="{{tvinculacion.Id}}">{{tvinculacion.Nombre}}</option>
             </select>
           </div>
-           <div class="form-group row">
-            <label for="select_tipo_nomina" class="col-sm-5 col-form-label">{{'TIPO_NOMINA' | translate}}  </label>
-            <select name="select_tipo_nomina" id="select_tipo_nomina"  ng-model="nominaConsulta.selectTipoNomina">
-              <option selected disabled selected="selected">{{'SELECCIONE' | translate}}</option>
-              <option ng-repeat="tnomina in nominaConsulta.tipoNomina"  value="{{tnomina.Id}}">{{tnomina.Nombre}}</option>
-            </select>
-          </div>
+          
            <div class="form-group row">
             <label for="select_estado_nomina" class="col-sm-5 col-form-label">{{'ESTADO_NOMINA' | translate}} </label>
             <select name="select_estado_nomina" id="select_estado_nomina" ng-model="nominaConsulta.selectEstado">
