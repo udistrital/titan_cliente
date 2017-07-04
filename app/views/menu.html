@@ -51,22 +51,6 @@
         </ul>
       </li>
 
-      <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{'PENSIONADOS_MENU'| translate}}<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-              <li><a ng-href="#/pensiones/beneficiarios">{{'INGRESAR_BEN'| translate}}</a></li>
-              <li><a ng-href="#/pensiones/sustituto">{{'INGRESAR_SUS'| translate}}</a></li>
-              </ul>
-        </li>
-
-        <li><a ng-href="#/nomina/nomina_consulta">{{'NOMINA_MENU'| translate}}</a></li>
-
-        <li><a ng-href="#/conceptos/modulo_conceptos">{{'CONCEPTOS_MENU'| translate}}</a></li>
-        <li class="dropdown"><a ng-href="actual" class="dropdown-toggle" data-toggle="dropdown">{{'NOVEDADES_MENU'| translate}}<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a ng-href="#/novedades/novedad_registro">{{'REG_NOV_MENU'| translate}}</a></li>
-              <li><a ng-href="#/novedades/novedad_consulta">{{'CONS_NOV_MENU'| translate}}</a></li>
-            </ul>
-        </li>
       <!-- /.dropdown Notifications-->
       <li class="dropdown">
         <a class="dropdown-toggle notificacion_vista" data-toggle="dropdown" ng-href="{{actual}}" ng-if="notificacion.no_vistos() > 0">

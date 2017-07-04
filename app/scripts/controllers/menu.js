@@ -17,27 +17,59 @@ angular.module('titanClienteV2App')
     $scope.actual = "";
     $scope.token_service = token_service;
     $scope.breadcrumb = [];
-    $scope.menu_service = [{ //aqui va el servicio de el app de configuracion
+    $scope.menu_service = [
+    { //Pensionados
+      "Id": 1,
+      "Nombre": "Pensionados",
+      "Url": "",
+      "Opciones": [
+        { //Ingresar beneficiarios
+          "Id": 1,
+          "Nombre": "Ingresar beneficiario",
+          "Url": "pensiones/beneficiarios",
+          "Opciones": null
+        },
+        { //Ingresar sustitutos
+          "Id": 1,
+          "Nombre": "Ingresar sustituto",
+          "Url": "pensiones/sustituto",
+          "Opciones": null
+        }
+      ]
+    },
+    { //Nómina
       "Id": 2,
-      "Nombre": "nivel 1",
-      "Url": "url_nivel_1",
-      "Opciones": [{
-        "Id": 3,
-        "Nombre": "nivel 2",
-        "Url": "url_nivel_2",
-        "Opciones": [{
-          "Id": 7,
-          "Nombre": "nivel 3",
-          "Url": "url_nivel_3",
-          "Opciones": [{
-            "Id": 8,
-            "Nombre": "nivel 4 about",
-            "Url": "about",
-            "Opciones": null
-          }]
-        }]
-      }]
-    }];
+      "Nombre": "Nóminas",
+      "Url": "nomina/nomina_consulta",
+      "Opciones": null
+    },
+    { //Nómina
+      "Id": 3,
+      "Nombre": "Conceptos",
+      "Url": "conceptos/modulo_conceptos",
+      "Opciones": null
+    },
+    { //Nómina
+      "Id": 4,
+      "Nombre": "Novedades",
+      "Url": "conceptos/modulo_conceptos",
+      "Opciones": [
+        { //Ingresar beneficiarios
+          "Id": 1,
+          "Nombre": "Registrar novedades",
+          "Url": "novedades/novedad_registro",
+          "Opciones": null
+        },
+        { //Ingresar sustitutos
+          "Id": 1,
+          "Nombre": "Consultar novedades",
+          "Url": "novedades/novedad_consulta",
+          "Opciones": null
+        }
+      ]
+    },
+
+  ];
 
     var recorrerArbol = function(item, padre) {
       var padres = "";
