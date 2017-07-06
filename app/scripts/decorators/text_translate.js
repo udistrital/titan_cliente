@@ -57,6 +57,7 @@ var text_es = {
   NUM_CONTRATO: "Número de contrato",
   NOMBRE_PERSONA: "Nombre",
   DOCUMENTO: "Documento",
+  VIGENCIA: "Vigencia",
   ALERTA_PERSONAS_SIN_SS: "No es posible realizar la liquidacion. Las personas resaltadas no cuentan con sus datos de seguridad social completos",
 
   //Interfaz de detalle de preliquidacion
@@ -245,6 +246,7 @@ var text_en = {
   NUM_CONTRATO: "Contract Number",
   NOMBRE_PERSONA: "Name",
   DOCUMENTO: "Identification",
+  VIGENCIA: "Validity",
   ALERTA_PERSONAS_SIN_SS: "The selected people cannot be pay off due to incomplete data",
 
   //Interfaz de detalle de preliquidacion

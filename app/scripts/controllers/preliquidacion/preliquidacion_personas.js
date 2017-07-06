@@ -26,6 +26,7 @@ angular.module('titanClienteV2App')
           {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
           {field: 'NombreProveedor',  displayName:  $translate.instant('NOMBRE_PERSONA')},
           {field: 'NumeroContrato' ,  displayName: $translate.instant('NUM_CONTRATO')},
+          {field: 'VigenciaContrato', displayName:  $translate.instant('VIGENCIA')},
 	        {field: 'IdEPS',  visible : false},
           {field: 'IdARL',  visible : false},
           {field: 'IdFondoPension',  visible : false},
@@ -45,7 +46,8 @@ angular.module('titanClienteV2App')
         var personas_a_liquidar = [];
         for (var i=0; i < personas.length; i++){
          var persona = { IdPersona : personas[i].Id ,
-                         NumeroContrato :  personas[i].NumeroContrato
+                         NumeroContrato :  personas[i].NumeroContrato,
+                         VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                         };
 
           personas_a_liquidar.push(persona)
@@ -84,6 +86,7 @@ angular.module('titanClienteV2App')
             {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
             {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
             {field: 'NumeroContrato',  displayName:  $translate.instant('NUM_CONTRATO')},
+            {field: 'VigenciaContrato', displayName:  $translate.instant('VIGENCIA')},
   	      ],
   	      onRegisterApi : function( gridApi ) {
   	        self.gridApi = gridApi;
@@ -102,7 +105,8 @@ angular.module('titanClienteV2App')
            if(personas[i].IdEPS === 0 || personas[i].IdARL === 0 || personas[i].IdFondoPension === 0 || personas[i].IdCajaCompensacion === 0){
              //swal("¡ERROR!","No se puede realizar liquidación","error")
              var persona = { IdPersona : personas[i].Id ,
-                              NumeroContrato :  personas[i].NumeroContrato
+                              NumeroContrato :  personas[i].NumeroContrato,
+                              VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                             };
              personas_sin_ss.push(persona)
            }
@@ -130,7 +134,8 @@ angular.module('titanClienteV2App')
            else{
              for (var i=0; i < personas.length; i++){
               var persona = { IdPersona : personas[i].Id ,
-                              NumeroContrato :  personas[i].NumeroContrato
+                              NumeroContrato :  personas[i].NumeroContrato,
+                              VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                              };
 
                personas_a_liquidar.push(persona)
@@ -173,6 +178,7 @@ angular.module('titanClienteV2App')
               {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
               {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
               {field: 'NumeroContrato' ,  displayName:  $translate.instant('NUM_CONTRATO')},
+              {field: 'VigenciaContrato', displayName:  $translate.instant('VIGENCIA')},
 
             ],
             onRegisterApi : function( gridApi ) {
@@ -190,7 +196,8 @@ angular.module('titanClienteV2App')
     var personas_a_liquidar = [];
     for (var i=0; i < personas.length; i++){
      var persona = { IdPersona : personas[i].Id ,
-                     NumeroContrato :  personas[i].NumeroContrato
+                     NumeroContrato :  personas[i].NumeroContrato,
+                     VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                     };
 
       personas_a_liquidar.push(persona)
@@ -227,6 +234,7 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
             {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
             {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
             {field: 'NumeroContrato' ,  displayName:  $translate.instant('NUM_CONTRATO')},
+            {field: 'VigenciaContrato', displayName:  $translate.instant('VIGENCIA')},
 
             ],
             onRegisterApi : function( gridApi ) {
@@ -244,7 +252,9 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
         var personas_a_liquidar = [];
         for (var i=0; i < personas.length; i++){
         var persona = { IdPersona : personas[i].Id ,
-                       NumeroContrato :  personas[i].NumeroContrato
+                       NumeroContrato :  personas[i].NumeroContrato,
+                       VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
+
                       };
 
         personas_a_liquidar.push(persona)
@@ -282,6 +292,7 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
       {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
       {field: 'NombreProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
       {field: 'NumeroContrato' ,  displayName:  $translate.instant('NUM_CONTRATO')},
+      {field: 'VigenciaContrato', displayName:  $translate.instant('VIGENCIA')},
 
       ],
       onRegisterApi : function( gridApi ) {
@@ -299,7 +310,8 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
         var personas_a_liquidar = [];
         for (var i=0; i < personas.length; i++){
         var persona = { IdPersona : personas[i].Id ,
-                       NumeroContrato :  personas[i].NumeroContrato
+                       NumeroContrato :  personas[i].NumeroContrato,
+                       VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                       };
 
         personas_a_liquidar.push(persona)
