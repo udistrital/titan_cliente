@@ -17,12 +17,9 @@ angular.module('titanClienteV2App')
     self.loading = false;
     self.nomina = nomina;
     self.CurrentDate = new Date();
-
     self.ShowForm = function(){
       self.formVisibility = true;
-
     };
-
     self.gridOptions = {
 
       enableFiltering : false,
@@ -32,11 +29,11 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'Nombre',displayName: $translate.instant('NOMBRE_PRELIQ')},
         {field: 'Descripcion', displayName: $translate.instant('DESC_PRELIQ')},
-        {field: 'Fecha', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.Fecha | date:"yyyy-MM-dd" :"+0900"}}</span>'},
-        {field: 'Estado', displayName: $translate.instant('ESTADO_PRELIQ')},
-        {field: 'Tipo', displayName: $translate.instant('TIPO_PRELIQ')},
+        {field: 'Mes', displayName: "Mes"},
+        {field: 'Ano', displayName: "Año"},
+        {field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>'},
+        {field: 'EstadoPreliquidacion', displayName: $translate.instant('ESTADO_PRELIQ')},
         {field: 'Opciones',displayName: $translate.instant('OPCIONES_PRELIQ'),cellTemplate: '<button class="btn btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.generar_preliquidacion(row)">'+$translate.instant('GENERAR')+'</button><button class="btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.detalle_preliquidacion(row)">'+$translate.instant('DETALLE')+'</button>'},
                  /*{field: 'tipo',width: '10%', enableCellEdit: true, editableCellTemplate: 'ui-grid/dropdownEditor', cellClass:'aligncenter', editDropdownValueLabel: 'tipo', resizable : false, displayName: 'TIPO' , editDropdownOptionsArray: [
                       { id: 'C', tipo: 'Cerrada' },
@@ -45,8 +42,14 @@ angular.module('titanClienteV2App')
                     ]}*/
       ]
     };
+
      titanRequest.get('preliquidacion','limit=0&query=Nomina.Id:'+self.nomina.Id+'&sortby=Id&order=desc').then(function(response) {
       self.gridOptions.data = response.data;
+     });
+
+     titanRequest.get('estado_preliquidacion','limit=0&query=Nombre:Abierta').then(function(response) {
+      self.EstadoPreliquidacion = response.data;
+      console.log(self.EstadoPreliquidacion)
      });
 
      self.limpiar = function() {
@@ -58,17 +61,20 @@ angular.module('titanClienteV2App')
       var nomina = {
         Id : parseInt(self.nomina.Id)
       };
+
+      var estado_preliquidacion = {
+        Id : parseInt(self.EstadoPreliquidacion[0].Id)
+      };
+
         var pliquidacion = {
-              Nombre: self.nombrePreliquidacion,
-              Descripcion: self.descripcionPreliquidacion,
+
               Nomina: nomina,
-              IdUsuario: 1,
-              Estado: self.selectEstado,
-              Tipo: self.selectTipo,
-              Fecha: self.CurrentDate,
-              FechaInicio:  self.FechaInicio,
-              FechaFin: self.FechaFin,
-              Liquidada: self.Liquidada
+              Descripcion: self.MesPreliq + self.Ano + self.nomina.Nombre,
+              Mes: parseInt(self.MesPreliq),
+              Ano: parseInt(self.Ano),
+              FechaRegistro: self.CurrentDate,
+              EstadoPreliquidacion: estado_preliquidacion,
+
           };
 
             titanRequest.post('preliquidacion', pliquidacion).then(function(response) {
@@ -81,7 +87,7 @@ angular.module('titanClienteV2App')
                    confirmButtonColor: "#449D44",
                    confirmButtonText: $translate.instant('VOLVER'),
                    }).then(function() {
-                  $window.location.href = '#/nomina/nomina_consulta';
+                  $window.location.href = '#/nomina/nomina_consulta/'+self.nomina.TipoNomina.Nombre;
                  })
 
                 titanRequest.get('preliquidacion','limit=0&query=Nomina.Id:'+self.nomina.Id+'&sortby=Id&order=desc').then(function(response) {
@@ -96,7 +102,7 @@ angular.module('titanClienteV2App')
                    confirmButtonColor: "#449D44",
                    confirmButtonText: $translate.instant('VOLVER'),
                    }).then(function() {
-                  $window.location.href = '#/nomina/nomina_consulta';
+                  $window.location.href = '#/nomina/nomina_consulta/'+self.nomina.TipoNomina.Nombre;
                  })
                 console.log("error: "+response.data);
               }});;
@@ -107,27 +113,24 @@ angular.module('titanClienteV2App')
      self.generar_preliquidacion = function(row){
         self.preliquidacion = preliquidacion;
         self.preliquidacion.Id = row.entity.Id;
-        self.preliquidacion.Nombre = row.entity.Nombre;
-        self.preliquidacion.Estado = row.entity.Estado;
         self.preliquidacion.Descripcion = row.entity.Descripcion;
-        self.preliquidacion.Fecha = row.entity.Fecha;
-        self.preliquidacion.FechaInicio = row.entity.FechaInicio;
-        self.preliquidacion.FechaFin = row.entity.FechaFin;
+        self.preliquidacion.Mes = row.entity.Mes;
+        self.preliquidacion.Ano = row.entity.Ano;
+        self.preliquidacion.EstadoPreliquidacion = row.entity.EstadoPreliquidacion;
+        self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
         self.preliquidacion.Nomina = self.nomina
-        self.preliquidacion.Liquidada = row.entity.Liquidada;
-        self.preliquidacion.Tipo = row.entity.Tipo;
         $window.location.href = '#/preliquidacion/preliquidacion_personas';
      };
 
      self.detalle_preliquidacion = function(row){
-        self.preliquidacion = preliquidacion;
-        self.preliquidacion.Id = row.entity.Id;
-        self.preliquidacion.Fecha = row.entity.Fecha;
-        self.preliquidacion.FechaInicio = row.entity.FechaInicio;
-        self.preliquidacion.FechaFin = row.entity.FechaFin;
-        self.preliquidacion.Nomina = self.nomina
-        self.preliquidacion.Tipo = row.entity.Tipo;
-        self.preliquidacion.Liquidada = row.entity.Liquidada;
+       self.preliquidacion = preliquidacion;
+       self.preliquidacion.Id = row.entity.Id;
+       self.preliquidacion.Descripcion = row.entity.Descripcion;
+       self.preliquidacion.Mes = row.entity.Mes;
+       self.preliquidacion.Ano = row.entity.Ano;
+       self.preliquidacion.EstadoPreliquidacion = row.entity.EstadoPreliquidacion;
+       self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
+       self.preliquidacion.Nomina = self.nomina
         console.log(row.entity);
         $window.location.href = '#/preliquidacion/preliquidacion_detalle';
      };

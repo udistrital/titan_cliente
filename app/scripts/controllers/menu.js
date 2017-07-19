@@ -42,7 +42,7 @@ angular.module('titanClienteV2App')
       "Nombre": "Nóminas",
       "Url": "",
       "Opciones": [
-        { 
+        {
           "Id": 1,
           "Nombre": "Planta",
           "Url": "",

@@ -4,36 +4,23 @@
           <h2>{{'TITULO_REG_NOMINA' | translate }}</h2>
           <form>
 
-          <div class="form-group row">
-            <label for="input_nombre" class="col-sm-5 col-form-label">{{'NOMBRE_NOMINA' | translate}}</label>
-            <input name="input_nombre" type="text" ng-model="nominaConsulta.nombreNomina" placeholder="{{'NOMBRE_NOMINA' | translate}}">
-          </div>
-          <div class="form-group row">
-            <label for="input_descripcion" class="col-sm-5 col-form-label">{{'DESC_NOMINA' | translate}}</label>
-            <textarea name="input_descripcion" ng-model="nominaConsulta.descripcionNomina"  placeholder="{{'DESC_NOMINA' | translate}}"></textarea>
-
-          </div>
+            
           <div class="form-group row">
             <label for="select_vinculacion_nomina" class="col-sm-5 col-form-label">{{'VINC_NOMINA' | translate}} </label>
             <select name="select_vinculacion_nomina" id="select_vinculacion_nomina" ng-model="nominaConsulta.selectVinculacion">
               <option selected disabled>{{'SELECCIONE' | translate}}</option>
-              <option ng-repeat="tvinculacion in nominaConsulta.tipoVinculacion"  value="{{tvinculacion.Id}}">{{tvinculacion.Nombre}}</option>
+              <option ng-repeat="tvinculacion in nominaConsulta.Vinculacion"  value="{{tvinculacion}}">{{tvinculacion.Nombre}}</option>
             </select>
           </div>
-          
-           <div class="form-group row">
-            <label for="select_estado_nomina" class="col-sm-5 col-form-label">{{'ESTADO_NOMINA' | translate}} </label>
-            <select name="select_estado_nomina" id="select_estado_nomina" ng-model="nominaConsulta.selectEstado">
-              <option selected disabled>{{'SELECCIONE' | translate}}</option>
-              <option selected="selected" value="Activo">{{'ACTIVO'|translate}}</option>
-              <option selected="selected" value="Inactivo">{{'INACTIVO'|translate}}</option>
-            </select>
-          </div>
-           <div class="form-group row">
-            <label for="input_periodo" class="col-sm-5 col-form-label">{{'PERIODO_NOMINA' | translate}} </label>
-             <input name="input_periodo" type="text"  ng-model="nominaConsulta.periodoNomina" placeholder="{{'PERIODO_NOMINA' | translate}}">
 
+          <div class="form-group row">
+            <label for="select_tipo_nomina" class="col-sm-5 col-form-label">Tipo nómina</label>
+            <select name="select_tipo_nomina" id="select_tipo_nomina" ng-model="nominaConsulta.selectTipoNomina">
+              <option selected disabled>{{'SELECCIONE' | translate}}</option>
+              <option ng-repeat="tnomina in nominaConsulta.tipoNomina"  value="{{tnomina}}">{{tnomina.Descripcion}}</option>
+            </select>
           </div>
+
             <button ng-click='nominaConsulta.limpiar()' class="btn btn-danger">{{'CANCELAR' | translate}}</button>
             <button ng-click='nominaConsulta.registrar_nomina()' class="btn btn-success">{{'REGISTRAR' | translate}}</button>
 

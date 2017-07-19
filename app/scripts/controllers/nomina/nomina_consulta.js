@@ -33,27 +33,27 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'Nombre',  displayName: $translate.instant('NOMBRE_NOMINA')},
-        {field: 'Descripcion',displayName: $translate.instant('DESC_NOMINA')},
-        {field: 'Vinculacion.Nombre',    displayName: $translate.instant('VINC_NOMINA')},
-        {field: 'Estado', displayName: $translate.instant('ESTADO_NOMINA')},
-        {field: 'Periodo', displayName: $translate.instant('PERIODO_NOMINA')},
+        {field: 'Descripcion',    displayName: "Descripcion"},
+        {field: 'TipoNomina',     visible : false},
+        {field: 'TipoVinculacion',     visible : false},
+        {field: 'Activo',    displayName: "Estado"},
         {field: 'Opciones',displayName:$translate.instant('OPCIONES_NOMINA'),  cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.consulta_preliquidacion(row)">'+$translate.instant('PRELIQUIDACION')+'</button>'}
       ]
 
     };
      titanRequest.get('nomina','limit=0&query=TipoNomina.Nombre:'+self.tipo+'&sortby=Id&order=desc').then(function(response) {
+       console.log(response)
       self.gridOptions.data = response.data;
      });
 
 
      titanRequest.get('tipo_nomina','limit=0&query=Nombre:'+self.tipo+'&sortby=Id&order=desc' ).then(function(response) {
-      self.tipoNomina = response.data[0].Id
+        self.tipoNomina = response.data
 
      });
 
      titanRequest.get('tipo_vinculacion','limit=0').then(function(response) {
-      self.tipoVinculacion = response.data;
+      self.Vinculacion = response.data;
      });
 
      self.limpiar = function() {
@@ -62,23 +62,26 @@ angular.module('titanClienteV2App')
 
 
      self.registrar_nomina = function() {
-     	var tipo_nomina = {
-     		Id : self.tipoNomina
-     	};
+        var objeto_tipo_nomina = JSON.parse(self.selectTipoNomina);
+        var objeto_tipo_vinculacion = JSON.parse(self.selectVinculacion);
+
+        var tipo_nomina = {
+     		   Id : objeto_tipo_nomina.Id
+     	   };
 
 
-     	var tipo_vinculacion = {
-     		Id :  parseInt(self.selectVinculacion)
-     	};
+       	var tipo_vinculacion = {
+       		Id : objeto_tipo_vinculacion.Id
+       	};
+
+        console.log(objeto_tipo_vinculacion)
         var nomina = {
-              Nombre: self.nombreNomina,
-              Descripcion: self.descripcionNomina,
-              Vinculacion: tipo_vinculacion,
+              TipoVinculacion: tipo_vinculacion,
+              Descripcion: objeto_tipo_nomina.Descripcion + "-"+ objeto_tipo_vinculacion.Descripcion,
               TipoNomina: tipo_nomina,
-              Estado: self.selectEstado,
-              Periodo: self.periodoNomina
-          };
+              Activo: Boolean("true")
 
+          };
 
             titanRequest.post('nomina', nomina).then(function(response) {
               console.log(response.data);
@@ -120,18 +123,19 @@ angular.module('titanClienteV2App')
      		Nombre :row.entity.TipoNomina.Nombre
      	};
      	var tipo_vinculacion = {
-        Id :  row.entity.Vinculacion.Id,
-     		Nombre :  row.entity.Vinculacion.Nombre
+        Id :  row.entity.TipoVinculacion.Id,
+     		Nombre :  row.entity.TipoVinculacion.Nombre
      	};
         self.nomina = nomina;
         self.nomina.Id = row.entity.Id;
-        self.nomina.Vinculacion = tipo_vinculacion;
+        self.nomina.Descripcion= row.entity.Descripcion;
+        self.nomina.TipoVinculacion = tipo_vinculacion;
         self.nomina.TipoNomina = tipo_nomina;
-        self.nomina.Periodo = row.entity.Periodo;
+        self.nomina.Activo = row.entity.Activo;
         $window.location.href = '#/preliquidacion/preliquidacion_registro';
 
       };
 
-//consulta_preliquidacion(row)
+
 
   });
