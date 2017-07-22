@@ -58,7 +58,8 @@ angular.module('titanClienteV2App')
 
         };
         titanRequest.delete('detalle_preliquidacion',''+self.preliquidacion.Id).then(function(response) {
-
+          console.log("respuesta a borrar")
+          console.log(response.data)
      	});
 
      	self.saving =true;

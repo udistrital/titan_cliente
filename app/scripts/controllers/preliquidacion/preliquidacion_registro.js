@@ -33,7 +33,7 @@ angular.module('titanClienteV2App')
         {field: 'Mes', displayName: "Mes"},
         {field: 'Ano', displayName: "Año"},
         {field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>'},
-        {field: 'EstadoPreliquidacion', displayName: $translate.instant('ESTADO_PRELIQ')},
+        {field: 'EstadoPreliquidacion.Nombre', displayName: $translate.instant('ESTADO_PRELIQ')},
         {field: 'Opciones',displayName: $translate.instant('OPCIONES_PRELIQ'),cellTemplate: '<button class="btn btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.generar_preliquidacion(row)">'+$translate.instant('GENERAR')+'</button><button class="btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.detalle_preliquidacion(row)">'+$translate.instant('DETALLE')+'</button>'},
                  /*{field: 'tipo',width: '10%', enableCellEdit: true, editableCellTemplate: 'ui-grid/dropdownEditor', cellClass:'aligncenter', editDropdownValueLabel: 'tipo', resizable : false, displayName: 'TIPO' , editDropdownOptionsArray: [
                       { id: 'C', tipo: 'Cerrada' },
