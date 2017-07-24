@@ -69,9 +69,9 @@ angular.module('titanClienteV2App')
         var pliquidacion = {
 
               Nomina: nomina,
-              Descripcion: self.MesPreliq + self.Ano + self.nomina.Nombre,
+              Descripcion: self.nomina.Descripcion+"-"+self.AnoPreliq+self.MesPreliq ,
               Mes: parseInt(self.MesPreliq),
-              Ano: parseInt(self.Ano),
+              Ano: parseInt(self.AnoPreliq),
               FechaRegistro: self.CurrentDate,
               EstadoPreliquidacion: estado_preliquidacion,
 
