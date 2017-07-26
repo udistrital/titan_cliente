@@ -75,13 +75,13 @@ angular.module('titanClienteV2App')
             {
               "Id": 1,
               "Nombre": "Honorarios",
-              "Url": "nomina/nomina_consulta/HC",
+              "Url": "nomina/nomina_consulta/HCH",
               "Opciones": null
             },
             {
               "Id": 1,
               "Nombre": "Salarios",
-              "Url": "nomina/nomina_consulta/HC-SALARIOS",
+              "Url": "nomina/nomina_consulta/HCS",
               "Opciones": null
             }
           ]
@@ -182,13 +182,13 @@ angular.module('titanClienteV2App')
                 {
                   "Id": 1,
                   "Nombre": "Registrar novedades",
-                  "Url": "novedades/novedad_registro/HC",
+                  "Url": "novedades/novedad_registro/HCH",
                   "Opciones": null
                 },
                 {
                   "Id": 1,
                   "Nombre": "Consultar novedades",
-                  "Url": "novedades/novedad_consulta/HC",
+                  "Url": "novedades/novedad_consulta/HCH",
                   "Opciones": null
                 }
               ]
@@ -196,12 +196,12 @@ angular.module('titanClienteV2App')
             {
               "Id": 1,
               "Nombre": "Salarios",
-              "Url": "nomina/nomina_consulta/HC-SALARIOS",
+              "Url": "nomina/nomina_consulta/HCS",
               "Opciones": [
                 {
                   "Id": 1,
                   "Nombre": "Registrar novedades",
-                  "Url": "novedades/novedad_registro/HC-SALARIOS",
+                  "Url": "novedades/novedad_registro/HCS",
                   "Opciones": null
                 },
                 {

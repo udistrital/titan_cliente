@@ -28,8 +28,8 @@ angular.module('titanClienteV2App')
         {field: 'Id',             visible : false},
         {field: 'NombreConcepto',  visible : false},
         {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO_NOMBRE'), },
-        {field: 'Naturaleza',  displayName: $translate.instant('NATURALEZA_NOMBRE')},
-        {field: 'TipoConcepto',  displayName: $translate.instant('TIPO_NOMBRE')},
+        {field: 'NaturalezaConcepto.Nombre',  displayName: $translate.instant('NATURALEZA_NOMBRE')},
+        {field: 'TipoConcepto.Nombre',  displayName: $translate.instant('TIPO_NOMBRE')},
         {field: 'Acciones', displayName: $translate.instant('ACCIONES'),
         cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.borrar(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
         ]
@@ -43,7 +43,7 @@ angular.module('titanClienteV2App')
 
     self.gridOptions_conceptos.multiSelect = false;
 
-    titanRequest.get('concepto','limit=0&sortby=Id&order=desc').then(function(response) {
+    titanRequest.get('concepto_nomina','limit=0&sortby=Id&order=desc').then(function(response) {
      self.gridOptions_conceptos.data = response.data;
     });
 
@@ -51,8 +51,8 @@ angular.module('titanClienteV2App')
       self.id_edicion = row.entity.Id
       self.alias_concepto_edicion = row.entity.AliasConcepto
       self.nombre_concepto_edicion = row.entity.NombreConcepto
-      self.naturaleza_edicion = row.entity.Naturaleza
-      self.tipo_edicion = row.entity.TipoConcepto
+      self.naturaleza_edicion = row.entity.NaturalezaConcepto.Nombre
+      self.tipo_edicion = row.entity.TipoConcepto.Nombre
     };
 
     self.actualizar = function() {
@@ -109,7 +109,7 @@ angular.module('titanClienteV2App')
            }, function(dismiss) {
              if (dismiss === 'cancel') {
 
-                 $('#modal_edicion').modal('hide');   
+                 $('#modal_edicion').modal('hide');
                $window.location.href = '#/conceptos/modulo_conceptos';
              }
            })
