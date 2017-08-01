@@ -8,13 +8,12 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('ConceptoConceptosConsultaCtrl', function (titanRequest,$window,$scope,$translate) {
+  .controller('ConceptoConceptosConsultaCtrl', function (titanRequest,$scope,$translate,$route,$window) {
     var self = this;
     self.id_edicion;
     self.alias_concepto_edicion;
     self.nombre_concepto_edicion;
-    self.naturaleza_edicion;
-    self.tipo_edicion;
+      
 
   //  self.tipo="porcentaje";
     self.gridOptions_conceptos = {
@@ -27,6 +26,8 @@ angular.module('titanClienteV2App')
       columnDefs : [
         {field: 'Id',             visible : false},
         {field: 'NombreConcepto',  visible : false},
+        {field: 'NaturalezaConcepto.Id',  visible : false},
+        {field: 'TipoConcepto.Id',  visible : false},
         {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO_NOMBRE'), },
         {field: 'NaturalezaConcepto.Nombre',  displayName: $translate.instant('NATURALEZA_NOMBRE')},
         {field: 'TipoConcepto.Nombre',  displayName: $translate.instant('TIPO_NOMBRE')},
@@ -47,22 +48,32 @@ angular.module('titanClienteV2App')
      self.gridOptions_conceptos.data = response.data;
     });
 
+    titanRequest.get('naturaleza_concepto_nomina','limit=0&sortby=Id&order=desc').then(function(response) {
+     self.NaturalezaConcepto = response.data;
+    });
+
+    titanRequest.get('tipo_concepto_nomina','limit=0&sortby=Id&order=desc').then(function(response) {
+     self.TipoConcepto = response.data;
+    });
+
     $scope.llenar_modal = function(row){
+
       self.id_edicion = row.entity.Id
       self.alias_concepto_edicion = row.entity.AliasConcepto
       self.nombre_concepto_edicion = row.entity.NombreConcepto
-      self.naturaleza_edicion = row.entity.NaturalezaConcepto.Nombre
-      self.tipo_edicion = row.entity.TipoConcepto.Nombre
+
     };
 
     self.actualizar = function() {
+      var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
+      var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
 
       swal({
              html:
              $translate.instant('CONFIRMACION_EDICION')+
              "<br><b>"+$translate.instant('CONCEPTO_NOMBRE')+":</b> "+self.alias_concepto_edicion+
-             "<br><b>"+$translate.instant('NATURALEZA_NOMBRE')+":</b> "+self.naturaleza_edicion+
-             "<br><b>"+$translate.instant('TIPO')+":</b> "+self.tipo_edicion+"?",
+             "<br><b>"+$translate.instant('NATURALEZA_NOMBRE')+":</b> "+objeto_naturaleza_concepto.Descripcion+
+             "<br><b>"+$translate.instant('TIPO')+":</b> "+objeto_tipo_concepto.Descripcion+"?",
              type: "warning",
              showCancelButton: true,
              confirmButtonColor: "#449D44",
@@ -71,14 +82,26 @@ angular.module('titanClienteV2App')
              cancelButtonText: $translate.instant('CANCELAR'),
            }).then(function() {
 
+
+
+             var naturaleza_concepto = {
+          		   Id : objeto_naturaleza_concepto.Id
+          	   };
+
+               var tipo_concepto = {
+                   Id : objeto_tipo_concepto.Id
+                 };
+
+
              var concepto_editado = {
                    Id : self.id_edicion,
                    NombreConcepto: self.nombre_concepto_edicion,
-                   Naturaleza: self.naturaleza_edicion,
+                   NaturalezaConcepto: naturaleza_concepto,
                    AliasConcepto: self.alias_concepto_edicion,
-                   TipoConcepto: self.tipo_edicion
+                   TipoConcepto: tipo_concepto
                   };
-                  titanRequest.put('concepto', concepto_editado.Id,concepto_editado).then(function(response) {
+
+                  titanRequest.put('concepto_nomina', concepto_editado.Id,concepto_editado).then(function(response) {
                     console.log(response.data);
                     if(response.data=="OK"){
                       swal({
@@ -89,7 +112,7 @@ angular.module('titanClienteV2App')
                          confirmButtonText: $translate.instant('VOLVER'),
                          }).then(function() {
                         $('#modal_edicion').modal('hide');
-                        $window.location.href = '#/conceptos/modulo_conceptos';
+                          $window.location.reload();
                        })
                     }
                     else{
@@ -101,7 +124,7 @@ angular.module('titanClienteV2App')
                          confirmButtonText: $translate.instant('VOLVER'),
                          }).then(function() {
                           $('#modal_edicion').modal('hide');
-                        $window.location.href = '#/conceptos/modulo_conceptos';
+                          $window.location.reload();
                        })
                     }
                   });
@@ -110,7 +133,7 @@ angular.module('titanClienteV2App')
              if (dismiss === 'cancel') {
 
                  $('#modal_edicion').modal('hide');
-               $window.location.href = '#/conceptos/modulo_conceptos';
+                 $window.location.reload();
              }
            })
      };
@@ -126,7 +149,7 @@ angular.module('titanClienteV2App')
               cancelButtonText: $translate.instant('CANCELAR'),
             }).then(function() {
 
-              titanRequest.delete('concepto', row.entity.Id).then(function(response) {
+              titanRequest.delete('concepto_nomina', row.entity.Id).then(function(response) {
                 console.log(response.data);
                 if(response.data=="OK"){
                   swal({
@@ -136,7 +159,7 @@ angular.module('titanClienteV2App')
                      confirmButtonColor: "#449D44",
                      confirmButtonText: $translate.instant('VOLVER'),
                      }).then(function() {
-                    $window.location.href = '#/conceptos/modulo_conceptos';
+                       $window.location.reload();
                    })
                 }
                 else{
@@ -147,7 +170,7 @@ angular.module('titanClienteV2App')
                      confirmButtonColor: "#449D44",
                      confirmButtonText: $translate.instant('VOLVER'),
                      }).then(function() {
-                    $window.location.href = '#/conceptos/modulo_conceptos';
+                       $window.location.reload();
                    })
                 }
               });
@@ -156,7 +179,7 @@ angular.module('titanClienteV2App')
             }, function(dismiss) {
               if (dismiss === 'cancel') {
                 //NO HACER NADA
-                $window.location.href = '#/conceptos/modulo_conceptos';
+                $window.location.reload();
               }
             })
           };
@@ -164,12 +187,14 @@ angular.module('titanClienteV2App')
 
           self.anadir = function() {
 
+            var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
+            var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
             swal({
                    html:
                    $translate.instant('CONFIRMACION_ADICION')+
                    "<br><b>"+$translate.instant('CONCEPTO_NOMBRE')+":</b> "+self.alias_concepto_adicion+
-                   "<br><b>"+$translate.instant('NATURALEZA_NOMBRE')+":</b> "+self.naturaleza_adicion+
-                   "<br><b>"+$translate.instant('TIPO')+":</b> "+self.tipo_adicion+"?",
+                   "<br><b>"+$translate.instant('NATURALEZA_NOMBRE')+":</b> "+objeto_naturaleza_concepto.Descripcion+
+                   "<br><b>"+$translate.instant('TIPO')+":</b> "+objeto_tipo_concepto.Descripcion+"?",
                    type: "warning",
                    showCancelButton: true,
                    confirmButtonColor: "#449D44",
@@ -178,30 +203,42 @@ angular.module('titanClienteV2App')
                    cancelButtonText: $translate.instant('CANCELAR'),
                  }).then(function() {
 
+                   var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
+                   var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
+
+                   var naturaleza_concepto = {
+                      Id : objeto_naturaleza_concepto.Id
+                    };
+
+                     var tipo_concepto = {
+                         Id : objeto_tipo_concepto.Id
+                       };
+
                    var concepto_nuevo_temp = {
 
                          NombreConcepto: "nombrereglaxxx",
-                         Naturaleza: self.naturaleza_adicion,
+                         NaturalezaConcepto: naturaleza_concepto,
                          AliasConcepto: self.alias_concepto_adicion,
-                         TipoConcepto: self.tipo_adicion
+                         TipoConcepto: tipo_concepto
                         };
 
-                        console.log(concepto_nuevo_temp)
-                        titanRequest.post('concepto', concepto_nuevo_temp).then(function(response) {
-                          console.log(response.data);
+
+                        titanRequest.post('concepto_nomina', concepto_nuevo_temp).then(function(response) {
+
                           if(typeof(response.data)=="object"){
 
                             var concepto_nuevo = {
                                   Id: response.data.Id,
                                   NombreConcepto: "nombreregla" + response.data.Id.toString(),
-                                  Naturaleza: response.data.Naturaleza,
+                                  NaturalezaConcepto: response.data.NaturalezaConcepto,
                                   AliasConcepto: response.data.AliasConcepto,
                                   TipoConcepto: response.data.TipoConcepto
                             };
 
-                            titanRequest.put('concepto', concepto_nuevo.Id,concepto_nuevo).then(function(response) {
-                              console.log(response.data);
+                            titanRequest.put('concepto_nomina', concepto_nuevo.Id,concepto_nuevo).then(function(response) {
+
                               if(response.data=="OK"){
+
                                 swal({
                                    html:  $translate.instant('ADICION_CORRECTA'),
                                    type: "success",
@@ -209,11 +246,12 @@ angular.module('titanClienteV2App')
                                    confirmButtonColor: "#449D44",
                                    confirmButtonText: $translate.instant('VOLVER'),
                                    }).then(function() {
-                                  $('#modal_adicion').modal('hide');
-                                  $window.location.href = '#/conceptos/modulo_conceptos';
+
+                                  $window.location.reload();
                                  })
                               }
-                              if(typeof(response.data)=="string"){
+                              else{
+
                                 swal({
                                    html:  $translate.instant('ADICION_INCORRECTA'),
                                    type: "error",
@@ -221,13 +259,14 @@ angular.module('titanClienteV2App')
                                    confirmButtonColor: "#449D44",
                                    confirmButtonText: $translate.instant('VOLVER'),
                                    }).then(function() {
-                                   $('#modal_adicion').modal('hide');
-                                  $window.location.href = '#/conceptos/modulo_conceptos';
+
+                                   $window.location.reload();
                                  })
                               }
                             });
                           }
                           if(typeof(response.data)=="string"){
+
                             swal({
                                html:  $translate.instant('ADICION_INCORRECTA'),
                                type: "error",
@@ -235,16 +274,16 @@ angular.module('titanClienteV2App')
                                confirmButtonColor: "#449D44",
                                confirmButtonText: $translate.instant('VOLVER'),
                                }).then(function() {
-                              $('#modal_adicion').modal('hide');
-                              $window.location.href = '#/conceptos/modulo_conceptos';
+
+                              $window.location.reload();
                              })
                           }
                         });
 
                  }, function(dismiss) {
                    if (dismiss === 'cancel') {
-                     $('#modal_adicion').modal('hide');
-                     $window.location.href = '#/conceptos/modulo_conceptos';
+
+                     $window.location.reload();
                    }
                  })
            };

@@ -26,20 +26,17 @@
 
              <fieldset class="form-group">
                <label for="naturalezaconceptoedicion">{{'NATURALEZA_NOMBRE' | translate}}:</label>
-               <select class="form-control" id="naturaleza_concepto_edicion" ng-model="conceptosConsulta.naturaleza_edicion" required>
-                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}</option>
-                 <option selected="selected" value="devengo">{{'DEVENGO_CONCEPTO' | translate}}</option>
-                 <option selected="selected" value="descuento">{{'DESCUENTO_CONCEPTO' | translate}}</option>
-
+               <select class="form-control" id="naturaleza_concepto_edicion" ng-model="conceptosConsulta.selectNaturalezaConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="tnaturaleza in conceptosConsulta.NaturalezaConcepto"  value="{{tnaturaleza}}">{{tnaturaleza.Descripcion}}</option>
                </select>
              </fieldset>
 
              <fieldset class="form-group">
                <label for="tipoedicion">{{'TIPO_NOMBRE' | translate}}:</label>
-               <select class="form-control" id="tipo_concepto_edicion" ng-model="conceptosConsulta.tipo_edicion" required>
-                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}</option>
-                 <option selected="selected" value="fijo">{{'FIJO_CONCEPTO' | translate}}</option>
-                 <option selected="selected" value="porcentaje">{{'PORCENTAJE_CONCEPTO' | translate}}</option>
+               <select class="form-control" id="tipo_concepto_edicion" ng-model="conceptosConsulta.selectTipoConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="ttipo in conceptosConsulta.TipoConcepto"  value="{{ttipo}}">{{ttipo.Descripcion}}</option>
                </select>
              </fieldset>
              <center><button  ng-click='conceptosConsulta.actualizar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
@@ -70,20 +67,17 @@
 
              <fieldset class="form-group">
                <label for="naturalezaconceptoadicion">{{'NATURALEZA_NOMBRE' | translate}}:</label>
-               <select class="form-control" id="naturaleza_concepto_adicion" ng-model="conceptosConsulta.naturaleza_adicion" required>
-                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}l</option>
-                 <option selected="selected" value="devengo">{{'DEVENGO_CONCEPTO' | translate}}</option>
-                 <option selected="selected" value="descuento">{{'DESCUENTO_CONCEPTO' | translate}}</option>
-
+               <select class="form-control" id="naturaleza_concepto_adicion" ng-model="conceptosConsulta.selectNaturalezaConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="tnaturaleza in conceptosConsulta.NaturalezaConcepto"  value="{{tnaturaleza}}">{{tnaturaleza.Descripcion}}</option>
                </select>
              </fieldset>
 
              <fieldset class="form-group">
                <label for="tipoadicion">{{'TIPO_NOMBRE' | translate}}:</label>
-               <select class="form-control" id="tipo_concepto_adicion" ng-model="conceptosConsulta.tipo_adicion" required>
-                 <option selected="selected" value="seguridad_social">{{'SEG_SOCIAL' | translate}}</option>
-                 <option selected="selected" value="fijo">{{'FIJO_CONCEPTO' | translate}}</option>
-                 <option selected="selected" value="porcentaje">{{'PORCENTAJE_CONCEPTO' | translate}}</option>
+               <select class="form-control" id="tipo_concepto_adicion" ng-model="conceptosConsulta.selectTipoConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="ttipo in conceptosConsulta.TipoConcepto"  value="{{ttipo}}">{{ttipo.Descripcion}}</option>
                </select>
              </fieldset>
              <center><button  ng-click='conceptosConsulta.anadir()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
