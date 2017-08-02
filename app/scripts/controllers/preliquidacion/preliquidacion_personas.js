@@ -8,14 +8,15 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('PreliquidacionPreliquidacionPersonasCtrl', function (titanMidRequest,titanRequest,preliquidacion,$window,$translate) {
+  .controller('PreliquidacionPreliquidacionPersonasCtrl', function (titanMidRequest,preliquidacion,titanRequest,nomina,$window,$translate) {
    var self = this;
-   self.preliquidacion = preliquidacion;
+   self.nomina = nomina;
+   self.preliquidacion = preliquidacion
    self.generar_disponibilidad;
    self.btnGenerartxt = $translate.instant('GENERAR');
    self.saving = false;
     console.log(self.preliquidacion);
-    if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"){
+    if (self.nomina.TipoNomina.Nombre === "HCH" || self.nomina.TipoNomina.Nombre === "HCS"){
     	self.gridOptions = {
 	      enableFiltering : true,
 	      enableSorting : true,
@@ -36,7 +37,7 @@ angular.module('titanClienteV2App')
 	        self.gridApi = gridApi;
 	      }
 	    };
-    	 titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+    	 titanRequest.post('funcionario_proveedor',nomina).then(function(response) {
       	 self.gridOptions.data = response.data;
      });
 
@@ -74,7 +75,7 @@ angular.module('titanClienteV2App')
     };
 
   }
-   if (self.preliquidacion.Nomina.TipoNomina.Nombre === "FP"){
+   if (self.nomina.TipoNomina.Nombre === "FP"){
         var rowtpl='<div ng-class="{\'personas_liquidar\':true, \'personas_no_liquidar\':row.entity.IdEPS==0 || row.entity.IdARL==0 || row.entity.IdFondoPension==0 || row.entity.IdCajaCompensacion==0}"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
         self.gridOptions = {
   	      enableFiltering : true,
@@ -94,7 +95,7 @@ angular.module('titanClienteV2App')
   	      }
   	    };
 
-        titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+        titanRequest.post('funcionario_proveedor',nomina).then(function(response) {
       	 self.gridOptions.data = response.data;
 });
 
@@ -168,7 +169,7 @@ angular.module('titanClienteV2App')
 
 
 
-      if (self.preliquidacion.Nomina.TipoNomina.Nombre === "DP"){
+      if (self.nomina.TipoNomina.Nombre === "DP"){
           self.gridOptions = {
             enableFiltering : true,
             enableSorting : true,
@@ -187,7 +188,7 @@ angular.module('titanClienteV2App')
             }
 
           };
-           titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+           titanRequest.post('funcionario_proveedor',nomina).then(function(response) {
              self.gridOptions.data = response.data;
  });
 
@@ -224,7 +225,7 @@ angular.module('titanClienteV2App')
 
 }
 
-if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
+if (self.nomina.TipoNomina.Nombre === "CT"){
         self.gridOptions = {
             enableFiltering : true,
             enableSorting : true,
@@ -243,7 +244,7 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
             }
 
       };
-      titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+      titanRequest.post('funcionario_proveedor',nomina).then(function(response) {
       self.gridOptions.data = response.data;
 });
 
@@ -282,7 +283,7 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT"){
 
     }
 
-if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
+if (self.nomina.TipoNomina.Nombre === "PE"){
   self.gridOptions = {
       enableFiltering : true,
       enableSorting : true,
@@ -301,7 +302,7 @@ if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE"){
       }
 
     };
-    titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
+    titanRequest.post('funcionario_proveedor',nomina).then(function(response) {
       self.gridOptions.data = response.data;
     });
 

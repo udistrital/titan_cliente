@@ -12,36 +12,8 @@ angular.module('titanClienteV2App')
     var self = this;
     self.tipo = $routeParams.tipo;
   //  self.tipo="porcentaje";
-    self.gridOptions_conceptos = {
 
-      enableFiltering : true,
-      enableSorting : true,
-      enableRowSelection: true,
-      enableRowHeaderSelection: false,
 
-      columnDefs : [
-        {field: 'Id',             visible : false},
-        {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO')},
-        {field: 'Naturaleza',  displayName: $translate.instant('NATURALEZA')},
-        {field: 'TipoConcepto',  visible: false},
-        ]
-
-    };
-    self.gridOptions_nominas = {
-
-      enableFiltering : false,
-      enableSorting : true,
-      enableRowSelection: true,
-      enableRowHeaderSelection: false,
-
-      columnDefs : [
-        {field: 'Id',             visible : false},
-        {field: 'Nombre',  displayName: $translate.instant('NOMBRE_NOMINA') },
-        {field: 'Descripcion' ,  displayName: $translate.instant('DESC_NOMINA')},
-        {field: 'Periodo',  displayName: $translate.instant('  PERIODO_NOMINA')        },
-        ]
-
-    };
     $scope.gridOptions_personas = {
       enableFiltering : true,
       enableSorting : true,
@@ -61,30 +33,9 @@ angular.module('titanClienteV2App')
       }
 
     };
-    self.gridOptions_conceptos.onRegisterApi = function(gridApi){
-      //set gridApi on scope
-      self.gridApi = gridApi;
-      gridApi.selection.on.rowSelectionChanged($scope,function(row){
-        $scope.concepto = row.entity
 
-      });
-    };
-    self.gridOptions_nominas.onRegisterApi = function(gridApi){
-      //set gridApi on scope
-      self.gridApi = gridApi;
-      gridApi.selection.on.rowSelectionChanged($scope,function(row){
-        $scope.nomina = row.entity;
-        $scope.persona = null;
-        var preliquidacion = {Nomina: $scope.nomina,
-                              FechaInicio: new Date(),
-                              FechaFin: new Date()};
-        titanRequest.post('funcionario_proveedor',preliquidacion).then(function(response) {
-       	 $scope.gridOptions_personas.data = response.data;
-      });
-      });
-    };
+
     $scope.gridOptions_personas.onRegisterApi = function(gridApi){
-      //set gridApi on scope
       self.gridApi = gridApi;
       gridApi.selection.on.rowSelectionChanged($scope,function(row){
         $scope.persona = row.entity
@@ -93,11 +44,12 @@ angular.module('titanClienteV2App')
     };
     self.gridOptions_conceptos.multiSelect = false;
     self.gridOptions_nominas.multiSelect = false;
-      $scope.gridOptions_personas.multiSelect = false;
-    titanRequest.get('concepto','limit=0&sortby=Id&order=desc').then(function(response) {
+    $scope.gridOptions_personas.multiSelect = false;
+
+    titanRequest.get('concepto_nomina','limit=0&sortby=Id&order=desc').then(function(response) {
      self.gridOptions_conceptos.data = response.data;
     });
-    titanRequest.get('nomina','limit=0&sortby=Id&order=desc&query=Estado:Activo,TipoNomina.Nombre:'+self.tipo).then(function(response) {
+    titanRequest.get('nomina','limit=0&sortby=Id&order=desc&query=Activo:TRUE,TipoNomina.Nombre:'+self.tipo).then(function(response) {
      self.gridOptions_nominas.data = response.data;
     });
 

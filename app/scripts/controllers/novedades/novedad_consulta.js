@@ -11,6 +11,7 @@ angular.module('titanClienteV2App')
   .controller('NovedadesNovedadConsultaCtrl', function (titanRequest,$translate,$routeParams) {
     var self = this;
     self.tipo = $routeParams.tipo;
+  
     self.gridOptions = {
 
       enableFiltering : true,
@@ -20,20 +21,21 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
+        {field: 'Persona' , displayName: $translate.instant('NOMBRE_PERSONA') },
         {field: 'Concepto.AliasConcepto',  displayName:  $translate.instant('CONCEPTO')},
-        {field: 'Concepto.Naturaleza' , displayName: $translate.instant('NATURALEZA')},
-        {field: 'Concepto.TipoConcepto', displayName: $translate.instant('TIPO_CONCEPTO')  },
         {field: 'ValorNovedad' , displayName: $translate.instant('VALOR_CONCEPTO')  },
-        {field: 'FechaDesde' , displayName: $translate.instant('FECHA_INICIO') , cellTemplate: '<span>{{row.entity.FechaDesde | date:"yyyy-MM-dd":"+0900"}}</span>' },
-        {field: 'FechaHasta' , displayName: $translate.instant('FECHA_FIN') , cellTemplate: '<span>{{row.entity.FechaHasta | date:"yyyy-MM-dd":"+0900"}}</span>' },
-        {field: 'Nomina.Nombre' , displayName: $translate.instant('NOMBRE_NOMINA')  },
-        {field: 'Nomina.Periodo' , displayName: $translate.instant('PERIODO_NOMINA')  },
-        {field: 'Persona.NomProveedor' , displayName: $translate.instant('NOMBRE_PERSONA') },
-        {field: 'Persona.NumDocumento' , displayName: $translate.instant('DOCUMENTO')  },
-        ]
+        {field: 'NumCuotas' , displayName: "Número de cuotas" },
+        {field: 'FechaRegisto' , displayName: "Fecha de registro" , cellTemplate: '<span>{{row.entity.FechaHasta | date:"yyyy-MM-dd":"+0900"}}</span>' },
+        {field: 'Nomina.Descripcion' , displayName: $translate.instant('NOMBRE_NOMINA')  },
+
+      ]
+
 
     };
     titanRequest.get('concepto_por_persona','limit=0&query=Nomina.TipoNomina.Nombre:'+self.tipo+'&sortby=Id&order=desc').then(function(response) {
      self.gridOptions.data = response.data;
+
     });
+
+
   });
