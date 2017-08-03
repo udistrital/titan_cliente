@@ -120,12 +120,6 @@ angular.module('titanClienteV2App')
                   "Nombre": "Registrar novedades",
                   "Url": "novedades/novedad_registro/FP",
                   "Opciones": null
-                },
-                {
-                  "Id": 1,
-                  "Nombre": "Consultar novedades",
-                  "Url": "novedades/novedad_consulta/FP",
-                  "Opciones": null
                 }
               ]
             },
@@ -139,12 +133,6 @@ angular.module('titanClienteV2App')
                   "Nombre": "Registrar novedades",
                   "Url": "novedades/novedad_registro/DP",
                   "Opciones": null
-                },
-                {
-                  "Id": 1,
-                  "Nombre": "Consultar novedades",
-                  "Url": "novedades/novedad_consulta/DP",
-                  "Opciones": null
                 }
               ]
             },
@@ -157,12 +145,6 @@ angular.module('titanClienteV2App')
                   "Id": 1,
                   "Nombre": "Registrar novedades",
                   "Url": "novedades/novedad_registro",
-                  "Opciones": null
-                },
-                {
-                  "Id": 1,
-                  "Nombre": "Consultar novedades/PE",
-                  "Url": "novedades/novedad_consulta/PE",
                   "Opciones": null
                 }
               ]
@@ -184,12 +166,6 @@ angular.module('titanClienteV2App')
                   "Nombre": "Registrar novedades",
                   "Url": "novedades/novedad_registro/HCH",
                   "Opciones": null
-                },
-                {
-                  "Id": 1,
-                  "Nombre": "Consultar novedades",
-                  "Url": "novedades/novedad_consulta/HCH",
-                  "Opciones": null
                 }
               ]
             },
@@ -202,12 +178,6 @@ angular.module('titanClienteV2App')
                   "Id": 1,
                   "Nombre": "Registrar novedades",
                   "Url": "novedades/novedad_registro/HCS",
-                  "Opciones": null
-                },
-                {
-                  "Id": 1,
-                  "Nombre": "Consultar novedades",
-                  "Url": "novedades/novedad_consulta/HC-SALARIOS",
                   "Opciones": null
                 }
               ]
@@ -223,12 +193,6 @@ angular.module('titanClienteV2App')
               "Id": 1,
               "Nombre": "Registrar novedades",
               "Url": "novedades/novedad_registro/CT",
-              "Opciones": null
-            },
-            {
-              "Id": 1,
-              "Nombre": "Consultar novedades",
-              "Url": "novedades/novedad_consulta/CT",
               "Opciones": null
             }
           ]

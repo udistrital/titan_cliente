@@ -1,4 +1,17 @@
 /* NOTIFICATION*/
+.watermark {
+    border: 1px blue solid;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.25;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+    font-size: 3em;
+}
+
+
 .personas_liquidar {
   background-color: #2dff07;
   color: blue;

@@ -91,11 +91,6 @@ angular
         controllerAs: 'novedadRegistro'
       })
 
-      .when('/novedades/novedad_consulta/:tipo', {
-        templateUrl: 'views/novedades/novedad_consulta.html',
-        controller: 'NovedadesNovedadConsultaCtrl',
-        controllerAs: 'novedadConsulta'
-      })
       .when('/liquidacion/liquidacion_detalle', {
         templateUrl: 'views/liquidacion/liquidacion_detalle.html',
         controller: 'LiquidacionCtrl',

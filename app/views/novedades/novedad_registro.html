@@ -9,17 +9,24 @@
   </div>
   <div class="col-md-6">
 
-    <div class="panel panel-default" ng-show="persona">
+    <div class="panel panel-default">
           <div class="panel-heading">Detalle de novedades</div>
           <div class="panel-body">
-            <button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion_novedad" ng-click="novedadRegistro.listar_conceptos()">Agregar novedad</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion_novedad" ng-click="novedadRegistro.listar_conceptos()" ng-show="persona">Agregar novedad</button>
             <br></br>
-            <div ui-grid="gridOptions_novedades" ui-grid-selection ui-grid-auto-resize class="myGrid"></div>
+            <div ui-grid="gridOptions_novedades" ui-grid-selection ui-grid-auto-resize class="myGrid">
+              <div class="watermark" ng-show="!gridOptions_novedades.data.length">No hay novedades registradas</div>
+            </div>
+
           </div>
     </div>
   </div>
 
   <div id="modal_adicion_novedad" class="modal fade" role="dialog">
+        <style>
+      .md-datepicker-calendar-pane{
+      z-index: 1200}
+      </style>
      <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">
        <div class="modal-header">
          <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
@@ -33,31 +40,24 @@
              <form name="formplan" ng-submit="formplan.$valid">
                <div ui-grid="gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div>
 
+
                <div ng-show="concepto.TipoConcepto.Nombre==='fijo'">
               <!-- Select Basic -->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
-                <div class="col-md-4">
-                  <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO' | translate}}">
+                <div class="form-group">
+                  <label class="col-sm-5 col-form-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
+                  <div class="col-md-4">
+                    <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO' | translate}}">
+                  </div>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="txtCuotas">{{'CUOTAS_NOV' | translate}}</label>
-                <div class="col-md-4">
-                  <input id="txtCuotas" name="txtCuotas" ng-model="novedadRegistro.NumCuotas" md-placeholder="{{'CUOTAS_NOV' | translate}}">
+                <div class="form-group">
+                  <label class="col-sm-5 col-form-label" for="txtCuotas">{{'CUOTAS_NOV' | translate}}</label>
+                  <div class="col-md-4">
+                    <input id="txtCuotas" name="txtCuotas" ng-model="novedadRegistro.NumCuotas" md-placeholder="{{'CUOTAS_NOV' | translate}}">
+                  </div>
                 </div>
-              </div>
 
-              <!-- Text input-->
-              <!-- Button (Double) -->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="btnRegistrar"></label>
-                <div class="col-md-8">
-                  <button id="btnRegistrar" name="btnRegistrar" class="btn btn-success" ng-click="novedadRegistro.Registrar()">{{'REGISTRAR' | translate}}</button>
-                  <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">{{'CANCELAR' | translate}}</button>
-                </div>
-              </div>
+                <center><button  ng-click='novedadRegistro.Registrar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
               </div>
 
               <div ng-show="concepto.TipoConcepto.Nombre==='porcentaje'">
@@ -69,36 +69,28 @@
                   </div>
                 </div>
 
-                <!-- Text input-->
-                <!-- Button (Double) -->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="btnRegistrar"></label>
-                  <div class="col-md-8">
-                    <button id="btnRegistrar" name="btnRegistrar" class="btn btn-success" ng-click="novedadRegistro.Registrar()">{{'REGISTRAR' | translate}}</button>
-                    <button id="btnCancelar" name="btnCancelar" class="btn btn-danger">{{'CANCELAR' | translate}}</button>
-                  </div>
-                </div>
+                <center><button  ng-click='novedadRegistro.Registrar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
+
                 </div>
 
                 <div ng-show="concepto.TipoConcepto.Nombre==='seguridad_social'">
                   <!-- Select Basic -->
                   <div class="form-group">
-                    <label class="col-md-4 control-label" for="txtFechaInicio">{{'FECHA_INICIO' | translate}}</label>
+                    <label class="col-sm-5 col-form-label" for="txtFechaInicio">{{'FECHA_INICIO' | translate}}</label>
                     <div class="col-md-4">
                       <md-datepicker id="txtFechaInicio" name="txtFechaInicio" ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
 
                     </div>
                   </div>
 
-                  <!-- Text input-->
-                  <!-- Button (Double) -->
                   <div class="form-group">
-                    <label class="col-md-4 control-label" for="btnRegistrar"></label>
-                    <div class="col-md-8">
-                      <center><button id="btnRegistrar" name="btnRegistrar" class="btn btn-success" ng-click="novedadRegistro.Registrar()">{{'REGISTRAR' | translate}}</button></center>
-                      <center><button id="btnCancelar" name="btnCancelar" class="btn btn-danger">{{'CANCELAR' | translate}}</button></center>
+                    <label class="col-sm-5 col-form-label" for="txtFechaFin">{{'FECHA_FIN' | translate}}</label>
+                    <div class="col-md-4">
+                      <md-datepicker id="txtFechaFin" name="txtFechaFin" ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
                     </div>
                   </div>
+
+                  <center><button  ng-click='novedadRegistro.Registrar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
                   </div>
 
               </fieldset>
@@ -111,5 +103,75 @@
          </div>
        </div>
      </div>
+
+     <div id="modal_edicion_novedad" class="modal fade" role="dialog">
+        <style>
+        .md-datepicker-calendar-pane{
+        z-index: 1200}
+        </style>
+
+        <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">
+          <div class="modal-header">
+            <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Edición de novedad</h3>
+              </div>
+              <div class="panel-body">
+                <form name="formplan" ng-submit="formplan.$valid">
+
+                  <div ng-show="novedadRegistro.tipo_concepto_edicion ==='porcentaje'">
+                   <div class="form-group">
+                     <label class="col-sm-5 col-form-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
+                     <div class="col-md-4">
+                       <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}">
+                     </div>
+                   </div>
+
+                  </div>
+
+                <div ng-show="novedadRegistro.tipo_concepto_edicion ==='fijo'">
+                 <div class="form-group">
+                   <label class="col-sm-5 col-form-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
+                   <div class="col-md-4">
+                     <input id="txtValNovedad" name="txtValNovedad" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}">
+                   </div>
+                 </div>
+
+                 <div class="form-group">
+                   <label class="col-sm-5 col-form-label" for="txtCuotas">{{'CUOTAS_NOV' | translate}}</label>
+                   <div class="col-md-4">
+                     <input id="txtCuotas" name="txtCuotas" ng-model="novedadRegistro.num_cuotas_edicion" md-placeholder="{{'CUOTAS_NOV' | translate}}">
+                   </div>
+                 </div>
+                </div>
+
+                 <div ng-show="novedadRegistro.tipo_concepto_edicion ==='seguridad_social'">
+                 <div class="form-group">
+                   <label class="col-sm-5 col-form-label" for="txtFechaDesde">Fecha de inicio</label>
+                   <div class="col-md-4">
+                     <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
+                   </div>
+                 </div>
+
+                 <div class="form-group">
+                   <label class="col-sm-5 col-form-label" for="txtFechaHasta">Fecha Final</label>
+                   <div class="col-md-4">
+                      <md-datepicker id="txtFechaHasta" name="txtFechaHasta" ng-model="novedadRegistro.FechaFin" md-placeholder=""></md-datepicker>
+                   </div>
+                 </div>
+                </div>
+
+                 <br>
+                 <center><button  ng-click='novedadRegistro.Editar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
+                 </fieldset>
+               </form>
+             </div>
+            </div>
+            </div>
+          </div>
+        </div>
 
   </div>
