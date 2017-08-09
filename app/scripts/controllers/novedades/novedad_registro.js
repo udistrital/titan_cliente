@@ -20,7 +20,8 @@ angular.module('titanClienteV2App')
     self.num_cuotas_edicion;
     self.id_nomina_edicion;
     self.valor_novedad_edicion;
-    self.persona_edicion
+    self.persona_edicion;
+    self.concepto_nombre_edicion;
 
     var tipo_vin = {
       Id: 0,
@@ -73,13 +74,13 @@ angular.module('titanClienteV2App')
       columnDefs : [
         {field: 'Id',             visible : false},
         {field: 'Concepto.Id' ,  visible : false},
-        {field: 'Concepto.AliasConcepto' ,  displayName: "Concepto"},
+        {field: 'Concepto.AliasConcepto' ,  displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD')},
         {field: 'Concepto.TipoConcepto.Nombre' ,  visible:false},
-        {field: 'ValorNovedad' ,  displayName: "Valor Novedad"},
-        {field: 'NumCuotas' ,  displayName: "Número Cuotas"},
+        {field: 'ValorNovedad' ,  displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD')},
+        {field: 'NumCuotas' ,  displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD')},
         {field: 'FechaDesde' ,  visible:false},
         {field: 'FechaHasta' ,  visible:false},
-        {field: 'FechaRegistro' ,  displayName: "Fecha de registro", cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>'},
+        {field: 'FechaRegistro' ,  displayName: $translate.instant('FECHA_REGISTRO'), cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>'},
         {field: 'Activo' ,  visible:false},
         {field: 'Nomina.Id' ,  visible:false},
         {field: 'Acciones', displayName: $translate.instant('ACCIONES'),
@@ -204,7 +205,7 @@ angular.module('titanClienteV2App')
 
     $scope.inactivar_novedad = function(row) {
       swal({
-             html: "¿Está seguro que desea inactivar esta novedad?",
+            html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV')+row.entity.Concepto.AliasConcepto+"?",
              type: "warning",
              showCancelButton: true,
              confirmButtonColor: "#449D44",
@@ -235,7 +236,7 @@ angular.module('titanClienteV2App')
              titanRequest.put('concepto_por_persona', novedad_por_persona_a_inactivar.Id, novedad_por_persona_a_inactivar).then(function(response) {
                if(response.data=="OK"){
                  swal({
-                    html: "Novedad inactivada",
+                    html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
                     type: "success",
                     showCancelButton: false,
                     confirmButtonColor: "#449D44",
@@ -246,7 +247,7 @@ angular.module('titanClienteV2App')
                }
                else{
                  swal({
-                    html: "Error al inactivar novedad",
+                    html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
                     type: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#449D44",
@@ -270,6 +271,7 @@ angular.module('titanClienteV2App')
 
            self.id_edicion =  row.entity.Id
            self.id_concepto_edicion = row.entity.Concepto.Id
+           self.concepto_nombre_edicion = row.entity.Concepto.AliasConcepto
            self.tipo_concepto_edicion = row.entity.Concepto.TipoConcepto.Nombre
            self.activo_edicion = row.entity.Activo
            self.num_cuotas_edicion = row.entity.NumCuotas
@@ -281,7 +283,8 @@ angular.module('titanClienteV2App')
          self.Editar = function(){
 
            swal({
-                  html: "¿Está seguro que desea editar esta novedad?",
+                  html: $translate.instant('CONFIRMACION_EDICION_NOV')+
+                   "<br><b>"+self.concepto_nombre_edicion+"?",
                   type: "warning",
                   showCancelButton: true,
                   confirmButtonColor: "#449D44",
@@ -312,7 +315,7 @@ angular.module('titanClienteV2App')
                   titanRequest.put('concepto_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
                     if(response.data=="OK"){
                       swal({
-                         html: "Novedad modificada",
+                         html: $translate.instant('EDICION_CORRECTA_NOV'),
                          type: "success",
                          showCancelButton: false,
                          confirmButtonColor: "#449D44",
@@ -323,7 +326,7 @@ angular.module('titanClienteV2App')
                     }
                     else{
                       swal({
-                         html: "Error al modificar novedad",
+                         html: $translate.instant('EDICION_INCORRECTA_NOV'),
                          type: "error",
                          showCancelButton: false,
                          confirmButtonColor: "#449D44",

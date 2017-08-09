@@ -10,12 +10,12 @@
   <div class="col-md-6">
 
     <div class="panel panel-default">
-          <div class="panel-heading">Detalle de novedades</div>
+          <div class="panel-heading">{{'DETALLE_NOVEDAD'| translate}}</div>
           <div class="panel-body">
-            <button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion_novedad" ng-click="novedadRegistro.listar_conceptos()" ng-show="persona">Agregar novedad</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion_novedad" ng-click="novedadRegistro.listar_conceptos()" ng-show="persona">{{'AGREGAR_NOVEDAD' | translate}}</button>
             <br></br>
             <div ui-grid="gridOptions_novedades" ui-grid-selection ui-grid-auto-resize class="myGrid">
-              <div class="watermark" ng-show="!gridOptions_novedades.data.length">No hay novedades registradas</div>
+              <div class="watermark" ng-show="!gridOptions_novedades.data.length">{{'ALERTA_NO_NOVEDADES'| translate}}</div>
             </div>
 
           </div>
@@ -34,7 +34,7 @@
        <div class="modal-body">
          <div class="panel panel-default">
            <div class="panel-heading">
-             <h3 class="panel-title">Adición de nueva novedad</h3>
+             <h3 class="panel-title">{{'TITULO_REG_NOVEDAD'| translate}}</h3>
            </div>
            <div class="panel-body">
              <form name="formplan" ng-submit="formplan.$valid">
@@ -117,7 +117,7 @@
           <div class="modal-body">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title">Edición de novedad</h3>
+                <h3 class="panel-title">{{'TITULO_EDICION_NOVEDAD' | translate}}</h3>
               </div>
               <div class="panel-body">
                 <form name="formplan" ng-submit="formplan.$valid">
@@ -150,16 +150,16 @@
 
                  <div ng-show="novedadRegistro.tipo_concepto_edicion ==='seguridad_social'">
                  <div class="form-group">
-                   <label class="col-sm-5 col-form-label" for="txtFechaDesde">Fecha de inicio</label>
+                   <label class="col-sm-5 col-form-label" for="txtFechaDesde">{{'FECHA_INICIO' | translate}}</label>
                    <div class="col-md-4">
                      <md-datepicker id="txtFechaDesde" name="txtFechaDesde" ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
                    </div>
                  </div>
 
                  <div class="form-group">
-                   <label class="col-sm-5 col-form-label" for="txtFechaHasta">Fecha Final</label>
+                   <label class="col-sm-5 col-form-label" for="txtFechaHasta">{{'FECHA_FIN' | translate}}</label>
                    <div class="col-md-4">
-                      <md-datepicker id="txtFechaHasta" name="txtFechaHasta" ng-model="novedadRegistro.FechaFin" md-placeholder=""></md-datepicker>
+                      <md-datepicker id="txtFechaHasta" name="txtFechaHasta" ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
                    </div>
                  </div>
                 </div>
