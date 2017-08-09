@@ -13,7 +13,7 @@ angular.module('titanClienteV2App')
     self.id_edicion;
     self.alias_concepto_edicion;
     self.nombre_concepto_edicion;
-      
+
 
   //  self.tipo="porcentaje";
     self.gridOptions_conceptos = {

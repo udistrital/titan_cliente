@@ -1,7 +1,7 @@
 <br>
  <div class="alert alert-warning text-center" ng-show='preliquidacionRegistro.loading'>
             <div class="row">
-              <h1 class="col-sm-7">Generando Preliquidación...</h1>
+              <h1 class="col-sm-7">{{'GENERANDO'| translate}}</h1>
               <div class="loader col-sm-5" ></div>
             </div>
 </div>
@@ -15,15 +15,15 @@
             <form>
 
             <div class="form-group row">
-                <label for="input_mes" class="col-sm-5 col-form-label">Mes</label>
+                <label for="input_mes" class="col-sm-5 col-form-label">{{'MES_PRELIQ' | translate}}</label>
                 <textarea name="input_mes" ng-model="preliquidacionRegistro.MesPreliq"></textarea>
 
             </div>
 
             <div class="form-group row">
-                <label for="input_mes" class="col-sm-5 col-form-label">Ano</label>
+                <label for="input_mes" class="col-sm-5 col-form-label">{{'ANO_PRELIQ' | translate}}</label>
                 <textarea name="input_mes" ng-model="preliquidacionRegistro.AnoPreliq"></textarea>
-            </div>        
+            </div>
             <button ng-click='preliquidacionRegistro.limpiar()' class="btn btn-danger">{{'CANCELAR' | translate}}</button>
             <button ng-click='preliquidacionRegistro.registrar_preliqu()' class="btn btn-success">{{'REGISTRAR'| translate}}</button>
 
@@ -35,7 +35,7 @@
     <br>
     <br>
     <div class="row jumbotron">
-        <span id ="fecha">fecha actual: {{preliquidacionRegistro.CurrentDate | date:'yyyy-MM-dd'}}</span>
+      
        <h2>{{'TITULO_PRELIQ_REGIS'|translate}} <b>{{preliquidacionRegistro.nomina.TipoNomina.Nombre}}</b> :</h2>
 
           <table  style="width:95%;">

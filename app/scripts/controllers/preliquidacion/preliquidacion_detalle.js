@@ -26,14 +26,14 @@ angular.module('titanClienteV2App')
         {field: 'NumeroContrato' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
         {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
         {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')},
-        {field: 'GenerarPDF',displayName:"Generar PDF",  cellTemplate: '<button class="btn" ng-click="grid.appScope.preliquidacionDetalle.generarReporte(row)">Generar PDF</button>'}
+        {field: 'GenerarPDF',displayName: $translate.instant('GENERAR_PDF'),  cellTemplate: '<button class="btn" ng-click="grid.appScope.preliquidacionDetalle.generarReporte(row)">Generar PDF</button>'}
 
       ],
       onRegisterApi : function( gridApi ) {
         self.gridApi = gridApi;
         self.gridApi.selection.on.rowSelectionChanged($scope,function(row){
           $scope.cdp = $scope.gridApi.selection.getSelectedRows();
-          alert("ece");
+
         });
       }
 };

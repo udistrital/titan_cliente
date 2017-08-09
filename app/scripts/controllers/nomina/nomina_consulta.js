@@ -33,10 +33,10 @@ angular.module('titanClienteV2App')
 
       columnDefs : [
         {field: 'Id',             visible : false},
-        {field: 'Descripcion',    displayName: "Descripcion"},
+        {field: 'Descripcion',    displayName:$translate.instant('DESC_NOMINA')},
         {field: 'TipoNomina',     visible : false},
         {field: 'TipoVinculacion',     visible : false},
-        {field: 'Activo',    displayName: "Estado"},
+        {field: 'Activo',    displayName:$translate.instant('ESTADO_NOMINA'), cellTemplate: "<div class='ui-grid-cell-contents'>{{row.entity.Activo ? 'Activa' : 'Inactiva'}}</div>"},
         {field: 'Opciones',displayName:$translate.instant('OPCIONES_NOMINA'),  cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.consulta_preliquidacion(row)">'+$translate.instant('PRELIQUIDACION')+'</button>'}
       ]
 
@@ -60,6 +60,9 @@ angular.module('titanClienteV2App')
         self.formVisibility = false;
      };
 
+     self.transformar_bool = function(row) {
+      return row.entity.Activo ? 'active' : 'inactive';
+   };
 
      self.registrar_nomina = function() {
         var objeto_tipo_nomina = JSON.parse(self.selectTipoNomina);

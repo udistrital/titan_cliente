@@ -30,8 +30,8 @@ angular.module('titanClienteV2App')
       columnDefs : [
         {field: 'Id',             visible : false},
         {field: 'Descripcion', displayName: $translate.instant('DESC_PRELIQ')},
-        {field: 'Mes', displayName: "Mes"},
-        {field: 'Ano', displayName: "Año"},
+        {field: 'Mes', displayName: $translate.instant('MES_PRELIQ')},
+        {field: 'Ano', displayName: $translate.instant('ANO_PRELIQ')},
         {field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>'},
         {field: 'EstadoPreliquidacion.Nombre', displayName: $translate.instant('ESTADO_PRELIQ')},
         {field: 'Opciones',displayName: $translate.instant('OPCIONES_PRELIQ'),cellTemplate: '<button class="btn btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.generar_preliquidacion(row)">'+$translate.instant('GENERAR')+'</button><button class="btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.detalle_preliquidacion(row)">'+$translate.instant('DETALLE')+'</button>'},
