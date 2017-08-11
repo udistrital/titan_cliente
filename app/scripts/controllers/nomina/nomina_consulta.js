@@ -35,7 +35,6 @@ angular.module('titanClienteV2App')
         {field: 'Id',             visible : false},
         {field: 'Descripcion',    displayName:$translate.instant('DESC_NOMINA')},
         {field: 'TipoNomina',     visible : false},
-        {field: 'TipoVinculacion',     visible : false},
         {field: 'Activo',    displayName:$translate.instant('ESTADO_NOMINA'), cellTemplate: "<div class='ui-grid-cell-contents'>{{row.entity.Activo ? 'Activa' : 'Inactiva'}}</div>"},
         {field: 'Opciones',displayName:$translate.instant('OPCIONES_NOMINA'),  cellTemplate: '<button class="btn" ng-click="grid.appScope.nominaConsulta.consulta_preliquidacion(row)">'+$translate.instant('PRELIQUIDACION')+'</button>'}
       ]
@@ -52,10 +51,6 @@ angular.module('titanClienteV2App')
 
      });
 
-     titanRequest.get('tipo_vinculacion','limit=0').then(function(response) {
-      self.Vinculacion = response.data;
-     });
-
      self.limpiar = function() {
         self.formVisibility = false;
      };
@@ -66,21 +61,13 @@ angular.module('titanClienteV2App')
 
      self.registrar_nomina = function() {
         var objeto_tipo_nomina = JSON.parse(self.selectTipoNomina);
-        var objeto_tipo_vinculacion = JSON.parse(self.selectVinculacion);
 
         var tipo_nomina = {
      		   Id : objeto_tipo_nomina.Id
      	   };
 
-
-       	var tipo_vinculacion = {
-       		Id : objeto_tipo_vinculacion.Id
-       	};
-
-        console.log(objeto_tipo_vinculacion)
         var nomina = {
-              TipoVinculacion: tipo_vinculacion,
-              Descripcion: objeto_tipo_nomina.Descripcion + "-"+ objeto_tipo_vinculacion.Descripcion,
+              Descripcion: objeto_tipo_nomina.Descripcion,
               TipoNomina: tipo_nomina,
               Activo: Boolean("true")
 
@@ -125,14 +112,10 @@ angular.module('titanClienteV2App')
         Id :  row.entity.TipoNomina.Id ,
      		Nombre :row.entity.TipoNomina.Nombre
      	};
-     	var tipo_vinculacion = {
-        Id :  row.entity.TipoVinculacion.Id,
-     		Nombre :  row.entity.TipoVinculacion.Nombre
-     	};
+
         self.nomina = nomina;
         self.nomina.Id = row.entity.Id;
         self.nomina.Descripcion= row.entity.Descripcion;
-        self.nomina.TipoVinculacion = tipo_vinculacion;
         self.nomina.TipoNomina = tipo_nomina;
         self.nomina.Activo = row.entity.Activo;
         $window.location.href = '#/preliquidacion/preliquidacion_registro';
