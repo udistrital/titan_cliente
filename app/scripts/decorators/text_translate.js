@@ -49,7 +49,7 @@ var text_es = {
   OPCIONES_PRELIQ: "Opciones",
   PRELIQ_REG_CORRECTA: "Preliquidación registrada correctamente",
   PRELIQ_REG_INCORRECTA: "Error al registrar la preliquidación",
-
+  ALERTA_PRELIQUIDACION_CERRADA: "Esta preliquidación está cerrada",
   //Interfaz de listado de personas a preliquidar
   PRELIQ_NOMINA: "Personas a preliquidar en nómina: ",
   NUM_CONTRATO: "Número de contrato",
@@ -237,6 +237,7 @@ var text_en = {
   OPCIONES_PRELIQ: "Options",
   PRELIQ_REG_CORRECTA: "Pre-liquidation correctly recorded",
   PRELIQ_REG_INCORRECTA: "Error in pre-liquidation record",
+  ALERTA_PRELIQUIDACION_CERRADA: "This pre-liquidation is closed",
 
   //Interfaz de listado de personas a preliquidar
   PRELIQ_NOMINA: "People for pre-liquidation in payslip: ",

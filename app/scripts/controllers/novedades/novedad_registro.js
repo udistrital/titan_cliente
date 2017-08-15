@@ -113,7 +113,7 @@ angular.module('titanClienteV2App')
       gridApi.selection.on.rowSelectionChanged($scope,function(row){
         $scope.persona = row.entity
 
-        titanRequest.get('concepto_por_persona','limit=0&query=Activo:TRUE,Persona:'+$scope.persona.Id+',Nomina.TipoNomina.Nombre:'+self.tipo+'&sortby=Id&order=desc').then(function(response) {
+        titanRequest.get('concepto_nomina_por_persona','limit=0&query=Activo:TRUE,Persona:'+$scope.persona.Id+',Nomina.TipoNomina.Nombre:'+self.tipo+'&sortby=Id&order=desc').then(function(response) {
             $scope.gridOptions_novedades.data = response.data;
 
         });
@@ -172,7 +172,7 @@ angular.module('titanClienteV2App')
       };
 
 
-      titanRequest.post('concepto_por_persona',novedad_por_persona).then(function(response) {
+      titanRequest.post('concepto_nomina_por_persona',novedad_por_persona).then(function(response) {
         console.log("post concepto")
         if(typeof(response.data)=="object"){
           swal({
@@ -233,7 +233,7 @@ angular.module('titanClienteV2App')
                ValorNovedad: row.entity.ValorNovedad
              };
 
-             titanRequest.put('concepto_por_persona', novedad_por_persona_a_inactivar.Id, novedad_por_persona_a_inactivar).then(function(response) {
+             titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_inactivar.Id, novedad_por_persona_a_inactivar).then(function(response) {
                if(response.data=="OK"){
                  swal({
                     html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
@@ -312,7 +312,7 @@ angular.module('titanClienteV2App')
                     ValorNovedad: parseFloat(self.valor_novedad_edicion)
                   };
 
-                  titanRequest.put('concepto_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
+                  titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
                     if(response.data=="OK"){
                       swal({
                          html: $translate.instant('EDICION_CORRECTA_NOV'),

@@ -111,6 +111,26 @@ angular.module('titanClienteV2App')
      };
 
      self.generar_preliquidacion = function(row){
+       if(row.entity.EstadoPreliquidacion.Nombre == 'Cerrada'){
+         swal({
+            html: $translate.instant('ALERTA_PRELIQUIDACION_CERRADA'),
+            type: "error",
+            showCancelButton: true,
+            confirmButtonColor: "#449D44",
+            cancelButtonColor: "#C9302C",
+            confirmButtonText: $translate.instant('VOLVER'),
+            cancelButtonText: $translate.instant('SALIR'),
+          }).then(function() {
+            //si da click en ir a contratistas
+            $window.location.href = '#/nomina/nomina_consulta';
+          }, function(dismiss) {
+
+            if (dismiss === 'cancel') {
+              //si da click en Salir
+              $window.location.href = '#/nomina/nomina_consulta';
+            }
+          })
+       }else{
         self.preliquidacion = preliquidacion;
         self.preliquidacion.Id = row.entity.Id;
         self.preliquidacion.Descripcion = row.entity.Descripcion;
@@ -120,6 +140,7 @@ angular.module('titanClienteV2App')
         self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
         self.preliquidacion.Nomina = self.nomina
         $window.location.href = '#/preliquidacion/preliquidacion_personas';
+      }
      };
 
      self.detalle_preliquidacion = function(row){
