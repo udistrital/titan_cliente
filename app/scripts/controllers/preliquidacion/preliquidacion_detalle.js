@@ -8,10 +8,11 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-  .controller('PreliquidacionPreliquidacionDetalleCtrl', function ($scope,titanMidRequest,titanRequest,preliquidacion,$window,$translate) {
+  .controller('PreliquidacionPreliquidacionDetalleCtrl', function ($scope,titanMidRequest,titanRequest,preliquidacion,$window,$translate,$http) {
     var self = this;
     self.numero_conceptos = 0;
     self.resumen_conceptos;
+    self.imagen_ud;
     self.seleccion_sueldoNeto = 0;
     self.respuesta_persona;
     self.respuesta_conceptos;
@@ -123,90 +124,56 @@ angular.module('titanClienteV2App')
      		self.seleccion_tot_devengo = temp_total_devengo;
      	};
 
-      self.liquidar = function(){
-        var seleccion_personas = self.gridApi.selection.getSelectedRows();
-        var personas = [];
-        for (var i=0; i < seleccion_personas.length; i++){
-          personas[i] = seleccion_personas[i].IdPersona
-        }
+      self.solicitar_necesidad = function(){
+        alert("solicitud necesidad")
 
-        if(personas.length ===0){
-          swal({
-             html: $translate.instant('ALERTA_PERSONAS_SELECCIONADAS'),
-             type: "error",
-             showCancelButton: true,
-             confirmButtonColor: "#449D44",
-             cancelButtonColor: "#C9302C",
-             confirmButtonText: $translate.instant('VOLVER'),
-             cancelButtonText: $translate.instant('SALIR'),
-           }).then(function() {
-             //si da click en ir a contratistas
-             $window.location.href = '#/preliquidacion/preliquidacion_detalle';
-           }, function(dismiss) {
+      };
 
-             if (dismiss === 'cancel') {
-               //si da click en Salir
-               $window.location.href = '#/nomina/nomina_consulta';
-             }
-           })
-        }else{
-          var tam = seleccion_personas.length
-          personas[tam] = preliquidacion.Id
-
-          var datos = { Preliquidacion: self.preliquidacion, Personas: personas}
-          console.log(datos)
-          titanMidRequest.post('liquidacion',datos).then(function(response) {
-            console.log(response.data)
-          if(response.data === "Ok"){
-            self.saving =false;
-            self.btnGenerartxt= $translate.instant('GENERAR');;
-            $window.location.href = '#/liquidacion/liquidacion_detalle';
-          }else{
-            swal({
-               html:  $translate.instant('ALERTA_NO_LIQUIDACION'),
-               type: "error",
-               showCancelButton: true,
-               confirmButtonColor: "#449D44",
-               cancelButtonColor: "#C9302C",
-               confirmButtonText: $translate.instant('VOLVER'),
-               cancelButtonText: $translate.instant('SALIR'),
-             }).then(function() {
-               //si da click en ir a contratistas
-               $window.location.href = '#/nomina/nomina_consulta';
-             }, function(dismiss) {
-
-               if (dismiss === 'cancel') {
-                 //si da click en Salir
-                 $window.location.href = '#/nomina/nomina_consulta';
-               }
-             })
-
-          }
-
-
-        });
-        }
+      self.generar_reporte_general = function(personas){
+        alert("reporte general")
 
       };
 
       self.generarReporte = function(row){
 
+        $http.get("scripts/models/imagen_ud.json")
+                   .then(function(response) {
+                       self.imagen_ud = response.data;
+                     });
+
         var num_conceptos;
         var cuerpo_devengos = []
         var cuerpo_descuentos = []
         var datos_persona;
+        var mes_preliquidacion = self.preliquidacion.Mes
+        var ano_preliquidacion = self.preliquidacion.Ano
         var fecha_generacion = new Date().toJSON().slice(0,10).replace(/-/g,'/');
         num_conceptos = (4 + num_conceptos )  //numero de filas anteriores a los conceptos: 3
           var cuerpo_tabla = [
-            [{text: 'Pagos periodo yyyy-mm', style: 'tableHeader', colSpan: 5, alignment: 'center'}, {},{},{},{}],
+
+            [{text: 'Pagos periodo '+ano_preliquidacion+ '-'+mes_preliquidacion, style: 'tableHeader', colSpan: 5, alignment: 'center'}, {},{},{},{}],
             [{text: $translate.instant('NOMBRE_RUBRO'),style: 'tableHeader', alignment: 'center'},{text: $translate.instant('NOMBRE_BENEFICIARIO'), style: 'tableHeader', alignment: 'center'},{text: $translate.instant('NOMBRE_ORDEN_PAGO'), style: 'tableHeader', alignment: 'center'},{text: $translate.instant('FECHA_PDF'), style: 'tableHeader', alignment: 'center'},{text: $translate.instant('CONCEPTO_PDF'), style: 'tableHeader', alignment: 'center'}],
           //  datos_persona = self.respuesta_persona[i].NomProveedor + "\n\n" + self.respuesta_persona[i].NumDocumento
 
           ]
         var valor;
+
+
       //  var docDefinition = { content: [] };
             var docDefinition = {
               content: [
+                {
+                        // if you specify both width and height - image will be stretched
+                        image: self.imagen_ud.imagen,
+                        alignment: 'left',
+                        width: 100,
+                        margin: [0, 0, 0, 0],
+                },
+                {
+                  text:"\n DETALLE DE PAGO \n" + fecha_generacion,
+                  style: 'header',
+                  alignment: 'left'
+                },
                 {
                   table: {
                        headerRows: 1,
@@ -269,6 +236,8 @@ angular.module('titanClienteV2App')
         for(var i=0; i < cuerpo_descuentos.length; i++){
           cuerpo_tabla.push(cuerpo_descuentos[i])
         }
+
+
 
            pdfMake.createPdf(docDefinition).open();
            self.numero_conceptos = 0

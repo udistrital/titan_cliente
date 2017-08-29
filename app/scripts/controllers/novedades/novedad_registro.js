@@ -136,10 +136,12 @@ angular.module('titanClienteV2App')
      $scope.gridOptions_personas.data = response.data;
    });
 
+   titanRequest.get('concepto_nomina','limit=0&sortby=Id&order=desc').then(function(response) {
+     $scope.gridOptions_conceptos.data = response.data;
+    });
+
     self.listar_conceptos = function() {
-       titanRequest.get('concepto_nomina','limit=0&sortby=Id&order=desc').then(function(response) {
-       $scope.gridOptions_conceptos.data = response.data;
-      });
+
      }
 
     self.Registrar = function(){

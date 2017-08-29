@@ -47,6 +47,7 @@ angular.module('titanClienteV2App')
         var personas_a_liquidar = [];
         for (var i=0; i < personas.length; i++){
          var persona = { IdPersona : personas[i].Id ,
+                         NumDocumento: personas[i].NumDocumento,
                          NumeroContrato :  personas[i].NumeroContrato,
                          VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                         };
@@ -107,6 +108,7 @@ angular.module('titanClienteV2App')
            if(personas[i].IdEPS === 0 || personas[i].IdARL === 0 || personas[i].IdFondoPension === 0 || personas[i].IdCajaCompensacion === 0){
              //swal("¡ERROR!","No se puede realizar liquidación","error")
              var persona = { IdPersona : personas[i].Id ,
+                              NumDocumento: personas[i].NumDocumento,
                               NumeroContrato :  personas[i].NumeroContrato,
                               VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                             };
@@ -136,6 +138,7 @@ angular.module('titanClienteV2App')
            else{
              for (var i=0; i < personas.length; i++){
               var persona = { IdPersona : personas[i].Id ,
+                              NumDocumento: personas[i].NumDocumento,
                               NumeroContrato :  personas[i].NumeroContrato,
                               VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                              };
@@ -198,6 +201,7 @@ angular.module('titanClienteV2App')
     var personas_a_liquidar = [];
     for (var i=0; i < personas.length; i++){
      var persona = { IdPersona : personas[i].Id ,
+                    NumDocumento: personas[i].NumDocumento,
                      NumeroContrato :  personas[i].NumeroContrato,
                      VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                     };
@@ -254,6 +258,7 @@ if (self.nomina.TipoNomina.Nombre === "CT"){
         var personas_a_liquidar = [];
         for (var i=0; i < personas.length; i++){
         var persona = { IdPersona : personas[i].Id ,
+                      NumDocumento: personas[i].NumDocumento,
                        NumeroContrato :  personas[i].NumeroContrato,
                        VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
 
@@ -312,6 +317,7 @@ if (self.nomina.TipoNomina.Nombre === "PE"){
         var personas_a_liquidar = [];
         for (var i=0; i < personas.length; i++){
         var persona = { IdPersona : personas[i].Id ,
+                        NumDocumento: personas[i].NumDocumento,
                        NumeroContrato :  personas[i].NumeroContrato,
                        VigenciaContrato :  parseInt(personas[i].VigenciaContrato)
                       };

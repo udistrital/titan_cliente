@@ -27,8 +27,8 @@
                             <th>{{key}}</th><td>{{value | currency}}</td>
                         </tr>
                     </table>
-                      <button ng-click="preliquidacionDetalle.liquidar()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'LIQUIDAR' | translate}}</button>
-                      <button ng-click="preliquidacionDetalle.generarReporte()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>
+                      <button ng-click="preliquidacionDetalle.solicitar_necesidad()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_NECESIDAD' | translate}}</button>
+                      <button ng-click="preliquidacionDetalle.generar_reporte_general()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>
                 </div>
             </div>
         </div>
