@@ -39,6 +39,8 @@ angular.module('titanClienteV2App')
       }
 };
 
+
+
 	    self.CalcularTotalesNomina = function(){
 	    	var seleccion_personas = self.gridApi.selection.getSelectedRows();
 	    	var temp_sueldo_neto = 0;
@@ -130,25 +132,38 @@ angular.module('titanClienteV2App')
       };
 
       self.generar_reporte_general = function(personas){
-        alert("reporte general")
+        $http.get("scripts/models/imagen_ud.json")
+                   .then(function(response) {
+                       self.imagen_ud = response.data;
+                       var personas = self.gridApi.selection.getSelectedRows();
+                       var rta;
+                       angular.forEach(personas,function(persona){
+                         self.generarReporte(persona);
+                       });
+                     });
 
       };
 
       self.generarReporte = function(row){
 
-        $http.get("scripts/models/imagen_ud.json")
-                   .then(function(response) {
-                       self.imagen_ud = response.data;
-                     });
-
         var num_conceptos;
         var cuerpo_devengos = []
         var cuerpo_descuentos = []
         var datos_persona;
+        var valor;
+        var valor_descuentos=0;
+        var valor_devengos=0;
+        var valor_devengos_formato;
+        var valor_descuentos_formato;
+        var encabezado;
+        var espacio;
+        var tabla_detalle_pago;
+        var espacio_pagina;
+        var content = [];
         var mes_preliquidacion = self.preliquidacion.Mes
         var ano_preliquidacion = self.preliquidacion.Ano
         var fecha_generacion = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-        num_conceptos = (4 + num_conceptos )  //numero de filas anteriores a los conceptos: 3
+        num_conceptos = (4 + num_conceptos)  //numero de filas anteriores a los conceptos: 3
           var cuerpo_tabla = [
 
             [{text: 'Pagos periodo '+ano_preliquidacion+ '-'+mes_preliquidacion, style: 'tableHeader', colSpan: 5, alignment: 'center'}, {},{},{},{}],
@@ -156,80 +171,90 @@ angular.module('titanClienteV2App')
           //  datos_persona = self.respuesta_persona[i].NomProveedor + "\n\n" + self.respuesta_persona[i].NumDocumento
 
           ]
-        var valor;
 
 
-      //  var docDefinition = { content: [] };
-            var docDefinition = {
-              content: [
-                {
-                        // if you specify both width and height - image will be stretched
-                        image: self.imagen_ud.imagen,
-                        alignment: 'left',
-                        width: 100,
-                        margin: [0, 0, 0, 0],
-                },
-                {
-                  text:"\n DETALLE DE PAGO \n" + fecha_generacion,
-                  style: 'header',
-                  alignment: 'left'
-                },
-                {
-                  table: {
-                       headerRows: 1,
-                       body: cuerpo_tabla
-                     },
-
-                },
-              ],
-              styles: {
-                    header: {
-                      fontSize: 18,
-                      bold: true,
-                      margin: [0, 0, 0, 10]
-                    },
-                    subheader: {
-                      fontSize: 16,
-                      bold: true,
-                      margin: [0, 10, 0, 5]
-                    },
-                    tableExample: {
-                      margin: [0, 5, 0, 15]
-                    },
-                    tableHeader: {
-                      bold: true,
-                      fontSize: 13,
-                      color: 'black'
-                    }
+          encabezado = {
+              columns: [
+                  {
+                      width: 'auto',
+                      stack: [
+                          {
+                            image: self.imagen_ud.imagen,
+                             alignment: 'left',
+                             width: 100,
+                             margin: [0, 0, 0, 0],
+                          }
+                      ]
+                  },
+                  {
+                      width: '*',
+                      alignment: 'right',
+                      stack: [
+                          {
+                              style: 'header',
+                             text:"\n DETALLE DE PAGO \n" + fecha_generacion,
+                          }
+                      ]
                   },
 
+              ]
+          };
+
+          espacio = {
+             text: "\n"
+           };
+
+          tabla_detalle_pago =
+           {
+             table: {
+                  headerRows: 1,
+                  body: cuerpo_tabla
+                },
+
+           };
+
+           espacio_pagina = {
+            text: 'Página',
+            pageBreak: 'after'
             };
+
+
+          
 
         for (var i=0; i < self.respuesta_persona.length; i++){
 
-          if(self.respuesta_persona[i].IdPersona == row.entity.IdPersona){
+          if(self.respuesta_persona[i].IdPersona == row.IdPersona){
             self.numero_de_conceptos(row)
-            num_conceptos = (4 + self.numero_conceptos )  //numero de filas anteriores a los conceptos: 3
-            cuerpo_tabla.push([{rowSpan: num_conceptos, text: 'Rubro asociado'}, {text: row.entity.NomProveedor}, '12345',{text: fecha_generacion},'Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'],
+            num_conceptos = (4 + self.numero_conceptos + 2 )  //numero de filas anteriores a los conceptos: 3
+            cuerpo_tabla.push([{rowSpan: num_conceptos, text: 'Rubro asociado'}, {text: row.NomProveedor}, '12345',{text: fecha_generacion},'Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'],
               [{}, {text: $translate.instant('DETALLE_PAGO_PDF'), style: 'tableHeader', colSpan: 4, alignment: 'center'}, {},{},{}])
 
           for (var j=0; j< self.respuesta_persona[i].Conceptos.length; j++){
-            valor = self.respuesta_persona[i].Conceptos[j].Valor;
-            valor = '$'+valor.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            valor = parseInt(self.respuesta_persona[i].Conceptos[j].Valor);
+            valor = valor.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
             if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "devengo"){
-                cuerpo_devengos.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
+                cuerpo_devengos.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'left'},{} ,{} ,{text: valor, alignment: 'right'}])
+                valor_devengos = valor_devengos + parseInt(self.respuesta_persona[i].Conceptos[j].Valor)
             }
             if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "descuento"){
-              cuerpo_descuentos.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'center'},{} ,{} ,{text: valor, alignment: 'center'}])
+              cuerpo_descuentos.push([{},{text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'left'},{} ,{} ,{text: valor, alignment: 'right'}])
+                valor_descuentos = valor_descuentos + parseInt(self.respuesta_persona[i].Conceptos[j].Valor)
             }
           }
         }
         }
 
+        valor_devengos_formato = valor_devengos.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        cuerpo_devengos.push([{},{text: "Total devengado", style: 'tableHeader',colSpan: 3, alignment: 'right'},{} ,{} ,{text: valor_devengos_formato, style: 'tableHeader',alignment: 'right'}])
+
         cuerpo_tabla.push([{},{text: $translate.instant('DEVENGOS_PDF'), style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: $translate.instant('VALOR_PDF'), style: 'tableHeader', alignment: 'center'}])
          for(var i=0; i < cuerpo_devengos.length; i++){
            cuerpo_tabla.push(cuerpo_devengos[i])
          }
+
+
+         valor_descuentos_formato = valor_descuentos.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+         cuerpo_descuentos.push([{},{text: "Total descuentos", style: 'tableHeader',colSpan: 3, alignment: 'right'},{} ,{} ,{text: valor_descuentos_formato, style: 'tableHeader',alignment: 'right'}])
 
         cuerpo_tabla.push([{},{text: $translate.instant('DESCUENTOS_PDF'), style: 'tableHeader', colSpan: 3, alignment: 'center'},{} ,{} ,{text: $translate.instant('VALOR_PDF'), style: 'tableHeader', alignment: 'center'}])
 
@@ -237,15 +262,44 @@ angular.module('titanClienteV2App')
           cuerpo_tabla.push(cuerpo_descuentos[i])
         }
 
+        content.push(encabezado)
+        content.push(espacio)
+        content.push(tabla_detalle_pago)
+        content.push(espacio_pagina)
 
-
-           pdfMake.createPdf(docDefinition).open();
+          // pdfMake.createPdf(docDefinition).open();
            self.numero_conceptos = 0
+           console.log("consola")
+           console.log(docDefinition)
+           var docDefinition = {
+             content,
+             styles: {
+                   header: {
+                     fontSize: 18,
+                     bold: true,
+                     margin: [0, 0, 0, 10]
+                   },
+                   subheader: {
+                     fontSize: 16,
+                     bold: true,
+                     margin: [0, 10, 0, 5]
+                   },
+                   tableExample: {
+                     margin: [0, 5, 0, 15]
+                   },
+                   tableHeader: {
+                     bold: true,
+                     fontSize: 13,
+                     color: 'black'
+                   }
+                 }
+           };
+           pdfMake.createPdf(docDefinition).download();
       };
 
       self.numero_de_conceptos = function(row){
         for (var i=0; i < self.respuesta_persona.length; i++){
-          if(self.respuesta_persona[i].IdPersona == row.entity.IdPersona){
+          if(self.respuesta_persona[i].IdPersona == row.IdPersona){
             for (var j=0; j< self.respuesta_persona[i].Conceptos.length; j++){
               if(self.respuesta_persona[i].Conceptos[j].Naturaleza === "devengo"){
                   self.numero_conceptos = self.numero_conceptos + 1
