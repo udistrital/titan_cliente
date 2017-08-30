@@ -164,7 +164,11 @@ var text_es = {
   DEVENGOS_PDF: "Devengos",
   DESCUENTOS_PDF: "Descuentos",
   VALOR_PDF: "Valor",
-
+  ALERTA_SELECCION_PERSONAS_PDF: "Seleccione personas para generar PDF",
+  PAGO_PERIODO_PDF : "Pagos periodo",
+  TITULO_DETALLE_PAGO_PDF: "DETALLE DE PAGO",
+  TOTAL_DEVENGADO_PDF: "Total devengado",
+  TOTAL_DESCUENTOS_PDF: "Total descuentos",
   //MÓDULO DE conceptos
   TITULO_GENERAL: "CONCEPTOS REGISTRADOS",
   TITULO_EDICION: "EDICIÓN DE CONCEPTO",
@@ -354,6 +358,11 @@ var text_en = {
   DEVENGOS_PDF: "Incomes",
   DESCUENTOS_PDF: "Discounts",
   VALOR_PDF: "Values",
+  ALERTA_SELECCION_PERSONAS_PDF: "Please select people to generate PDF",
+  PAGO_PERIODO_PDF : "Payment for term: ",
+  TITULO_DETALLE_PAGO_PDF: "Payment detail",
+  TOTAL_DEVENGADO_PDF: "Total payed",
+  TOTAL_DESCUENTOS_PDF: "Total deducted",
 
 //MODULO DE CONCEPTOS
   TITULO_GENERAL: "RECORDED CONCEPTS",

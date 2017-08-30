@@ -152,6 +152,7 @@ angular.module('titanClienteV2App')
        self.preliquidacion.EstadoPreliquidacion = row.entity.EstadoPreliquidacion;
        self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
        self.preliquidacion.Nomina = self.nomina
+       
         console.log(row.entity);
         $window.location.href = '#/preliquidacion/preliquidacion_detalle';
      };

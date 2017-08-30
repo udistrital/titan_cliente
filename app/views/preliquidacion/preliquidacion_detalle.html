@@ -10,10 +10,10 @@
                             <div ui-grid="preliquidacionDetalle.gridOptions" ui-grid-selection ui-grid-exporter class="myGrid"></div>
                           </td>
                         </tr>
-                        <tr>
-                            <button ng-click="preliquidacionDetalle.CalcularTotalesNomina()"  class="btn btn-primary" > Calcular Selección</button>
-                        </tr>
+
                     </table>
+                    <br>
+                    <button ng-click="preliquidacionDetalle.generar_pdf()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>
 
                     <h2>{{'RESUMEN_PRELIQ'| translate}}</h2>
                     <table class="table">
@@ -28,7 +28,6 @@
                         </tr>
                     </table>
                       <button ng-click="preliquidacionDetalle.solicitar_necesidad()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_NECESIDAD' | translate}}</button>
-                      <button ng-click="preliquidacionDetalle.generar_reporte_general()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>
                 </div>
             </div>
         </div>
