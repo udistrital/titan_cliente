@@ -301,7 +301,7 @@ angular.module('titanClienteV2App')
           });
 
           var docDefinition = {
-            content,
+            content:content,
             styles: {
                   header: {
                     fontSize: 18,
