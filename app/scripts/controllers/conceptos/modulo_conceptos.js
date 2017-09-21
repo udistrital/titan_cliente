@@ -13,8 +13,10 @@ angular.module('titanClienteV2App')
     self.id_edicion;
     self.alias_concepto_edicion;
     self.nombre_concepto_edicion;
-
-
+    $scope.botones = [
+            { clase_color: "editar", clase_css: "fa fa-pencil fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.EDITAR'), operacion: 'edit', estado: true },
+            { clase_color: "borrar", clase_css: "fa fa-trash fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.BORRAR'), operacion: 'delete', estado: true }
+          ];
   //  self.tipo="porcentaje";
     self.gridOptions_conceptos = {
 
@@ -31,11 +33,13 @@ angular.module('titanClienteV2App')
         {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO_NOMBRE'), },
         {field: 'NaturalezaConcepto.Nombre',  displayName: $translate.instant('NATURALEZA_NOMBRE')},
         {field: 'TipoConcepto.Nombre',  displayName: $translate.instant('TIPO_NOMBRE')},
-        {field: 'Acciones', displayName: $translate.instant('ACCIONES'),
-        cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.borrar(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
-        ]
-
+        {field: 'Acciones', displayName: $translate.instant('ACCIONES'), width: '8%',
+         cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>'
+        }
+    ]
     };
+
+
 
     self.gridOptions_conceptos.onRegisterApi = function(gridApi){
         self.gridApi = gridApi;
@@ -55,6 +59,21 @@ angular.module('titanClienteV2App')
     titanRequest.get('tipo_concepto_nomina','limit=0&sortby=Id&order=desc').then(function(response) {
      self.TipoConcepto = response.data;
     });
+
+    $scope.loadrow = function(row, operacion) {
+           self.operacion = operacion;
+           switch (operacion) {
+               case "edit":
+               $scope.llenar_modal(row);
+                $('#modal_edicion').modal('show');
+                 break;
+               case "delete":
+                   $scope.borrar(row);
+                   break;
+               default:
+           }
+       };
+
 
     $scope.llenar_modal = function(row){
 

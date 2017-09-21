@@ -1,36 +1,5 @@
 /* NOTIFICATION*/
-.watermark {
-    border: 1px blue solid;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.25;
-    width: 100%;
-    text-align: center;
-    z-index: 1000;
-    font-size: 3em;
-}
 
-
-.personas_liquidar {
-  background-color: #2dff07;
-  color: blue;
-}
-
-.personas_no_liquidar {
-  background-color: #1fe0f0;
-  color:#d10000
-}
-
-tr.devengo{
-  background:#8BB9CD;
-}
-tr.descuento{
-  background:#FFB2B2;
-}
-tr.seguridad_social{
-  background:#A9F5D0;
-}
 
 .ui-grid-cell.lightGrey {
    background-color: #d3d3d3 !important ;

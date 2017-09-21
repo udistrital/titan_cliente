@@ -22,6 +22,10 @@ angular.module('titanClienteV2App')
     self.valor_novedad_edicion;
     self.persona_edicion;
     self.concepto_nombre_edicion;
+    $scope.botones = [
+            { clase_color: "editar", clase_css: "fa fa-pencil fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.EDITAR'), operacion: 'edit', estado: true },
+            { clase_color: "borrar", clase_css: "fa fa-trash fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.BORRAR'), operacion: 'delete', estado: true }
+          ];
 
     var tipo_vin = {
       Id: 0,
@@ -84,7 +88,9 @@ angular.module('titanClienteV2App')
         {field: 'Activo' ,  visible:false},
         {field: 'Nomina.Id' ,  visible:false},
         {field: 'Acciones', displayName: $translate.instant('ACCIONES'),
-        cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.inactivar_novedad(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion_novedad"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
+          cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>',
+        }
+      //  cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.inactivar_novedad(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion_novedad"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
       ],
       onRegisterApi : function( gridApi ) {
         self.gridApi = gridApi;
@@ -143,6 +149,21 @@ angular.module('titanClienteV2App')
     self.listar_conceptos = function() {
 
      }
+
+  
+     $scope.loadrow = function(row, operacion) {
+            self.operacion = operacion;
+            switch (operacion) {
+                case "edit":
+                $scope.llenar_modal(row);
+                 $('#modal_edicion_novedad').modal('show');
+                  break;
+                case "delete":
+                    $scope.inactivar_novedad(row);
+                    break;
+                default:
+            }
+        };
 
     self.Registrar = function(){
       var valor = parseFloat(self.ValorNovedad)
