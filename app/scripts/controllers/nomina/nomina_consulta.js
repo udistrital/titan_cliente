@@ -51,6 +51,7 @@ angular.module('titanClienteV2App')
 
      });
 
+     
      self.limpiar = function() {
         self.formVisibility = false;
      };
@@ -110,7 +111,8 @@ angular.module('titanClienteV2App')
       self.consulta_preliquidacion = function(row){
       	var tipo_nomina = {
         Id :  row.entity.TipoNomina.Id ,
-     		Nombre :row.entity.TipoNomina.Nombre
+     		Nombre :row.entity.TipoNomina.Nombre,
+        Descripcion: row.entity.TipoNomina.Descripcion
      	};
 
         self.nomina = nomina;

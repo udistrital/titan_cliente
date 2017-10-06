@@ -16,7 +16,7 @@ angular.module('titanClienteV2App')
    self.btnGenerartxt = $translate.instant('GENERAR');
    self.saving = false;
     console.log(self.preliquidacion);
-    if (self.nomina.TipoNomina.Nombre === "HCH" || self.nomina.TipoNomina.Nombre === "HCS"){
+    if (self.nomina.TipoNomina.Descripcion === "Vinculacion Docente Honorarios" || self.nomina.TipoNomina.Descripcion === "Vinculacion Docentes Salarios"){
     	self.gridOptions = {
 	      enableFiltering : true,
 	      enableSorting : true,
@@ -37,6 +37,8 @@ angular.module('titanClienteV2App')
 	        self.gridApi = gridApi;
 	      }
 	    };
+
+
     	 titanRequest.post('funcionario_proveedor',nomina).then(function(response) {
       	 self.gridOptions.data = response.data;
      });
@@ -76,7 +78,7 @@ angular.module('titanClienteV2App')
     };
 
   }
-   if (self.nomina.TipoNomina.Nombre === "FP"){
+   if (self.nomina.TipoNomina.Descripcion === "Funcionarios de planta"){
         var rowtpl='<div ng-class="{\'personas_liquidar\':true, \'personas_no_liquidar\':row.entity.IdEPS==0 || row.entity.IdARL==0 || row.entity.IdFondoPension==0 || row.entity.IdCajaCompensacion==0}"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
         self.gridOptions = {
   	      enableFiltering : true,
@@ -98,6 +100,7 @@ angular.module('titanClienteV2App')
 
         titanRequest.post('funcionario_proveedor',nomina).then(function(response) {
       	 self.gridOptions.data = response.data;
+         console.log(response.data)
 });
 
        self.generar_preliquidacion = function(){
@@ -172,7 +175,7 @@ angular.module('titanClienteV2App')
 
 
 
-      if (self.nomina.TipoNomina.Nombre === "DP"){
+      if (self.nomina.TipoNomina.Descripcion === "Docentes de planta"){
           self.gridOptions = {
             enableFiltering : true,
             enableSorting : true,
@@ -229,7 +232,7 @@ angular.module('titanClienteV2App')
 
 }
 
-if (self.nomina.TipoNomina.Nombre === "CT"){
+if (self.nomina.TipoNomina.Descripcion === "Contrato de Prestacion de Servicios Profesionales o Apoyo a la Gestion"){
         self.gridOptions = {
             enableFiltering : true,
             enableSorting : true,

@@ -24,9 +24,9 @@ angular.module('titanClienteV2App')
       enableSelectAll: true,
       columnDefs : [
         {field: 'IdPersona',             visible : false},
-        {field: 'NumeroContrato' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>'},
+        {field: 'NumeroContrato.Numero' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato.Numero}}</button>'},
         {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
-        {field: 'NumDocumento',  displayName: $translate.instant('DOCUMENTO')}
+        {field: 'NumDocumento.Numero',  displayName: $translate.instant('DOCUMENTO')}
 
       ],
       onRegisterApi : function( gridApi ) {
