@@ -11,8 +11,8 @@ angular.module('titanMidService',[])
   .factory('titanMidRequest', function ($http) {
     // Service logic
     // ...
-    //var path = "http://localhost:8081/v1/";
-    var path = "http://10.20.0.254/titan_api_mid/v1/";
+    var path = "http://localhost:8081/v1/";
+    //var path = "http://10.20.0.254/titan_api_mid/v1/";
     // Public API here
     return {
       get: function (tabla,params) {

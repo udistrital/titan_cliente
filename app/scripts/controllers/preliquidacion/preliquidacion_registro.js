@@ -20,6 +20,25 @@ angular.module('titanClienteV2App')
     self.ShowForm = function(){
       self.formVisibility = true;
     };
+
+    self.anioPeriodo = new Date().getFullYear();
+    self.mesPeriodo = new Date().getMonth();
+    self.anios = [];
+
+    var fechaActual = new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()
+      self.meses = { 1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio",
+   7: "Julio", 8: "Agosto", 9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre" };
+
+     //Crea un arreglo de objetos para tener los años desde el 1900 hasta el año actual con el metodo getFullYear()
+     function calcularAnios() {
+       for (var i = new Date().getFullYear(); i >= 2015 ; i--) {
+         self.anios.push(
+           { anio: i }
+         );
+       }
+     }
+    calcularAnios();
+
     self.gridOptions = {
 
       enableFiltering : false,
@@ -58,6 +77,8 @@ angular.module('titanClienteV2App')
 
 
      self.registrar_preliqu = function() {
+
+
       var nomina = {
         Id : parseInt(self.nomina.Id)
       };
@@ -69,9 +90,9 @@ angular.module('titanClienteV2App')
         var pliquidacion = {
 
               Nomina: nomina,
-              Descripcion: self.nomina.Descripcion+"-"+self.AnoPreliq+self.MesPreliq ,
-              Mes: parseInt(self.MesPreliq),
-              Ano: parseInt(self.AnoPreliq),
+              Descripcion: self.nomina.Descripcion+"-"+self.anioPeriodo+self.mesPeriodo ,
+              Mes: parseInt(self.mesPeriodo),
+              Ano: parseInt(self.anioPeriodo),
               FechaRegistro: self.CurrentDate,
               EstadoPreliquidacion: estado_preliquidacion,
 
@@ -152,7 +173,7 @@ angular.module('titanClienteV2App')
        self.preliquidacion.EstadoPreliquidacion = row.entity.EstadoPreliquidacion;
        self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
        self.preliquidacion.Nomina = self.nomina
-       
+
         console.log(row.entity);
         $window.location.href = '#/preliquidacion/preliquidacion_detalle';
      };
