@@ -26,7 +26,8 @@ angular.module('titanClienteV2App')
         {field: 'IdPersona',             visible : false},
         {field: 'NumeroContrato.Numero' , displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato.Numero}}</button>'},
         {field: 'NomProveedor',  displayName: $translate.instant('NOMBRE_PERSONA')},
-        {field: 'NumDocumento.Numero',  displayName: $translate.instant('DOCUMENTO')}
+        {field: 'NumDocumento.Numero',  displayName: $translate.instant('DOCUMENTO')},
+        {field: 'Disponibilidad',  visible: false}
 
       ],
       onRegisterApi : function( gridApi ) {
@@ -94,6 +95,7 @@ angular.module('titanClienteV2App')
       	 	}
       	 	self.gridOptions.data = response.data;
       	 	self.total_sueldos_neto = temp_sueldo_neto;
+
       	 	self.resumen_conceptos = temp_resumen_conceptos;
           self.respuesta_persona = response.data;
 
@@ -101,8 +103,16 @@ angular.module('titanClienteV2App')
      	});
 
      	self.ver_seleccion_persona = function(row){
+
+
      		self.seleccion_conceptos = null;
      		self.seleccion_conceptos = row.entity.Conceptos
+        if(row.entity.Disponibilidad == 1){
+          self.estado_disponibilidad = "NO";
+        }else{
+          self.estado_disponibilidad = "SI";
+        }
+
      		var temp_sueldo_neto = 0;
      		var temp_total_desc = 0;
      		var temp_total_devengo = 0;
@@ -120,6 +130,7 @@ angular.module('titanClienteV2App')
      		self.seleccion_sueldoNeto = temp_sueldo_neto;
      		self.seleccion_tot_descuentos = temp_total_desc;
      		self.seleccion_tot_devengo = temp_total_devengo;
+
      	};
 
       self.solicitar_necesidad = function(){
