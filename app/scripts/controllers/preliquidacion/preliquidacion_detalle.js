@@ -17,6 +17,7 @@ angular.module('titanClienteV2App')
     self.respuesta_persona;
     self.respuesta_conceptos;
     self.preliquidacion = preliquidacion;
+
     self.gridOptions = {
       enableFiltering : false,
       enableSorting : true,
@@ -133,8 +134,46 @@ angular.module('titanClienteV2App')
 
      	};
 
+      self.solicitar_op = function(){
+        alert("OP")
+        var Estado_Pre = {
+          Id: 4
+        }
+
+        self.preliquidacion.EstadoPreliquidacion = Estado_Pre
+        console.log(self.preliquidacion)
+
+        titanRequest.put('preliquidacion', self.preliquidacion.Id, self.preliquidacion).then(function(response) {
+          console.log(response.data);
+          if(response.data=="OK"){
+            swal({
+               html: $translate.instant('CAMBIO_ESTADO_OP_CORRECTO'),
+               type: "success",
+               showCancelButton: false,
+               confirmButtonColor: "#449D44",
+               confirmButtonText: $translate.instant('VOLVER'),
+               }).then(function() {
+            //  $window.location.href = '#/nomina/nomina_consulta/'+self.tipo;
+             })
+
+          }else{
+            swal({
+               html: $translate.instant('CAMBIOS_ESTADO_OP_INCORRECTO'),
+               type: "error",
+               showCancelButton: false,
+               confirmButtonColor: "#449D44",
+               confirmButtonText: $translate.instant('VOLVER'),
+               }).then(function() {
+            //  $window.location.href = '#/nomina/nomina_consulta/'+self.tipo;
+             })
+          }
+        });;
+
+      };
+
       self.solicitar_necesidad = function(){
-        alert("solicitud necesidad")
+        alert("necesidad")
+        console.log(self.preliquidacion.Nomina.Id)
 
       };
 

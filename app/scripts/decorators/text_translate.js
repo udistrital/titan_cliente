@@ -50,6 +50,9 @@ var text_es = {
   PRELIQ_REG_CORRECTA: "Preliquidación registrada correctamente",
   PRELIQ_REG_INCORRECTA: "Error al registrar la preliquidación",
   ALERTA_PRELIQUIDACION_CERRADA: "Esta preliquidación está cerrada",
+  ALERTA_PRELIQUIDACION_OP: "Esta preliquidación está esperando por orden de pago",
+  CAMBIO_ESTADO_OP_CORRECTO: "Se ha solicitado orden de pago",
+  CAMBIOS_ESTADO_OP_INCORRECTO: "Error al solicitar orden de pago",
   //Interfaz de listado de personas a preliquidar
   PRELIQ_NOMINA: "Personas a preliquidar en nómina: ",
   NUM_CONTRATO: "Número de contrato",
@@ -71,6 +74,7 @@ var text_es = {
   TOTAL_PAGAR: "Total a pagar:",
   SUELDOS_NETOS: "Sueldos netos:",
   GENERAR_NECESIDAD:"Generar necesidad",
+  GENERAR_OP:"Generar orden de pago",
   DETALLE_EMP: "Detalle del empleado",
   ALERTA_PERSONAS_SELECCIONADAS: "Debe seleccionar personas para ser liquidadas",
   ALERTA_NO_LIQUIDACION: "Esta preliquidación ya ha sido liquidada",
@@ -242,7 +246,9 @@ var text_en = {
   PRELIQ_REG_CORRECTA: "Pre-liquidation correctly recorded",
   PRELIQ_REG_INCORRECTA: "Error in pre-liquidation record",
   ALERTA_PRELIQUIDACION_CERRADA: "This pre-liquidation is closed",
-
+  ALERTA_PRELIQUIDACION_OP: "This pre-liquidation is waiting for payment order",
+  CAMBIO_ESTADO_OP_CORRECTO: "Payment order requested",
+  CAMBIOS_ESTADO_OP_INCORRECTO: "Error in payment order request ",
   //Interfaz de listado de personas a preliquidar
   PRELIQ_NOMINA: "People for pre-liquidation in payslip: ",
   NUM_CONTRATO: "Contract Number",
@@ -264,6 +270,7 @@ var text_en = {
   TOTAL_PAGAR: "Total to pay:",
   SUELDOS_NETOS: "Net salaries:",
   GENERAR_NECESIDAD:"Create necesity",
+  GENERAR_OP:"Create payment order",
   DETALLE_EMP: "Employee's detail",
   ALERTA_PERSONAS_SELECCIONADAS: "You must select people to pay off",
   ALERTA_NO_LIQUIDACION: "This Pre-liquidation has already been pay off",

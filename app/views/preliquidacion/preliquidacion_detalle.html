@@ -4,6 +4,8 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h3><b>{{'TITULO_DETALLE_PRELIQ' | translate}} {{preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.Nombre}}</b></h3></div>
                 <div class="panel-body">
+                  <button ng-click="preliquidacionDetalle.generar_pdf()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>
+
                     <table style="width:95%;">
                         <tr>
                           <td>
@@ -13,7 +15,6 @@
 
                     </table>
                     <br>
-                    <button ng-click="preliquidacionDetalle.generar_pdf()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>
 
                     <h2>{{'RESUMEN_PRELIQ'| translate}}</h2>
                     <table class="table">
@@ -27,7 +28,12 @@
                             <th>{{key}}</th><td>{{value | currency}}</td>
                         </tr>
                     </table>
-                      <button ng-click="preliquidacionDetalle.solicitar_necesidad()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_NECESIDAD' | translate}}</button>
+                      <div ng-show="preliquidacionDetalle.preliquidacion.Nomina.Id == 3 || preliquidacionDetalle.preliquidacion.Nomina.Id == 4 || preliquidacionDetalle.preliquidacion.Nomina.Id == 5">
+                        <button ng-click="preliquidacionDetalle.solicitar_op()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_OP' | translate}}</button>
+                      </div>
+                      <div ng-show="preliquidacionDetalle.preliquidacion.Nomina.Id == 1 || preliquidacionDetalle.preliquidacion.Nomina.Id == 2">
+                        <button ng-click="preliquidacionDetalle.solicitar_necesidad()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_NECESIDAD' | translate}}</button>
+                      </div>
                 </div>
             </div>
         </div>
