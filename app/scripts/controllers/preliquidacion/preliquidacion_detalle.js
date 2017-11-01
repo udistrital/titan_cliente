@@ -144,7 +144,7 @@ angular.module('titanClienteV2App')
         console.log(self.preliquidacion)
 
         titanRequest.put('preliquidacion', self.preliquidacion.Id, self.preliquidacion).then(function(response) {
-          console.log(response.data);
+        
           if(response.data=="OK"){
             swal({
                html: $translate.instant('CAMBIO_ESTADO_OP_CORRECTO'),

@@ -16,6 +16,8 @@ angular.module('titanClienteV2App')
   	self.formVisibility = false;
     self.loading = false;
     self.nomina = nomina;
+    console.log("nomina")
+    console.log(self.nomina)
     self.CurrentDate = new Date();
     self.ShowForm = function(){
       self.formVisibility = true;
