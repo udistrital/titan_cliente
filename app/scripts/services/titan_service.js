@@ -8,11 +8,9 @@
  * Service in the titanClienteV2App.
  */
 angular.module('titanService',[])
-  .factory('titanRequest', function ($http) {
-    // Service logic
-    // ...
-    //var path = "http://localhost:8082/v1/";
-    var path = "http://10.20.0.254/titan_api_crud/v1/";
+  .factory('titanRequest', function ($http, CONF) {
+
+    var path = CONF.GENERAL.TITAN_SERVICE;
     // Public API here
     return {
       get: function (tabla,params) {

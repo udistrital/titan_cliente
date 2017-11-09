@@ -18,25 +18,7 @@ angular.module('titanClienteV2App')
     $scope.token_service = token_service;
     $scope.breadcrumb = [];
     $scope.menu_service = [
-    { //Pensionados
-      "Id": 1,
-      "Nombre": "Pensionados",
-      "Url": "",
-      "Opciones": [
-        { //Ingresar beneficiarios
-          "Id": 1,
-          "Nombre": "Ingresar beneficiario",
-          "Url": "pensiones/beneficiarios",
-          "Opciones": null
-        },
-        { //Ingresar sustitutos
-          "Id": 1,
-          "Nombre": "Ingresar sustituto",
-          "Url": "pensiones/sustituto",
-          "Opciones": null
-        }
-      ]
-    },
+  
     { //Nómina
       "Id": 2,
       "Nombre": "Nóminas",

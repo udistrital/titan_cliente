@@ -51,7 +51,7 @@ angular.module('titanClienteV2App')
 
      });
 
-     
+
      self.limpiar = function() {
         self.formVisibility = false;
      };
@@ -59,6 +59,8 @@ angular.module('titanClienteV2App')
      self.transformar_bool = function(row) {
       return row.entity.Activo ? 'active' : 'inactive';
    };
+
+   /*
 
      self.registrar_nomina = function() {
         var objeto_tipo_nomina = JSON.parse(self.selectTipoNomina);
@@ -107,7 +109,7 @@ angular.module('titanClienteV2App')
         self.formVisibility = false;
      };
 
-
+     */
       self.consulta_preliquidacion = function(row){
       	var tipo_nomina = {
         Id :  row.entity.TipoNomina.Id ,

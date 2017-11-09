@@ -1,3 +1,7 @@
+#loading-bar .bar {
+  background-color:#000 !important;
+}
+
 .watermark {
     border: 1px blue solid;
     position: absolute;

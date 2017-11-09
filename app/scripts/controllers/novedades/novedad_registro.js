@@ -150,7 +150,7 @@ angular.module('titanClienteV2App')
 
      }
 
-  
+
      $scope.loadrow = function(row, operacion) {
             self.operacion = operacion;
             switch (operacion) {

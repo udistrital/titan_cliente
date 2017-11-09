@@ -10,6 +10,7 @@
  */
 angular
   .module('titanClienteV2App', [
+    'angular-loading-bar',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -27,16 +28,20 @@ angular
     'ui.grid.selection',
     'ui.grid.exporter',
     'ngStorage',
+    'ui.knob',
     'ngWebSocket',
     'angularMoment',
     'ui.utils.masks',
     'pascalprecht.translate',
     'titanService',
-    'titanMidService'
+    'titanMidService',
   ])
     .run(function(amMoment) {
       amMoment.changeLocale('es');
     })
+    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+    }])
     .config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {
       $locationProvider.hashPrefix("");
       $routeProvider
