@@ -1,5 +1,5 @@
 #loading-bar .bar {
-  background-color:#000 !important;
+    background-color: #337ab7 !important;
 }
 
 .watermark {
@@ -18,28 +18,29 @@
     padding-left: 5%;
 }
 
-
-sencillo{
-    padding:0;
-    margin:0;
+sencillo {
+    padding: 0;
+    margin: 0;
 }
 
 .personas_liquidar {
-  background-color: #2dff07;
-  color: blue;
+    background-color: #2dff07;
+    color: blue;
 }
 
 .personas_no_liquidar {
-  background-color: #1fe0f0;
-  color:#d10000
+    background-color: #1fe0f0;
+    color: #d10000
 }
 
-tr.devengo{
-  background:#8BB9CD;
+tr.devengo {
+    background: #8BB9CD;
 }
-tr.descuento{
-  background:#FFB2B2;
+
+tr.descuento {
+    background: #FFB2B2;
 }
-tr.seguridad_social{
-  background:#A9F5D0;
+
+tr.seguridad_social {
+    background: #A9F5D0;
 }

@@ -1,11 +1,15 @@
-
-<div class="col-md-8 panel panel-default">
-  <div class="panel-heading">{{'TITULO_GENERAL' | translate}}</div>
-  <div class="panel-body">
-    <button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">{{'ANADIR_CONCEPTO'| translate}}</button>
-  <br></br>
-  <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid" style="width:95%;"></div></div>
+<div class="panel panel-primary panel-body">
+  <h2 class="page-header text-center">{{'TITULO_GENERAL' | translate}}</h2>
+  <div class="panel panel-default">
+      <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
+  </div>
+  <div class="row">
+      <center><button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">{{'ANADIR_CONCEPTO'| translate}}</button>
+      </center>
+  </div>
+  <br><br><br>
 </div>
+
 
 <div id="modal_edicion" class="modal fade" role="dialog">
    <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">

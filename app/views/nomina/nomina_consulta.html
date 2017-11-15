@@ -1,34 +1,6 @@
-<br>
-<div class="row jumbotron">
-    <!--<div  class="col-sm-12 panel panel-default" ng-show='nominaConsulta.formVisibility' >
-          <h2>{{'TITULO_REG_NOMINA' | translate }}</h2>
-          <form>
-
-
-          <div class="form-group row">
-            <label for="select_tipo_nomina" class="col-sm-5 col-form-label">{{'TIPO_NOMINA' | translate}}</label>
-            <select name="select_tipo_nomina" id="select_tipo_nomina" ng-model="nominaConsulta.selectTipoNomina">
-              <option selected disabled>{{'SELECCIONE' | translate}}</option>
-              <option ng-repeat="tnomina in nominaConsulta.tipoNomina"  value="{{tnomina}}">{{tnomina.Descripcion}}</option>
-            </select>
-          </div>
-
-            <button ng-click='nominaConsulta.limpiar()' class="btn btn-danger">{{'CANCELAR' | translate}}</button>
-            <button ng-click='nominaConsulta.registrar_nomina()' class="btn btn-success">{{'REGISTRAR' | translate}}</button>
-
-         </form>
-
-
+<div class="panel panel-primary panel-body">
+    <h2 class="page-header text-center">{{'TITULO_NOMINA_REGIS' | translate}}</h2>
+    <div class="panel panel-default">
+        <div ui-grid="nominaConsulta.gridOptions" class="myGrid"></div>
     </div>
-    -->
-    <div class="row jumbotron" style="width:95%;">
-      <!--<button class="btn btn-success" ng-click='nominaConsulta.ShowForm()' ng-hide="nominaConsulta.formVisibility">{{'ANADIR_NOMINA' | translate}}</button>-->
-       <h2>{{'TITULO_NOMINA_REGIS' | translate}}</h2>
-
-          <table style="width:100%;">
-              <td>
-                <div ui-grid="nominaConsulta.gridOptions" class="myGrid"></div>
-              </td>
-            </tr>
-          </table>
-    </div>
+  </div>
