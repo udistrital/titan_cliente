@@ -22,6 +22,12 @@ var conf_local = {
 
 };
 
+var conf_presentacion = {
+    TITAN_SERVICE: "http://10.20.0.210/titan_api_crud/v1/",
+    TITAN_MID_SERVICE: "http://10.20.0.210/titan_api_mid/v1/",
+    CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/"
+};
+
 
 
 angular.module('titanClienteV2App')
