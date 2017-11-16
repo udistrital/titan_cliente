@@ -27,7 +27,7 @@ angular.module('titanClienteV2App')
                     trackWidth: 30,
                     barWidth: 10,
                     trackColor: '#656D7F',
-                    barColor: '#eea236'
+                    barColor: '#337ab7'
                 };
                 $interval(function() {
                     $scope.loading = parseInt(cfpLoadingBar.status() * 100);
@@ -40,4 +40,4 @@ angular.module('titanClienteV2App')
                 }, 50);
             }
         };
-});
+    });
