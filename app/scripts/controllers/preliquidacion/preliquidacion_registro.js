@@ -11,7 +11,7 @@ angular.module('titanClienteV2App')
     .factory("preliquidacion", function() {
         return {};
     })
-    .controller('PreliquidacionPreliquidacionRegistroCtrl', function(titanRequest, preliquidacion, $window, $translate, $localStorage, $routeParams) {
+    .controller('PreliquidacionPreliquidacionRegistroCtrl', function(titanRequest, preliquidacion, $window, $translate, $localStorage, $routeParams, $scope) {
         var self = this;
         self.formVisibility = false;
         self.loading = false;
@@ -23,6 +23,10 @@ angular.module('titanClienteV2App')
             self.formVisibility = true;
         };
 
+        $scope.botones = [
+            { clase_color: "ver", clase_css: "fa fa-money fa-lg  faa-shake animated-hover", titulo: $translate.instant('GENERAR'), operacion: 'generar', estado: true },
+            { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
+        ];
 
         self.anioPeriodo = new Date().getFullYear();
         self.mesPeriodo = new Date().getMonth();
@@ -66,12 +70,13 @@ angular.module('titanClienteV2App')
                 { field: 'Ano', displayName: $translate.instant('ANO_PRELIQ') },
                 { field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>' },
                 { field: 'EstadoPreliquidacion.Nombre', displayName: $translate.instant('ESTADO_PRELIQ') },
-                { field: 'Opciones', displayName: $translate.instant('OPCIONES_PRELIQ'), cellTemplate: '<button class="btn btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.generar_preliquidacion(row)">' + $translate.instant('GENERAR') + '</button><button class="btn btn-sm btn-primary" ng-click="grid.appScope.preliquidacionRegistro.detalle_preliquidacion(row)">' + $translate.instant('DETALLE') + '</button>' },
-                /*{field: 'tipo',width: '10%', enableCellEdit: true, editableCellTemplate: 'ui-grid/dropdownEditor', cellClass:'aligncenter', editDropdownValueLabel: 'tipo', resizable : false, displayName: 'TIPO' , editDropdownOptionsArray: [
-                     { id: 'C', tipo: 'Cerrada' },
-                     { id: 'A', tipo: 'Abierta' },
-                     { id: 'N', tipo: 'Numerica' }
-                   ]}*/
+                {
+                    field: 'Acciones',
+                    displayName: $translate.instant('ACCIONES'),
+                    width: '8%',
+                    cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>'
+                }
+
             ]
         };
 
@@ -94,6 +99,18 @@ angular.module('titanClienteV2App')
             self.formVisibility = false;
         };
 
+        $scope.loadrow = function(row, operacion) {
+            self.operacion = operacion;
+            switch (operacion) {
+                case "generar":
+                    self.generar_preliquidacion(row);
+                    break;
+                case "ver":
+                    self.detalle_preliquidacion(row);
+                    break;
+                default:
+            }
+        };
 
         self.registrar_preliqu = function() {
             var nomina = {
