@@ -9,7 +9,7 @@
  */
 var text_es = {
     TITULO: "SISTEMA DE GESTIÓN DE NÓMINA",
-    MENSAJE_INICIAL: "Oficina asesora de sistemas",
+    MENSAJE_INICIAL: "Oficina Asesora de Sistemas",
     VOLVER: "Volver",
     SALIR: "Salir",
     REGISTRAR: "Registrar",
@@ -59,7 +59,7 @@ var text_es = {
     NOMBRE_PERSONA: "Nombre",
     DOCUMENTO: "Documento",
     VIGENCIA: "Vigencia",
-    ALERTA_PERSONAS_SIN_SS: "No es posible realizar la liquidacion. Las personas resaltadas no cuentan con sus datos de seguridad social completos",
+    ALERTA_PERSONAS_SIN_SS: "No es posible realizar la liquidación. Las personas resaltadas no cuentan con sus datos de seguridad social completos",
 
     //Interfaz de detalle de preliquidacion
     TITULO_DETALLE_PRELIQ: "Detalle de preliquidación de la nómina",
@@ -124,7 +124,7 @@ var text_es = {
     NUMERO_CUENTA: "Número de cuenta bancaria",
     BANCO_ASOCIADO: "Banco asociado",
     ESTADO_BEN: "Estado",
-    CED_CIU: "Cédula de ciudadania",
+    CED_CIU: "Cédula de ciudadanía",
     CEDULA_EXTRAN: "Cédula de extranjería",
     TARJETA_IDEN: "Tarjeta de identidad",
     MASCULINO: "Masculino",
@@ -153,7 +153,7 @@ var text_es = {
     APE_TUTOR: "Apellidos del tutor",
     BEN_ASOCIADO: "Beneficiario asociado",
     HABILITAR_BENEFICIARIO: "Habilitar beneficiario",
-    ID_BENEFICIARIO: "Identificacion del beneficiario",
+    ID_BENEFICIARIO: "IdentificaciÓn del beneficiario",
     ALERTA_SUS_INCOMPLETO: "No hay datos para ingresar información de tutor",
     ALERTA_REG_SUS_CORRECTO: "Se ha registrado correctamente el sustituto",
     ALERTA_REG_SUS_INCORRECTO: "Error al registrar sustituto",
