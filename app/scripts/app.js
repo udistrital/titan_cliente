@@ -37,7 +37,7 @@ angular
         'pascalprecht.translate',
         'titanService',
         'titanMidService',
-        'configuracionService'
+        'configuracionService',    
     ])
     .run(function(amMoment) {
         amMoment.changeLocale('es');
