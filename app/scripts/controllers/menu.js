@@ -14,12 +14,13 @@ angular.module('titanClienteV2App')
             en: "btn btn-primary btn-circle btn-outline"
         };
         $scope.perfil = "Administrador";
+        $scope.app = "Titan";
         $scope.notificacion = notificacion;
         $scope.actual = "";
         $scope.token_service = token_service;
         $scope.breadcrumb = [];
 
-        configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + $scope.perfil).then(function(response) {
+        configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + $scope.perfil + '/' + $scope.app).then(function(response) {
             $rootScope.my_menu = response.data;
             recorrerArbol($rootScope.my_menu, "");
         });
