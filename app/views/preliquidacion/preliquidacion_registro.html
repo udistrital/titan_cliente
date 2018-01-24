@@ -1,0 +1,70 @@
+<br>
+<div class="panel panel-primary panel-body">
+    <h2 class="page-header text-center">{{'TITULO_PRELIQ_REGIS' | translate}} <b>{{preliquidacionRegistro.nomina.TipoNomina.Nombre}}</b></h2>
+    <div class="panel panel-default">
+        <loadingcircle load="load"></loadingcircle>
+        <div class="row" ng-if="!load">
+            <div ui-grid="preliquidacionRegistro.gridOptions" class="mi-grid" id="mi-grid" ui-grid-pagination></div>
+        </div>
+
+    </div>
+    <div class="row">
+        <center>
+            <button class="btn btn-success" ng-click='preliquidacionRegistro.ShowForm()' data-toggle="modal" data-target="#myModal">{{'ANADIR_PRELIQ' | translate}}</button>
+        </center>
+    </div>
+</div>
+
+
+<div class="alert alert-warning text-center" ng-show='preliquidacionRegistro.loading'>
+    <div class="row">
+        <h1 class="col-sm-7">{{'GENERANDO'| translate}}</h1>
+        <div class="loader col-sm-5"></div>
+    </div>
+</div>
+
+
+<div id="myModal" class="modal fade " role="dialog" style="padding-top:5%">
+    <div class="modal-content col-md-offset-2 col-md-8">
+        <div class="modal-header">
+            <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal" ng-click="">&times</button><br>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{'ANADIR_PRELIQ' | translate }}
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="input_mes" class="col-sm-5 col-form-label">{{'MES_PRELIQ' | translate}}</label>
+                </div>
+                <div class="col-md-3">
+                    <select ng-model="preliquidacionRegistro.mesPeriodo" ng-init="preliquidacionRegistro.mesPeriodo" class="form-control" required>
+                          <option value="" disabled>{{ 'MES_PRELIQ' | translate }}</option>
+                          <option ng-repeat="(key, value) in preliquidacionRegistro.meses" value="{{key}}">{{value}}</option>
+                          </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="input_ano" class="col-sm-5 col-form-label">{{'ANO_PRELIQ' | translate}}</label>
+                </div>
+                <div class="col-md-3">
+                    <select ng-model="preliquidacionRegistro.anioPeriodo" ng-init="preliquidacionRegistro.anioPeriodo" class="form-control" required>
+                        <option value="" disabled>{{'ANO_PRELIQ' | translate}}</option>
+                        <option ng-repeat="a in preliquidacionRegistro.anios" value="{{a.anio}}" required>{{a.anio}}</option>
+                      </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <center>
+                    <button ng-click='preliquidacionRegistro.registrar_preliqu()' class="btn btn-success">{{'REGISTRAR'| translate}}</button>
+                </center>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+{
+  "name": "prueba",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "^1.6.8",
+    "bootstrap": "^3.2.0",
+    "angular-animate": "^1.6.8",
+    "angular-cookies": "^1.6.8",
+    "angular-resource": "^1.6.8",
+    "angular-route": "^1.6.8",
+    "angular-sanitize": "^1.6.8",
+    "angular-touch": "^1.6.8",
+    "angular-ui-grid": "*",
+    "AngularJS-OAuth2": "angularjs-oauth2#^1.2.1",
+    "angular-material": "*",
+    "angular-tree-control": "*",
+    "pdfmake": "*",
+    "ngstorage": "^0.3.11",
+    "kjur-jsrsasign": "jsrsasign#^7.0.0",
+    "angular-websocket": "^2.0.0",
+    "angular-input-masks": "^2.5.0",
+    "angular-moment": "^1.0.1",
+    "angular-translate": "^2.15.1",
+    "sweetalert2": "^6.4.4",
+    "font-awesome-animation": "^0.0.10",
+    "angular-loading-bar": "^0.9.0",
+    "ng-knob": "^0.1.3"
+  },
+  "resolutions": {
+    "angular": "1.6.8"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.6.8"
+  },
+  "appPath": "app",
+  "moduleName": "titanClienteV2App",
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+}

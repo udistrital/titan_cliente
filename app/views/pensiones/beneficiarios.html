@@ -1,0 +1,125 @@
+<div class="row jumbotron">
+
+    <div  class="col-sm-12 panel panel-default">
+
+
+            <h2>{{'TITULO_REG_BEN'| translate}}</h2>
+          <form>
+
+          <div class="form-group row">
+            <select id="select_Tipo_Documento" name="select_Tipo_Documento" ng-model ="beneficiarios.tipoDocumento">
+              <option selected disabled>{{'SELECCIONE'| translate}}</option>
+              <option value="7">{{'CED_CIU'| translate}}</option>
+              <option value="10">{{'CEDULA_EXTRAN'| translate}}</option>
+              <option value="2">{{'TARJETA_IDEN'| translate}}</option>
+            </select>
+            <label for="input_id" class="col-sm-5 col-form-label">{{'NUM_DOC_BEN'| translate}}</label>
+            <input type="text" name="input_id" ng-model="beneficiarios.numDocumento" placeholder="{{'NUM_DOC_BEN'| translate}}">
+          </div>
+
+          <div class="form-group row">
+            <label for="input_nombre" class="col-sm-5 col-form-label">{{'NOM_BEN' | translate}}</label>
+            <input name="input_nombre" type="text" ng-model="beneficiarios.primerNombre" placeholder="{{'PRI_NOM' | translate}}">
+            <input name="input_nombre" type="text" ng-model="beneficiarios.segundoNombre" placeholder="{{'SEG_NOM' | translate}}">
+          </div>
+
+          <div class="form-group row">
+            <label for="input_apellido" class="col-sm-5 col-form-label">{{'APE_BEN' | translate}}</label>
+            <input name="input_apellido" type="text" ng-model="beneficiarios.primerApellido" placeholder="{{'PRI_APE' | translate}}">
+            <input name="input_apellido" type="text" ng-model="beneficiarios.segundoApellido" placeholder="{{'PRI_APE' | translate}}">
+          </div>
+
+          <div class="form-group row">
+            <label for="select_categoria_beneficiario" class="col-sm-5 col-form-label">{{'PARENTESCO' | translate}}</label>
+            <select name="select_categoria_beneficiario" id="select_categoria_beneficiario" ng-model="beneficiarios.selectCategoria">
+              <option selected disabled>{{'SELECCIONE'| translate}}</option>
+              <option  ng-repeat="tcategoria in beneficiarios.categoria" value="{{tcategoria.Id}}">{{tcategoria.NombreTipoBeneficiario}}</option>
+            </select>
+          </div>
+
+          <div class="form-group row">
+           <label for="select_parentesco con" class="col-sm-5 col-form-label">{{'PARENTESCO_CON' | translate}}</label>
+           <input name="select_pensionado" type="text" ng-model="beneficiarios.pensionado" placeholder="Identificacion del pariente">
+         </div>
+         <!--<div class="form-group row">
+           <label for="input_nombre" class="col-sm-5 col-form-label">Nombre del pariente</label>
+           <input name="input_nombre" type="text" ng-model="nombresPariente" placeholder="Nombres">
+           <input name="input_nombre" type="text" ng-model="apellidoPariente" placeholder="Apellido">
+         </div>-->
+
+          <div class="form-group row">
+           <label for="select_genero" class="col-sm-5 col-form-label">{{'GENERO'| translate}} </label>
+           <select name="select_genero" id="select_genero" ng-model="beneficiarios.genero">
+             <option selected disabled>{{'SELECCIONE'| translate}}</option>
+             <option  value="MASCULINO">{{'MASCULINO'| translate}}</option>
+             <option  value="FEMENINO">{{'FEMENINO'| translate}}</option>
+           </select>
+         </div>
+           <div class="form-group row">
+            <label for="select_email" class="col-sm-5 col-form-label">{{'CORREO_ELEC'| translate}} </label>
+            <input type="text" name="email" ng-model = "beneficiarios.correo"placeholder="{{'CORREO_ELEC'| translate}}">
+          </div>
+           <div class="form-group row">
+            <label for="select_numcontacto" class="col-sm-5 col-form-label">{{'NUMERO_CONTACTO'| translate}}</label>
+            <input type="text" name="numero_contacto" ng-model = "beneficiarios.telefono" placeholder="{{'NUMERO_CONTACTO'| translate}}">
+          </div>
+           <div class="form-group row">
+            <label for="input_fechaNac" class="col-sm-5 col-form-label">{{'FECHA_NAC_BEN'| translate}}</label>
+            <md-datepicker ng-model="beneficiarios.fechaNac" md-placeholder="{{'FECHA_NAC_BEN'| translate}}"></md-datepicker>
+          </div>
+          <div class="form-group row">
+           <label for="select_estado_civil" class="col-sm-5 col-form-label">{{'APLICA_SUB_FAMILIAR'| translate}} </label>
+           <select name="select_estcivil" ng-model="beneficiarios.subsidioF">
+             <option selected disabled>Seleccione..</option>
+             <option  value="S">{{'SI'| translate}}</option>
+             <option  value="N">{{'NO'| translate}}</option>
+           </select>
+         </div>
+
+         <div class="form-group row">
+          <label for="select_estado_civil" class="col-sm-5 col-form-label">{{'APLICA_SUB_ESTUDIO'| translate}} </label>
+          <select name="select_estcivil"  ng-model="beneficiarios.subsidioE">
+            <option selected disabled>Seleccione..</option>
+            <option  value="S">{{'SI'| translate}}</option>
+            <option  value="N">{{'NO'| translate}}</option>
+          </select>
+        </div>
+
+         <div class="form-group row">
+           <label for="tipo_cuenta_banco" class="col-sm-5 col-form-label" >{{'TIPO_CUENTA'| translate}}</label>
+           <select class="tipo_cuenta_banc" ng-model="beneficiarios.tipoCuenta">
+             <option selected disabled>Seleccione..</option>
+             <option value="AHORROS">{{'AHORROS'| translate}}</option>
+             <option value="CORRIENTE">{{'CORRIENTE'| translate}}</option>
+           </select>
+          </div>
+
+          <div class="form-group row">
+            <label for="num_cuenta_bancaria" class="col-sm-5 col-form-label">{{'NUMERO_CUENTA'| translate}}</label>
+             <input type="text" name="num_cuenta" ng-model="beneficiarios.numeroCuenta" placeholder="{{'NUMERO_CUENTA'| translate}}">
+          </div>
+
+          <div class="form-group row">
+            <label for="nombre_banco" class="col-sm-5 col-form-label">{{'BANCO_ASOCIADO'| translate}}</label>
+            <select name="select_banco"  ng-model="beneficiarios.selectBanco">
+              <option selected disabled>Seleccione...</option>
+              <option ng-repeat="tbanco in beneficiarios.banco"  value="{{tbanco.Id}}">{{tbanco.NombreBanco}}</option>
+            </select>
+          </div>
+
+         <div class="form-group row">
+          <label for="select_numcontacto" class="col-sm-5 col-form-label">{{'ESTADO_BEN'| translate}}</label>
+          <select class="estado" name="estado" ng-model = "beneficiarios.estado">
+            <option selected disabled>{{'SELECCIONE'| translate}}.</option>
+            <option value="A">{{'ACTIVO'| translate}}</option>
+            <option value="I">{{'INACTIVO'| translate}}</option>
+
+          </select>
+        </div>
+
+            <button ng-click='beneficiarios.limpiar()' class="btn btn-danger">{{'CANCELAR'| translate}}</button>
+            <button ng-click='beneficiarios.registrar_perNatural()' class="btn btn-success">{{'REGISTRAR'| translate}}</button>
+         </form>
+         <br>
+         <br>
+</div>

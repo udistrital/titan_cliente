@@ -1,0 +1,21 @@
+<div class="panel panel-primary panel-body">
+    <h3 class="page-header text-center"> <b>{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre}}</b><br> {{'FECHA_PRELIQ'| translate}} : {{preliquidacionPersonas.preliquidacion.FechaRegistro | date:"yyyy-MM-dd":"+0900"}}
+        </b>
+    </h3>
+    <div class="panel panel-default">
+
+        <div class="row">
+            <loadingcircle load="load"></loadingcircle>
+        </div>
+
+        <div class="row" ng-if="!load">
+            <div ui-grid="preliquidacionPersonas.gridOptions" ui-grid-selection ui-grid-pagination class="my-grid"></div>
+        </div>
+
+    </div>
+    <div class="row">
+        <center>
+            <button ng-click="preliquidacionPersonas.generar_preliquidacion()" class="btn btn-primary btn-lg " ng-disabled="preliquidacionPersonas.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionPersonas.saving" ></i>{{preliquidacionPersonas.btnGenerartxt}}</button>
+        </center>
+    </div>
+</div>

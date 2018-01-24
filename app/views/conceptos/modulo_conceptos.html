@@ -1,0 +1,94 @@
+<div class="panel panel-primary panel-body">
+  <h2 class="page-header text-center">{{'TITULO_GENERAL' | translate}}</h2>
+  <div class="panel panel-default">
+      <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
+  </div>
+  <div class="row">
+      <center><button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">{{'ANADIR_CONCEPTO'| translate}}</button>
+      </center>
+  </div>
+  <br><br><br>
+</div>
+
+
+<div id="modal_edicion" class="modal fade" role="dialog">
+   <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">
+     <div class="modal-header">
+       <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
+     </div>
+     <div class="modal-body">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h3 class="panel-title">{{'TITULO_EDICION' | translate}}</h3>
+         </div>
+         <div class="panel-body">
+           <form name="formplan" ng-submit="formplan.$valid">
+             <fieldset class="form-group">
+               <label for="nombreconceptoedicion">{{'CONCEPTO_NOMBRE' | translate}}:</label>
+               <input type="text" class="form-control" id="nombre_concepto_edicion" placeholder="Nombre del concepto" ng-model="conceptosConsulta.alias_concepto_edicion" required>
+             </fieldset>
+
+             <fieldset class="form-group">
+               <label for="naturalezaconceptoedicion">{{'NATURALEZA_NOMBRE' | translate}}:</label>
+               <select class="form-control" id="naturaleza_concepto_edicion" ng-model="conceptosConsulta.selectNaturalezaConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="tnaturaleza in conceptosConsulta.NaturalezaConcepto"  value="{{tnaturaleza}}">{{tnaturaleza.Descripcion}}</option>
+               </select>
+             </fieldset>
+
+             <fieldset class="form-group">
+               <label for="tipoedicion">{{'TIPO_NOMBRE' | translate}}:</label>
+               <select class="form-control" id="tipo_concepto_edicion" ng-model="conceptosConsulta.selectTipoConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="ttipo in conceptosConsulta.TipoConcepto"  value="{{ttipo}}">{{ttipo.Descripcion}}</option>
+               </select>
+             </fieldset>
+             <center><button  ng-click='conceptosConsulta.actualizar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+
+</div>
+
+<div id="modal_adicion" class="modal fade" role="dialog">
+   <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">
+     <div class="modal-header">
+       <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
+     </div>
+     <div class="modal-body">
+       <div class="panel panel-default">
+         <div class="panel-heading">
+           <h3 class="panel-title">{{'TITULO_ADICION' | translate}}</h3>
+         </div>
+         <div class="panel-body">
+           <form name="formplan" ng-submit="formplan.$valid">
+             <fieldset class="form-group">
+               <label for="nombreconceptoadicion">{{'CONCEPTO_NOMBRE' | translate}}:</label>
+               <input type="text" class="form-control" id="nombre_concepto_adicion" placeholder="{{'CONCEPTO_NOMBRE' | translate}}" ng-model="conceptosConsulta.alias_concepto_adicion" required>
+             </fieldset>
+
+             <fieldset class="form-group">
+               <label for="naturalezaconceptoadicion">{{'NATURALEZA_NOMBRE' | translate}}:</label>
+               <select class="form-control" id="naturaleza_concepto_adicion" ng-model="conceptosConsulta.selectNaturalezaConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="tnaturaleza in conceptosConsulta.NaturalezaConcepto"  value="{{tnaturaleza}}">{{tnaturaleza.Descripcion}}</option>
+               </select>
+             </fieldset>
+
+             <fieldset class="form-group">
+               <label for="tipoadicion">{{'TIPO_NOMBRE' | translate}}:</label>
+               <select class="form-control" id="tipo_concepto_adicion" ng-model="conceptosConsulta.selectTipoConcepto" required>
+                 <option selected disabled>{{'SELECCIONE' | translate}}</option>
+                 <option ng-repeat="ttipo in conceptosConsulta.TipoConcepto"  value="{{ttipo}}">{{ttipo.Descripcion}}</option>
+               </select>
+             </fieldset>
+             <center><button  ng-click='conceptosConsulta.anadir()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+
+</div>
