@@ -5,15 +5,15 @@ build:
 
   # build and test the go program
   nodejs:
-    image: node:9.5.0
-    commands:
-    - apt-get install -y zip
-    - npm install -g grunt-cli bower
-    - echo '{ "allow_root": true }' > /root/.bowerrc
-    - npm install
-    - bower install
-    - grunt build
-    - zip -r dist.zip dist/
+        image: node:9.5.0
+        commands:
+          - apt-get install -y zip
+          - npm install -g grunt-cli bower
+          - echo '{ "allow_root": true }' > /root/.bowerrc
+          - npm install
+          - bower install
+          - grunt build
+          - zip -r dist.zip dist/
 
      #Esto crea un directorio dist
 
