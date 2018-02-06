@@ -10,9 +10,8 @@ build:
      - apt-get update -y
      - apt-get install -y zip
      - npm install -g grunt-cli bower
-     # - echo '{ "allow_root": true }' > /root/.bowerrc
      - npm install
-     - bower install
+     - bower install --allow-root
      - grunt build
      - zip -r dist.zip dist/
 
