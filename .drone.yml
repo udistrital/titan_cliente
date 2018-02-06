@@ -13,7 +13,7 @@ build:
      - npm install
      - bower install --allow-root
      - grunt build
-     - zip -r dist.zip dist/
+     - zip -r app.zip dist/
 
     when:
       branch: develop
