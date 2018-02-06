@@ -5,7 +5,7 @@ build:
 
   # build and test the go program
   nodejs:
-    image: node:1.5.0
+    image: node:9.5.0
     commands:
      - apt-get install -y zip
      - npm install -g grunt-cli bower
