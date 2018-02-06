@@ -9,7 +9,7 @@ build:
     commands:
      - apt-get install -y zip
      - npm install -g grunt-cli bower
-     - echo '{ "allow_root": true }' > /root/.bowerrc
+     # - echo '{ "allow_root": true }' > /root/.bowerrc
      - npm install
      - bower install
      - grunt build
@@ -19,31 +19,7 @@ build:
       branch: develop
       event: push
 
-  # prepare imagedef.json and app.zip for deployment
-  # sed:
-  #   image: alpine
-  #   commands:
-  #     - sed -i 's|SED_TAG|'${CI_COMMIT:0:7}'|' imagedef.json
-  #     - apk -U add zip
-  #     - zip app.zip imagedef.json
-  #   when:
-  #     branch: develop
-  #     event: push
-
 publish:
-
-  # build and push docker image to docker hub
-  # docker:
-  #   repo: oas0/titan_cliente
-  #   tag:
-  #     - $${COMMIT:0:7}
-  #     - latest
-  #   username: $$DRONE_DOCKERID_LOGIN
-  #   password: $$DRONE_DOCKERID_PASSWORD
-  #   email: computoud@googlegroups.com
-  #   when:
-  #     branch: develop
-  #     event: push
 
   # upload app.zip to s3 bucket for CodePipline
   s3:
