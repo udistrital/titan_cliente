@@ -12,13 +12,10 @@ angular.module('titanClienteV2App')
         var self = this;
 
         self.preliquidacion = $localStorage.preliquidacion
-        console.log("preliq")
-        console.log(self.preliquidacion.Nomina.TipoNomina.Descripcion)
         self.generar_disponibilidad;
         self.btnGenerartxt = $translate.instant('GENERAR');
         self.saving = false;
-
-        if (self.preliquidacion.Nomina.TipoNomina.Descripcion === "Vinculacion Docente Honorarios" || self.preliquidacion.Nomina.TipoNomina.Descripcion === "Vinculacion Docentes Salarios") {
+      
             self.gridOptions = {
                 paginationPageSizes: [5, 15, 20],
                 paginationPageSize: 5,
@@ -27,11 +24,11 @@ angular.module('titanClienteV2App')
                 enableRowSelection: true,
                 enableSelectAll: true,
                 columnDefs: [
-                    { field: 'Id', visible: false },
-                    { field: 'NumDocumento', displayName: $translate.instant('DOCUMENTO') },
-                    { field: 'NombreProveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
-                    { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO') },
-                    { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA') },
+                    { field: 'id_proveedor', visible: false },
+                    { field: 'num_documento', displayName: $translate.instant('DOCUMENTO') },
+                    { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
+                    { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO') },
+                    { field: 'vigencia', displayName: $translate.instant('VIGENCIA') },
                     { field: 'IdEPS', visible: false },
                     { field: 'IdARL', visible: false },
                     { field: 'IdFondoPension', visible: false },
@@ -43,8 +40,9 @@ angular.module('titanClienteV2App')
             };
 
 
-            titanRequest.post('funcionario_proveedor', self.preliquidacion.Nomina).then(function(response) {
+            titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar', self.preliquidacion.Nomina).then(function(response) {
                 self.gridOptions.data = response.data;
+
             });
 
             self.generar_preliquidacion = function() {
@@ -53,10 +51,10 @@ angular.module('titanClienteV2App')
                 var personas_a_liquidar = [];
                 for (var i = 0; i < personas.length; i++) {
                     var persona = {
-                        IdPersona: personas[i].Id,
-                        NumDocumento: personas[i].NumDocumento,
-                        NumeroContrato: personas[i].NumeroContrato,
-                        VigenciaContrato: parseInt(personas[i].VigenciaContrato)
+                        IdPersona: parseInt(personas[i].id_proveedor),
+                        NumDocumento: parseInt(personas[i].num_documento),
+                        NumeroContrato: personas[i].numero_contrato,
+                        VigenciaContrato: parseInt(personas[i].vigencia)
                     };
 
                     personas_a_liquidar.push(persona)
@@ -66,17 +64,14 @@ angular.module('titanClienteV2App')
                     PersonasPreLiquidacion: personas_a_liquidar
 
                 };
+
                 titanRequest.delete('detalle_preliquidacion', '' + self.preliquidacion.Id).then(function(response) {
-                    console.log("respuesta a borrar")
-                    console.log(response.data)
+
                 });
 
                 self.saving = true;
                 self.btnGenerartxt = $translate.instant('GENERANDO');
-                console.log("datos preliquidacion")
-                console.log(datos_preliquidacion)
                 titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-
                     self.saving = false;
                     self.btnGenerartxt = $translate.instant('GENERAR');
                     $window.location.href = '#/preliquidacion/preliquidacion_detalle';
@@ -84,7 +79,9 @@ angular.module('titanClienteV2App')
 
             };
 
-        }
+
+        /*------- PARA PLANTA ------
+
         if (self.preliquidacion.Nomina.TipoNomina.Descripcion === "Funcionarios de planta") {
             var rowtpl = '<div ng-class="{\'personas_liquidar\':true, \'personas_no_liquidar\':row.entity.IdEPS==0 || row.entity.IdARL==0 || row.entity.IdFondoPension==0 || row.entity.IdCajaCompensacion==0}"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
             self.gridOptions = {
@@ -182,129 +179,65 @@ angular.module('titanClienteV2App')
 
         };
 
+                if (self.preliquidacion.Nomina.TipoNomina.Descripcion === "Docentes de planta") {
+                    self.gridOptions = {
+                        paginationPageSizes: [5, 15, 20],
+                        paginationPageSize: 5,
+                        enableFiltering: true,
+                        enableSorting: true,
+                        enableRowSelection: true,
+                        enableSelectAll: true,
+                        columnDefs: [
+                            { field: 'Id', visible: false },
+                            { field: 'NumDocumento', displayName: $translate.instant('DOCUMENTO') },
+                            { field: 'NombreProveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
+                            { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO') },
+                            { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA') },
 
+                        ],
+                        onRegisterApi: function(gridApi) {
+                            self.gridApi = gridApi;
+                        }
 
-
-        if (self.preliquidacion.Nomina.TipoNomina.Descripcion === "Docentes de planta") {
-            self.gridOptions = {
-                paginationPageSizes: [5, 15, 20],
-                paginationPageSize: 5,
-                enableFiltering: true,
-                enableSorting: true,
-                enableRowSelection: true,
-                enableSelectAll: true,
-                columnDefs: [
-                    { field: 'Id', visible: false },
-                    { field: 'NumDocumento', displayName: $translate.instant('DOCUMENTO') },
-                    { field: 'NombreProveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
-                    { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO') },
-                    { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA') },
-
-                ],
-                onRegisterApi: function(gridApi) {
-                    self.gridApi = gridApi;
-                }
-
-            };
-            titanRequest.post('funcionario_proveedor', self.preliquidacion.Nomina).then(function(response) {
-                self.gridOptions.data = response.data;
-            });
-
-            self.generar_preliquidacion = function() {
-                var personas = self.gridApi.selection.getSelectedRows();
-
-                var personas_a_liquidar = [];
-                for (var i = 0; i < personas.length; i++) {
-                    var persona = {
-                        IdPersona: personas[i].Id,
-                        NumDocumento: personas[i].NumDocumento,
-                        NumeroContrato: personas[i].NumeroContrato,
-                        VigenciaContrato: parseInt(personas[i].VigenciaContrato)
                     };
+                    titanRequest.post('funcionario_proveedor', self.preliquidacion.Nomina).then(function(response) {
+                        self.gridOptions.data = response.data;
+                    });
 
-                    personas_a_liquidar.push(persona)
-                }
-                var datos_preliquidacion = {
-                    Preliquidacion: self.preliquidacion,
-                    PersonasPreLiquidacion: personas_a_liquidar
+                    self.generar_preliquidacion = function() {
+                        var personas = self.gridApi.selection.getSelectedRows();
 
-                };
-                titanRequest.delete('detalle_preliquidacion', '' + self.preliquidacion.Id).then(function(response) {});
+                        var personas_a_liquidar = [];
+                        for (var i = 0; i < personas.length; i++) {
+                            var persona = {
+                                IdPersona: personas[i].Id,
+                                NumDocumento: personas[i].NumDocumento,
+                                NumeroContrato: personas[i].NumeroContrato,
+                                VigenciaContrato: parseInt(personas[i].VigenciaContrato)
+                            };
 
-                self.saving = true;
-                self.btnGenerartxt = $translate.instant('GENERANDO');
-                titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
+                            personas_a_liquidar.push(persona)
+                        }
+                        var datos_preliquidacion = {
+                            Preliquidacion: self.preliquidacion,
+                            PersonasPreLiquidacion: personas_a_liquidar
 
-                    self.saving = false;
-                    self.btnGenerartxt = $translate.instant('GENERAR')
-                    $window.location.href = '#/preliquidacion/preliquidacion_detalle';
-                });;
+                        };
+                        titanRequest.delete('detalle_preliquidacion', '' + self.preliquidacion.Id).then(function(response) {});
 
-            };
+                        self.saving = true;
+                        self.btnGenerartxt = $translate.instant('GENERANDO');
+                        titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
 
-        }
-
-        if (self.preliquidacion.Nomina.TipoNomina.Descripcion === "Contrato de Prestacion de Servicios Profesionales o Apoyo a la Gestion") {
-            self.gridOptions = {
-                paginationPageSizes: [5, 15, 20],
-                paginationPageSize: 5,
-                enableFiltering: true,
-                enableSorting: true,
-                enableRowSelection: true,
-                enableSelectAll: true,
-                columnDefs: [
-                    { field: 'Id', visible: false },
-                    { field: 'NumDocumento', displayName: $translate.instant('DOCUMENTO') },
-                    { field: 'NombreProveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
-                    { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO') },
-                    { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA') },
-
-                ],
-                onRegisterApi: function(gridApi) {
-                    self.gridApi = gridApi;
-                }
-
-            };
-            titanRequest.post('funcionario_proveedor', self.preliquidacion.Nomina).then(function(response) {
-                self.gridOptions.data = response.data;
-            });
-
-            self.generar_preliquidacion = function() {
-                var personas = self.gridApi.selection.getSelectedRows();
-
-                var personas_a_liquidar = [];
-                for (var i = 0; i < personas.length; i++) {
-                    var persona = {
-                        IdPersona: personas[i].Id,
-                        NumDocumento: personas[i].NumDocumento,
-                        NumeroContrato: personas[i].NumeroContrato,
-                        VigenciaContrato: parseInt(personas[i].VigenciaContrato)
+                            self.saving = false;
+                            self.btnGenerartxt = $translate.instant('GENERAR')
+                            $window.location.href = '#/preliquidacion/preliquidacion_detalle';
+                        });;
 
                     };
 
-                    personas_a_liquidar.push(persona)
                 }
-                var datos_preliquidacion = {
-                    Preliquidacion: self.preliquidacion,
-                    PersonasPreLiquidacion: personas_a_liquidar
 
-                };
-                titanRequest.delete('detalle_preliquidacion', '' + self.preliquidacion.Id).then(function(response) {
-
-                });
-
-                self.saving = true;
-                self.btnGenerartxt = $translate.instant('GENERANDO');
-                titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-
-                    self.saving = false;
-                    self.btnGenerartxt = $translate.instant('GENERAR')
-                    $window.location.href = '#/preliquidacion/preliquidacion_detalle';
-                });;
-
-            };
-
-        }
 
         if (self.preliquidacion.Nomina.TipoNomina.Nombre === "PE") {
             self.gridOptions = {
@@ -366,4 +299,5 @@ angular.module('titanClienteV2App')
             };
 
         }
+        */
     });

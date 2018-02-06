@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('NovedadesNovedadRegistroCtrl', function(titanRequest, $scope, $translate, $routeParams, $window) {
+    .controller('NovedadesNovedadRegistroCtrl', function(titanRequest, titanMidRequest,$scope, $translate, $routeParams, $window) {
         var self = this;
         self.tipo = $routeParams.tipo;
         self.Nomina;
@@ -57,10 +57,10 @@ angular.module('titanClienteV2App')
             enableRowSelection: true,
             enableRowHeaderSelection: false,
             columnDefs: [
-                { field: 'Id', visible: false },
-                { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO') },
-                { field: 'NombreProveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
-                { field: 'NumDocumento', displayName: $translate.instant('DOCUMENTO') }
+                { field: 'id_proveedor', visible: false },
+                { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO') },
+                { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
+                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO') }
 
             ],
 
@@ -133,7 +133,7 @@ angular.module('titanClienteV2App')
         $scope.gridOptions_novedades.multiSelect = false;
         $scope.gridOptions_conceptos.multiSelect = false;
 
-        titanRequest.post('funcionario_proveedor', nomina).then(function(response) {
+        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar', nomina).then(function(response) {
             $scope.gridOptions_personas.data = response.data;
         });
 
@@ -148,7 +148,7 @@ angular.module('titanClienteV2App')
 
         self.listar_novedades = function(row) {
             $scope.persona = row.entity
-            titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,Persona:' + $scope.persona.Id + ',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
+            titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,Persona:' + $scope.persona.id_proveedor + ',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
                 if (response.data == null) {
                     $scope.gridOptions_novedades.data = [];
                     self.hayNovedad = false
@@ -189,8 +189,9 @@ angular.module('titanClienteV2App')
             }
 
 
+
             var concepto = { Id: parseInt($scope.concepto.Id) };
-            var persona = parseInt($scope.persona.Id);
+            var persona = parseInt($scope.persona.id_proveedor);
             var nomina = { Id: parseInt(self.Nomina.Id) };
             var novedad_por_persona = {
                 Concepto: concepto,
@@ -204,7 +205,7 @@ angular.module('titanClienteV2App')
                 ValorNovedad: valor
             };
 
-
+                  console.log(novedad_por_persona)
             titanRequest.post('concepto_nomina_por_persona', novedad_por_persona).then(function(response) {
                 console.log("post concepto")
                 if (typeof(response.data) == "object") {
