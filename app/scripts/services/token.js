@@ -25,6 +25,7 @@ var query = 'https://' + window.location.host + '?' + queryString;
 req.open('GET', query, true);
 if (params.code !== undefined) {}
 req.onreadystatechange = function(e) {
+    console.log(e);
     if (req.readyState === 4) {
         if (req.status === 200) {
             window.location = params.state;
@@ -46,14 +47,12 @@ angular.module('titanClienteV2App')
             token: null,
             setting_basic: {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    "content-type": "application/x-www-form-urlencoded",
                     "authorization": "Basic " + btoa(CONF.GENERAL.TOKEN.CLIENTE_ID + ":" + CONF.GENERAL.TOKEN.CLIENT_SECRET),
                     "cache-control": "no-cache",
                 }
             },
-            setting_bearer: {
-                headers: {}
-            },
+            setting_bearer: null,
             config: {
                 AUTORIZATION_URL: CONF.GENERAL.TOKEN.AUTORIZATION_URL,
                 CLIENTE_ID: CONF.GENERAL.TOKEN.CLIENTE_ID,
@@ -76,7 +75,7 @@ angular.module('titanClienteV2App')
                         service.token = KJUR.jws.JWS.readSafeJSONString(b64utoutf8(service.session.id_token.split(".")[1]));
                         service.setting_bearer = {
                             headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                                "content-type": "application/x-www-form-urlencoded",
                                 "authorization": "Bearer " + $sessionStorage.access_token,
                                 "cache-control": "no-cache",
                             }
@@ -121,13 +120,13 @@ angular.module('titanClienteV2App')
 
                     $http.post(url, data, service.setting_basic)
                         .then(function(response) {
-                            //window.location.replace(CONF.GENERAL.TOKEN.REDIRECT_URL);
-                            location.search = "";
+                            window.location.replace(CONF.GENERAL.TOKEN.REDIRECT_URL);
                             $sessionStorage.$default(response.data);
+                            service.timer();
                             service.setExpiresAt();
                         });
                 }
-                service.timer();
+
             },
             setExpiresAt: function() {
                 if (angular.isUndefined($sessionStorage.expires_at) || $sessionStorage.expires_at === null) {
