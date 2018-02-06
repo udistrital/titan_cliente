@@ -1,21 +1,18 @@
+
 <div class="panel panel-primary panel-body">
-    <h3 class="page-header text-center"> <b>{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre}}</b><br> {{'FECHA_PRELIQ'| translate}} : {{preliquidacionPersonas.preliquidacion.FechaRegistro | date:"yyyy-MM-dd":"+0900"}}
-        </b>
-    </h3>
-    <div class="panel panel-default">
+  <h2 class="page-header text-center">{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre}}<br>{{'FECHA_PRELIQ'| translate}} : {{preliquidacionPersonas.preliquidacion.FechaRegistro | date:"yyyy-MM-dd":"+0900"}}</h2>
 
-        <div class="row">
-            <loadingcircle load="load"></loadingcircle>
-        </div>
-
-        <div class="row" ng-if="!load">
-            <div ui-grid="preliquidacionPersonas.gridOptions" ui-grid-selection ui-grid-pagination class="my-grid"></div>
-        </div>
-
-    </div>
+  <div class="panel-body">
     <div class="row">
-        <center>
-            <button ng-click="preliquidacionPersonas.generar_preliquidacion()" class="btn btn-primary btn-lg " ng-disabled="preliquidacionPersonas.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionPersonas.saving" ></i>{{preliquidacionPersonas.btnGenerartxt}}</button>
-        </center>
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div ui-grid="preliquidacionPersonas.gridOptions" ui-grid-selection ui-grid-pagination class="grid"></div>
+        </div>
+      </div>
+      <div class="col-md-4 col-md-offset-4">
+        <input type="submit" class="form-control btn btn-success" value="{{preliquidacionPersonas.btnGenerartxt}}" ng-click="preliquidacionPersonas.generar_preliquidacion()">
+      </div>
+
     </div>
+  </div>
 </div>

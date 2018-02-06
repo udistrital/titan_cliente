@@ -15,9 +15,7 @@ angular.module('titanClienteV2App')
         self.generar_disponibilidad;
         self.btnGenerartxt = $translate.instant('GENERAR');
         self.saving = false;
-        console.log("preli")
-        console.log(self.preliquidacion)
-
+      
             self.gridOptions = {
                 paginationPageSizes: [5, 15, 20],
                 paginationPageSize: 5,
