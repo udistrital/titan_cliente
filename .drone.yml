@@ -4,7 +4,7 @@ clone:
 build:
 
   # build and test the go program
-  go:
+  nodejs:
     image: node:1.5.0
     commands:
      - apt-get install -y zip
