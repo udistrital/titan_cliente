@@ -26,9 +26,10 @@ angular.module('titanClienteV2App')
             enableSelectAll: true,
             columnDefs: [
                 { field: 'IdPersona', visible: false },
-                { field: 'NumeroContrato.Numero', displayName: $translate.instant('NUM_CONTRATO'), cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato.Numero}}</button>' },
-                { field: 'NomProveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
-                { field: 'NumDocumento.Numero', displayName: $translate.instant('DOCUMENTO') },
+                { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'),width: '20%' ,cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>' },
+                { field: 'Vigencia', displayName: $translate.instant('VIGENCIA'), width:'10%' },
+                { field: 'NombreCompleto', displayName: $translate.instant('NOMBRE_PERSONA'), width:'50%' },
+                { field: 'Documento', displayName: $translate.instant('DOCUMENTO'),width:'20%' },
                 { field: 'Disponibilidad', visible: false }
 
             ],
@@ -68,7 +69,7 @@ angular.module('titanClienteV2App')
       	 	self.resumen_conceptos = temp_resumen_conceptos;
 	    };
  */
-        titanRequest.post('preliquidacion/resumen', self.preliquidacion).then(function(response) {
+        titanMidRequest.post('preliquidacion/resumen', self.preliquidacion).then(function(response) {
 
             var temp_resumen_conceptos = {};
             var temp_sueldo_neto = 0;
@@ -297,11 +298,11 @@ angular.module('titanClienteV2App')
                             valor = parseInt(self.respuesta_persona[i].Conceptos[j].Valor);
                             valor = valor.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                             if (self.respuesta_persona[i].Conceptos[j].Naturaleza === "devengo") {
-                                cuerpo_devengos.push([{}, { text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'left' }, {}, {}, { text: valor, alignment: 'right' }])
+                                cuerpo_devengos.push([{}, { text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'right' }, {}, {}, { text: valor, alignment: 'right' }])
                                 valor_devengos = valor_devengos + parseInt(self.respuesta_persona[i].Conceptos[j].Valor)
                             }
                             if (self.respuesta_persona[i].Conceptos[j].Naturaleza === "descuento") {
-                                cuerpo_descuentos.push([{}, { text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'left' }, {}, {}, { text: valor, alignment: 'right' }])
+                                cuerpo_descuentos.push([{}, { text: self.respuesta_persona[i].Conceptos[j].Nombre, colSpan: 3, alignment: 'right' }, {}, {}, { text: valor, alignment: 'right' }])
                                 valor_descuentos = valor_descuentos + parseInt(self.respuesta_persona[i].Conceptos[j].Valor)
                             }
                         }

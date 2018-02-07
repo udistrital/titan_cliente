@@ -33,6 +33,10 @@ sencillo {
     color: #d10000
 }
 
+.alineacion_derecha{
+	text-align: right;
+}
+
 tr.devengo {
     background: #8BB9CD;
 }
