@@ -77,12 +77,36 @@ angular.module('titanClienteV2App')
             enableRowSelection: false,
             enableRowHeaderSelection: false,
             columnDefs: [
-                { field: 'Id', visible: false },
-                { field: 'Concepto.Id', visible: false },
-                { field: 'Concepto.AliasConcepto', displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'), width:'30%'},
-                { field: 'Concepto.TipoConcepto.Nombre', visible: false },
-                { field: 'ValorNovedad', displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'), width:'20%',cellClass: "alineacion_derecha", cellFilter: "currency" },
-                { field: 'NumCuotas', displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'), width:'15%',cellClass: "alineacion_derecha" },
+                {
+                  field: 'Id',
+                  visible: false
+                },
+                {
+                  field: 'Concepto.Id',
+                  visible: false
+                },
+                {
+                  field: 'Concepto.AliasConcepto',
+                  displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
+                  width:'30%'},
+                {
+                  field: 'Concepto.TipoConcepto.Nombre',
+                  visible: false
+                },
+                {
+                  field: 'ValorNovedad',
+                  displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
+                  width:'20%',
+                  cellClass: "alineacion_derecha" ,
+                  cellFilter: "filtro_formato_valor_novedad:row.entity"
+                },
+                {
+                  field: 'NumCuotas',
+                  displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
+                  width:'15%',cellClass: "alineacion_derecha",
+                  cellFilter: "filtro_formato_cuotas:row.entity"
+
+                },
                 { field: 'FechaDesde', visible: false },
                 { field: 'FechaHasta', visible: false },
                 { field: 'FechaRegistro', displayName: $translate.instant('FECHA_REGISTRO'), cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>', width:'25%',cellClass: "alineacion_derecha" },
@@ -98,6 +122,8 @@ angular.module('titanClienteV2App')
             ],
 
         };
+
+
 
         $scope.gridOptions_conceptos = {
 
@@ -389,4 +415,46 @@ angular.module('titanClienteV2App')
 
 
 
-    });
+    }).filter('filtro_formato_valor_novedad', function($filter) {
+  return function(input,entity) {
+    var output;
+    if (undefined === input || null === input) {
+      return "";
+    }
+
+    if(entity.Concepto.TipoConcepto.Nombre === "porcentual" ){
+        output = (input) + "%";
+    }
+
+    if(entity.Concepto.TipoConcepto.Nombre === "fijo" ){
+        output = "$"+(input);
+    }
+
+    if(entity.Concepto.TipoConcepto.Nombre === "seguridad_social" ){
+        output = "No aplica";
+    }
+
+    return output;
+  };
+}).filter('filtro_formato_cuotas', function($filter) {
+  return function(input,entity) {
+    var output;
+    if (undefined === input || null === input) {
+      return "";
+    }
+
+    if(entity.Concepto.TipoConcepto.Nombre === "porcentual" ){
+      output = "Fija";
+    }
+
+    if(entity.Concepto.TipoConcepto.Nombre === "fijo" ){
+      output = input;
+    }
+
+    if(entity.Concepto.TipoConcepto.Nombre === "seguridad_social" ){
+      output = "No aplica";
+    }
+
+    return output;
+  };
+});
