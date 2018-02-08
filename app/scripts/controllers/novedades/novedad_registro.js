@@ -325,11 +325,6 @@ angular.module('titanClienteV2App')
                 });
 
 
-            }, function(dismiss) {
-                if (dismiss === 'cancel') {
-                    //NO HACER NADA
-                    $window.location.reload();
-                }
             })
         };
 
@@ -404,11 +399,6 @@ angular.module('titanClienteV2App')
                 });
 
 
-            }, function(dismiss) {
-                if (dismiss === 'cancel') {
-                    //NO HACER NADA
-                    $window.location.reload();
-                }
             })
           }
         };

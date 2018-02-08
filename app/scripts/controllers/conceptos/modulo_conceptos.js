@@ -30,10 +30,27 @@ angular.module('titanClienteV2App')
         {field: 'NombreConcepto',  visible : false},
         {field: 'NaturalezaConcepto.Id',  visible : false},
         {field: 'TipoConcepto.Id',  visible : false},
-        {field: 'AliasConcepto',  displayName: $translate.instant('CONCEPTO_NOMBRE'), },
-        {field: 'NaturalezaConcepto.Nombre',  displayName: $translate.instant('NATURALEZA_NOMBRE')},
-        {field: 'TipoConcepto.Nombre',  displayName: $translate.instant('TIPO_NOMBRE')},
-        {field: 'Acciones', displayName: $translate.instant('ACCIONES'), width: '8%',
+        {
+          field: 'AliasConcepto',
+          displayName: $translate.instant('CONCEPTO_NOMBRE'),
+          width: '50%',
+        },
+        {
+          field: 'NaturalezaConcepto.Nombre',
+          displayName: $translate.instant('NATURALEZA_NOMBRE'),
+          width: '20%',
+          cellFilter: "filtro_naturaleza_concepto:row.entity"
+        },
+        {
+          field: 'TipoConcepto.Nombre',
+          displayName: $translate.instant('TIPO_NOMBRE'),
+          width: '20%',
+          cellFilter: "filtro_tipo_concepto:row.entity"
+        },
+        {
+          field: 'Acciones',
+          displayName: $translate.instant('ACCIONES'),
+          width: '10%',
          cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>'
         }
     ]
@@ -84,6 +101,8 @@ angular.module('titanClienteV2App')
     };
 
     self.actualizar = function() {
+
+      if(self.alias_concepto_edicion && self.selectNaturalezaConcepto && self.selectTipoConcepto){
       var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
       var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
 
@@ -152,9 +171,18 @@ angular.module('titanClienteV2App')
              if (dismiss === 'cancel') {
 
                  $('#modal_edicion').modal('hide');
-                 $window.location.reload();
+                // $window.location.reload();
              }
            })
+         }else{
+           swal({
+              html: $translate.instant('ALERTA_COMPLETAR_DATOS_EDICION'),
+              type: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#449D44",
+              confirmButtonText: $translate.instant('VOLVER'),
+              })
+         }
      };
 
      $scope.borrar = function(row) {
@@ -195,17 +223,13 @@ angular.module('titanClienteV2App')
               });
 
 
-            }, function(dismiss) {
-              if (dismiss === 'cancel') {
-                //NO HACER NADA
-                $window.location.reload();
-              }
             })
           };
 
 
           self.anadir = function() {
 
+            if(self.alias_concepto_adicion && self.selectNaturalezaConcepto && self.selectTipoConcepto){
             var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
             var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
             swal({
@@ -299,11 +323,57 @@ angular.module('titanClienteV2App')
                           }
                         });
 
-                 }, function(dismiss) {
-                   if (dismiss === 'cancel') {
-
-                     $window.location.reload();
-                   }
                  })
+               }else{
+                 swal({
+                    html: $translate.instant('ALERTA_COMPLETAR_DATOS_EDICION'),
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#449D44",
+                    confirmButtonText: $translate.instant('VOLVER'),
+                    })
+               }
            };
-  });
+  }).filter('filtro_tipo_concepto', function($filter) {
+return function(input,entity) {
+  var output;
+  if (undefined === input || null === input) {
+    return "";
+  }
+
+  if(entity.TipoConcepto.Nombre === "porcentual" ){
+      output = "Porcentaje"
+  }
+
+  if(entity.TipoConcepto.Nombre === "fijo" ){
+      output = "Fijo";
+  }
+
+  if(entity.TipoConcepto.Nombre === "seguridad_social" ){
+      output = "Seguridad Social";
+  }
+
+  return output;
+};
+}).filter('filtro_naturaleza_concepto', function($filter) {
+return function(input,entity) {
+  var output;
+  if (undefined === input || null === input) {
+    return "";
+  }
+
+  if(entity.NaturalezaConcepto.Nombre === "devengo" ){
+    output = "Devengo";
+  }
+
+  if(entity.NaturalezaConcepto.Nombre === "descuento" ){
+    output = "Descuento";
+  }
+
+  if(entity.NaturalezaConcepto.Nombre === "seguridad_social" ){
+    output = "Seguridad Social";
+  }
+
+  return output;
+};
+});

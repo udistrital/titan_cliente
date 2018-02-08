@@ -192,6 +192,7 @@ var text_es = {
     CONFIRMACION_ADICION: "¿Está seguro de querer agregar el concepto:",
     ADICION_CORRECTA: "Concepto agregado correctamente",
     ADICION_INCORRECTA: "Error al agregado concepto",
+    ALERTA_COMPLETAR_DATOS_EDICION: "Complete todos los datos",
     //MENÚ GENERAL
     PENSIONADOS_MENU: "Pensionados",
     INGRESAR_BEN: "Ingresar beneficiarios",
@@ -391,6 +392,7 @@ var text_en = {
     CONFIRMACION_ADICION: "Are you sure you cant to add the concept:",
     ADICION_CORRECTA: "Concept correctly added",
     ADICION_INCORRECTA: "Error adding concepto",
+    ALERTA_COMPLETAR_DATOS_EDICION: "Complete all data",
 
     //MENÚ GENERAL
     PENSIONADOS_MENU: "Retirees",
