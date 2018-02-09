@@ -30,7 +30,7 @@ var conf_pruebas = {
     },
 };
 var conf_local = {
-    TITAN_SERVICE: "http://localhost:8082/v1/",
+    TITAN_SERVICE: "http://localhost:8080/v1/",
     TITAN_MID_SERVICE: "http://localhost:8081/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TOKEN: {
