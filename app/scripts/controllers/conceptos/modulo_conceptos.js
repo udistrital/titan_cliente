@@ -140,7 +140,7 @@ angular.module('titanClienteV2App')
                   };
 
                   titanRequest.put('concepto_nomina', concepto_editado.Id,concepto_editado).then(function(response) {
-                    console.log(response.data);
+
                     if(response.data=="OK"){
                       swal({
                          html: $translate.instant('ACTUALIZACION_CORRECTA'),
@@ -197,7 +197,7 @@ angular.module('titanClienteV2App')
             }).then(function() {
 
               titanRequest.delete('concepto_nomina', row.entity.Id).then(function(response) {
-                console.log(response.data);
+              
                 if(response.data=="OK"){
                   swal({
                      html: $translate.instant('ELIMINACION_CORRECTA'),

@@ -15,20 +15,20 @@ angular.module('titanClienteV2App')
         self.generar_disponibilidad;
         self.btnGenerartxt = $translate.instant('GENERAR');
         self.saving = false;
-      
+
             self.gridOptions = {
-                paginationPageSizes: [5, 15, 20],
-                paginationPageSize: 5,
+                paginationPageSizes: [10, 20],
+                paginationPageSize: 10,
                 enableFiltering: true,
                 enableSorting: true,
                 enableRowSelection: true,
                 enableSelectAll: true,
                 columnDefs: [
                     { field: 'id_proveedor', visible: false },
-                    { field: 'num_documento', displayName: $translate.instant('DOCUMENTO') },
-                    { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
-                    { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO') },
-                    { field: 'vigencia', displayName: $translate.instant('VIGENCIA') },
+                    { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO'),width:'15%' },
+                    { field: 'vigencia', displayName: $translate.instant('VIGENCIA'),width:'10%' },
+                    { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'),width:'45%' },
+                    { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'),width:'30%' },
                     { field: 'IdEPS', visible: false },
                     { field: 'IdARL', visible: false },
                     { field: 'IdFondoPension', visible: false },
@@ -40,7 +40,7 @@ angular.module('titanClienteV2App')
             };
 
 
-            titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar', self.preliquidacion.Nomina).then(function(response) {
+            titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar/', self.preliquidacion.Nomina).then(function(response) {
                 self.gridOptions.data = response.data;
 
             });
@@ -106,7 +106,7 @@ angular.module('titanClienteV2App')
 
             titanRequest.post('funcionario_proveedor', self.preliquidacion.Nomina).then(function(response) {
                 self.gridOptions.data = response.data;
-                console.log(response.data)
+
             });
 
             self.generar_preliquidacion = function() {

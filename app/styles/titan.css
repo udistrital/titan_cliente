@@ -48,3 +48,12 @@ tr.descuento {
 tr.seguridad_social {
     background: #A9F5D0;
 }
+
+
+.no_pago {
+	background-color: #ffb3b3 !important;
+}
+
+.si_pago {
+	background-color: #99bbff !important;
+}

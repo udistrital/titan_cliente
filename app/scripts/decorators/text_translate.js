@@ -24,7 +24,23 @@ var text_es = {
     INACTIVO: "Inactivo",
     SELECCIONE: "Seleccione...",
     CONFIRMAR: "Confirmar",
-    CANCELAR: "Cancelar",
+    BTN:{
+      EDITAR:"Editar",
+      BORRAR:"Eliminar"
+    },
+    ENERO:"Enero",
+    FEBRERO:"Febrero",
+    MARZO:"Marzo",
+    ABRIL:"Abril",
+    MAYO:"Mayo",
+    JUNIO:"Junio",
+    JULIO:"Julio",
+    AGOSTO:"Agosto",
+    SEPTIEMBRE:"Septiembre",
+    OCTUBRE:"Octubre",
+    NOVIEMBRE:"Noviembre",
+    DICIEMBRE:"Diciembre",
+
     //Formulario registro nómina
     ANADIR_NOMINA: "Añadir nómina",
     TITULO_REG_NOMINA: "Registro de nómina",
@@ -53,6 +69,10 @@ var text_es = {
     ALERTA_PRELIQUIDACION_OP: "Esta preliquidación está esperando por orden de pago",
     CAMBIO_ESTADO_OP_CORRECTO: "Se ha solicitado orden de pago",
     CAMBIOS_ESTADO_OP_INCORRECTO: "Error al solicitar orden de pago",
+    CERRADA:"Cerrrada",
+    ABIERTA:"Abierta",
+    NEC_SOLICITADA: "Necesidad solicitada",
+    OP_SOLICITADA: "Orden de pago solicitada",
     //Interfaz de listado de personas a preliquidar
     PRELIQ_NOMINA: "Personas a preliquidar en nómina: ",
     NUM_CONTRATO: "Número de contrato",
@@ -78,9 +98,7 @@ var text_es = {
     DETALLE_EMP: "Detalle del empleado",
     ALERTA_PERSONAS_SELECCIONADAS: "Debe seleccionar personas para ser liquidadas",
     ALERTA_NO_LIQUIDACION: "Esta preliquidación ya ha sido liquidada",
-    //Interfaz de detalle de liquidacion
-    TITULO_DETALLE_LIQ: "Detalle de liquidación de la nómina",
-    RESUMEN_LIQ: "Resumen de la liquidación",
+    REALIZA_PAGO: "¿Se realizará pago?",
     //REGISTRO Y CONSULTA DE NOVEDADES
     TITULO_NOVEDADES: "Registro de novedades",
     SELECCION_PERSONA: "Selección de persona",
@@ -221,7 +239,22 @@ var text_en = {
     ACTIVO: "Active",
     INACTIVO: "Inactive",
     CONFIRMAR: "Confirm",
-    CANCELAR: "Cancel",
+    BTN:{
+      EDITAR:"Edit",
+      BORRAR:"Delete"
+    },
+    ENERO:"January",
+    FEBRERO:"February",
+    MARZO:"March",
+    ABRIL:"April",
+    MAYO:"May",
+    JUNIO:"June",
+    JULIO:"July",
+    AGOSTO:"August",
+    SEPTIEMBRE:"September",
+    OCTUBRE:"October",
+    NOVIEMBRE:"November",
+    DICIEMBRE:"December",
     //Formulario registro y visualizaión nómina
     ANADIR_NOMINA: "Add payslip",
     TITULO_REG_NOMINA: "Payslip's record",
@@ -251,6 +284,10 @@ var text_en = {
     ALERTA_PRELIQUIDACION_OP: "This pre-liquidation is waiting for payment order",
     CAMBIO_ESTADO_OP_CORRECTO: "Payment order requested",
     CAMBIOS_ESTADO_OP_INCORRECTO: "Error in payment order request ",
+    CERRADA:"Closed",
+    ABIERTA:"Open",
+    NEC_SOLICITADA: "Requested necesity",
+    OP_SOLICITADA: "Requested payment order",
     //Interfaz de listado de personas a preliquidar
     PRELIQ_NOMINA: "People for pre-liquidation in payslip: ",
     NUM_CONTRATO: "Contract Number",
@@ -276,9 +313,7 @@ var text_en = {
     DETALLE_EMP: "Employee's detail",
     ALERTA_PERSONAS_SELECCIONADAS: "You must select people to pay off",
     ALERTA_NO_LIQUIDACION: "This Pre-liquidation has already been pay off",
-    //Interfaz de detalle de liquidacion
-    TITULO_DETALLE_LIQ: "Liquidation payslip detail: ",
-    RESUMEN_LIQ: "Liquidation's summary",
+    REALIZA_PAGO: "Payment?",
     //REGISTRO Y CONSULTA DE NOVEDADES
     TITULO_NOVEDADES: "Changes' record",
     SELECCION_PERSONA: "Person selection",

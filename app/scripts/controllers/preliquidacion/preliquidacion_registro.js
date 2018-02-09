@@ -62,7 +62,7 @@ angular.module('titanClienteV2App')
             enableSorting: true,
             treeRowHeaderAlwaysVisible: false,
             showTreeExpandNoChildren: false,
-            paginationPageSizes: [10, 15, 20],
+            paginationPageSizes: [10, 20],
             paginationPageSize: 10,
             enableFiltering : true,
             enableRowSelection: false,
@@ -70,15 +70,15 @@ angular.module('titanClienteV2App')
 
             columnDefs: [
                 { field: 'Id', visible: false },
-                { field: 'Descripcion', displayName: $translate.instant('DESC_PRELIQ') },
-                { field: 'Mes', displayName: $translate.instant('MES_PRELIQ') },
-                { field: 'Ano', displayName: $translate.instant('ANO_PRELIQ') },
-                { field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>' },
-                { field: 'EstadoPreliquidacion.Nombre', displayName: $translate.instant('ESTADO_PRELIQ') },
+                { field: 'Descripcion', displayName: $translate.instant('DESC_PRELIQ'),width:'30%' },
+                { field: 'Mes', displayName: $translate.instant('MES_PRELIQ'), cellFilter:'filtro_nombres_meses:row.entity',width:'15%' },
+                { field: 'Ano', displayName: $translate.instant('ANO_PRELIQ'),width:'10%' },
+                { field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>' ,width:'15%'},
+                { field: 'EstadoPreliquidacion.Nombre', displayName: $translate.instant('ESTADO_PRELIQ'), cellFilter: 'filtro_estados_preliq:row.entity',width:'20%' },
                 {
                     field: 'Acciones',
                     displayName: $translate.instant('ACCIONES'),
-                    width: '8%',
+                    width: '12%',
                     cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>'
                 }
 
@@ -97,7 +97,7 @@ angular.module('titanClienteV2App')
 
         titanRequest.get('estado_preliquidacion', 'limit=0&query=Nombre:Abierta').then(function(response) {
             self.EstadoPreliquidacion = response.data;
-            console.log(self.EstadoPreliquidacion)
+
         });
 
         self.limpiar = function() {
@@ -138,7 +138,7 @@ angular.module('titanClienteV2App')
             };
 
             titanRequest.post('preliquidacion', pliquidacion).then(function(response) {
-                console.log(response.data);
+
                 if (typeof(response.data) == "object") {
                     swal({
                         html: $translate.instant('PRELIQ_REG_CORRECTA'),
@@ -163,7 +163,7 @@ angular.module('titanClienteV2App')
                     }).then(function() {
                         $('#myModal').modal('hide');
                     })
-                    console.log("error: " + response.data);
+
                 }
             });;
 
@@ -171,26 +171,15 @@ angular.module('titanClienteV2App')
         };
 
         self.generar_preliquidacion = function(row) {
-            console.log("nomina")
-            console.log(self.nomina)
+
             if (row.entity.EstadoPreliquidacion.Nombre == 'Cerrada') {
                 swal({
                     html: $translate.instant('ALERTA_PRELIQUIDACION_CERRADA'),
                     type: "error",
                     showCancelButton: true,
-                    confirmButtonColor: "#449D44",
+                    showConfirmButton:false,
                     cancelButtonColor: "#C9302C",
-                    confirmButtonText: $translate.instant('VOLVER'),
                     cancelButtonText: $translate.instant('SALIR'),
-                }).then(function() {
-                    //si da click en ir a contratistas
-                    $window.location.href = '#/nomina/nomina_consulta';
-                }, function(dismiss) {
-
-                    if (dismiss === 'cancel') {
-                        //si da click en Salir
-                        $window.location.href = '#/nomina/nomina_consulta';
-                    }
                 })
             } else {
                 if (row.entity.EstadoPreliquidacion.Nombre == 'EnOrdenPago') {
@@ -198,19 +187,9 @@ angular.module('titanClienteV2App')
                         html: $translate.instant('ALERTA_PRELIQUIDACION_OP'),
                         type: "error",
                         showCancelButton: true,
-                        confirmButtonColor: "#449D44",
+                        showConfirmButton:false,
                         cancelButtonColor: "#C9302C",
-                        confirmButtonText: $translate.instant('VOLVER'),
                         cancelButtonText: $translate.instant('SALIR'),
-                    }).then(function() {
-                        //si da click en ir a contratistas
-                        $window.location.href = '#/nomina/nomina_consulta';
-                    }, function(dismiss) {
-
-                        if (dismiss === 'cancel') {
-                            //si da click en Salir
-                            $window.location.href = '#/nomina/nomina_consulta';
-                        }
                     })
                 } else {
                     self.preliquidacion = preliquidacion;
@@ -240,4 +219,71 @@ angular.module('titanClienteV2App')
             $window.location.href = '#/preliquidacion/preliquidacion_detalle';
         };
 
+    }).filter('filtro_nombres_meses', function($filter,$translate) {
+    return function(input,entity) {
+      var output;
+      if (undefined === input || null === input) {
+        return "";
+      }
+
+      if(entity.Mes === 1 ){
+        output = $translate.instant('ENERO');
+      }
+      if(entity.Mes === 2 ){
+        output = $translate.instant('FEBRERO');
+      }
+      if(entity.Mes === 3 ){
+        output = $translate.instant('MARZO');
+      }
+      if(entity.Mes === 4 ){
+        output = $translate.instant('ABRIL');
+      }
+      if(entity.Mes === 5 ){
+        output = $translate.instant('MAYO');
+      }
+      if(entity.Mes === 6 ){
+        output = $translate.instant('JUNIO');
+      }
+      if(entity.Mes === 7 ){
+        output = $translate.instant('JULIO');
+      }
+      if(entity.Mes === 8 ){
+        output = $translate.instant('AGOSTO');
+      }
+      if(entity.Mes === 9 ){
+        output = $translate.instant('SEPTIEMBRE');
+      }
+      if(entity.Mes === 10 ){
+        output = $translate.instant('OCTUBRE');
+      }
+      if(entity.Mes === 11 ){
+        output = $translate.instant('NOVIEMBRE');
+      }
+      if(entity.Mes === 12 ){
+        output = $translate.instant('DICIEMBRE');
+      }
+      return output;
+    };
+  }).filter('filtro_estados_preliq', function($filter,$translate) {
+    return function(input,entity) {
+      var output;
+      if (undefined === input || null === input) {
+        return "";
+      }
+
+      if(entity.EstadoPreliquidacion.Nombres === "Cerrada" ){
+        output = $translate.instant('CERRADA');
+      }
+      if(entity.EstadoPreliquidacion.Nombre === "Abierta" ){
+        output = $translate.instant('ABIERTA');
+      }
+      if(entity.EstadoPreliquidacion.Nombre === "SolicitudNecesidad" ){
+        output = $translate.instant('NEC_SOLICITADA');
+      }
+      if(entity.EstadoPreliquidacion.Nombre === "EnOrdenPago" ){
+        output = $translate.instant('OP_SOLICITADA');
+      }
+
+      return output;
+    };
     });

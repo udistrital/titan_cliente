@@ -154,7 +154,6 @@ angular.module('titanClienteV2App')
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
                 $scope.concepto = row.entity
 
-                console.log($scope.concepto.TipoConcepto.Nombre)
             });
         };
 
@@ -185,7 +184,7 @@ angular.module('titanClienteV2App')
                     $scope.gridOptions_novedades.data = response.data;
                     self.hayNovedad = true
                 }
-                console.log(self.hayNovedad)
+
             });
         }
 
@@ -238,7 +237,7 @@ angular.module('titanClienteV2App')
 
 
             titanRequest.post('concepto_nomina_por_persona', novedad_por_persona).then(function(response) {
-                console.log("post concepto")
+
                 if (typeof(response.data) == "object") {
                     swal({
                         html: $translate.instant('NOVEDAD_REG_CORRECTO'),
@@ -263,7 +262,7 @@ angular.module('titanClienteV2App')
                         $('#modal_adicion_novedad').modal('hide');
                         $window.location.reload();
                     })
-                    console.log("error: " + response.data);
+                  
                 }
             });
           }

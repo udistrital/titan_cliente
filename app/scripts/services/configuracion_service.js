@@ -41,9 +41,9 @@ angular.module('configuracionService', [])
             for (var i = 0; i < a.length; i++) {
                 if (a[i].Url === path) {
                     return a[i];
-                } else if (a[i].Opciones != null) {
+                } else if (a[i].Opciones !== null) {
                     var y;
-                    if ((y = this.get_acciones(path, a[i].Opciones)) && y != null) {
+                    if ((y = this.get_acciones(path, a[i].Opciones)) && y !== null) {
                         return y;
                     }
                 }
@@ -102,6 +102,6 @@ angular.module('configuracionService', [])
         delete: function(tabla, id) {
             return $http.delete(path + tabla + "/" + id);
         }
-    }
+    };
 
 });

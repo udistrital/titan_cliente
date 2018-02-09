@@ -16,8 +16,6 @@ angular.module('titanClienteV2App')
           grupobotones: '='
       },
       templateUrl: 'views/directives/btn_registro.html',
-      link: function(scope, elm, attrs) {
-          //console.log(scope);
-      }
+    
   };
 });

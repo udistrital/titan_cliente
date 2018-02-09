@@ -20,17 +20,70 @@ angular.module('titanClienteV2App')
         self.preliquidacion = $localStorage.preliquidacion
 
         self.gridOptions = {
+            paginationPageSizes: [10, 20],
+            paginationPageSize: 10,
             enableFiltering: false,
-            enableSorting: true,
-            enableRowSelection: true,
-            enableSelectAll: true,
+            enableSorting: false,
+            enableRowSelection: false,
+            enableSelectAll: false,
             columnDefs: [
-                { field: 'IdPersona', visible: false },
-                { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'),width: '20%' ,cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>' },
-                { field: 'Vigencia', displayName: $translate.instant('VIGENCIA'), width:'10%' },
-                { field: 'NombreCompleto', displayName: $translate.instant('NOMBRE_PERSONA'), width:'50%' },
-                { field: 'Documento', displayName: $translate.instant('DOCUMENTO'),width:'20%' },
-                { field: 'Disponibilidad', visible: false }
+                {
+                  field: 'IdPersona',
+                  visible: false
+                },
+                {
+                  field: 'NumeroContrato',
+                  displayName: $translate.instant('NUM_CONTRATO'),
+                  width: '20%' ,
+                  cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>' ,
+                  cellClass: function(grid, row) {
+                    if (row.entity.Disponibilidad===2) {
+                      return 'si_pago';
+                    }else if(row.entity.Disponibilidad===1){
+                      return 'no_pago';
+                    }
+                  }
+                },
+                {
+                  field: 'Vigencia',
+                  displayName: $translate.instant('VIGENCIA'),
+                  width:'10%',
+                  cellClass: function(grid, row) {
+                    if (row.entity.Disponibilidad===2) {
+                      return 'si_pago';
+                    }else if(row.entity.Disponibilidad===1){
+                      return 'no_pago';
+                    }
+                  }
+                },
+                {
+                  field: 'NombreCompleto',
+                  displayName: $translate.instant('NOMBRE_PERSONA'),
+                  width:'50%',
+                  cellClass: function(grid, row) {
+                    if (row.entity.Disponibilidad===2) {
+                      return 'si_pago';
+                    }else if(row.entity.Disponibilidad===1){
+                      return 'no_pago';
+                    }
+                  }
+                },
+                {
+                  field: 'Documento',
+                  displayName: $translate.instant('DOCUMENTO'),
+                  width:'20%',
+                  cellClass: function(grid, row) {
+                    if (row.entity.Disponibilidad===2) {
+                      return 'si_pago';
+                    }else if(row.entity.Disponibilidad===1){
+                      return 'no_pago';
+                    }
+                  }
+                },
+                {
+                  field: 'Disponibilidad',
+                  visible: false
+                }
 
             ],
             onRegisterApi: function(gridApi) {
@@ -112,9 +165,9 @@ angular.module('titanClienteV2App')
             self.seleccion_conceptos = null;
             self.seleccion_conceptos = row.entity.Conceptos
             if (row.entity.Disponibilidad == 1) {
-                self.estado_disponibilidad = "NO";
+                self.estado_disponibilidad = $translate.instant('NO');
             } else {
-                self.estado_disponibilidad = "SI";
+                self.estado_disponibilidad = $translate.instant('SI');
             }
 
             var temp_sueldo_neto = 0;
@@ -138,13 +191,13 @@ angular.module('titanClienteV2App')
         };
 
         self.solicitar_op = function() {
-            alert("OP")
+
             var Estado_Pre = {
                 Id: 4
             }
 
-            self.preliquidacion.EstadoPreliquidacion = Estado_Pre
             console.log(self.preliquidacion)
+            self.preliquidacion.EstadoPreliquidacion = Estado_Pre
 
             titanRequest.put('preliquidacion', self.preliquidacion.Id, self.preliquidacion).then(function(response) {
 
@@ -156,7 +209,7 @@ angular.module('titanClienteV2App')
                         confirmButtonColor: "#449D44",
                         confirmButtonText: $translate.instant('VOLVER'),
                     }).then(function() {
-                        //  $window.location.href = '#/nomina/nomina_consulta/'+self.tipo;
+                          $window.location.href = '/#/preliquidacion/preliquidacion_registro/'+self.preliquidacion.Nomina.TipoNomina.Nombre;
                     })
 
                 } else {
@@ -167,7 +220,7 @@ angular.module('titanClienteV2App')
                         confirmButtonColor: "#449D44",
                         confirmButtonText: $translate.instant('VOLVER'),
                     }).then(function() {
-                        //  $window.location.href = '#/nomina/nomina_consulta/'+self.tipo;
+                        $window.location.href = '/#/preliquidacion/preliquidacion_registro/'+self.preliquidacion.Nomina.TipoNomina.Nombre;
                     })
                 }
             });;
@@ -176,7 +229,6 @@ angular.module('titanClienteV2App')
 
         self.solicitar_necesidad = function() {
             alert("necesidad")
-            console.log(self.preliquidacion.Nomina.Id)
 
         };
 
