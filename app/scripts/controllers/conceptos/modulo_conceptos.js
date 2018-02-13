@@ -197,7 +197,7 @@ angular.module('titanClienteV2App')
             }).then(function() {
 
               titanRequest.delete('concepto_nomina', row.entity.Id).then(function(response) {
-              
+
                 if(response.data=="OK"){
                   swal({
                      html: $translate.instant('ELIMINACION_CORRECTA'),
