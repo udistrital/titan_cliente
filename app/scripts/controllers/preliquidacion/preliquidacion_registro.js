@@ -87,13 +87,16 @@ angular.module('titanClienteV2App')
 
 
 
-        titanRequest.get('preliquidacion', 'limit=0&query=Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
+        titanRequest.get('preliquidacion', 'limit=-1&query=Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
             self.gridOptions.data = response.data;
-            self.nomina = response.data[0].Nomina
+
 
         });
 
-
+        titanRequest.get('nomina', 'limit=-1&query=TipoNomina.Nombre:' + self.tipo).then(function(response) {
+           self.nomina = response.data[0];
+          
+        });
 
         titanRequest.get('estado_preliquidacion', 'limit=0&query=Nombre:Abierta').then(function(response) {
             self.EstadoPreliquidacion = response.data;
