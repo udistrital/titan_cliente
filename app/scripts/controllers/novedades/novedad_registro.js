@@ -161,7 +161,7 @@ angular.module('titanClienteV2App')
         $scope.gridOptions_novedades.multiSelect = false;
         $scope.gridOptions_conceptos.multiSelect = false;
 
-        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar', nomina).then(function(response) {
+        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', nomina).then(function(response) {
             $scope.gridOptions_personas.data = response.data;
         });
 
@@ -262,7 +262,7 @@ angular.module('titanClienteV2App')
                         $('#modal_adicion_novedad').modal('hide');
                         $window.location.reload();
                     })
-                  
+
                 }
             });
           }
