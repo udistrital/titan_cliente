@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('PreliquidacionPreliquidacionDetalleCtrl', function($localStorage, $scope, titanMidRequest, titanRequest, preliquidacion, $window, $translate, $http) {
+    .controller('PreliquidacionPreliquidacionDetalleCtrl', function($localStorage, $scope, titanMidRequest, titanRequest, preliquidacion, $translate, $http, $route, $location) {
         var self = this;
         self.numero_conceptos = 0;
         self.resumen_conceptos;
@@ -26,63 +26,62 @@ angular.module('titanClienteV2App')
             enableSorting: false,
             enableRowSelection: false,
             enableSelectAll: false,
-            columnDefs: [
-                {
-                  field: 'IdPersona',
-                  visible: false
+            columnDefs: [{
+                    field: 'IdPersona',
+                    visible: false
                 },
                 {
-                  field: 'NumeroContrato',
-                  displayName: $translate.instant('NUM_CONTRATO'),
-                  width: '20%' ,
-                  cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>' ,
-                  cellClass: function(grid, row) {
-                    if (row.entity.Disponibilidad===2) {
-                      return 'si_pago';
-                    }else if(row.entity.Disponibilidad===1){
-                      return 'no_pago';
+                    field: 'NumeroContrato',
+                    displayName: $translate.instant('NUM_CONTRATO'),
+                    width: '20%',
+                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>',
+                    cellClass: function(grid, row) {
+                        if (row.entity.Disponibilidad === 2) {
+                            return 'si_pago';
+                        } else if (row.entity.Disponibilidad === 1) {
+                            return 'no_pago';
+                        }
                     }
-                  }
                 },
                 {
-                  field: 'Vigencia',
-                  displayName: $translate.instant('VIGENCIA'),
-                  width:'10%',
-                  cellClass: function(grid, row) {
-                    if (row.entity.Disponibilidad===2) {
-                      return 'si_pago';
-                    }else if(row.entity.Disponibilidad===1){
-                      return 'no_pago';
+                    field: 'Vigencia',
+                    displayName: $translate.instant('VIGENCIA'),
+                    width: '10%',
+                    cellClass: function(grid, row) {
+                        if (row.entity.Disponibilidad === 2) {
+                            return 'si_pago';
+                        } else if (row.entity.Disponibilidad === 1) {
+                            return 'no_pago';
+                        }
                     }
-                  }
                 },
                 {
-                  field: 'NombreCompleto',
-                  displayName: $translate.instant('NOMBRE_PERSONA'),
-                  width:'50%',
-                  cellClass: function(grid, row) {
-                    if (row.entity.Disponibilidad===2) {
-                      return 'si_pago';
-                    }else if(row.entity.Disponibilidad===1){
-                      return 'no_pago';
+                    field: 'NombreCompleto',
+                    displayName: $translate.instant('NOMBRE_PERSONA'),
+                    width: '50%',
+                    cellClass: function(grid, row) {
+                        if (row.entity.Disponibilidad === 2) {
+                            return 'si_pago';
+                        } else if (row.entity.Disponibilidad === 1) {
+                            return 'no_pago';
+                        }
                     }
-                  }
                 },
                 {
-                  field: 'Documento',
-                  displayName: $translate.instant('DOCUMENTO'),
-                  width:'20%',
-                  cellClass: function(grid, row) {
-                    if (row.entity.Disponibilidad===2) {
-                      return 'si_pago';
-                    }else if(row.entity.Disponibilidad===1){
-                      return 'no_pago';
+                    field: 'Documento',
+                    displayName: $translate.instant('DOCUMENTO'),
+                    width: '20%',
+                    cellClass: function(grid, row) {
+                        if (row.entity.Disponibilidad === 2) {
+                            return 'si_pago';
+                        } else if (row.entity.Disponibilidad === 1) {
+                            return 'no_pago';
+                        }
                     }
-                  }
                 },
                 {
-                  field: 'Disponibilidad',
-                  visible: false
+                    field: 'Disponibilidad',
+                    visible: false
                 }
 
             ],
@@ -209,7 +208,8 @@ angular.module('titanClienteV2App')
                         confirmButtonColor: "#449D44",
                         confirmButtonText: $translate.instant('VOLVER'),
                     }).then(function() {
-                          $window.location.href = '/#/preliquidacion/preliquidacion_registro/'+self.preliquidacion.Nomina.TipoNomina.Nombre;
+                        $location.path('/preliquidacion/preliquidacion_registro/' + self.preliquidacion.Nomina.TipoNomina.Nombre);
+                        $route.reload()
                     })
 
                 } else {
@@ -220,7 +220,8 @@ angular.module('titanClienteV2App')
                         confirmButtonColor: "#449D44",
                         confirmButtonText: $translate.instant('VOLVER'),
                     }).then(function() {
-                        $window.location.href = '/#/preliquidacion/preliquidacion_registro/'+self.preliquidacion.Nomina.TipoNomina.Nombre;
+                        $location.path('/preliquidacion/preliquidacion_registro/' + self.preliquidacion.Nomina.TipoNomina.Nombre);
+                        $route.reload()
                     })
                 }
             });;
@@ -248,13 +249,15 @@ angular.module('titanClienteV2App')
                             confirmButtonText: $translate.instant('VOLVER'),
                             cancelButtonText: $translate.instant('SALIR'),
                         }).then(function() {
+                            $location.path('/nomina/nomina_consulta');
+                            $route.reload()
 
-                            $window.location.href = '#/nomina/nomina_consulta';
                         }, function(dismiss) {
 
                             if (dismiss === 'cancel') {
                                 //si da click en Salir
-                                $window.location.href = '#/nomina/nomina_consulta';
+                                $location.path('/nomina/nomina_consulta');
+                                $route.reload()
                             }
                         })
                     } else {

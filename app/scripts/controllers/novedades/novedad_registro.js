@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('NovedadesNovedadRegistroCtrl', function(titanRequest, titanMidRequest,$scope, $translate, $routeParams, $window) {
+    .controller('NovedadesNovedadRegistroCtrl', function(titanRequest, titanMidRequest, $scope, $translate, $routeParams, $window) {
         var self = this;
         self.tipo = $routeParams.tipo;
         self.Nomina;
@@ -58,10 +58,10 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
             columnDefs: [
                 { field: 'id_proveedor', visible: false },
-                { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO'), width:'20%' },
-                { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width:'10%' },
-                { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width:'50%' },
-                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width:'22%' }
+                { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO'), width: '20%' },
+                { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '10%' },
+                { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '50%' },
+                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '22%' }
 
 
             ],
@@ -76,46 +76,47 @@ angular.module('titanClienteV2App')
             enableSorting: true,
             enableRowSelection: false,
             enableRowHeaderSelection: false,
-            columnDefs: [
-                {
-                  field: 'Id',
-                  visible: false
+            columnDefs: [{
+                    field: 'Id',
+                    visible: false
                 },
                 {
-                  field: 'Concepto.Id',
-                  visible: false
+                    field: 'Concepto.Id',
+                    visible: false
                 },
                 {
-                  field: 'Concepto.AliasConcepto',
-                  displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
-                  width:'30%'},
-                {
-                  field: 'Concepto.TipoConcepto.Nombre',
-                  visible: false
+                    field: 'Concepto.AliasConcepto',
+                    displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
+                    width: '30%'
                 },
                 {
-                  field: 'ValorNovedad',
-                  displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
-                  width:'20%',
-                  cellClass: "alineacion_derecha" ,
-                  cellFilter: "filtro_formato_valor_novedad:row.entity"
+                    field: 'Concepto.TipoConcepto.Nombre',
+                    visible: false
                 },
                 {
-                  field: 'NumCuotas',
-                  displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
-                  width:'15%',cellClass: "alineacion_derecha",
-                  cellFilter: "filtro_formato_cuotas:row.entity"
+                    field: 'ValorNovedad',
+                    displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
+                    width: '20%',
+                    cellClass: "alineacion_derecha",
+                    cellFilter: "filtro_formato_valor_novedad:row.entity"
+                },
+                {
+                    field: 'NumCuotas',
+                    displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
+                    width: '15%',
+                    cellClass: "alineacion_derecha",
+                    cellFilter: "filtro_formato_cuotas:row.entity"
 
                 },
                 { field: 'FechaDesde', visible: false },
                 { field: 'FechaHasta', visible: false },
-                { field: 'FechaRegistro', displayName: $translate.instant('FECHA_REGISTRO'), cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>', width:'25%',cellClass: "alineacion_derecha" },
+                { field: 'FechaRegistro', displayName: $translate.instant('FECHA_REGISTRO'), cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>', width: '25%', cellClass: "alineacion_derecha" },
                 { field: 'Activo', visible: false },
                 { field: 'Nomina.Id', visible: false },
                 {
                     field: 'Acciones',
                     displayName: $translate.instant('ACCIONES'),
-                    width:'10%',
+                    width: '10%',
                     cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>',
                 }
                 //  cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.inactivar_novedad(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion_novedad"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
@@ -218,54 +219,54 @@ angular.module('titanClienteV2App')
                 cuotas = 0;
             }
 
-            if((valor && cuotas) ||(valor == 0 && cuotas == 0)){
+            if ((valor && cuotas) || (valor == 0 && cuotas == 0)) {
 
-            var concepto = { Id: parseInt($scope.concepto.Id) };
-            var persona = parseInt($scope.persona.id_proveedor);
-            var nomina = { Id: parseInt(self.Nomina.Id) };
-            var novedad_por_persona = {
-                Concepto: concepto,
-                Activo: Boolean("true"),
-                FechaDesde: self.FechaInicio,
-                FechaHasta: self.FechaFin,
-                FechaRegistro: self.CurrentDate,
-                NumCuotas: cuotas,
-                Persona: persona,
-                Nomina: nomina,
-                ValorNovedad: valor
-            };
+                var concepto = { Id: parseInt($scope.concepto.Id) };
+                var persona = parseInt($scope.persona.id_proveedor);
+                var nomina = { Id: parseInt(self.Nomina.Id) };
+                var novedad_por_persona = {
+                    Concepto: concepto,
+                    Activo: Boolean("true"),
+                    FechaDesde: self.FechaInicio,
+                    FechaHasta: self.FechaFin,
+                    FechaRegistro: self.CurrentDate,
+                    NumCuotas: cuotas,
+                    Persona: persona,
+                    Nomina: nomina,
+                    ValorNovedad: valor
+                };
 
 
-            titanRequest.post('concepto_nomina_por_persona', novedad_por_persona).then(function(response) {
+                titanRequest.post('concepto_nomina_por_persona', novedad_por_persona).then(function(response) {
 
-                if (typeof(response.data) == "object") {
-                    swal({
-                        html: $translate.instant('NOVEDAD_REG_CORRECTO'),
-                        type: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#449D44",
-                        confirmButtonText: $translate.instant('VOLVER'),
-                    }).then(function() {
-                        $('#modal_adicion_novedad').modal('hide');
-                        $window.location.reload();
-                    })
+                    if (typeof(response.data) == "object") {
+                        swal({
+                            html: $translate.instant('NOVEDAD_REG_CORRECTO'),
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#449D44",
+                            confirmButtonText: $translate.instant('VOLVER'),
+                        }).then(function() {
+                            $('#modal_adicion_novedad').modal('hide');
+                            $window.location.reload()
+                        })
 
-                }
-                if (typeof(response.data) == "string") {
-                    swal({
-                        html: $translate.instant('NOVEDAD_REG_ERROR'),
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#449D44",
-                        confirmButtonText: $translate.instant('VOLVER'),
-                    }).then(function() {
-                        $('#modal_adicion_novedad').modal('hide');
-                        $window.location.reload();
-                    })
+                    }
+                    if (typeof(response.data) == "string") {
+                        swal({
+                            html: $translate.instant('NOVEDAD_REG_ERROR'),
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#449D44",
+                            confirmButtonText: $translate.instant('VOLVER'),
+                        }).then(function() {
+                            $('#modal_adicion_novedad').modal('hide');
+                            $window.location.reload()
+                        })
 
-                }
-            });
-          }
+                    }
+                });
+            }
         };
 
 
@@ -308,7 +309,7 @@ angular.module('titanClienteV2App')
                             confirmButtonColor: "#449D44",
                             confirmButtonText: $translate.instant('VOLVER'),
                         }).then(function() {
-                            $window.location.reload();
+                            $window.location.reload()
                         })
                     } else {
                         swal({
@@ -318,7 +319,7 @@ angular.module('titanClienteV2App')
                             confirmButtonColor: "#449D44",
                             confirmButtonText: $translate.instant('VOLVER'),
                         }).then(function() {
-                            $window.location.reload();
+                            $window.location.reload()
                         })
                     }
                 });
@@ -342,108 +343,108 @@ angular.module('titanClienteV2App')
 
         self.Editar = function() {
 
-            if((self.valor_novedad_edicion && self.num_cuotas_edicion) ||(self.valor_novedad_edicion == 0 && self.num_cuotas_edicion == 0)){
-            swal({
-                html: $translate.instant('CONFIRMACION_EDICION_NOV') +
-                    "<br><b>" + self.concepto_nombre_edicion + "?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#449D44",
-                cancelButtonColor: "#C9302C",
-                confirmButtonText: $translate.instant('CONFIRMAR'),
-                cancelButtonText: $translate.instant('CANCELAR'),
-            }).then(function() {
-                var nomina_novedad = {
-                    Id: parseInt(self.id_nomina_edicion)
-                }
-                var concepto_novedad = {
-                    Id: parseInt(self.id_concepto_edicion)
-                }
-
-                var novedad_por_persona_a_editar = {
-                    Id: parseInt(self.id_edicion),
-                    Concepto: concepto_novedad,
-                    Activo: Boolean("true"),
-                    FechaDesde: self.FechaInicio,
-                    FechaHasta: self.FechaFin,
-                    FechaRegistro: self.CurrentDate,
-                    NumCuotas: parseInt(self.num_cuotas_edicion),
-                    Persona: parseInt(self.persona_edicion),
-                    Nomina: nomina_novedad,
-                    ValorNovedad: parseFloat(self.valor_novedad_edicion)
-                };
-
-                titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
-                    if (response.data == "OK") {
-                        swal({
-                            html: $translate.instant('EDICION_CORRECTA_NOV'),
-                            type: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function() {
-                            $window.location.reload();
-                        })
-                    } else {
-                        swal({
-                            html: $translate.instant('EDICION_INCORRECTA_NOV'),
-                            type: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function() {
-                            $window.location.reload();
-                        })
+            if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_novedad_edicion == 0 && self.num_cuotas_edicion == 0)) {
+                swal({
+                    html: $translate.instant('CONFIRMACION_EDICION_NOV') +
+                        "<br><b>" + self.concepto_nombre_edicion + "?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#449D44",
+                    cancelButtonColor: "#C9302C",
+                    confirmButtonText: $translate.instant('CONFIRMAR'),
+                    cancelButtonText: $translate.instant('CANCELAR'),
+                }).then(function() {
+                    var nomina_novedad = {
+                        Id: parseInt(self.id_nomina_edicion)
                     }
-                });
+                    var concepto_novedad = {
+                        Id: parseInt(self.id_concepto_edicion)
+                    }
+
+                    var novedad_por_persona_a_editar = {
+                        Id: parseInt(self.id_edicion),
+                        Concepto: concepto_novedad,
+                        Activo: Boolean("true"),
+                        FechaDesde: self.FechaInicio,
+                        FechaHasta: self.FechaFin,
+                        FechaRegistro: self.CurrentDate,
+                        NumCuotas: parseInt(self.num_cuotas_edicion),
+                        Persona: parseInt(self.persona_edicion),
+                        Nomina: nomina_novedad,
+                        ValorNovedad: parseFloat(self.valor_novedad_edicion)
+                    };
+
+                    titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
+                        if (response.data == "OK") {
+                            swal({
+                                html: $translate.instant('EDICION_CORRECTA_NOV'),
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function() {
+                                $window.location.reload()
+                            })
+                        } else {
+                            swal({
+                                html: $translate.instant('EDICION_INCORRECTA_NOV'),
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function() {
+                                $window.location.reload()
+                            })
+                        }
+                    });
 
 
-            })
-          }
+                })
+            }
         };
 
 
 
     }).filter('filtro_formato_valor_novedad', function($filter) {
-  return function(input,entity) {
-    var output;
-    if (undefined === input || null === input) {
-      return "";
-    }
+        return function(input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-    if(entity.Concepto.TipoConcepto.Nombre === "porcentual" ){
-        output = (input) + "%";
-    }
+            if (entity.Concepto.TipoConcepto.Nombre === "porcentual") {
+                output = (input) + "%";
+            }
 
-    if(entity.Concepto.TipoConcepto.Nombre === "fijo" ){
-        output = "$"+(input);
-    }
+            if (entity.Concepto.TipoConcepto.Nombre === "fijo") {
+                output = "$" + (input);
+            }
 
-    if(entity.Concepto.TipoConcepto.Nombre === "seguridad_social" ){
-        output = "No aplica";
-    }
+            if (entity.Concepto.TipoConcepto.Nombre === "seguridad_social") {
+                output = "No aplica";
+            }
 
-    return output;
-  };
-}).filter('filtro_formato_cuotas', function($filter) {
-  return function(input,entity) {
-    var output;
-    if (undefined === input || null === input) {
-      return "";
-    }
+            return output;
+        };
+    }).filter('filtro_formato_cuotas', function($filter) {
+        return function(input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-    if(entity.Concepto.TipoConcepto.Nombre === "porcentual" ){
-      output = "Fija";
-    }
+            if (entity.Concepto.TipoConcepto.Nombre === "porcentual") {
+                output = "Fija";
+            }
 
-    if(entity.Concepto.TipoConcepto.Nombre === "fijo" ){
-      output = input;
-    }
+            if (entity.Concepto.TipoConcepto.Nombre === "fijo") {
+                output = input;
+            }
 
-    if(entity.Concepto.TipoConcepto.Nombre === "seguridad_social" ){
-      output = "No aplica";
-    }
+            if (entity.Concepto.TipoConcepto.Nombre === "seguridad_social") {
+                output = "No aplica";
+            }
 
-    return output;
-  };
-});
+            return output;
+        };
+    });

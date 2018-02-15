@@ -11,7 +11,7 @@ angular.module('titanClienteV2App')
     .factory("preliquidacion", function() {
         return {};
     })
-    .controller('PreliquidacionPreliquidacionRegistroCtrl', function(titanRequest, preliquidacion, $window, $translate, $localStorage, $routeParams, $scope) {
+    .controller('PreliquidacionPreliquidacionRegistroCtrl', function(titanRequest, preliquidacion, $window, $translate, $localStorage, $routeParams, $scope, $route, $location) {
         var self = this;
         self.formVisibility = false;
         self.loading = false;
@@ -64,17 +64,17 @@ angular.module('titanClienteV2App')
             showTreeExpandNoChildren: false,
             paginationPageSizes: [10, 20],
             paginationPageSize: 10,
-            enableFiltering : true,
+            enableFiltering: true,
             enableRowSelection: false,
             enableRowHeaderSelection: false,
 
             columnDefs: [
                 { field: 'Id', visible: false },
-                { field: 'Descripcion', displayName: $translate.instant('DESC_PRELIQ'),width:'30%' },
-                { field: 'Mes', displayName: $translate.instant('MES_PRELIQ'), cellFilter:'filtro_nombres_meses:row.entity',width:'15%' },
-                { field: 'Ano', displayName: $translate.instant('ANO_PRELIQ'),width:'10%' },
-                { field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>' ,width:'15%'},
-                { field: 'EstadoPreliquidacion.Nombre', displayName: $translate.instant('ESTADO_PRELIQ'), cellFilter: 'filtro_estados_preliq:row.entity',width:'20%' },
+                { field: 'Descripcion', displayName: $translate.instant('DESC_PRELIQ'), width: '30%' },
+                { field: 'Mes', displayName: $translate.instant('MES_PRELIQ'), cellFilter: 'filtro_nombres_meses:row.entity', width: '15%' },
+                { field: 'Ano', displayName: $translate.instant('ANO_PRELIQ'), width: '10%' },
+                { field: 'FechaRegistro', displayName: $translate.instant('FECHA_PRELIQ'), cellTemplate: '<span>{{row.entity.FechaRegistro | date:"yyyy-MM-dd" :"+0900"}}</span>', width: '15%' },
+                { field: 'EstadoPreliquidacion.Nombre', displayName: $translate.instant('ESTADO_PRELIQ'), cellFilter: 'filtro_estados_preliq:row.entity', width: '20%' },
                 {
                     field: 'Acciones',
                     displayName: $translate.instant('ACCIONES'),
@@ -94,8 +94,8 @@ angular.module('titanClienteV2App')
         });
 
         titanRequest.get('nomina', 'limit=-1&query=TipoNomina.Nombre:' + self.tipo).then(function(response) {
-           self.nomina = response.data[0];
-          
+            self.nomina = response.data[0];
+
         });
 
         titanRequest.get('estado_preliquidacion', 'limit=0&query=Nombre:Abierta').then(function(response) {
@@ -180,7 +180,7 @@ angular.module('titanClienteV2App')
                     html: $translate.instant('ALERTA_PRELIQUIDACION_CERRADA'),
                     type: "error",
                     showCancelButton: true,
-                    showConfirmButton:false,
+                    showConfirmButton: false,
                     cancelButtonColor: "#C9302C",
                     cancelButtonText: $translate.instant('SALIR'),
                 })
@@ -190,7 +190,7 @@ angular.module('titanClienteV2App')
                         html: $translate.instant('ALERTA_PRELIQUIDACION_OP'),
                         type: "error",
                         showCancelButton: true,
-                        showConfirmButton:false,
+                        showConfirmButton: false,
                         cancelButtonColor: "#C9302C",
                         cancelButtonText: $translate.instant('SALIR'),
                     })
@@ -204,7 +204,8 @@ angular.module('titanClienteV2App')
                     self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
                     self.preliquidacion.Nomina = self.nomina
                     $localStorage.preliquidacion = self.preliquidacion;
-                    $window.location.href = '#/preliquidacion/preliquidacion_personas';
+                    $location.path('/preliquidacion/preliquidacion_personas');
+                    $route.reload()
                 }
             }
         };
@@ -219,74 +220,76 @@ angular.module('titanClienteV2App')
             self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
             self.preliquidacion.Nomina = self.nomina
             $localStorage.preliquidacion = self.preliquidacion;
-            $window.location.href = '#/preliquidacion/preliquidacion_detalle';
+            $location.path('/preliquidacion/preliquidacion_detalle');
+            $route.reload()
+
         };
 
-    }).filter('filtro_nombres_meses', function($filter,$translate) {
-    return function(input,entity) {
-      var output;
-      if (undefined === input || null === input) {
-        return "";
-      }
+    }).filter('filtro_nombres_meses', function($filter, $translate) {
+        return function(input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-      if(entity.Mes === 1 ){
-        output = $translate.instant('ENERO');
-      }
-      if(entity.Mes === 2 ){
-        output = $translate.instant('FEBRERO');
-      }
-      if(entity.Mes === 3 ){
-        output = $translate.instant('MARZO');
-      }
-      if(entity.Mes === 4 ){
-        output = $translate.instant('ABRIL');
-      }
-      if(entity.Mes === 5 ){
-        output = $translate.instant('MAYO');
-      }
-      if(entity.Mes === 6 ){
-        output = $translate.instant('JUNIO');
-      }
-      if(entity.Mes === 7 ){
-        output = $translate.instant('JULIO');
-      }
-      if(entity.Mes === 8 ){
-        output = $translate.instant('AGOSTO');
-      }
-      if(entity.Mes === 9 ){
-        output = $translate.instant('SEPTIEMBRE');
-      }
-      if(entity.Mes === 10 ){
-        output = $translate.instant('OCTUBRE');
-      }
-      if(entity.Mes === 11 ){
-        output = $translate.instant('NOVIEMBRE');
-      }
-      if(entity.Mes === 12 ){
-        output = $translate.instant('DICIEMBRE');
-      }
-      return output;
-    };
-  }).filter('filtro_estados_preliq', function($filter,$translate) {
-    return function(input,entity) {
-      var output;
-      if (undefined === input || null === input) {
-        return "";
-      }
+            if (entity.Mes === 1) {
+                output = $translate.instant('ENERO');
+            }
+            if (entity.Mes === 2) {
+                output = $translate.instant('FEBRERO');
+            }
+            if (entity.Mes === 3) {
+                output = $translate.instant('MARZO');
+            }
+            if (entity.Mes === 4) {
+                output = $translate.instant('ABRIL');
+            }
+            if (entity.Mes === 5) {
+                output = $translate.instant('MAYO');
+            }
+            if (entity.Mes === 6) {
+                output = $translate.instant('JUNIO');
+            }
+            if (entity.Mes === 7) {
+                output = $translate.instant('JULIO');
+            }
+            if (entity.Mes === 8) {
+                output = $translate.instant('AGOSTO');
+            }
+            if (entity.Mes === 9) {
+                output = $translate.instant('SEPTIEMBRE');
+            }
+            if (entity.Mes === 10) {
+                output = $translate.instant('OCTUBRE');
+            }
+            if (entity.Mes === 11) {
+                output = $translate.instant('NOVIEMBRE');
+            }
+            if (entity.Mes === 12) {
+                output = $translate.instant('DICIEMBRE');
+            }
+            return output;
+        };
+    }).filter('filtro_estados_preliq', function($filter, $translate) {
+        return function(input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-      if(entity.EstadoPreliquidacion.Nombres === "Cerrada" ){
-        output = $translate.instant('CERRADA');
-      }
-      if(entity.EstadoPreliquidacion.Nombre === "Abierta" ){
-        output = $translate.instant('ABIERTA');
-      }
-      if(entity.EstadoPreliquidacion.Nombre === "SolicitudNecesidad" ){
-        output = $translate.instant('NEC_SOLICITADA');
-      }
-      if(entity.EstadoPreliquidacion.Nombre === "EnOrdenPago" ){
-        output = $translate.instant('OP_SOLICITADA');
-      }
+            if (entity.EstadoPreliquidacion.Nombres === "Cerrada") {
+                output = $translate.instant('CERRADA');
+            }
+            if (entity.EstadoPreliquidacion.Nombre === "Abierta") {
+                output = $translate.instant('ABIERTA');
+            }
+            if (entity.EstadoPreliquidacion.Nombre === "SolicitudNecesidad") {
+                output = $translate.instant('NEC_SOLICITADA');
+            }
+            if (entity.EstadoPreliquidacion.Nombre === "EnOrdenPago") {
+                output = $translate.instant('OP_SOLICITADA');
+            }
 
-      return output;
-    };
+            return output;
+        };
     });
