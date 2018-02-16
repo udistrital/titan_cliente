@@ -166,7 +166,7 @@ angular.module('titanClienteV2App')
             $scope.gridOptions_personas.data = response.data;
         });
 
-        titanRequest.get('concepto_nomina', 'limit=0&sortby=Id&order=desc').then(function(response) {
+        titanRequest.get('concepto_nomina', 'limit=-1?query=EstadoConceptoNomina.Id:1').then(function(response) {
             $scope.gridOptions_conceptos.data = response.data;
         });
 

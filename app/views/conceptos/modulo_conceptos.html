@@ -49,7 +49,7 @@
                  <option ng-repeat="ttipo in conceptosConsulta.TipoConcepto"  value="{{ttipo}}">{{ttipo.Descripcion}}</option>
                </select>
              </fieldset>
-             <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='conceptosConsulta.actualizar()'>
+             <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='conceptosConsulta.actualizar(row)'>
 
            </form>
          </div>
@@ -92,7 +92,7 @@
                </select>
              </fieldset>
              <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='conceptosConsulta.anadir()'>
-             
+
            </form>
          </div>
        </div>

@@ -26,7 +26,9 @@ var text_es = {
     CONFIRMAR: "Confirmar",
     BTN:{
       EDITAR:"Editar",
-      BORRAR:"Eliminar"
+      BORRAR:"Eliminar",
+      INACTIVAR: "Inactivar",
+      ACTIVAR: "Activar"
     },
     ENERO:"Enero",
     FEBRERO:"Febrero",
@@ -204,13 +206,19 @@ var text_es = {
     CONFIRMACION_EDICION: "¿Está seguro de querer actualizar el concepto:",
     ACTUALIZACION_CORRECTA: "Concepto actualizado correctamente",
     ACTUALIZACION_INCORRECTA: "Error al actualizar concepto",
-    CONFIRMACION_ELIMINACION: "¿Está seguro de querer eliminar el concepto:",
+    CONFIRMACION_DESACTIVAR: "¿Está seguro de querer inactivar el concepto: ",
     ELIMINACION_CORRECTA: "Concepto eliminado correctamente",
     ELIMINACION_INCORRECTA: "Error al eliminar concepto",
     CONFIRMACION_ADICION: "¿Está seguro de querer agregar el concepto:",
     ADICION_CORRECTA: "Concepto agregado correctamente",
     ADICION_INCORRECTA: "Error al agregado concepto",
     ALERTA_COMPLETAR_DATOS_EDICION: "Complete todos los datos",
+    ESTADO_CONCEPTO: "Estado de concepto",
+    INACTIVACION_CONCEPTO_CORRECTA: "Concepto inactivado correctamente",
+    INACTIVACION_CONCEPTO_INCORRECTA : "Error al inactivar concepto",
+    CONFIRMACION_ACTIVAR: "¿Está seguro de querer activar el concepto: ",
+    ACTIVACION_CONCEPTO_CORRECTA: "Activación realizada correctamente",
+    ACTIVACION_CONCEPTO_INCORRECTA: "Error al activar concepto",
     //MENÚ GENERAL
     PENSIONADOS_MENU: "Pensionados",
     INGRESAR_BEN: "Ingresar beneficiarios",
@@ -241,7 +249,9 @@ var text_en = {
     CONFIRMAR: "Confirm",
     BTN:{
       EDITAR:"Edit",
-      BORRAR:"Delete"
+      BORRAR:"Delete",
+      INACTIVAR: "Inactivate",
+      ACTIVAR: "Activate"
     },
     ENERO:"January",
     FEBRERO:"February",
@@ -421,13 +431,19 @@ var text_en = {
     CONFIRMACION_EDICION: "Are you sure you want to update the concept:",
     ACTUALIZACION_CORRECTA: "Concept correctly updated",
     ACTUALIZACION_INCORRECTA: "Error updating concept",
-    CONFIRMACION_ELIMINACION: "Are you sure you want to delete the concept:",
+    CONFIRMACION_DESACTIVAR: "Are you sure you want to deactivate the concept:",
     ELIMINACION_CORRECTA: "Concept correctly deleted",
     ELIMINACION_INCORRECTA: "Error deleting concept",
     CONFIRMACION_ADICION: "Are you sure you cant to add the concept:",
     ADICION_CORRECTA: "Concept correctly added",
-    ADICION_INCORRECTA: "Error adding concepto",
+    ADICION_INCORRECTA: "Error adding concept",
     ALERTA_COMPLETAR_DATOS_EDICION: "Complete all data",
+    ESTADO_CONCEPTO: "Concept Status",
+    INACTIVACION_CONCEPTO_CORRECTA: "Concepto correctly deactivated",
+    INACTIVACION_CONCEPTO_INCORRECTA : "Error deactivating concept",
+    CONFIRMACION_ACTIVAR: "Are you sure you want to activate: ",
+    ACTIVACION_CONCEPTO_CORRECTA: "Concept correctly activated",
+    ACTIVACION_CONCEPTO_INCORRECTA: "Error activating concept",
 
     //MENÚ GENERAL
     PENSIONADOS_MENU: "Retirees",
