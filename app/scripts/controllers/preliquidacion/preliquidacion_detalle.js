@@ -25,6 +25,7 @@ angular.module('titanClienteV2App')
             enableFiltering: false,
             enableSorting: false,
             enableRowSelection: false,
+            enableRowHeaderSelection: false,
             enableSelectAll: false,
             columnDefs: [{
                     field: 'IdPersona',
@@ -123,6 +124,7 @@ angular.module('titanClienteV2App')
  */
         titanMidRequest.post('preliquidacion/resumen', self.preliquidacion).then(function(response) {
 
+            self.total_contratos_liquidados = response.data.length
             var temp_resumen_conceptos = {};
             var temp_sueldo_neto = 0;
             for (var i = 0; i < response.data.length; i++) {

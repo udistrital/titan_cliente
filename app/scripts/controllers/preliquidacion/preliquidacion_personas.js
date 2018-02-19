@@ -49,7 +49,7 @@ angular.module('titanClienteV2App')
             columnDefs: [
                 { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '20%' },
                 { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'), width: '10%' },
-                { field: 'NombreCompleto', displayName: $translate.instant('NOMBRE_PERSONA'), width: '25%' },
+                { field: 'NombreCompleto', displayName: $translate.instant('NOMBRE_PERSONA'), width: '29%' },
                 { field: 'Documento', displayName: $translate.instant('DOCUMENTO'), width: '20%' },
                 { field: 'Preliquidacion.Mes', displayName: $translate.instant('MES_PRELIQ'), width: '10%', cellFilter: 'filtro_nombres_meses:row.entity.Preliquidacion' },
                 { field: 'Preliquidacion.Ano', displayName: $translate.instant('ANO_PRELIQ'), width: '10%' },

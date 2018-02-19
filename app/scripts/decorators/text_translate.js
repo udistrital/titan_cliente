@@ -82,7 +82,8 @@ var text_es = {
     DOCUMENTO: "Documento",
     VIGENCIA: "Vigencia",
     ALERTA_PERSONAS_SIN_SS: "No es posible realizar la liquidación. Las personas resaltadas no cuentan con sus datos de seguridad social completos",
-
+    PAGOS_REALIZAR: "Personas a liquidar en el presente periodo",
+    PENDIENTES_PAGO: "Personas pendientes de pago periodos anteriores",
     //Interfaz de detalle de preliquidacion
     TITULO_DETALLE_PRELIQ: "Detalle de preliquidación de la nómina",
     RESUMEN_PRELIQ: "Resumen de la preliquidación",
@@ -100,6 +101,7 @@ var text_es = {
     DETALLE_EMP: "Detalle del empleado",
     ALERTA_PERSONAS_SELECCIONADAS: "Debe seleccionar personas para ser liquidadas",
     ALERTA_NO_LIQUIDACION: "Esta preliquidación ya ha sido liquidada",
+    TOTAL_CONT_LIQUIDADOS: "Total de contratos preliquidados",
     REALIZA_PAGO: "¿Se realizará pago?",
     //REGISTRO Y CONSULTA DE NOVEDADES
     TITULO_NOVEDADES: "Registro de novedades",
@@ -305,6 +307,8 @@ var text_en = {
     DOCUMENTO: "Identification",
     VIGENCIA: "Term",
     ALERTA_PERSONAS_SIN_SS: "The selected people cannot be pay off due to incomplete data",
+    PAGOS_REALIZAR: "People to be payed this term",
+    PENDIENTES_PAGO: "People with pending payment",
 
     //Interfaz de detalle de preliquidacion
     TITULO_DETALLE_PRELIQ: "Pre-liquidation payslip detail: ",
@@ -324,6 +328,7 @@ var text_en = {
     ALERTA_PERSONAS_SELECCIONADAS: "You must select people to pay off",
     ALERTA_NO_LIQUIDACION: "This Pre-liquidation has already been pay off",
     REALIZA_PAGO: "Payment?",
+    TOTAL_CONT_LIQUIDADOS: "Pre-liquidated contracts",
     //REGISTRO Y CONSULTA DE NOVEDADES
     TITULO_NOVEDADES: "Changes' record",
     SELECCION_PERSONA: "Person selection",
