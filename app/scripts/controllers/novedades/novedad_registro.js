@@ -50,8 +50,8 @@ angular.module('titanClienteV2App')
 
 
         $scope.gridOptions_personas = {
-            paginationPageSizes: [5, 15, 20],
-            paginationPageSize: 5,
+            paginationPageSizes: [5, 10, 20],
+            paginationPageSize: 10,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: true,
@@ -177,7 +177,7 @@ angular.module('titanClienteV2App')
 
         self.listar_novedades = function(row) {
             $scope.persona = row.entity
-            titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,Persona:' + $scope.persona.id_proveedor + ',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
+            titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,NumeroContrato:' + $scope.persona.numero_contrato + ',VigenciaContrato:' + $scope.persona.vigencia +',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
                 if (response.data == null) {
                     $scope.gridOptions_novedades.data = [];
                     self.hayNovedad = false
