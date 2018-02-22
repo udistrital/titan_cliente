@@ -11,7 +11,7 @@ angular.module('titanClienteV2App')
     .factory("preliquidacion", function() {
         return {};
     })
-    .controller('PreliquidacionPreliquidacionRegistroCtrl', function(titanRequest, preliquidacion, $window, $translate, $localStorage, $routeParams, $scope, $route, $location) {
+    .controller('PreliquidacionPreliquidacionRegistroCtrl', function(titanRequest,titanMidRequest, preliquidacion, $window, $translate, $localStorage, $routeParams, $scope, $route, $location) {
         var self = this;
         self.formVisibility = false;
         self.loading = false;
@@ -211,17 +211,34 @@ angular.module('titanClienteV2App')
         };
 
         self.detalle_preliquidacion = function(row) {
-            self.preliquidacion = preliquidacion;
-            self.preliquidacion.Id = row.entity.Id;
-            self.preliquidacion.Descripcion = row.entity.Descripcion;
-            self.preliquidacion.Mes = row.entity.Mes;
-            self.preliquidacion.Ano = row.entity.Ano;
-            self.preliquidacion.EstadoPreliquidacion = row.entity.EstadoPreliquidacion;
-            self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
-            self.preliquidacion.Nomina = self.nomina
-            $localStorage.preliquidacion = self.preliquidacion;
-            $location.path('/preliquidacion/preliquidacion_detalle');
-            $route.reload()
+
+          self.preliquidacion = preliquidacion;
+          self.preliquidacion.Id = row.entity.Id;
+          self.preliquidacion.Descripcion = row.entity.Descripcion;
+          self.preliquidacion.Mes = row.entity.Mes;
+          self.preliquidacion.Ano = row.entity.Ano;
+          self.preliquidacion.EstadoPreliquidacion = row.entity.EstadoPreliquidacion;
+          self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
+          self.preliquidacion.Nomina = self.nomina
+          $localStorage.preliquidacion = self.preliquidacion;
+
+          titanMidRequest.post('preliquidacion/resumen', self.preliquidacion).then(function(response) {
+              if(response.data === null){
+                swal({
+                    html: $translate.instant('NO_PRELIQ'),
+                    type: "error",
+                    showCancelButton: true,
+                    showConfirmButton: false,
+                    cancelButtonColor: "#C9302C",
+                    cancelButtonText: $translate.instant('SALIR'),
+                })
+              }else{
+                $location.path('/preliquidacion/preliquidacion_detalle');
+                $route.reload()
+              }
+          });
+
+
 
         };
 

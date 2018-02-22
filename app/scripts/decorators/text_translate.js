@@ -75,6 +75,7 @@ var text_es = {
     ABIERTA:"Abierta",
     NEC_SOLICITADA: "Necesidad solicitada",
     OP_SOLICITADA: "Orden de pago solicitada",
+    NO_PRELIQ: "No se ha generado preliquidación",
     //Interfaz de listado de personas a preliquidar
     PRELIQ_NOMINA: "Personas a preliquidar en nómina: ",
     NUM_CONTRATO: "Número de contrato",
@@ -309,6 +310,7 @@ var text_en = {
     ALERTA_PERSONAS_SIN_SS: "The selected people cannot be pay off due to incomplete data",
     PAGOS_REALIZAR: "People to be payed this term",
     PENDIENTES_PAGO: "People with pending payment",
+    NO_PRELIQ: "Pending pre-liquidation",
 
     //Interfaz de detalle de preliquidacion
     TITULO_DETALLE_PRELIQ: "Pre-liquidation payslip detail: ",
