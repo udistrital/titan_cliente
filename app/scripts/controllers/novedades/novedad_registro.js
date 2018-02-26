@@ -61,7 +61,7 @@ angular.module('titanClienteV2App')
                 { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO'), width: '20%' },
                 { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '10%' },
                 { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '50%' },
-                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '22%' }
+                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%' }
 
 
             ],
