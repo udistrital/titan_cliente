@@ -177,6 +177,8 @@ angular.module('titanClienteV2App')
 
         self.listar_novedades = function(row) {
             $scope.persona = row.entity
+            console.log("hello")
+            console.log($scope.persona)
             titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,NumeroContrato:' + $scope.persona.numero_contrato + ',VigenciaContrato:' + $scope.persona.vigencia +',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
                 if (response.data == null) {
                     $scope.gridOptions_novedades.data = [];
@@ -210,7 +212,7 @@ angular.module('titanClienteV2App')
             var valor = parseFloat(self.ValorNovedad)
             var cuotas = parseInt(self.NumCuotas)
 
-            if ($scope.concepto.TipoConcepto.Nombre === "porcentual") {
+           if ($scope.concepto.TipoConcepto.Nombre === "porcentual") {
                 cuotas = 999;
             }
 
@@ -222,7 +224,6 @@ angular.module('titanClienteV2App')
             if ((valor && cuotas) || (valor == 0 && cuotas == 0)) {
 
                 var concepto = { Id: parseInt($scope.concepto.Id) };
-                var persona = parseInt($scope.persona.id_proveedor);
                 var nomina = { Id: parseInt(self.Nomina.Id) };
                 var novedad_por_persona = {
                     Concepto: concepto,
@@ -231,7 +232,8 @@ angular.module('titanClienteV2App')
                     FechaHasta: self.FechaFin,
                     FechaRegistro: self.CurrentDate,
                     NumCuotas: cuotas,
-                    Persona: persona,
+                    NumeroContrato: $scope.persona.numero_contrato,
+                    VigenciaContrato: parseInt($scope.persona.vigencia),
                     Nomina: nomina,
                     ValorNovedad: valor
                 };
@@ -295,7 +297,8 @@ angular.module('titanClienteV2App')
                     FechaHasta: row.entity.FechaHasta,
                     FechaRegistro: row.entity.FechaRegistro,
                     NumCuotas: row.entity.NumCuotas,
-                    Persona: row.entity.Persona,
+                    NumeroContrato: $scope.persona.numero_contrato,
+                    VigenciaContrato: parseInt($scope.persona.vigencia),
                     Nomina: nomina_novedad,
                     ValorNovedad: row.entity.ValorNovedad
                 };
@@ -369,7 +372,8 @@ angular.module('titanClienteV2App')
                         FechaHasta: self.FechaFin,
                         FechaRegistro: self.CurrentDate,
                         NumCuotas: parseInt(self.num_cuotas_edicion),
-                        Persona: parseInt(self.persona_edicion),
+                        NumeroContrato: $scope.persona.numero_contrato,
+                        VigenciaContrato: parseInt($scope.persona.vigencia),
                         Nomina: nomina_novedad,
                         ValorNovedad: parseFloat(self.valor_novedad_edicion)
                     };
