@@ -75,10 +75,10 @@ angular.module('titanClienteV2App')
             titanRequest.post('informacion_persona_natural', personaNatural).then(function(response) {
                 console.log(response.data);
                 if (typeof(response.data) == "object") {
-                    alert("Dato registrado" + response.data.Id);
+                    console.log("Correcto")
                 }
                 if (typeof(response.data) == "string") {
-                    alert("error: " + response.data);
+                    console.log("Error")
                 }
             });
 
@@ -88,7 +88,7 @@ angular.module('titanClienteV2App')
                 var lastId;
                 for (var i = idprov.length - 1; i <= idprov.length - 1; i++) {
                     lastId = idprov[i].Id;
-                    alert(lastId);
+
                 }
 
                 var ciudad = { Id: 96 };
@@ -116,26 +116,26 @@ angular.module('titanClienteV2App')
                     if (typeof(response.data) == "object") {
                         var idbeneficiario = parseInt(response.data.Id);
                         console.log("idbeneficiario" + idbeneficiario);
-                        alert("Dato registrado" + response.data.Id);
+
                         titanRequest.get('informacion_proveedor', 'limit=0').then(function(response) {
                             self.proveedor = response.data;
-                            var prov = self.proveedor;
-                            alert("informacion proveedor")
+
+
                             titanRequest.get('informacion_pensionado', 'limit=0').then(function(response) {
                                 self.pension = response.data;
-                                var pn = self.pension;
-                                alert(pn);
-                                var encontrado;
+
+
+
 
                                 titanRequest.get('beneficiarios', 'limit=0&sortby=Id&order=desc').then(function(response) {
                                     self.idbe = response.data;
                                     var idbenef = self.idbe;
                                     console.log(idbenef.length + "longitud beneficiarios")
-                                    var lastIdB;
+
                                     for (var c = idbenef.length - 1; c < idbenef.length; c++) {
                                         console.log(idbenef[c] + "id con .length");
-                                        lastIdB = idbenef[c].Id;
-                                        alert(lastIdB + "idbeneficiario" + idbenef[c].Id);
+
+
                                     }
 
                                     var query = "query=NumDocumento:" + parseInt(self.pensionado)
@@ -192,7 +192,7 @@ angular.module('titanClienteV2App')
                         });
                     }
                     if (typeof(response.data) == "string") {
-                        alert("error: " + response.data);
+                      console.log("error")
                     }
                 });
             });

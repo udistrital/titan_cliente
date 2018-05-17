@@ -57,10 +57,10 @@ angular.module('titanClienteV2App')
                 titanRequest.post('informacion_persona_natural', personaNatural).then(function(response) {
                     console.log(response.data);
                     if (typeof(response.data) == "object") {
-                        alert("Dato registrado tutor" + response.data.Id);
+                      console.log("correcto")
                     }
                     if (typeof(response.data) == "string") {
-                        alert("error: " + response.data);
+                      console.log("error")
                     }
                 });
 
@@ -70,7 +70,7 @@ angular.module('titanClienteV2App')
                     var lastId;
                     for (var i = idprov.length - 1; i <= idprov.length - 1; i++) {
                         lastId = idprov[i].Id;
-                        alert(lastId);
+
                     }
 
                     var info_proveedor = {
@@ -97,11 +97,11 @@ angular.module('titanClienteV2App')
                         if (typeof(response.data) == "object") {
                             console.log("Entro a proveedor tutor1");
                             idtutor = parseInt(response.data.Id);
-                            alert(idtutor + "idtutor")
+
                             console.log(idtutor + "idtutor")
                         }
                         if (typeof(response.data) == "string") {
-                            alert("error: " + response.data);
+                          console.log("error")
                         }
                     });
                 });
@@ -118,10 +118,10 @@ angular.module('titanClienteV2App')
             }
 
             if (self.selectPensionado != null && self.selectBeneficiario != null) {
-                var pensionado;
+
                 titanRequest.get('informacion_proveedor', 'limit=5000').then(function(response) {
                     self.proveedor = response.data;
-                    var prov = self.proveedor;
+
 
                     titanRequest.get('informacion_pensionado', 'limit=750').then(function(response) {
                         self.pension = response.data;
@@ -134,29 +134,29 @@ angular.module('titanClienteV2App')
                                 for (var j = 0; j < pn.length; j++) {
                                     if (prov[i].Id == pn[j].InformacionProveedor) {
                                         encontradoPensionado = 'S';
-                                        pensionado = pn[j].InformacionProveedor
-                                        alert("pensionados" + encontradoPensionado);
+
+
                                         break;
                                     }
                                 }
                             }
 
                             if (self.selectBeneficiario == prov[i].NumDocumento) {
-                                alert("Encuentra beneficiarios1")
+
                                 console.log("ben id " + prov[i].Id + prov[i].NumDocumento)
                                 var idbeneficiario = prov[i].Id;
                                 titanRequest.get('beneficiarios', 'limit=5000').then(function(response) {
                                     self.beneficiario = response.data;
                                     var ben = self.beneficiario;
                                     var idsustituto;
-                                    alert("Entra a benefifciarios")
+
                                     for (var k = 0; k < ben.length; k++) {
                                         console.log("idbeneficiario" + idbeneficiario + " " + ben[k].InformacionProveedor)
                                         if (idbeneficiario == ben[k].InformacionProveedor) {
-                                            alert("Encuentra beneficiarios2")
+
                                             encontradoBeneficiario = 'S';
                                             idsustituto = parseInt(ben[k].Id);
-                                            alert("encontrado Ben" + encontradoBeneficiario)
+
                                             break;
                                         }
                                     }
@@ -167,10 +167,9 @@ angular.module('titanClienteV2App')
                                             var lastIdS;
                                             for (var d = idsus.length - 1; d < idsus.length; d++) {
                                                 lastIdS = idsus[d].Id;
-                                                alert(lastIdS + "idsust" + idsus[d].Id);
+
                                             }
-                                            alert("idsustituto" + idsustituto)
-                                            alert("idtutor" + idtutor)
+
                                             console.log("idtutor" + idtutor + "es sustit")
 
                                             var sustituto = {
@@ -208,7 +207,7 @@ angular.module('titanClienteV2App')
                                             });
                                         });
                                     } else {
-                                        alert("Una de las personas no se encuentra en la Base de Datos");
+                                      console.log("error")
                                     }
                                     console.log(encontradoPensionado + " " + encontradoBeneficiario);
                                 });

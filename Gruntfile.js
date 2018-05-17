@@ -432,6 +432,29 @@ module.exports = function (grunt) {
       ]
     },
 
+    //sonar
+    sonarRunner: {
+      analysis: {
+        options: {
+          debug: true,
+          separator: '\n',
+          dryRun: false,
+          sonar: {
+            host: {
+              url: 'http://localhost:9000'
+            },
+            projectKey: 'titan_cliente',
+            projectName: 'titan_cliente',
+            projectVersion: '0.01',
+            sources: ['app','test'].join(','),
+            language: 'js',
+            sourceEncoding: 'UTF-8'
+          }
+        }
+      }
+    },
+    // fin sonar
+
     // Test settings
     karma: {
       unit: {

@@ -174,7 +174,7 @@ angular.module('titanClienteV2App')
             var temp_sueldo_neto = 0;
             var temp_total_desc = 0;
             var temp_total_devengo = 0;
-            var total_conceptos = [];
+
             for (var i = 0; i < self.seleccion_conceptos.length; i++) {
                 if (self.seleccion_conceptos[i].Naturaleza === "devengo") {
                     temp_sueldo_neto = temp_sueldo_neto + parseInt(self.seleccion_conceptos[i].Valor);
@@ -226,12 +226,12 @@ angular.module('titanClienteV2App')
                         $route.reload()
                     })
                 }
-            });;
+            });
 
         };
 
         self.solicitar_necesidad = function() {
-            alert("necesidad")
+
 
         };
 
@@ -280,7 +280,7 @@ angular.module('titanClienteV2App')
                 var num_conceptos;
                 var cuerpo_devengos = []
                 var cuerpo_descuentos = []
-                var datos_persona;
+
                 var valor;
                 var valor_descuentos = 0;
                 var valor_devengos = 0;
@@ -290,8 +290,10 @@ angular.module('titanClienteV2App')
                 var espacio;
                 var tabla_detalle_pago;
                 var espacio_pagina;
+                var i;
+                var j;
                 var fecha_generacion = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-                num_conceptos = (4 + num_conceptos) //numero de filas anteriores a los conceptos: 3
+
                 var cuerpo_tabla = [
 
                     [{ text: $translate.instant('PAGO_PERIODO_PDF') + ano_preliquidacion + '-' + mes_preliquidacion, style: 'tableHeader', colSpan: 5, alignment: 'center' }, {}, {}, {}, {}],
@@ -343,7 +345,7 @@ angular.module('titanClienteV2App')
 
 
 
-                for (var i = 0; i < self.respuesta_persona.length; i++) {
+                for (i = 0; i < self.respuesta_persona.length; i++) {
 
                     if (self.respuesta_persona[i].IdPersona == persona.IdPersona) {
                         self.numero_de_conceptos(persona)
@@ -351,7 +353,7 @@ angular.module('titanClienteV2App')
                             //nota: no se internacionaliza porque son datos que se traerán de kronos
                         cuerpo_tabla.push([{ rowSpan: num_conceptos, text: 'Rubro asociado' }, { text: persona.NomProveedor }, '12345', { text: fecha_generacion }, 'Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'], [{}, { text: $translate.instant('DETALLE_PAGO_PDF'), style: 'tableHeader', colSpan: 4, alignment: 'center' }, {}, {}, {}])
 
-                        for (var j = 0; j < self.respuesta_persona[i].Conceptos.length; j++) {
+                        for (j = 0; j < self.respuesta_persona[i].Conceptos.length; j++) {
                             valor = parseInt(self.respuesta_persona[i].Conceptos[j].Valor);
                             valor = valor.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
                             if (self.respuesta_persona[i].Conceptos[j].Naturaleza === "devengo") {
@@ -370,7 +372,7 @@ angular.module('titanClienteV2App')
                 cuerpo_devengos.push([{}, { text: $translate.instant('TOTAL_DEVENGADO_PDF'), style: 'tableHeader', colSpan: 3, alignment: 'right' }, {}, {}, { text: valor_devengos_formato, style: 'tableHeader', alignment: 'right' }])
 
                 cuerpo_tabla.push([{}, { text: $translate.instant('DEVENGOS_PDF'), style: 'tableHeader', colSpan: 3, alignment: 'center' }, {}, {}, { text: $translate.instant('VALOR_PDF'), style: 'tableHeader', alignment: 'center' }])
-                for (var i = 0; i < cuerpo_devengos.length; i++) {
+                for (i = 0; i < cuerpo_devengos.length; i++) {
                     cuerpo_tabla.push(cuerpo_devengos[i])
                 }
 
@@ -380,7 +382,7 @@ angular.module('titanClienteV2App')
 
                 cuerpo_tabla.push([{}, { text: $translate.instant('DESCUENTOS_PDF'), style: 'tableHeader', colSpan: 3, alignment: 'center' }, {}, {}, { text: $translate.instant('VALOR_PDF'), style: 'tableHeader', alignment: 'center' }])
 
-                for (var i = 0; i < cuerpo_descuentos.length; i++) {
+                for (i = 0; i < cuerpo_descuentos.length; i++) {
                     cuerpo_tabla.push(cuerpo_descuentos[i])
                 }
 

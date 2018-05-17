@@ -32,7 +32,7 @@ angular.module('titanClienteV2App')
         self.mesPeriodo = new Date().getMonth();
         self.anios = [];
 
-        var fechaActual = new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate()
+
         self.meses = {
             1: "Enero",
             2: "Febrero",
@@ -64,7 +64,6 @@ angular.module('titanClienteV2App')
             showTreeExpandNoChildren: false,
             paginationPageSizes: [10, 20],
             paginationPageSize: 10,
-            enableFiltering: true,
             enableRowSelection: false,
             enableRowHeaderSelection: false,
 
@@ -168,7 +167,7 @@ angular.module('titanClienteV2App')
                     })
 
                 }
-            });;
+            });
 
             self.formVisibility = false;
         };

@@ -75,12 +75,13 @@ angular.module('titanClienteV2App')
         });
 
         self.generar_preliquidacion = function() {
+            var i;
             var personas = self.gridApi.selection.getSelectedRows();
             var personas_pendientes = self.personas_pendientes_grid.selection.getSelectedRows();
             console.log("personas pendientes")
             console.log(personas_pendientes)
             var personas_a_liquidar = [];
-            for (var i = 0; i < personas.length; i++) {
+            for (i = 0; i < personas.length; i++) {
                 var persona = {
                     IdPersona: parseInt(personas[i].id_proveedor),
                     NumDocumento: parseInt(personas[i].num_documento),
@@ -92,8 +93,8 @@ angular.module('titanClienteV2App')
                 personas_a_liquidar.push(persona)
             }
 
-            for (var i = 0; i < personas_pendientes.length; i++) {
-                var persona = {
+            for (i = 0; i < personas_pendientes.length; i++) {
+                var persona_pen = {
 
 
                     NumeroContrato: personas_pendientes[i].NumeroContrato,
@@ -102,7 +103,7 @@ angular.module('titanClienteV2App')
                     Pendiente: "true",
                 };
 
-                personas_a_liquidar.push(persona)
+                personas_a_liquidar.push(persona_pen)
             }
 
             var datos_preliquidacion = {
@@ -125,7 +126,7 @@ angular.module('titanClienteV2App')
                 $location.path('/preliquidacion/preliquidacion_detalle');
                 $route.reload()
 
-            });;
+            });
 
         };
 
