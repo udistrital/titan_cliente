@@ -156,6 +156,7 @@ angular.module('titanClienteV2App')
                     });
                 }
                 if (typeof(response.data) == "string") {
+                    console.log(response.data)
                     swal({
                         html: $translate.instant('PRELIQ_REG_INCORRECTA'),
                         type: "error",

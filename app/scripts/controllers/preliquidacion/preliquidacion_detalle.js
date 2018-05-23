@@ -22,8 +22,8 @@ angular.module('titanClienteV2App')
         self.gridOptions = {
             paginationPageSizes: [10, 20],
             paginationPageSize: 10,
-            enableFiltering: false,
-            enableSorting: false,
+            enableFiltering: true,
+            enableSorting: true,
             enableRowSelection: false,
             enableRowHeaderSelection: false,
             enableSelectAll: false,
