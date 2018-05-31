@@ -16,7 +16,7 @@ angular.module('titanClienteV2App')
         self.btnGenerartxt = $translate.instant('GENERAR');
         self.saving = false;
 
-        if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS") {
+        if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
 
               self.gridOptions = {
                   paginationPageSizes: [10, 20],
@@ -47,8 +47,8 @@ angular.module('titanClienteV2App')
 
           var rowtpl = '<div ng-class="{\'personas_liquidar\':true, \'personas_no_liquidar\':row.entity.IdEPS==0 || row.entity.IdARL==0 || row.entity.IdFondoPension==0 || row.entity.IdCajaCompensacion==0}"><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div></div>';
           self.gridOptions = {
-              paginationPageSizes: [5, 15, 20],
-              paginationPageSize: 5,
+              paginationPageSizes: [10, 20],
+              paginationPageSize: 10,
               enableFiltering: true,
               enableSorting: true,
               enableRowSelection: true,
@@ -111,6 +111,23 @@ angular.module('titanClienteV2App')
             console.log(personas_pendientes)
             var personas_a_liquidar = [];
 
+              if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
+
+                for (i = 0; i < personas.length; i++) {
+                    var persona = {
+                        IdPersona: parseInt(personas[i].id_proveedor),
+                        NumDocumento: parseInt(personas[i].num_documento),
+                        NumeroContrato: personas[i].numero_contrato,
+                        VigenciaContrato: parseInt(personas[i].vigencia),
+                        Pendiente: "false",
+                    };
+                    console.log(persona)
+                    personas_a_liquidar.push(persona)
+                }
+
+              }
+
+        if (self.preliquidacion.Nomina.TipoNomina.Nombre === "FP") {
             for (i = 0; i < personas.length; i++) {
                 var persona = {
                     IdPersona: parseInt(personas[i].Id),
@@ -123,19 +140,9 @@ angular.module('titanClienteV2App')
                 personas_a_liquidar.push(persona)
             }
 
-            /*
-            for (i = 0; i < personas.length; i++) {
-                var persona = {
-                    IdPersona: parseInt(personas[i].id_proveedor),
-                    NumDocumento: parseInt(personas[i].num_documento),
-                    NumeroContrato: personas[i].numero_contrato,
-                    VigenciaContrato: parseInt(personas[i].vigencia),
-                    Pendiente: "false",
-                };
-                console.log(persona)
-                personas_a_liquidar.push(persona)
-            }
-            */
+          }
+
+
             for (i = 0; i < personas_pendientes.length; i++) {
                 var persona_pen = {
 
