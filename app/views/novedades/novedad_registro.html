@@ -44,7 +44,7 @@
                     <h3 class="panel-title">{{'TITULO_REG_NOVEDAD'| translate}}</h3>
                 </div>
                 <div class="panel-body">
-                    <div ui-grid="gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="miGrid"></div>
+                    <div ui-grid="gridOptions_conceptos"  ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="miGrid"></div>
                     <form name="formplan" ng-submit="formplan.$valid">
                         <div ng-show="concepto.TipoConcepto.Nombre==='fijo'">
 

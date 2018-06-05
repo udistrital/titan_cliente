@@ -128,10 +128,13 @@ angular.module('titanClienteV2App')
 
         $scope.gridOptions_conceptos = {
 
-            enableFiltering: true,
-            enableSorting: true,
-            enableRowSelection: true,
-            enableRowHeaderSelection: false,
+          paginationPageSizes: [5, 10,20],
+          paginationPageSize: 10,
+          enableFiltering: true,
+          enableSorting: true,
+          enableRowSelection: true,
+          enableRowHeaderSelection: false,
+
 
             columnDefs: [
                 { field: 'Id', visible: false },
@@ -173,7 +176,7 @@ angular.module('titanClienteV2App')
         });
 
         self.listar_conceptos = function(){
-          titanRequest.get('concepto_nomina', 'limit=-1?query=EstadoConceptoNomina.Id:1').then(function(response) {
+          titanRequest.get('concepto_nomina', 'limit=-1&query=EstadoConceptoNomina.Id:1').then(function(response) {
               $scope.gridOptions_conceptos.data = response.data;
           });
         };
