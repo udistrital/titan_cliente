@@ -166,15 +166,17 @@ angular.module('titanClienteV2App')
             $scope.gridOptions_personas.data = response.data;
         });
 
-        titanRequest.get('concepto_nomina', 'limit=-1?query=EstadoConceptoNomina.Id:1').then(function(response) {
-            $scope.gridOptions_conceptos.data = response.data;
-        });
 
         titanRequest.get('nomina', 'limit=0&query=TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
             self.Nomina = response.data[0]
 
         });
 
+        self.listar_conceptos = function(){
+          titanRequest.get('concepto_nomina', 'limit=-1?query=EstadoConceptoNomina.Id:1').then(function(response) {
+              $scope.gridOptions_conceptos.data = response.data;
+          });
+        };
         self.listar_novedades = function(row) {
             $scope.persona = row.entity
             console.log("hello")
