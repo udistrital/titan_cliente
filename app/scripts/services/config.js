@@ -30,8 +30,8 @@ var conf_pruebas = {
     },
 };
 var conf_local = {
-    TITAN_SERVICE: "http://10.20.2.136:8080/v1/",
-    TITAN_MID_SERVICE: "http://10.20.2.136:8081/v1/",
+    TITAN_SERVICE: "http://localhost:8080/v1/",
+    TITAN_MID_SERVICE: "http://localhost:8081/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TOKEN: {
         AUTORIZATION_URL: "https://autenticacion.udistrital.edu.co/oauth2/authorize",
@@ -74,5 +74,5 @@ var conf_presentacion = {
 
 angular.module('titanClienteV2App')
     .constant('CONF', {
-        GENERAL: conf_local
+        GENERAL: conf_pruebas
     });

@@ -12,6 +12,7 @@ angular.module('titanClienteV2App')
         var self = this;
 
         self.preliquidacion = $localStorage.preliquidacion
+        console.log("preliquidacion", self.preliquidacion)
         self.generar_disponibilidad;
         self.btnGenerartxt = $translate.instant('GENERAR');
         self.saving = false;
@@ -93,12 +94,12 @@ angular.module('titanClienteV2App')
         };
 
 
-        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo/', self.preliquidacion.Nomina).then(function(response) {
+        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo/', self.preliquidacion).then(function(response) {
             self.gridOptions.data = response.data;
 
         });
 
-        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_pendientes/', self.preliquidacion.Nomina).then(function(response) {
+        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_pendientes/', self.preliquidacion).then(function(response) {
             self.personas_pendientes.data = response.data;
 
         });
