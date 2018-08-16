@@ -51,7 +51,7 @@
                             <div class="form-group">
                                 <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                                 <div class="col-md-5">
-                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required >
+                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required>
                                 </div>
                             </div>
 
@@ -65,49 +65,49 @@
                             <div class="col-md-4 col-form-label col-sm-offset-4">
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
 
-                          </div>
-                          </div>
-                        </form>
+                            </div>
+                        </div>
+                    </form>
 
-                        <form name="formplan" ng-submit="formplan.$valid">
+                    <form name="formplan" ng-submit="formplan.$valid">
                         <div ng-show="concepto.TipoConcepto.Nombre==='porcentual'">
                             <!-- Select Basic -->
                             <div class="form-group">
-                                <label class="col-md-1 col-form-label col-sm-offset-4"  for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
+                                <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                                 <div class="col-md-5">
-                                    <input  type="number" pattern="[0-9]*" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}" required  min="1" max="100">  %
+                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}" required min="1" max="100"> %
                                 </div>
                             </div>
                             <div class="col-md-4 col-form-label col-sm-offset-4">
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
 
-                          </div>
+                            </div>
                         </div>
-                        </form>
+                    </form>
 
-                        <form name="formplan" ng-submit="formplan.$valid">
+                    <form name="formplan" ng-submit="formplan.$valid">
                         <div ng-show="concepto.TipoConcepto.Nombre==='seguridad_social'">
                             <!-- Select Basic -->
                             <div class="form-group">
                                 <label class="col-md-2 col-form-label col-sm-offset-4" for="txtFechaInicio">{{'FECHA_INICIO' | translate}}</label>
                                 <div class="col-md-6">
-                                    <md-datepicker  ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
+                                    <md-datepicker ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-2 col-form-label col-sm-offset-4" for="txtFechaFin">{{'FECHA_FIN' | translate}}</label>
                                 <div class="col-md-6">
-                                    <md-datepicker  ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
+                                    <md-datepicker ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
                                 </div>
                             </div>
 
                             <div class="col-md-4 col-form-label col-sm-offset-4">
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
 
-                          </div>
+                            </div>
                         </div>
-                      </form>
+                    </form>
                 </div>
             </div>
             <div>
@@ -140,19 +140,19 @@
                             <div class="form-group">
                                 <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                                 <div class="col-md-4">
-                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required  min="1" max="100"> %
+                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required min="1" max="100"> %
                                 </div>
                             </div>
 
                             <div class="col-md-4 col-form-label col-sm-offset-4">
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Editar()'>
 
-                          </div>
+                            </div>
 
                         </div>
-                        </form>
+                    </form>
 
-                        <form name="formplan" ng-submit="formplan.$valid">
+                    <form name="formplan" ng-submit="formplan.$valid">
                         <div ng-show="novedadRegistro.tipo_concepto_edicion ==='fijo'">
                             <div class="form-group">
                                 <label class="col-sm-5 col-form-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
@@ -171,12 +171,12 @@
                             <div class="col-md-4 col-form-label col-sm-offset-4">
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Editar()'>
 
-                          </div>
+                            </div>
 
                         </div>
-                        </form>
+                    </form>
 
-                        <form name="formplan" ng-submit="formplan.$valid">
+                    <form name="formplan" ng-submit="formplan.$valid">
                         <div ng-show="novedadRegistro.tipo_concepto_edicion ==='seguridad_social'">
                             <div class="form-group">
                                 <label class="col-sm-5 col-form-label" for="txtFechaDesde">{{'FECHA_INICIO' | translate}}</label>
@@ -195,10 +195,10 @@
                             <div class="col-md-4 col-form-label col-sm-offset-4">
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Editar()'>
 
-                          </div>
+                            </div>
                         </div>
 
-                      </form>
+                    </form>
 
 
                 </div>
