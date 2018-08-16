@@ -48,6 +48,14 @@ angular.module('titanClienteV2App')
         };
 
 
+        var preliquidacion = {
+              Ano: self.CurrentDate.getFullYear(),
+              Mes: self.CurrentDate.getMonth(),
+              Nomina: nomina
+         }
+
+
+
 
         $scope.gridOptions_personas = {
             paginationPageSizes: [5, 10, 20],
@@ -128,6 +136,8 @@ angular.module('titanClienteV2App')
 
         $scope.gridOptions_conceptos = {
 
+            paginationPageSizes: [5, 15, 20],
+            paginationPageSize: 10,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: true,
@@ -162,23 +172,28 @@ angular.module('titanClienteV2App')
         $scope.gridOptions_novedades.multiSelect = false;
         $scope.gridOptions_conceptos.multiSelect = false;
 
-        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', nomina).then(function(response) {
+        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', preliquidacion).then(function(response) {
             $scope.gridOptions_personas.data = response.data;
         });
 
-        titanRequest.get('concepto_nomina', 'limit=-1?query=EstadoConceptoNomina.Id:1').then(function(response) {
-            $scope.gridOptions_conceptos.data = response.data;
-        });
+
 
         titanRequest.get('nomina', 'limit=0&query=TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
             self.Nomina = response.data[0]
 
         });
 
+        self.listar_conceptos = function(){
+          titanRequest.get('concepto_nomina', 'limit=-1&query=EstadoConceptoNomina.Id:1').then(function(response) {
+              $scope.gridOptions_conceptos.data = response.data;
+              $('#modal_adicion_novedad').modal('show');
+          });
+
+        };
+
         self.listar_novedades = function(row) {
             $scope.persona = row.entity
-            console.log("hello")
-            console.log($scope.persona)
+
             titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,NumeroContrato:' + $scope.persona.numero_contrato + ',VigenciaContrato:' + $scope.persona.vigencia +',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
                 if (response.data == null) {
                     $scope.gridOptions_novedades.data = [];
