@@ -2,7 +2,7 @@
   <h2 class="page-header text-center">{{ 'MODULO_REPORTES' | translate}}</h2>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
          <div class="panel panel-default">
    
          	   <legend class="text-primary" ng-click="crearReportes.reporte_a_mostrar('total_nomina_por_facultad')">
@@ -14,106 +14,143 @@
          </div>
       </div>
 
-       <div class="col-md-8">
+       
        	 <div class="panel panel-default">
-       	  	<div ng-if="crearReportes.reporte_seleccionado == 'total_nomina_por_pc'">
+       	 	<div class="col-md-9" ng-if="crearReportes.reporte_seleccionado == 'total_nomina_por_pc'">
        	 		<h2 class="page-header text-center"> Total de nómina por proyecto curricular</h2>
+	       	 	<div class="col-md-6">
 
-       	 		<div class="row">
-	                <div class="col-md-3 col-md-offset-3">
-	                    <label for="input_mes">{{'MES_PRELIQ' | translate}}</label>
-	                </div>
-	                <div class="col-md-4">
-	                    <select ng-model="crearReportes.mesReporte" ng-init="crearReportes.mesPeriodo" class="form-control" required>
-	                          <option value="" disabled>{{ 'MES_PRELIQ' | translate }}</option>
-	                          <option ng-repeat="(key, value) in crearReportes.meses" value="{{key}}">{{value}}</option>
-	                          </select>
-	                </div>
-                </div>	
-                <br>
-                 <div class="row">
-	                <div class="col-md-3 col-md-offset-3">
-	                    <label for="input_ano" >{{'ANO_PRELIQ' | translate}}</label>
-	                </div>
-	                <div class="col-md-4">
-	                    <select ng-model="crearReportes.anoReporte" ng-init="crearReportes.anioPeriodo" class="form-control" required>
-	                        <option value="" disabled>{{'ANO_PRELIQ' | translate}}</option>
-	                        <option ng-repeat="a in crearReportes.anios" value="{{a.anio}}" required>{{a.anio}}</option>
-	                      </select>
-	                </div>
-            	</div>
-            	
-            	 <br>
-                 <div class="row">
-	                <div class="col-md-3 col-md-offset-3">
-	                    <label for="input_ano" >{{'NOMINA' | translate}}</label>
-	                </div>
-	                <div class="col-md-4">
-	                    <select ng-model="crearReportes.selected_nomina" ng-init="crearReportes.anioPeriodo" class="form-control" required>
-	                        <option value="" disabled>{{'NOMINA' | translate}}</option>
-	                        <option ng-repeat="a in crearReportes.nominas" value="{{a}}" required>{{a.Descripcion}}</option>
-	                      </select>
-	                </div>
-            	</div>
+	       	 		<div class="col-md-2">
+		                    <label for="input_mes">{{'MES_PRELIQ' | translate}}</label>
+		             </div>
+		              <div class="col-md-9">
+		                    <select ng-model="crearReportes.mesReporte" ng-init="crearReportes.mesPeriodo" class="form-control" required>
+		                          <option value="" disabled>{{ 'MES_PRELIQ' | translate }}</option>
+		                          <option ng-repeat="(key, value) in crearReportes.meses" value="{{key}}">{{value}}</option>
+		                          </select>
+		              <br>
+		              </div>
 
-            	<br>
-                 <div class="row">
-	                <div class="col-md-3 col-md-offset-3">
-	                    <label for="input_ano" >{{'FACULTAD' | translate}}</label>
-	                </div>
-	                <div class="col-md-4">
-	                    <select ng-model="crearReportes.selected_facultad" ng-init="crearReportes.proyecto_reporte" class="form-control" required>
-	                        <option value="" disabled>{{'FACULTAD' | translate}}</option>
-	                        <option ng-repeat="a in crearReportes.facultades" value="{{a}}" required>{{a.Nombre}}</option>
-	                      </select>
-	                </div>
-            	</div>
+		
+		               <div class="col-md-2">
+		                    <label for="input_ano" >{{'ANO_PRELIQ' | translate}}</label>
+		                </div>
+		                <div class="col-md-9">
+		                    <select ng-model="crearReportes.anoReporte" ng-init="crearReportes.anioPeriodo" class="form-control" required>
+		                        <option value="" disabled>{{'ANO_PRELIQ' | translate}}</option>
+		                        <option ng-repeat="a in crearReportes.anios" value="{{a.anio}}" required>{{a.anio}}</option>
+		                      </select>
+		                <br>
+		                </div>
 
-            	<br>
+		            
+		               <div class="col-md-2">
+		                    <label for="input_ano" >{{'NOMINA' | translate}}</label>
+		                </div>
+		                <div class="col-md-9">
+		                    <select ng-model="crearReportes.selected_nomina" ng-init="crearReportes.anioPeriodo" class="form-control" required>
+		                        <option value="" disabled>{{'NOMINA' | translate}}</option>
+		                        <option ng-repeat="a in crearReportes.nominas" value="{{a}}" required>{{a.Descripcion}}</option>
+		                      </select>
+		                <br>
+		                </div>
 
-            	<br>
-                 <div class="row">
-	                <div class="col-md-3 col-md-offset-3">
-	                    <label for="input_ano" >{{'NIVEL' | translate}}</label>
-	                </div>
-	                <div class="col-md-4">
-	                    <select ng-model="crearReportes.selected_nivel" class="form-control" required>
-	                        <option value="PREGRADO">{{'PREGRADO' | translate}}</option>
-	                         <option value="POSGRADO">{{'POSGRADO' | translate}}</option>
-	                    </select>
-	                </div>
-            	</div>
+		          
 
-            	<br>
+		                <div class="col-md-2">
+		                    <label for="input_ano" >{{'FACULTAD' | translate}}</label>
+		                </div>
+		                <div class="col-md-9">
+		                    <select ng-model="crearReportes.selected_facultad" ng-init="crearReportes.proyecto_reporte" class="form-control" required>
+		                        <option value="" disabled>{{'FACULTAD' | translate}}</option>
+		                        <option ng-repeat="a in crearReportes.facultades" value="{{a}}" required>{{a.Nombre}}</option>
+		                      </select>
+		                <br>
+		                </div>
 
-            	  <div class="row" ng-if="crearReportes.selected_facultad && crearReportes.selected_nivel">
-	                <div class="col-md-3 col-md-offset-3">
-	                    <label for="input_ano" >{{'PROYECTO' | translate}}</label>
-	                </div>
-	                <div class="col-md-4">
-	                    <select ng-model="crearReportes.selected_pc" ng-init="crearReportes.proyecto_reporte" class="form-control" required>
-	                       
-	                        <option ng-repeat="a in crearReportes.proyectos" value="{{a}}" required>{{a.Nombre}}</option>
-	                      </select>
-	                </div>
-            	</div>
+		                <div class="col-md-2">
+		                    <label for="input_ano" >{{'NIVEL' | translate}}</label>
+		                </div>
+		                <div class="col-md-9">
+		                    <select ng-model="crearReportes.selected_nivel" class="form-control" required>
+		                        <option value="PREGRADO">{{'PREGRADO' | translate}}</option>
+		                         <option value="POSGRADO">{{'POSGRADO' | translate}}</option>
+		                    </select>
+		                <br>
+		                </div>
 
-            	<br>
-       	 		<center><button ng-click="crearReportes.generar_reporte_nomina_pc()" class="btn btn-success">{{'GENERAR' | translate}}</button>
-       	 		<br>
- 	   		</div>
+	            	  <div ng-if="crearReportes.selected_facultad && crearReportes.selected_nivel">
+		                <div class="col-md-2">
+		                    <label for="input_ano" >{{'PROYECTO' | translate}}</label>
+		                </div>
+		                <div class="col-md-9">
+		                    <select ng-model="crearReportes.selected_pc" ng-init="crearReportes.proyecto_reporte" class="form-control" required>
+		                       
+		                        <option ng-repeat="a in crearReportes.proyectos" value="{{a}}" required>{{a.Nombre}}</option>
+		                      </select>
+		                 <br>
+		                </div>
+	            		</div>
+
+	            		<center><button ng-click="crearReportes.generar_reporte_nomina_pc()" class="btn btn-success">{{'GENERAR' | translate}}</button></center>
+	       	 		
+	       	 	</div>
+
+	       	 	<div class="col-md-4" ng-if="crearReportes.panel_generacion" >
+
+	       	 			{{}}
+	       	 			<div class="col-md-4">
+                          <label>{{ 'VALOR_TOTAL' | translate }}</label>
+                        </div>
+                        <div class="col-md-8 col-md-offset-1">
+                        <div ng-show="crearReportes.cargando">
+                        	<span class="form-control input-right"><i class="fa fa-spin fa-spinner"></i></span>
+                        	<br>
+                        </div>
+                        <div ng-show="!crearReportes.cargando">
+                        	<span class="form-control right-letters">{{crearReportes.respuesta.TotalDev | currency}}</span>
+                        	<br>
+                        </div>
+                     	</div>
+
+                     	<div class="col-md-4">
+                          <label>{{ 'VALOR_TOTAL_DESCUENTOS' | translate }}</label>
+                        </div>
+                        <div class="col-md-8 col-md-offset-1">
+                          <div ng-show="crearReportes.cargando">
+                        	<span class="form-control right-letters"><i class="fa fa-spin fa-spinner"></i></span>
+                        	<br>
+                        </div>
+                        <div ng-show="!crearReportes.cargando">
+                        	<span class="form-control right-letters">{{crearReportes.respuesta.TotalDesc| currency}}</span>
+                        	<br>
+                        </div>
+                     	</div>
+
+                     	<div class="col-md-4">
+                          <label>{{ 'TOTAL_DOCENTES' | translate }}</label>
+                        </div>
+                        <div class="col-md-8 col-md-offset-1">
+                           <div ng-show="crearReportes.cargando">
+                        	<span class="form-control right-letters"><i class="fa fa-spin fa-spinner"></i></span>
+                        	<br>
+                        </div>
+                        <div ng-show="!crearReportes.cargando">
+                        	<span class="form-control right-letters">{{crearReportes.respuesta.TotalDocentes}}</span>
+                        	<br>
+                        </div>
+                     	</div>
+	       	 	
+		       	 </div>
 
 
-         </div>
-      </div>
+       	 	</div>
 
-      <div class="col-md-4 col-md-offset-4">
-  
-      </div>
-      <div class="col-md-4 col-md-offset-5">
-      <span>{{crearReportes.total | currency}}</span>
-  	  </div>
-    </div>
-  </div>
 
+
+          	</div>
+       
+</div>
+</div>
+</div>
 

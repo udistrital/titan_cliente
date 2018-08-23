@@ -82,11 +82,14 @@ angular.module('titanClienteV2App')
 
         self.generar_reporte_nomina_pc = function(){
 
-          
+            self.panel_generacion = "true";
+            self.cargando = true;
+            self.hayData = true;
             var objeto_pc = JSON.parse(self.selected_pc);
+            var objeto_nom = JSON.parse(self.selected_nomina);
 
             self.objeto_nomina = {
-                Id: 4
+                Id: objeto_nom.Id
             }
 
             self.objeto_preliquidacion = {
@@ -96,17 +99,21 @@ angular.module('titanClienteV2App')
             }
 
             self.objeto_reporte_pc = {
-                ProyectoCurricular: objeto_pc.Id,
+                ProyectoCurricular: parseInt(objeto_pc.Id),
                 Preliquidacion: self.objeto_preliquidacion
             }
 
-            console.log("hola soy tu objeto", self.objeto_reporte_pc)
         titanMidRequest.post('gestion_reportes/total_nomina_por_facultad/', self.objeto_reporte_pc).then(function(response) {
-            
+          
             if(response.data === null){
-                self.total = 0;
+                self.cargando = false;
+                self.hayData = false;
             }else{
-                self.total = response.data
+                self.cargando = false;
+                self.hayData = true;
+         
+                self.respuesta = response.data;
+                console.log("respuesta", self.respuesta.Preliquidacion)
             }
             });
         };
