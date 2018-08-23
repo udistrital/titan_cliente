@@ -102,6 +102,8 @@ angular.module('titanClienteV2App')
 
         });
 
+        
+
         self.limpiar = function() {
             self.formVisibility = false;
         };

@@ -222,6 +222,9 @@ var text_es = {
     CONFIRMACION_ACTIVAR: "¿Está seguro de querer activar el concepto: ",
     ACTIVACION_CONCEPTO_CORRECTA: "Activación realizada correctamente",
     ACTIVACION_CONCEPTO_INCORRECTA: "Error al activar concepto",
+    //MODULO REPORTES
+    MODULO_REPORTES:"Módulo de Reportes",
+
     //MENÚ GENERAL
     PENSIONADOS_MENU: "Pensionados",
     INGRESAR_BEN: "Ingresar beneficiarios",
@@ -451,7 +454,8 @@ var text_en = {
     CONFIRMACION_ACTIVAR: "Are you sure you want to activate: ",
     ACTIVACION_CONCEPTO_CORRECTA: "Concept correctly activated",
     ACTIVACION_CONCEPTO_INCORRECTA: "Error activating concept",
-
+    //Módulo de reportes
+    MODULO_REPORTES:"Módulo de Reportes",
     //MENÚ GENERAL
     PENSIONADOS_MENU: "Retirees",
     INGRESAR_BEN: "Record beneficiaries",

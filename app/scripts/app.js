@@ -73,6 +73,11 @@ angular
                 controller: 'ConceptoConceptosConsultaCtrl',
                 controllerAs: 'conceptosConsulta'
             })
+            .when('/reportes/crear_reportes', {
+                templateUrl: 'views/reportes/crear_reportes.html',
+                controller: 'CrearReportesCtrl',
+                controllerAs: 'crearReportes'
+            })
             .when('/preliquidacion/preliquidacion_registro/:tipo', {
                 templateUrl: 'views/preliquidacion/preliquidacion_registro.html',
                 controller: 'PreliquidacionPreliquidacionRegistroCtrl',
