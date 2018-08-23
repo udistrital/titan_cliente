@@ -37,6 +37,7 @@ angular
         'pascalprecht.translate',
         'titanService',
         'titanMidService',
+        'oikosService',
         'configuracionService',    
     ])
     .run(function(amMoment) {

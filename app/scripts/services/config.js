@@ -13,6 +13,7 @@ var conf_cloud = {
 var conf_pruebas = {
     TITAN_SERVICE: "http://10.20.0.254/titan_api_crud/v1/",
     TITAN_MID_SERVICE: "http://10.20.0.254/titan_api_mid/v1/",
+    OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TOKEN: {
         AUTORIZATION_URL: "https://autenticacion.udistrital.edu.co/oauth2/authorize",
@@ -32,6 +33,7 @@ var conf_pruebas = {
 var conf_local = {
     TITAN_SERVICE: "http://localhost:8080/v1/",
     TITAN_MID_SERVICE: "http://localhost:8081/v1/",
+    OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TOKEN: {
         AUTORIZATION_URL: "https://autenticacion.udistrital.edu.co/oauth2/authorize",
@@ -52,6 +54,7 @@ var conf_local = {
 var conf_presentacion = {
     TITAN_SERVICE: "http://10.20.0.210/titan_api_crud/v1/",
     TITAN_MID_SERVICE: "http://10.20.0.210/titan_api_mid/v1/",
+    OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TOKEN: {
         AUTORIZATION_URL: "https://10.20.0.162:9443/oauth2/authorize",
