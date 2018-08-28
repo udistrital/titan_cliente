@@ -4,20 +4,22 @@
     <div class="row">
       <div class="col-md-3">
          <div class="panel panel-default">
-   
+
          	   <legend class="text-primary" ng-click="crearReportes.reporte_a_mostrar('total_nomina_por_facultad')">
 			     Total de nómina por facultad
 			   </legend class="text-primary">
+
 			   <legend class="text-primary" ng-click="crearReportes.reporte_a_mostrar('total_nomina_por_pc')">
 			     Total de nómina por proyecto curricular
 			   </legend class="text-primary">
+
          </div>
       </div>
 
-       
+
        	 <div class="panel panel-default">
-       	 	<div class="col-md-9" ng-if="crearReportes.reporte_seleccionado == 'total_nomina_por_pc'">
-       	 		<h2 class="page-header text-center"> Total de nómina por proyecto curricular</h2>
+       	 	<div class="col-md-9" ng-if="crearReportes.reporte_seleccionado == 'total_nomina_por_pc' || crearReportes.reporte_seleccionado == 'total_nomina_por_facultad' || crearReportes.reporte_seleccionado == 'desc_nomina_por_facultad'">
+       	 		<h2 class="page-header text-center"> {{crearReportes.titulo}}</h2>
 	       	 	<div class="col-md-6">
 
 	       	 		<div class="col-md-2">
@@ -31,7 +33,7 @@
 		              <br>
 		              </div>
 
-		
+
 		               <div class="col-md-2">
 		                    <label for="input_ano" >{{'ANO_PRELIQ' | translate}}</label>
 		                </div>
@@ -43,7 +45,7 @@
 		                <br>
 		                </div>
 
-		            
+
 		               <div class="col-md-2">
 		                    <label for="input_ano" >{{'NOMINA' | translate}}</label>
 		                </div>
@@ -55,7 +57,7 @@
 		                <br>
 		                </div>
 
-		          
+
 
 		                <div class="col-md-2">
 		                    <label for="input_ano" >{{'FACULTAD' | translate}}</label>
@@ -79,24 +81,30 @@
 		                <br>
 		                </div>
 
-	            	  <div ng-if="crearReportes.selected_facultad && crearReportes.selected_nivel">
+	            	  <div ng-if="crearReportes.selected_facultad && crearReportes.selected_nivel && crearReportes.reporte_seleccionado == 'total_nomina_por_pc'">
 		                <div class="col-md-2">
 		                    <label for="input_ano" >{{'PROYECTO' | translate}}</label>
 		                </div>
 		                <div class="col-md-9">
 		                    <select ng-model="crearReportes.selected_pc" ng-init="crearReportes.proyecto_reporte" class="form-control" required>
-		                       
+
 		                        <option ng-repeat="a in crearReportes.proyectos" value="{{a}}" required>{{a.Nombre}}</option>
 		                      </select>
 		                 <br>
 		                </div>
 	            		</div>
 
-	            		<center><button ng-click="crearReportes.generar_reporte_nomina_pc()" class="btn btn-success">{{'GENERAR' | translate}}</button></center>
-	       	 		
+                  <div>
+	            		<button ng-click="crearReportes.generar_reporte()" class="btn btn-success">{{'GENERAR' | translate}}</button>
+                  <button ng-click="crearReportes.generar_desagregado()" class="btn btn-success">{{'GENERAR_DESAGREGADO' | translate}}</button>
+                  </div>
+
 	       	 	</div>
 
-	       	 	<div class="col-md-4" ng-if="crearReportes.panel_generacion" >
+
+
+
+	       	 	<div class="col-md-4" ng-if="crearReportes.panel_generacion && (crearReportes.reporte_seleccionado == 'total_nomina_por_pc' || crearReportes.reporte_seleccionado == 'total_nomina_por_facultad')" >
 
 	       	 			{{}}
 	       	 			<div class="col-md-4">
@@ -118,11 +126,11 @@
                         </div>
                         <div class="col-md-8 col-md-offset-1">
                           <div ng-show="crearReportes.cargando">
-                        	<span class="form-control right-letters"><i class="fa fa-spin fa-spinner"></i></span>
+                        	<span class="form-control"><i class="fa fa-spin fa-spinner"></i></span>
                         	<br>
                         </div>
                         <div ng-show="!crearReportes.cargando">
-                        	<span class="form-control right-letters">{{crearReportes.respuesta.TotalDesc| currency}}</span>
+                        	<span class="form-control">{{crearReportes.respuesta.TotalDesc| currency}}</span>
                         	<br>
                         </div>
                      	</div>
@@ -132,25 +140,36 @@
                         </div>
                         <div class="col-md-8 col-md-offset-1">
                            <div ng-show="crearReportes.cargando">
-                        	<span class="form-control right-letters"><i class="fa fa-spin fa-spinner"></i></span>
+                        	<span class="form-control"><i class="fa fa-spin fa-spinner"></i></span>
                         	<br>
                         </div>
                         <div ng-show="!crearReportes.cargando">
-                        	<span class="form-control right-letters">{{crearReportes.respuesta.TotalDocentes}}</span>
+                        	<span class="form-control">{{crearReportes.respuesta.TotalDocentes}}</span>
                         	<br>
                         </div>
                      	</div>
-	       	 	
+
 		       	 </div>
 
 
-       	 	</div>
+
+             </div>
+
+
+            <div class="col-md-12" ng-if="crearReportes.desagregacion_seleccionada == 'desc_nomina_por_facultad'">
+            <br>
+            <div class="panel panel-default">
+                  <div ui-grid="crearReportes.gridOptions_desagregado" ui-grid-selection ui-grid-auto-resize class="myGrid"></div>
+                      <div class="watermark" ng-show="!crearReportes.hayData_grid">{{'NO_DATA'| translate}}</div>
+                      <div class="watermark" ng-show="crearReportes.cargando_grid">{{'CARGANDO'| translate}}   <i class="fa fa-spin fa-spinner"></i></div>
+                  </div>
+            </div>
+
 
 
 
           	</div>
-       
-</div>
-</div>
-</div>
 
+</div>
+</div>
+</div>
