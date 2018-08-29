@@ -277,6 +277,8 @@ angular.module('titanClienteV2App')
         self.reporte_a_mostrar = function(panel){
             self.reporte_seleccionado = panel;
             self.titulo = panel;
+            self.panel_generacion = false;
+            self.desagregacion_seleccionada = false;
 
         };
     });
