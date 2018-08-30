@@ -54,6 +54,8 @@ angular.module('titanClienteV2App')
 
         self.gridOptions_desagregado = {
 
+            paginationPageSizes: [5, 10, 20],
+            paginationPageSize: 10,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: false,
@@ -62,15 +64,27 @@ angular.module('titanClienteV2App')
             columnDefs: [
 
                 {
-                    field: 'NumeroContrato',
-                    displayName: $translate.instant('NUMERO_CONTRATO'),
+                    field: 'NombreCompleto',
+                    displayName: $translate.instant('NOMBRE_PERSONA'),
                     headerCellClass: 'encabezado',
                     width: '20%',
                 },
                 {
+                    field: 'Documento',
+                    displayName: $translate.instant('DOCUMENTO'),
+                    headerCellClass: 'encabezado',
+                    width: '15%',
+                },
+                {
+                    field: 'NumeroContrato',
+                    displayName: $translate.instant('NUM_CONTRATO'),
+                    headerCellClass: 'encabezado',
+                    width: '10%',
+                },
+                {
                     field: 'VigenciaContrato',
-                    displayName: $translate.instant('VIGENCIA_CONTRATO'),
-                    width: '20%',
+                    displayName: $translate.instant('VIGENCIA'),
+                    width: '10%',
                     headerCellClass: 'encabezado',
                 },
                 {
@@ -81,14 +95,15 @@ angular.module('titanClienteV2App')
                 },
                 {
                     field: 'Concepto.NaturalezaConcepto.Nombre',
-                    displayName: $translate.instant('NATURALEZA_CONCEPTO'),
-                    width: '20%',
+                    displayName:  $translate.instant('NATURALEZA_NOMBRE'),
+                    width: '10%',
                     headerCellClass: 'encabezado',
+                    cellFilter: "filtro_naturaleza_concepto:row.entity"
                 },
                 {
                     field: 'ValorCalculado',
                     displayName: $translate.instant('VALOR'),
-                    width: '20%',
+                    width: '15%',
                     cellFilter: 'currency',
                     headerCellClass: 'encabezado',
                     cellClass: 'alineacion_derecha'
@@ -145,7 +160,7 @@ angular.module('titanClienteV2App')
 
           if (self.reporte_seleccionado == "total_nomina_por_pc"){
               self.desagregacion_seleccionada = "desc_nomina_por_pc";
-            //  self.generar_reporte_nomina_pc();
+              self.generar_desagregado_nomina_pc();
           }
 
           if (self.reporte_seleccionado == "total_nomina_por_facultad"){
@@ -165,9 +180,11 @@ angular.module('titanClienteV2App')
           self.gridOptions_desagregado.data = [];
           var objeto_facultad = JSON.parse(self.selected_facultad);
           var objeto_nom = JSON.parse(self.selected_nomina);
+          console.log(objeto_nom)
 
           self.objeto_nomina = {
-              Id: objeto_nom.Id
+              Id: objeto_nom.Id,
+              TipoNomina: objeto_nom.TipoNomina
           }
 
           self.objeto_preliquidacion = {
@@ -197,6 +214,48 @@ angular.module('titanClienteV2App')
           });
         };
 
+        self.generar_desagregado_nomina_pc = function(){
+
+
+          self.cargando_grid = true;
+          self.hayData_grid = true;
+          self.gridOptions_desagregado.data = [];
+          var objeto_pc = JSON.parse(self.selected_pc);
+          var objeto_nom = JSON.parse(self.selected_nomina);
+
+
+          self.objeto_nomina = {
+              Id: objeto_nom.Id,
+              TipoNomina: objeto_nom.TipoNomina
+          }
+
+          self.objeto_preliquidacion = {
+              Ano:parseInt(self.anoReporte),
+              Mes:parseInt(self.mesReporte),
+              Nomina: self.objeto_nomina
+          }
+
+          self.objeto_reporte_facultad = {
+              ProyectoCurricular: parseInt(objeto_pc.Id),
+              Preliquidacion: self.objeto_preliquidacion
+          }
+
+      titanMidRequest.post('gestion_reportes/desagregado_nomina_por_pc/', self.objeto_reporte_facultad).then(function(response) {
+
+          if(response.data === null){
+              self.cargando_grid = false;
+              self.hayData_grid = false;
+              self.gridOptions_desagregado.data = [];
+          }else{
+              self.cargando_grid = false;
+              self.hayData_grid = true;
+
+              self.gridOptions_desagregado.data = response.data;
+
+          }
+          });
+        };
+
 
         self.generar_reporte_nomina_pc = function(){
 
@@ -208,6 +267,7 @@ angular.module('titanClienteV2App')
 
             self.objeto_nomina = {
                 Id: objeto_nom.Id
+
             }
 
             self.objeto_preliquidacion = {
@@ -274,11 +334,32 @@ angular.module('titanClienteV2App')
             });
         };
 
-        self.reporte_a_mostrar = function(panel){
+        self.reporte_a_mostrar = function(panel,titulo){
             self.reporte_seleccionado = panel;
-            self.titulo = panel;
+            self.titulo = $translate.instant(titulo);
             self.panel_generacion = false;
             self.desagregacion_seleccionada = false;
 
+        };
+    }).filter('filtro_naturaleza_concepto', function($filter) {
+        return function(input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
+
+            if (entity.Concepto.NaturalezaConcepto.Nombre === "devengo") {
+                output = "Devengo";
+            }
+
+            if (entity.Concepto.NaturalezaConcepto.Nombre === "descuento") {
+                output = "Descuento";
+            }
+
+            if (entity.Concepto.NaturalezaConcepto.Nombre === "seguridad_social") {
+                output = "Seguridad Social";
+            }
+
+            return output;
         };
     });
