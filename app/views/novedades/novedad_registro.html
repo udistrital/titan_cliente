@@ -75,7 +75,7 @@
                             <div class="form-group">
                                 <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                                 <div class="col-md-5">
-                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}" required min="1" max="100"> %
+                                    <input type="number"  pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}" required min="0" max="100"> %
                                 </div>
                             </div>
                             <div class="col-md-4 col-form-label col-sm-offset-4">
@@ -140,7 +140,7 @@
                             <div class="form-group">
                                 <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                                 <div class="col-md-4">
-                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required min="1" max="100"> %
+                                    <input type="number" pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required min="0" max="100"> %
                                 </div>
                             </div>
 

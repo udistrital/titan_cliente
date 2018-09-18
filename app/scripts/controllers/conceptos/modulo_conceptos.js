@@ -131,6 +131,7 @@ angular.module('titanClienteV2App')
             self.id_edicion = row.entity.Id
             self.alias_concepto_edicion = row.entity.AliasConcepto
             self.nombre_concepto_edicion = row.entity.NombreConcepto
+            self.estado_concepto_edicion = row.entity.EstadoConceptoNomina.Id
 
         };
 
@@ -163,7 +164,7 @@ angular.module('titanClienteV2App')
                     };
 
                     var estado_concepto = {
-                        Id: row.entity.EstadoConceptoNomina.Id
+                        Id:  self.estado_concepto_edicion
                     };
 
 
@@ -481,6 +482,7 @@ angular.module('titanClienteV2App')
     }).filter('filtro_naturaleza_concepto', function($filter) {
         return function(input, entity) {
             var output;
+
             if (undefined === input || null === input) {
                 return "";
             }

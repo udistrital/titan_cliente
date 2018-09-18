@@ -98,7 +98,7 @@ angular.module('titanClienteV2App')
                     displayName:  $translate.instant('NATURALEZA_NOMBRE'),
                     width: '10%',
                     headerCellClass: 'encabezado',
-                    cellFilter: "filtro_naturaleza_concepto:row.entity"
+                    cellFilter: "filtro_naturaleza_concepto_reporte:row.entity"
                 },
                 {
                     field: 'ValorCalculado',
@@ -341,9 +341,10 @@ angular.module('titanClienteV2App')
             self.desagregacion_seleccionada = false;
 
         };
-    }).filter('filtro_naturaleza_concepto', function($filter) {
+    }).filter('filtro_naturaleza_concepto_reporte', function($filter) {
         return function(input, entity) {
             var output;
+
             if (undefined === input || null === input) {
                 return "";
             }
