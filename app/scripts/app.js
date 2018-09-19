@@ -38,7 +38,7 @@ angular
         'titanService',
         'titanMidService',
         'oikosService',
-        'configuracionService',    
+        'configuracionService',
     ])
     .run(function(amMoment) {
         amMoment.changeLocale('es');
@@ -74,10 +74,15 @@ angular
                 controller: 'ConceptoConceptosConsultaCtrl',
                 controllerAs: 'conceptosConsulta'
             })
-            .when('/reportes/crear_reportes', {
-                templateUrl: 'views/reportes/crear_reportes.html',
-                controller: 'CrearReportesCtrl',
-                controllerAs: 'crearReportes'
+            .when('/reportes/reportes_hc', {
+                templateUrl: 'views/reportes/reportes_hc.html',
+                controller: 'ReportesHcCtrl',
+                controllerAs: 'reportesHc'
+            })
+            .when('/reportes/reportes_ct', {
+                templateUrl: 'views/reportes/reportes_ct.html',
+                controller: 'ReportesCtCtrl',
+                controllerAs: 'reportesCt'
             })
             .when('/preliquidacion/preliquidacion_registro/:tipo', {
                 templateUrl: 'views/preliquidacion/preliquidacion_registro.html',

@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name titanClienteV2App.controller:CrearReportesCtrl
+ * @name titanClienteV2App.controller:ReportesHcCtrl
  * @description
  * # NovedadesNovedadRegistroCtrl
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('CrearReportesCtrl', function(oikosRequest,titanRequest, titanMidRequest,$scope, $translate, $route, $window) {
+    .controller('ReportesHcCtrl', function(oikosRequest,titanRequest, titanMidRequest,$scope, $translate, $route, $window) {
         var self = this;
 
         self.anioPeriodo = new Date().getFullYear();
@@ -116,7 +116,7 @@ angular.module('titanClienteV2App')
 
 
 
-        $scope.$watch('crearReportes.selected_facultad',function(){
+        $scope.$watch('reportesHc.selected_facultad',function(){
 
             if(self.selected_facultad !== undefined && self.selected_nivel !== undefined){
 
@@ -129,7 +129,7 @@ angular.module('titanClienteV2App')
             }
         });
 
-         $scope.$watch('crearReportes.selected_nivel',function(){
+         $scope.$watch('reportesHc.selected_nivel',function(){
 
 
             if(self.selected_facultad !== undefined && self.selected_nivel !== undefined){
