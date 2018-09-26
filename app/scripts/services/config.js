@@ -11,6 +11,7 @@ var conf_cloud = {
 
 };
 var conf_pruebas = {
+    ADMINISTRATIVA_AMAZON_SERVICE: "https://tuleap.udistrital.edu.co/go_api/administrativa_amazon_api/v1/", 
     TITAN_SERVICE: "http://10.20.0.254/titan_api_crud/v1/",
     TITAN_MID_SERVICE: "http://10.20.0.254/titan_api_mid/v1/",
     OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
@@ -31,6 +32,7 @@ var conf_pruebas = {
     },
 };
 var conf_local = {
+    ADMINISTRATIVA_AMAZON_SERVICE: "https://tuleap.udistrital.edu.co/go_api/administrativa_amazon_api/v1/", 
     TITAN_SERVICE: "http://localhost:8080/v1/",
     TITAN_MID_SERVICE: "http://localhost:8081/v1/",
     OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
@@ -52,6 +54,7 @@ var conf_local = {
 };
 
 var conf_presentacion = {
+    ADMINISTRATIVA_AMAZON_SERVICE: "https://tuleap.udistrital.edu.co/go_api/administrativa_amazon_api/v1/", 
     TITAN_SERVICE: "http://10.20.0.210/titan_api_crud/v1/",
     TITAN_MID_SERVICE: "http://10.20.0.210/titan_api_mid/v1/",
     OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
@@ -78,4 +81,5 @@ var conf_presentacion = {
 angular.module('titanClienteV2App')
     .constant('CONF', {
         GENERAL: conf_pruebas
+        
     });

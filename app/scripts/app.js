@@ -20,6 +20,7 @@ angular
         'afOAuth2',
         'treeControl',
         'ngMaterial',
+        'ui.grid.exporter',
         'ui.grid',
         'ui.grid.edit',
         'ui.grid.rowEdit',
@@ -37,6 +38,7 @@ angular
         'pascalprecht.translate',
         'titanService',
         'titanMidService',
+        'administrativaAmazonService',
         'oikosService',
         'configuracionService',
     ])

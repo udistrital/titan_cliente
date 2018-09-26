@@ -19,7 +19,7 @@
        	 		<h2 class="page-header text-center"> {{reportesCt.titulo}}</h2>
 	       	 	<div class="col-md-6">
 
-	       	 		<div class="col-md-2">
+	       	 		<div class="col-md-3">
 		                    <label for="input_mes">{{'MES_PRELIQ' | translate}}</label>
 		             </div>
 		              <div class="col-md-9">
@@ -31,7 +31,7 @@
 		              </div>
 
 
-		               <div class="col-md-2">
+		               <div class="col-md-3">
 		                    <label for="input_ano" >{{'ANO_PRELIQ' | translate}}</label>
 		                </div>
 		                <div class="col-md-9">
@@ -43,27 +43,14 @@
 		                </div>
 
 
-		               <div class="col-md-2">
-		                    <label for="input_ano" >{{'TIPO_NOMINA' | translate}}</label>
-		                </div>
-		                <div class="col-md-9">
-		                    <select ng-model="reportesCt.selected_nomina" ng-init="reportesCt.anioPeriodo" class="form-control" required>
-		                        <option value="" disabled>{{'TIPO_NOMINA' | translate}}</option>
-		                        <option ng-repeat="a in reportesCt.nominas" value="{{a}}" required>{{a.Descripcion}}</option>
-		                      </select>
-		                <br>
-		                </div>
-
-
-
-		                <div class="col-md-2">
+		                <div class="col-md-3">
 		                    <label for="input_ano" >{{'DEPENDENCIA' | translate}}</label>
 		                </div>
 		                <div class="col-md-9">
 		                    <select ng-model="reportesCt.selected_dependencia" ng-init="reportesCt.proyecto_reporte" class="form-control" required>
 		                        <option value="" disabled>{{'DEPENDENCIA' | translate}}</option>
-		                        <!--<option ng-repeat="a in reportesCt.dependencias" value="{{a}}" required>{{a.Nombre}}</option>-->
-                            <option value="DEP12"> OFICINA ASESORA DE SISTEMAS </option>
+		                        <option ng-repeat="a in reportesCt.dependencias" value="{{a}}" required>{{a.ESFDEPENCARGADA}}</option>
+                            <!--<option value="DEP12"> OFICINA ASESORA DE SISTEMAS </option>-->
 		                      </select>
 		                <br>
 		                </div>
@@ -79,7 +66,7 @@
 
 
 
-	       	 	<div class="col-md-4" ng-if="reportesCt.panel_generacion && (reportesCt.reporte_seleccionado == 'total_nomina_por_dependencia')" >
+	       	 	<div class="col-md-6" ng-if="reportesCt.panel_generacion && (reportesCt.reporte_seleccionado == 'total_nomina_por_dependencia')" >
 
 	       	 			{{}}
 	       	 			<div class="col-md-4">
@@ -123,6 +110,7 @@
                         	<br>
                         </div>
                      	</div>
+                       
 
 		       	 </div>
 
@@ -134,10 +122,12 @@
             <div class="col-md-12" ng-if="reportesCt.desagregacion_seleccionada == 'desc_nomina_por_dependencia'">
             <br>
             <div class="panel panel-default">
-                  <div ui-grid="reportesCt.gridOptions_desagregado" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+                  <div ui-grid="reportesCt.gridOptions_desagregado" ui-grid-selection ui-grid-pagination ui-grid-auto-resize ui-grid-exporter class="myGrid"></div>
                       <div class="watermark" ng-show="!reportesCt.hayData_grid">{{'NO_DATA'| translate}}</div>
                       <div class="watermark" ng-show="reportesCt.cargando_grid">{{'CARGANDO'| translate}}   <i class="fa fa-spin fa-spinner"></i></div>
                   </div>
+            <button ng-click="downloadPDF()">Download PDF</button>
+            <button ng-click="downloadCSV()">Download CSV</button>
             </div>
           	</div>
 
