@@ -62,26 +62,14 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
             enableGridMenu: false,
             enableSelectAll: false,
-            exporterCsvFilename: 'myFile.csv',
-            exporterPdfFilename: 'filename.pdf',
-            exporterPdfDefaultStyle: {fontSize: 7},
-            exporterPdfTableStyle: {margin: [10, 10, 10, 10]},
-            exporterPdfTableHeaderStyle: {fontSize: 8, bold: true, italics: true, color: 'red'},
-            exporterPdfHeader: { text: $translate.instant('TOTAL_NOMINA_DEPENDENCIA') + "para mes de "+self.mesReporte, style: 'headerStyle' },
-            exporterPdfFooter: function ( currentPage, pageCount ) {
-              return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+            enableGridMenu: true,
+            exporterCsvFilename: 'reporte-hc.csv',
+            exporterFieldCallback: function (grid, row, col, value) {
+                     return grid.getCellDisplayValue(row, col);
             },
-            exporterPdfCustomFormatter: function ( docDefinition ) {
-              docDefinition.styles.headerStyle = { fontSize: 10, bold: true };
-              docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-              return docDefinition;
-            },
-            exporterPdfOrientation: 'portrait',
-            exporterPdfPageSize: 'LETTER',
-            exporterPdfMaxGridWidth: 500,
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
-            onRegisterApi: function(gridApi){
-              $scope.gridApi = gridApi;
+                  onRegisterApi: function(gridApi) {
+                    $scope.gridApi = gridApi;
             },
             columnDefs: [
 
@@ -120,7 +108,8 @@ angular.module('titanClienteV2App')
                     displayName:  $translate.instant('NATURALEZA_NOMBRE'),
                     width: '10%',
                     headerCellClass: 'encabezado',
-                    
+                  //  cellFilter: "filtro_naturaleza_concepto_reporte_ct:row.entity"
+
                 },
                 {
                     field: 'ValorCalculado',
@@ -165,12 +154,12 @@ angular.module('titanClienteV2App')
           self.hayData_grid = true;
           self.gridOptions_desagregado.data = [];
           var objeto_dependencia = JSON.parse(self.selected_dependencia);
-          
-         
+
+
           self.objeto_preliquidacion = {
               Ano:parseInt(self.anoReporte),
               Mes:parseInt(self.mesReporte),
-              
+
           }
 
           self.objeto_reporte_dependencia = {
@@ -203,12 +192,12 @@ angular.module('titanClienteV2App')
             self.cargando = true;
             self.hayData = true;
             var objeto_dependencia = JSON.parse(self.selected_dependencia);
-         
+
 
            self.objeto_preliquidacion = {
                 Ano:parseInt(self.anoReporte),
                 Mes:parseInt(self.mesReporte),
-               
+
             }
 
             self.objeto_reporte_dependencia = {
@@ -242,15 +231,9 @@ angular.module('titanClienteV2App')
 
         };
 
-        $scope.downloadPDF = function(){
-          $scope.gridApi.exporter.pdfExport(uiGridExporterConstants.VISIBLE,uiGridExporterConstants.ALL);
-        }
 
-         $scope.downloadCSV = function(){
-            $scope.gridApi.exporter.csvExport(uiGridExporterConstants.VISIBLE,uiGridExporterConstants.ALL);
-          }
 
-    }).filter('filtro_naturaleza_concepto_reporte', function($filter) {
+    }).filter('filtro_naturaleza_concepto_reporte_ct', function($filter) {
         return function(input, entity) {
             var output;
 

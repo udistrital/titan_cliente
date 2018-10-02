@@ -8,12 +8,13 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('ReportesHcCtrl', function(oikosRequest,titanRequest, titanMidRequest,$scope, $translate, $route, $window) {
+    .controller('ReportesHcCtrl', function(oikosRequest,titanRequest, titanMidRequest,$scope, $translate, $route, $window, $filter) {
         var self = this;
 
         self.anioPeriodo = new Date().getFullYear();
         self.mesPeriodo = new Date().getMonth();
         self.anios = [];
+
 
         self.meses = {
             1: "Enero",
@@ -62,26 +63,30 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
             enableGridMenu: false,
             enableSelectAll: false,
-            exporterCsvFilename: 'myFile.csv',
-            exporterPdfFilename: 'filename.pdf',
-            exporterPdfDefaultStyle: {fontSize: 7},
-            exporterPdfTableStyle: {margin: [10, 10, 10, 10]},
-            exporterPdfTableHeaderStyle: {fontSize: 8, bold: true, italics: true, color: 'red'},
-            exporterPdfHeader: { text: $translate.instant('TOTAL_NOMINA_DEPENDENCIA') + "para mes de "+self.mesReporte, style: 'headerStyle' },
-            exporterPdfFooter: function ( currentPage, pageCount ) {
-              return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+            enableGridMenu: true,
+            exporterCsvFilename: 'reporte-hc.csv',
+            exporterFieldCallback: function (grid, row, col, input) {
+              if (col.cellFilter) {
+                    console.log("filtro")// check if any filter is applied on the column
+
+                        var filter = "filtro_naturaleza_concepto_reporte_hc:row.entity"
+                        var filterName = filter.split(':')[0]; // fetch filter name
+                        var filterParams = filter.split(':').splice(1); //fetch all the filter parameters
+                        filterParams.unshift(input); // insert the input element to the filter parameters list
+                        var filterFn = $filter(filterName); // filter function
+                        // call the filter, with multiple filter parameters.
+                        //'Apply' will call the function and pass the array elements as individual parameters to that function.
+                        input = filterFn.apply(this, filterParams);
+                        fmt.Println("input", input)
+
+                    return input;
+                  }
+                else
+                    return input;
             },
-            exporterPdfCustomFormatter: function ( docDefinition ) {
-              docDefinition.styles.headerStyle = { fontSize: 10, bold: true };
-              docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-              return docDefinition;
-            },
-            exporterPdfOrientation: 'portrait',
-            exporterPdfPageSize: 'LETTER',
-            exporterPdfMaxGridWidth: 500,
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
-            onRegisterApi: function(gridApi){
-              $scope.gridApi = gridApi;
+                  onRegisterApi: function(gridApi) {
+                    $scope.gridApi = gridApi;
             },
             columnDefs: [
 
@@ -120,7 +125,7 @@ angular.module('titanClienteV2App')
                     displayName:  $translate.instant('NATURALEZA_NOMBRE'),
                     width: '10%',
                     headerCellClass: 'encabezado',
-                    //cellFilter: "filtro_naturaleza_concepto_reporte:row.entity"
+                  //  cellFilter: "filtro_naturaleza_concepto_reporte_hc:row.entity"
                 },
                 {
                     field: 'ValorCalculado',
@@ -364,15 +369,8 @@ angular.module('titanClienteV2App')
 
         };
 
-        $scope.downloadPDF = function(){
-          $scope.gridApi.exporter.pdfExport(uiGridExporterConstants.VISIBLE,uiGridExporterConstants.ALL);
-        }
 
-         $scope.downloadCSV = function(){
-            $scope.gridApi.exporter.csvExport(uiGridExporterConstants.VISIBLE,uiGridExporterConstants.ALL);
-          }
-          
-    }).filter('filtro_naturaleza_concepto_reporte', function($filter) {
+    }).filter('filtro_naturaleza_concepto_reporte_hc', function($filter) {
         return function(input, entity) {
             var output;
 
