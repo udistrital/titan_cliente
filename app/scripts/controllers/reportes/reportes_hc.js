@@ -64,25 +64,23 @@ angular.module('titanClienteV2App')
             enableGridMenu: false,
             enableSelectAll: false,
             enableGridMenu: true,
-            exporterCsvFilename: 'reporte-hc.csv',
+
             exporterFieldCallback: function (grid, row, col, input) {
-              if (col.cellFilter) {
-                    console.log("filtro")// check if any filter is applied on the column
 
-                        var filter = "filtro_naturaleza_concepto_reporte_hc:row.entity"
-                        var filterName = filter.split(':')[0]; // fetch filter name
-                        var filterParams = filter.split(':').splice(1); //fetch all the filter parameters
-                        filterParams.unshift(input); // insert the input element to the filter parameters list
-                        var filterFn = $filter(filterName); // filter function
-                        // call the filter, with multiple filter parameters.
-                        //'Apply' will call the function and pass the array elements as individual parameters to that function.
-                        input = filterFn.apply(this, filterParams);
-                        fmt.Println("input", input)
 
-                    return input;
-                  }
-                else
-                    return input;
+            if (col.displayName === "Naturaleza") { // check if any filter is applied on the column
+              //  var filters = col.cellFilter.split('|'); // get all the filters applied
+                return $filter('filtro_naturaleza_concepto_reporte_hc')(input)
+
+            }
+            if (col.displayName === "Valor")  { // check if any filter is applied on the column
+              //  var filters = col.cellFilter.split('|'); // get all the filters applied
+                return $filter('currency')(input)
+
+            }
+
+            else
+                return input;
             },
             exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
                   onRegisterApi: function(gridApi) {
@@ -125,7 +123,7 @@ angular.module('titanClienteV2App')
                     displayName:  $translate.instant('NATURALEZA_NOMBRE'),
                     width: '10%',
                     headerCellClass: 'encabezado',
-                  //  cellFilter: "filtro_naturaleza_concepto_reporte_hc:row.entity"
+                    cellFilter: "filtro_naturaleza_concepto_reporte_hc:row.entity"
                 },
                 {
                     field: 'ValorCalculado',
@@ -187,6 +185,10 @@ angular.module('titanClienteV2App')
 
           if (self.reporte_seleccionado == "total_nomina_por_pc"){
               self.desagregacion_seleccionada = "desc_nomina_por_pc";
+              var objeto_nomina_seleccionada = JSON.parse(self.selected_nomina);
+              self.nomina_reporte = objeto_nomina_seleccionada.Descripcion;
+              self.gridOptions_desagregado.exporterCsvFilename ='Reporte-'+self.nomina_reporte+'-'+self.anoReporte+'-'+self.mesReporte+'.csv';
+              self.gridOptions_desagregado.exporterPdfHeader =  { text: self.nomina_reporte+'-'+self.anoReporte+'-'+self.mesReporte, style: 'headerStyle' };
               self.generar_desagregado_nomina_pc();
           }
 
@@ -371,22 +373,24 @@ angular.module('titanClienteV2App')
 
 
     }).filter('filtro_naturaleza_concepto_reporte_hc', function($filter) {
-        return function(input, entity) {
+        return function(input) {
+
+
             var output;
 
             if (undefined === input || null === input) {
                 return "";
             }
 
-            if (entity.Concepto.NaturalezaConcepto.Nombre === "devengo") {
+            if (input === "devengo") {
                 output = "Devengo";
             }
 
-            if (entity.Concepto.NaturalezaConcepto.Nombre === "descuento") {
+            if (input === "descuento") {
                 output = "Descuento";
             }
 
-            if (entity.Concepto.NaturalezaConcepto.Nombre === "seguridad_social") {
+            if (input === "seguridad_social") {
                 output = "Seguridad Social";
             }
 

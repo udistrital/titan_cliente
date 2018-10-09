@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('ReportesCtCtrl', function(administrativaAmazonRequest,oikosRequest,titanRequest, titanMidRequest,$scope, $translate, $route, $window, uiGridExporterConstants) {
+    .controller('ReportesCtCtrl', function(administrativaAmazonRequest,oikosRequest,titanRequest, titanMidRequest,$scope, $translate, $route, $window, uiGridExporterConstants,$filter) {
         var self = this;
 
         self.anioPeriodo = new Date().getFullYear();
@@ -63,13 +63,22 @@ angular.module('titanClienteV2App')
             enableGridMenu: false,
             enableSelectAll: false,
             enableGridMenu: true,
-            exporterCsvFilename: 'reporte-hc.csv',
-            exporterFieldCallback: function (grid, row, col, value) {
-                     return grid.getCellDisplayValue(row, col);
-            },
-            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
-                  onRegisterApi: function(gridApi) {
-                    $scope.gridApi = gridApi;
+            exporterFieldCallback: function (grid, row, col, input) {
+
+
+            if (col.displayName === "Naturaleza") { // check if any filter is applied on the column
+              //  var filters = col.cellFilter.split('|'); // get all the filters applied
+                return $filter('filtro_naturaleza_concepto_reporte_hc')(input)
+
+            }
+            if (col.displayName === "Valor")  { // check if any filter is applied on the column
+              //  var filters = col.cellFilter.split('|'); // get all the filters applied
+                return $filter('currency')(input)
+
+            }
+
+            else
+                return input;
             },
             columnDefs: [
 
@@ -167,19 +176,20 @@ angular.module('titanClienteV2App')
               Preliquidacion: self.objeto_preliquidacion
           }
           console.log("objeto dependencia",self.objeto_reporte_dependencia)
+          self.gridOptions_desagregado.exporterCsvFilename ='Reporte Contratistas-'+objeto_dependencia.ESFDEPENCARGADA+'-'+self.anoReporte+'-'+self.mesReporte+'.csv';
+          self.gridOptions_desagregado.exporterPdfHeader =  { text: 'Reporte Contratistas-'+objeto_dependencia.ESFDEPENCARGADA+'-'+self.anoReporte+'-'+self.mesReporte, style: 'headerStyle' };
 
       titanMidRequest.post('gestion_reportes/desagregado_nomina_por_dependencia/', self.objeto_reporte_dependencia).then(function(response) {
-
-          if(response.data === null){
+      
+          if(response.data.length === 0){
               self.cargando_grid = false;
               self.hayData_grid = false;
               self.gridOptions_desagregado.data = [];
           }else{
               self.cargando_grid = false;
               self.hayData_grid = true;
-
               self.gridOptions_desagregado.data = response.data;
-              console.log("respuesta", self.respuesta.Preliquidacion)
+
           }
           });
         };
@@ -204,7 +214,7 @@ angular.module('titanClienteV2App')
                 Dependencia: objeto_dependencia.ESFCODIGODEP,
                 Preliquidacion: self.objeto_preliquidacion
             }
-            console.log("objeto dependencia",self.objeto_reporte_dependencia)
+
 
         titanMidRequest.post('gestion_reportes/total_nomina_por_dependencia/', self.objeto_reporte_dependencia).then(function(response) {
 
