@@ -108,8 +108,8 @@ angular.module('titanClienteV2App')
             var i;
             var personas = self.gridApi.selection.getSelectedRows();
             var personas_pendientes = self.personas_pendientes_grid.selection.getSelectedRows();
-            console.log("personas pendientes")
-            console.log(personas_pendientes)
+            self.preliquidacion.Definitiva = true;
+          
             var personas_a_liquidar = [];
 
               if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
