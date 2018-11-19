@@ -28,10 +28,14 @@ angular.module('titanClienteV2App')
                   enableSelectAll: true,
                   columnDefs: [
                       { field: 'id_proveedor', visible: false },
-                      { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO'), width: '15%' },
+                      { field: 'numero_contrato',
+                        cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.numero_contrato}}</button>',
+                        displayName: $translate.instant('NUM_CONTRATO'),
+                        width: '15%' },
                       { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '10%' },
                       { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '45%' },
-                      { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '26%' },
+                      { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '15%' },
+                      { field: 'Preliquidado', displayName: "preliquidado", width: '14%' },
                       { field: 'IdEPS', visible: false },
                       { field: 'IdARL', visible: false },
                       { field: 'IdFondoPension', visible: false },
@@ -107,13 +111,15 @@ angular.module('titanClienteV2App')
         self.generar_preliquidacion = function() {
             var i;
             var personas = self.gridApi.selection.getSelectedRows();
-            var personas_pendientes = self.personas_pendientes_grid.selection.getSelectedRows();
             self.preliquidacion.Definitiva = true;
-          
+          //  var personas_pendientes = self.personas_pendientes_grid.selection.getSelectedRows();
+          //  console.log("personas pendientes")
+          //  console.log(personas_pendientes)
             var personas_a_liquidar = [];
 
               if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
 
+                console.log("personas", personas)
                 for (i = 0; i < personas.length; i++) {
                     var persona = {
                         IdPersona: parseInt(personas[i].id_proveedor),
@@ -143,7 +149,7 @@ angular.module('titanClienteV2App')
 
           }
 
-
+          /*
             for (i = 0; i < personas_pendientes.length; i++) {
                 var persona_pen = {
 
@@ -156,6 +162,51 @@ angular.module('titanClienteV2App')
 
                 personas_a_liquidar.push(persona_pen)
             }
+            */
+            var datos_preliquidacion = {
+                Preliquidacion: self.preliquidacion,
+                PersonasPreLiquidacion: personas_a_liquidar
+
+            };
+            console.log("datos")
+            console.log(datos_preliquidacion)
+
+
+            titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
+
+                $location.path('/preliquidacion/preliquidacion_personas');
+                $route.reload()
+
+            });
+
+
+            console.log("personas a preliq", personas_a_liquidar)
+        };
+
+
+        self.preliquidar_persona = function(row) {
+
+
+            var personas = row.entity;
+            self.preliquidacion.Definitiva = false;
+            var personas_a_liquidar = [];
+
+              if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
+
+
+                    var persona = {
+                        IdPersona: parseInt(personas.id_proveedor),
+                        NumDocumento: parseInt(personas.num_documento),
+                        NumeroContrato: personas.numero_contrato,
+                        VigenciaContrato: parseInt(personas.vigencia),
+                        Pendiente: "false",
+                    };
+                    console.log(persona)
+                    personas_a_liquidar.push(persona)
+
+
+              }
+
 
             var datos_preliquidacion = {
                 Preliquidacion: self.preliquidacion,
@@ -164,23 +215,15 @@ angular.module('titanClienteV2App')
             };
             console.log("datos")
             console.log(datos_preliquidacion)
-            titanRequest.delete('detalle_preliquidacion', '' + self.preliquidacion.Id).then(function(response) {
 
-            });
-
-            self.saving = true;
-            self.btnGenerartxt = $translate.instant('GENERANDO');
 
             titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-                self.saving = false;
-                self.btnGenerartxt = $translate.instant('GENERAR');
-                $location.path('/preliquidacion/preliquidacion_detalle');
-                $route.reload()
-
+                 console.log("respuesta persona", response)
+                 self.seleccion_conceptos = response.data[0].Conceptos
+                  console.log("respuesta persona", self.seleccion_conceptos)
             });
 
         };
-
 
 
         /*------- PARA PLANTA ------
