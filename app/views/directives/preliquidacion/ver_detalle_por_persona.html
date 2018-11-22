@@ -1,0 +1,58 @@
+<div class="col-md-12">
+  <legend class="text-primary" ng-click="inputpestanaabierta=!inputpestanaabierta">
+    {{d_verDetallePorPersona.detalle_a_mostrar.NumeroContrato}} de {{d_verDetallePorPersona.detalle_a_mostrar.VigenciaContrato}}
+    <span class="fa fa-plus pull-right" ng-show="!inputpestanaabierta"></span>
+    <span class="fa fa-minus pull-right" ng-show="inputpestanaabierta"></span>
+
+  </legend class="text-primary">
+
+    <div class="panel panel-primary" ng-if="inputpestanaabierta">
+      
+        <div class="panel-body">
+
+            <table class="table  table-scrollable">
+                <tr>
+                    <th>{{'CONCEPTO' | translate}}</th>
+                    <th>{{'VALOR'|translate}}</th>
+
+
+                </tr>
+                <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 1" class="devengo">
+                    <td class="texto">{{concepto.Nombre}}</td>
+                    <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
+
+
+                </tr>
+                <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 2" class="descuento">
+                    <td class="texto">{{concepto.Nombre}}</td>
+                    <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
+
+                </tr>
+                <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 3" class="seguridad_social">
+                    <td class="texto">{{concepto.Nombre}}</td>
+                    <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
+
+                </tr>
+            </table>
+            <br>
+            <table class="table">
+                <tr>
+                    <th>{{'TOTAL_DEV' | translate}}</th>
+                    <td class="alineacion_derecha">{{d_verDetallePorPersona.seleccion_tot_devengo | currency}}</td>
+                </tr>
+                <tr>
+                    <th>{{'TOTAL_DESC'| translate}}</th>
+                    <td class="alineacion_derecha">{{d_verDetallePorPersona.seleccion_tot_descuentos | currency}}</td>
+                </tr>
+                <tr>
+                    <th>{{'TOTAL_PAGAR' | translate}}</th>
+                    <td class="alineacion_derecha">{{d_verDetallePorPersona.seleccion_sueldoNeto | currency}}</td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+
+
+</div>

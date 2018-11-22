@@ -8,16 +8,18 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('PreliquidacionPreliquidacionPersonasCtrl', function($localStorage, titanMidRequest, titanRequest, $window, $translate, $route, $location) {
+    .controller('PreliquidacionPreliquidacionPersonasCtrl', function($localStorage, titanMidRequest, titanRequest, $window, $translate, $route, $location,$scope) {
         var self = this;
 
         self.preliquidacion = $localStorage.preliquidacion
-        console.log("preliquidacion", self.preliquidacion)
         self.generar_disponibilidad;
         self.btnGenerartxt = $translate.instant('GENERAR');
         self.saving = false;
+        $scope.botones = [
+            { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
+        ];
 
-        if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
+        if (self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
 
               self.gridOptions = {
                   paginationPageSizes: [10, 20],
@@ -42,9 +44,62 @@ angular.module('titanClienteV2App')
                       { field: 'IdCajaCompensacion', visible: false },
                   ],
                   onRegisterApi: function(gridApi) {
+                    $scope.gridApi = gridApi;
+                    $scope.mySelectedRows = $scope.gridApi.selection.getSelectedRows();
+                  }
+              };
+
+            }
+
+        if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS") {
+
+              self.gridOptions = {
+                  paginationPageSizes: [10, 20],
+                  paginationPageSize: 10,
+                  enableFiltering: true,
+                  enableSorting: true,
+                  enableRowSelection: false,
+                  enableRowHeaderSelection: false,
+                  columnDefs: [
+                      { field: 'id_proveedor', visible: false },
+                      { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%',
+                      cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.num_documento}}</button>',
+                      },
+                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '60%' },
+                      { field: 'Preliquidado', displayName: "preliquidado", width: '10%' },
+                      { field: 'IdEPS', visible: false },
+                      { field: 'IdARL', visible: false },
+                      { field: 'IdFondoPension', visible: false },
+                      { field: 'IdCajaCompensacion', visible: false },
+                      {
+                          field: 'Acciones',
+                          displayName: $translate.instant('ACCIONES'),
+                          width: '10%',
+                          cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>'
+                      }
+                  ],
+                  onRegisterApi: function(gridApi) {
+                    $scope.gridApi = gridApi;
+                }
+              };
+
+              self.informacion_contratos = {
+
+                  enableFiltering: true,
+                  enableSorting: true,
+                  enableRowSelection: false,
+                  enableSelectAll: false,
+                  columnDefs: [
+                    { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '50%' },
+                    { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'),width: '25%' },
+                    { field: 'NivelAcademico', displayName: $translate.instant('NIVEL'),width: '25%' },
+                  ],
+                  onRegisterApi: function(gridApi) {
                       self.gridApi = gridApi;
                   }
               };
+
+            self.gridOptions.multiSelect = false;
 
         }
 
@@ -101,12 +156,27 @@ angular.module('titanClienteV2App')
         titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo/', self.preliquidacion).then(function(response) {
             self.gridOptions.data = response.data;
 
+
         });
 
         titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_pendientes/', self.preliquidacion).then(function(response) {
             self.personas_pendientes.data = response.data;
 
         });
+
+        $scope.loadrow = function(row, operacion) {
+            self.operacion = operacion;
+            switch (operacion) {
+                case "otro":
+
+                    break;
+                case "ver":
+                    self.listar_contratos_por_persona(row);
+                    self.persona_seleccionada = row.entity.nom_proveedor;
+                    break;
+                default:
+            }
+        };
 
         self.generar_preliquidacion = function() {
             var i;
@@ -119,7 +189,7 @@ angular.module('titanClienteV2App')
 
               if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
 
-                console.log("personas", personas)
+
                 for (i = 0; i < personas.length; i++) {
                     var persona = {
                         IdPersona: parseInt(personas[i].id_proveedor),
@@ -128,7 +198,7 @@ angular.module('titanClienteV2App')
                         VigenciaContrato: parseInt(personas[i].vigencia),
                         Pendiente: "false",
                     };
-                    console.log(persona)
+
                     personas_a_liquidar.push(persona)
                 }
 
@@ -143,7 +213,7 @@ angular.module('titanClienteV2App')
                     VigenciaContrato: parseInt(personas[i].VigenciaContrato),
                     Pendiente: "false",
                 };
-                console.log(persona)
+
                 personas_a_liquidar.push(persona)
             }
 
@@ -168,8 +238,7 @@ angular.module('titanClienteV2App')
                 PersonasPreLiquidacion: personas_a_liquidar
 
             };
-            console.log("datos")
-            console.log(datos_preliquidacion)
+
 
 
             titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
@@ -179,32 +248,26 @@ angular.module('titanClienteV2App')
 
             });
 
-
-            console.log("personas a preliq", personas_a_liquidar)
         };
 
 
         self.preliquidar_persona = function(row) {
 
 
-            var personas = row.entity;
             self.preliquidacion.Definitiva = false;
+            self.nombre_seleccionado = row.entity.nom_proveedor;
+            self.cedula_seleccionado = row.entity.num_documento;
             var personas_a_liquidar = [];
-
               if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
 
-
                     var persona = {
-                        IdPersona: parseInt(personas.id_proveedor),
-                        NumDocumento: parseInt(personas.num_documento),
-                        NumeroContrato: personas.numero_contrato,
-                        VigenciaContrato: parseInt(personas.vigencia),
+                        IdPersona: parseInt(row.entity.id_proveedor),
+                        NumDocumento: parseInt(row.entity.num_documento),
                         Pendiente: "false",
+
                     };
-                    console.log(persona)
+
                     personas_a_liquidar.push(persona)
-
-
               }
 
 
@@ -213,19 +276,41 @@ angular.module('titanClienteV2App')
                 PersonasPreLiquidacion: personas_a_liquidar
 
             };
-            console.log("datos")
-            console.log(datos_preliquidacion)
 
 
             titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-                 console.log("respuesta persona", response)
-                 self.seleccion_conceptos = response.data[0].Conceptos
-                  console.log("respuesta persona", self.seleccion_conceptos)
+                  self.detalles = response.data
+                  $('#modal_detalle').modal('show');
+
             });
 
         };
 
+        self.listar_contratos_por_persona = function(row) {
 
+          var personas_a_listar = [];
+          var persona = {
+              NumDocumento: parseInt(row.entity.num_documento),
+          };
+
+          personas_a_listar.push(persona)
+
+          var datos_preliquidacion = {
+            Preliquidacion: self.preliquidacion,
+            PersonasPreLiquidacion: personas_a_listar
+          }
+
+          titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona/', datos_preliquidacion).then(function(response) {
+
+          self.informacion_contratos.data = [];
+
+              angular.forEach(response.data.Contratos, function(value, key){
+                      self.informacion_contratos.data.push(value)
+                 });
+
+          });
+
+        };
         /*------- PARA PLANTA ------
 
         if (self.preliquidacion.Nomina.TipoNomina.Descripcion === "Funcionarios de planta") {
