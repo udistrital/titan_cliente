@@ -7,7 +7,7 @@
   </legend class="text-primary">
 
     <div class="panel panel-primary" ng-if="inputpestanaabierta">
-      
+
         <div class="panel-body">
 
             <table class="table  table-scrollable">
@@ -18,18 +18,18 @@
 
                 </tr>
                 <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 1" class="devengo">
-                    <td class="texto">{{concepto.Nombre}}</td>
+                    <td class="texto">{{concepto.AliasConcepto}}</td>
                     <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
 
 
                 </tr>
                 <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 2" class="descuento">
-                    <td class="texto">{{concepto.Nombre}}</td>
+                    <td class="texto">{{concepto.AliasConcepto}}</td>
                     <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
 
                 </tr>
                 <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 3" class="seguridad_social">
-                    <td class="texto">{{concepto.Nombre}}</td>
+                    <td class="texto">{{concepto.AliasConcepto}}</td>
                     <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
 
                 </tr>

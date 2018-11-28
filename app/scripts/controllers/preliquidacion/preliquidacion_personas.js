@@ -58,14 +58,14 @@ angular.module('titanClienteV2App')
                   paginationPageSize: 10,
                   enableFiltering: true,
                   enableSorting: true,
-                  enableRowSelection: false,
-                  enableRowHeaderSelection: false,
+                  enableRowSelection: true,
+                  enableRowHeaderSelection: true,
                   columnDefs: [
                       { field: 'id_proveedor', visible: false },
                       { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%',
                       cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.num_documento}}</button>',
                       },
-                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '60%' },
+                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '55%' },
                       { field: 'Preliquidado', displayName: "preliquidado", width: '10%' },
                       { field: 'IdEPS', visible: false },
                       { field: 'IdARL', visible: false },
@@ -79,7 +79,7 @@ angular.module('titanClienteV2App')
                       }
                   ],
                   onRegisterApi: function(gridApi) {
-                    $scope.gridApi = gridApi;
+                    $scope.myGridApi = gridApi;
                 }
               };
 
@@ -98,8 +98,6 @@ angular.module('titanClienteV2App')
                       self.gridApi = gridApi;
                   }
               };
-
-            self.gridOptions.multiSelect = false;
 
         }
 
@@ -180,7 +178,7 @@ angular.module('titanClienteV2App')
 
         self.generar_preliquidacion = function() {
             var i;
-            var personas = self.gridApi.selection.getSelectedRows();
+            var personas = $scope.myGridApi.selection.getSelectedRows();
             self.preliquidacion.Definitiva = true;
           //  var personas_pendientes = self.personas_pendientes_grid.selection.getSelectedRows();
           //  console.log("personas pendientes")

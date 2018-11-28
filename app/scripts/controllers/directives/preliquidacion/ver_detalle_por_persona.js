@@ -19,7 +19,7 @@ angular.module('titanClienteV2App')
         var ctrl = this;
         $scope.inputpestanaabierta = !$scope.inputpestanaabierta;
         ctrl.detalle_a_mostrar = $scope.detalle;
-        console.log("hola el detalle", ctrl.detalle_a_mostrar)
+      
 
 
       },
