@@ -87,26 +87,74 @@ angular.module('titanClienteV2App')
                     displayName: $translate.instant('NUM_CONTRATO'),
                     headerCellClass: 'encabezado',
                     width: '20%',
+                    cellClass: function(grid, row) {
+                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
+                            return 'text-center devengo';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
+                            return 'text-center descuento';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
+                            return 'text-center seguridad_social';
+                        }
+                    }
                 },
                 {
                     field: 'VigenciaContrato',
                     displayName: $translate.instant('VIGENCIA'),
                     width: '20%',
                     headerCellClass: 'encabezado',
+                    cellClass: function(grid, row) {
+                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
+                            return 'text-center devengo';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
+                            return 'text-center descuento';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
+                            return 'text-center seguridad_social';
+                        }
+                    }
                 },
                 {
                     field: 'Concepto.AliasConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
                     width: '36%',
+                    sort: {
+                       direction: 'asc',
+                       priority: 1
+                   },
                     headerCellClass: 'encabezado',
+                    cellClass: function(grid, row) {
+                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
+                            return 'text-center devengo';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
+                            return 'text-center descuento';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
+                            return 'text-center seguridad_social';
+                        }
+                    }
                 },
+                {
+                    field: 'Concepto.NaturalezaConcepto.Id',
+                    sort: {
+                       direction: 'asc',
+                       priority: 0
+                   },
+                    visible:false
+                },
+
                 {
                     field: 'ValorCalculado',
                     displayName: $translate.instant('VALOR'),
                     width: '25%',
                     cellFilter: 'currency',
                     headerCellClass: 'encabezado',
-                    cellClass: 'alineacion_derecha'
+                    cellClass: function(grid, row) {
+                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
+                            return 'alineacion_derecha devengo';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
+                            return 'alineacion_derecha descuento';
+                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
+                            return 'alineacion_derecha seguridad_social';
+                        }
+                    }
                 },
 
             ]
@@ -129,19 +177,47 @@ angular.module('titanClienteV2App')
                     field: 'NombreConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
                     headerCellClass: 'encabezado',
-                    cellClass: 'text-center',
+                    sort: {
+                       direction: 'asc',
+                       priority: 1
+                   },
                     width: '50%',
+                    cellClass: function(grid, row) {
+                        if (row.entity.NaturalezaConcepto === "devengo") {
+                            return 'text-center devengo';
+                        } else if (row.entity.NaturalezaConcepto === "descuento") {
+                            return 'text-center descuento';
+                        } else if (row.entity.NaturalezaConcepto === "seguridad_social") {
+                            return 'text-center seguridad_social';
+                        }
+                    }
                 },
                 {
-                     field: 'NaturalezaConcepto',
-                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
-                     headerCellClass: 'encabezado',
-                     cellClass: 'text-center',
+                     field: 'NaturalezaConceptoId',
                      sort: {
                         direction: 'asc',
                         priority: 0
                     },
+                     visible:false
+                 },
+                {
+                     field: 'NaturalezaConcepto',
+                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
+                     headerCellClass: 'encabezado',
+                     sort: {
+                        direction: 'asc',
+                        priority: 1
+                    },
                      width: '25%',
+                     cellClass: function(grid, row) {
+                         if (row.entity.NaturalezaConcepto === "devengo") {
+                             return 'text-center devengo';
+                         } else if (row.entity.NaturalezaConcepto === "descuento") {
+                             return 'text-center descuento';
+                         } else if (row.entity.NaturalezaConcepto === "seguridad_social") {
+                             return 'text-center seguridad_social';
+                         }
+                     }
                  },
                 {
                     field: 'Total',
@@ -150,6 +226,15 @@ angular.module('titanClienteV2App')
                     cellFilter: 'currency',
                     cellClass: 'alineacion_derecha',
                     headerCellClass: 'encabezado',
+                    cellClass: function(grid, row) {
+                        if (row.entity.NaturalezaConcepto === "devengo") {
+                            return 'alineacion_derecha devengo';
+                        } else if (row.entity.NaturalezaConcepto === "descuento") {
+                            return 'alineacion_derecha descuento';
+                        } else if (row.entity.NaturalezaConcepto === "seguridad_social") {
+                            return 'alineacion_derecha seguridad_social';
+                        }
+                    }
                 },
               ]
         };
@@ -175,6 +260,7 @@ angular.module('titanClienteV2App')
           var query = "query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona
           titanRequest.get('detalle_preliquidacion/', query).then(function(response) {
             self.gridOptions_detalle.data = response.data;
+            console.log(self.gridOptions_detalle)
           });
 
         };
@@ -185,7 +271,7 @@ angular.module('titanClienteV2App')
                 Id: 4
             }
 
-            
+
             self.preliquidacion.EstadoPreliquidacion = Estado_Pre
 
             titanRequest.put('preliquidacion', self.preliquidacion.Id, self.preliquidacion).then(function(response) {

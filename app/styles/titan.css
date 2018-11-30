@@ -37,16 +37,16 @@ sencillo {
 	text-align: right;
 }
 
-tr.devengo {
-    background: #8BB9CD;
+.devengo {
+    background: #8BB9CD !important;
 }
 
-tr.descuento {
-    background: #FFB2B2;
+.descuento {
+    background: #FFB2B2 !important;
 }
 
-tr.seguridad_social {
-    background: #A9F5D0;
+.seguridad_social {
+    background: #A9F5D0 !important;
 }
 
 
