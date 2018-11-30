@@ -1,6 +1,39 @@
 <div class="panel panel-primary panel-body">
     <h2 class="page-header text-center">{{'TITULO_NOVEDADES'| translate}}</h2>
 
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-5 col-md-offset-1">
+                        <label for="select_vigencia" class="col-form-label">{{'ANO_PRELIQ' | translate}} </label>
+                        <br>
+                        <select ng-model="novedadRegistro.anioPeriodo" ng-init="novedadRegistro.anioPeriodo" class="form-control" required>
+                            <option value="" disabled>{{'ANO_PRELIQ' | translate}}</option>
+                            <option ng-repeat="a in novedadRegistro.anios" value="{{a.anio}}" required>{{a.anio}}</option>
+                          </select>
+                    </div>
+                    <div class="col-md-5 col-md-offset-1">
+                        <label for="select_vigencia" class="col-form-label">{{'MES_PRELIQ' | translate}} </label>
+                        <br>
+                        <select ng-model="novedadRegistro.mesPeriodo" ng-init="novedadRegistro.mesPeriodo" class="form-control" required>
+                              <option value="" disabled>{{ 'MES_PRELIQ' | translate }}</option>
+                              <option ng-repeat="(key, value) in novedadRegistro.meses" value="{{key}}">{{value}}</option>
+                        </select>
+                    </div>
+                    <!--<div class="col-md-1">
+                        <br>
+                        <a type="button" name="button" ng-click="cdpConsulta.filtrarListaCdp()" class="fa fa-search btn btn-info btn-outline" aria-hidden="true"></a>
+                    </div>
+                    -->
+                    <hr>
+
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
     <div class="row" ng-if="!load">
         <div class="col-md-6">
             <div class="panel panel-default">
@@ -45,45 +78,56 @@
                 </div>
                 <div class="panel-body">
                     <div ui-grid="gridOptions_conceptos" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="miGrid"></div>
-                    <form name="formplan" ng-submit="formplan.$valid">
-                        <div ng-show="concepto.TipoConcepto.Nombre==='fijo'">
-
-                            <div class="form-group">
-                                <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
-                                <div class="col-md-5">
-                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-1 col-form-label col-sm-offset-4" for="txtCuotas">{{'CUOTAS_NOV' | translate}}</label>
-                                <div class="col-md-5">
-                                    <input type="number" pattern="[0-9]*" ng-model="novedadRegistro.NumCuotas" md-placeholder="{{'CUOTAS_NOV' | translate}}" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 col-form-label col-sm-offset-4">
-                                <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
-
+                    <div class="col-md-8" ng-if="novedadRegistro.mostrar_grid_contratos_porcentual">
+                        <br>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{'CONTRATOS_PARA' | translate}} : {{preliquidacionPersonas.persona_seleccionada}}</div>
+                            <div class="panel-body">
+                                  <div ui-grid="novedadRegistro.informacion_contratos_porcentual"  ui-grid-auto-resize class="grid"></div>
                             </div>
                         </div>
-                    </form>
 
+                    </div>
+
+                    <div class="col-md-8" ng-if="novedadRegistro.mostrar_grid_contratos_fijo">
+                        <br>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{'CONTRATOS_PARA' | translate}} : {{preliquidacionPersonas.persona_seleccionada}}</div>
+                            <div class="panel-body">
+                                  <div ui-grid="novedadRegistro.informacion_contratos_fijo" ui-grid-auto-resize ui-grid-edit class="grid"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
                     <form name="formplan" ng-submit="formplan.$valid">
                         <div ng-show="concepto.TipoConcepto.Nombre==='porcentual'">
                             <!-- Select Basic -->
+                            <div class="col-md-12">
+                                <h2>TEXTO EXPLICANDO COSAS SUPER ÚTILES</h2>
+                            </div>
+
                             <div class="form-group">
-                                <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
-                                <div class="col-md-5">
+                                <br>
+                                <br>
+                                <label class="col-md-12 col-form-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
+                                <br>
+                                <div class="col-md-11">
                                     <input type="number"  pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}" required min="0" max="100"> %
                                 </div>
+                                <br>
                             </div>
-                            <div class="col-md-4 col-form-label col-sm-offset-4">
-                                <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
 
-                            </div>
                         </div>
                     </form>
+                   </div>
+
+                   <div class="col-md-4">
+                   <div class="col-md-12 col-form-label">
+                       <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
+                       </div>
+                   </div>
 
                     <form name="formplan" ng-submit="formplan.$valid">
                         <div ng-show="concepto.TipoConcepto.Nombre==='seguridad_social'">

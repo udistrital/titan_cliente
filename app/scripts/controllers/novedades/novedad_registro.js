@@ -27,6 +27,34 @@ angular.module('titanClienteV2App')
             { clase_color: "borrar", clase_css: "fa fa-trash fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.BORRAR'), operacion: 'delete', estado: true }
         ];
 
+        self.anioPeriodo = new Date().getFullYear();
+        self.anios = [];
+
+
+        self.meses = {
+            1: "Enero",
+            2: "Febrero",
+            3: "Marzo",
+            4: "Abril",
+            5: "Mayo",
+            6: "Junio",
+            7: "Julio",
+            8: "Agosto",
+            9: "Septiembre",
+            10: "Octubre",
+            11: "Noviembre",
+            12: "Diciembre"
+        };
+
+        //Crea un arreglo de objetos para tener los años desde el 1900 hasta el año actual con el metodo getFullYear()
+        function calcularAnios() {
+            for (var i = new Date().getFullYear(); i >= 2015; i--) {
+                self.anios.push({ anio: i });
+            }
+        }
+        calcularAnios();
+
+
         var tipo_vin = {
             Id: 0,
             Nombre: "",
@@ -48,13 +76,6 @@ angular.module('titanClienteV2App')
         };
 
 
-        var preliquidacion = {
-            Ano: self.CurrentDate.getFullYear(),
-            Mes: self.CurrentDate.getMonth(),
-            Nomina: nomina
-        }
-
-
 
 
         $scope.gridOptions_personas = {
@@ -66,10 +87,8 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
             columnDefs: [
                 { field: 'id_proveedor', visible: false },
-                { field: 'numero_contrato', displayName: $translate.instant('NUM_CONTRATO'), width: '20%' },
-                { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '10%' },
-                { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '50%' },
-                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%' }
+                { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '60%' },
+                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '40%' }
 
 
             ],
@@ -146,10 +165,55 @@ angular.module('titanClienteV2App')
             columnDefs: [
                 { field: 'Id', visible: false },
                 { field: 'AliasConcepto', displayName: $translate.instant('CONCEPTO') },
+                {
+                    field: 'NaturalezaConcepto.Nombre',
+                    displayName: $translate.instant('NATURALEZA_NOMBRE')
+                },
+                {
+                    field: 'TipoConcepto.Nombre',
+                    displayName: $translate.instant('TIPO_NOMBRE')
+                },
                 { field: 'NaturalezaConcepto.Id', visible: false },
                 { field: 'TipoConcepto.Id', visible: false },
             ]
 
+        };
+
+        self.informacion_contratos_fijo = {
+
+            enableFiltering: true,
+            enableSorting: true,
+            enableRowSelection: self.permitir_seleccion,
+            enableRowHeaderSelection: self.permitir_seleccion_header,
+            enableSelectAll: false,
+            columnDefs: [
+              { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '20%', enableCellEdit: false },
+              { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'),width: '20%',enableCellEdit: false },
+              { field: 'NivelAcademico', displayName: $translate.instant('NIVEL'),width: '20%',enableCellEdit: false },
+              { field: 'ValorNovedadFijo', displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),width: '20%',enableCellEdit: true },
+              { field: 'CuotasFijo', displayName: $translate.instant('CUOTAS_NOV'),width: '20%',enableCellEdit: true },
+            ],
+            onRegisterApi: function(gridApi) {
+                self.gridApi = gridApi;
+            }
+        };
+
+        self.informacion_contratos_porcentual = {
+
+            enableFiltering: true,
+            enableSorting: true,
+            enableRowSelection: false,
+            enableRowHeaderSelection: false,
+            enableSelectAll: false,
+            columnDefs: [
+              { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '50%' },
+              { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'),width: '25%' },
+              { field: 'NivelAcademico', displayName: $translate.instant('NIVEL'),width: '25%' },
+
+            ],
+            onRegisterApi: function(gridApi) {
+                self.gridApi = gridApi;
+            }
         };
 
         $scope.gridOptions_personas.onRegisterApi = function(gridApi) {
@@ -164,7 +228,18 @@ angular.module('titanClienteV2App')
             self.gridApi = gridApi;
             gridApi.selection.on.rowSelectionChanged($scope, function(row) {
                 $scope.concepto = row.entity
+                self.listar_contratos_por_persona();
 
+                if($scope.concepto.TipoConcepto.Nombre == "fijo"){
+                  self.mostrar_grid_contratos_fijo = true;
+                  self.mostrar_grid_contratos_porcentual = false;
+                }
+
+                if($scope.concepto.TipoConcepto.Nombre == "porcentual"){
+                  self.mostrar_grid_contratos_porcentual = true;
+                  self.mostrar_grid_contratos_fijo = false;
+
+                }
             });
         };
 
@@ -172,9 +247,7 @@ angular.module('titanClienteV2App')
         $scope.gridOptions_novedades.multiSelect = false;
         $scope.gridOptions_conceptos.multiSelect = false;
 
-        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', preliquidacion).then(function(response) {
-            $scope.gridOptions_personas.data = response.data;
-        });
+
 
 
         titanRequest.get('nomina', 'limit=0&query=TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
@@ -206,6 +279,43 @@ self.listar_novedades = function(row) {
     });
 }
 
+self.listar_contratos_por_persona = function() {
+
+  var personas_a_listar = [];
+  var persona = {
+      NumDocumento: parseInt($scope.persona.num_documento),
+  };
+
+  personas_a_listar.push(persona)
+
+  var datos_preliquidacion = {
+    Preliquidacion: self.preliquidacion,
+    PersonasPreLiquidacion: personas_a_listar
+  }
+
+  titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona/', datos_preliquidacion).then(function(response) {
+
+  self.informacion_contratos_fijo.data = [];
+  self.informacion_contratos_porcentual.data = [];
+
+      angular.forEach(response.data.Contratos, function(value, key){
+        if($scope.concepto.TipoConcepto.Nombre == "fijo"){
+          self.informacion_contratos_fijo.data.push(value)
+
+        }
+
+        if($scope.concepto.TipoConcepto.Nombre == "porcentual"){
+        self.informacion_contratos_porcentual.data.push(value)
+
+        }
+
+         });
+
+  });
+
+};
+
+
 
 $scope.loadrow = function(row, operacion) {
     self.operacion = operacion;
@@ -223,12 +333,19 @@ $scope.loadrow = function(row, operacion) {
 
 self.Registrar = function() {
 
-
-    var valor = parseFloat(self.ValorNovedad)
-    var cuotas = parseInt(self.NumCuotas)
+    var info_contratos = [];
+    var valor;
+    var cuotas;
 
     if ($scope.concepto.TipoConcepto.Nombre === "porcentual") {
         cuotas = 999;
+        valor = parseFloat(self.ValorNovedad)
+        info_contratos = self.informacion_contratos_porcentual.data;
+
+    }
+
+    if ($scope.concepto.TipoConcepto.Nombre === "fijo") {
+        info_contratos = self.informacion_contratos_fijo.data;
     }
 
     if ($scope.concepto.TipoConcepto.Nombre === "seguridad_social") {
@@ -236,10 +353,18 @@ self.Registrar = function() {
         cuotas = 0;
     }
 
-    if ((valor && cuotas) || (valor == 0 && cuotas == 0)) {
+
+
+      angular.forEach(info_contratos, function(value, key){
+
 
         var concepto = { Id: parseInt($scope.concepto.Id) };
         var nomina = { Id: parseInt(self.Nomina.Id) };
+        if ($scope.concepto.TipoConcepto.Nombre === "fijo") {
+            valor = parseInt(value.ValorNovedadFijo);
+            cuotas = parseInt(value.CuotasFijo);
+        }
+
         var novedad_por_persona = {
             Concepto: concepto,
             Activo: Boolean("true"),
@@ -247,13 +372,14 @@ self.Registrar = function() {
             FechaHasta: self.FechaFin,
             FechaRegistro: self.CurrentDate,
             NumCuotas: cuotas,
-            NumeroContrato: $scope.persona.numero_contrato,
-            VigenciaContrato: parseInt($scope.persona.vigencia),
+            Persona : parseInt($scope.persona.id_proveedor),
+            NumeroContrato: value.NumeroContrato,
+            VigenciaContrato: parseInt(value.VigenciaContrato),
             Nomina: nomina,
             ValorNovedad: valor
         };
 
-
+        
         titanRequest.post('concepto_nomina_por_persona', novedad_por_persona).then(function(response) {
 
             if (typeof(response.data) == "object") {
@@ -283,7 +409,14 @@ self.Registrar = function() {
 
             }
         });
-    }
+
+
+      });
+
+
+
+
+
 };
 
 
@@ -421,6 +554,42 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
     })
 }
 };
+
+      $scope.$watch("novedadRegistro.anioPeriodo", function() {
+
+        if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
+
+
+          self.preliquidacion = {
+              Mes: parseInt(self.mesPeriodo),
+              Ano: parseInt(self.anioPeriodo),
+              Nomina: nomina
+          }
+
+          titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
+              $scope.gridOptions_personas.data = response.data;
+          });
+          }
+
+      }, true);
+
+      $scope.$watch("novedadRegistro.mesPeriodo", function() {
+        if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
+          self.preliquidacion = {
+              Mes: parseInt(self.mesPeriodo),
+              Ano: parseInt(self.anioPeriodo),
+              Nomina: nomina
+          }
+
+          titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
+              $scope.gridOptions_personas.data = response.data;
+          });
+
+
+        }
+
+      }, true);
+
 
 
 
