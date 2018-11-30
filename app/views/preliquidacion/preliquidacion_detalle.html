@@ -24,13 +24,18 @@
           </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="panel panel-default">
               <div ui-grid="preliquidacionDetalle.gridOptions_resumen" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
-              </div>
+
+        </div>
+
+        <b><h2>{{'TOTAL_DEV' | translate}}</b> : {{preliquidacionDetalle.total_devengos | currency}}
+        <br>
+        <b>{{'TOTAL_DESC' | translate}}</b>: {{preliquidacionDetalle.total_descuentos | currency}}</h2>
       </div>
 
-      <div class="col-md-5">
+      <div class="col-md-4">
         <div class="panel panel-default">
               <div ui-grid="preliquidacionDetalle.gridOptions_detalle" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
               </div>

@@ -86,7 +86,7 @@ angular.module('titanClienteV2App')
                     field: 'NumeroContrato',
                     displayName: $translate.instant('NUM_CONTRATO'),
                     headerCellClass: 'encabezado',
-                    width: '30%',
+                    width: '20%',
                 },
                 {
                     field: 'VigenciaContrato',
@@ -103,7 +103,7 @@ angular.module('titanClienteV2App')
                 {
                     field: 'ValorCalculado',
                     displayName: $translate.instant('VALOR'),
-                    width: '15%',
+                    width: '25%',
                     cellFilter: 'currency',
                     headerCellClass: 'encabezado',
                     cellClass: 'alineacion_derecha'
@@ -130,12 +130,23 @@ angular.module('titanClienteV2App')
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
                     headerCellClass: 'encabezado',
                     cellClass: 'text-center',
-                    width: '70%',
+                    width: '50%',
                 },
+                {
+                     field: 'NaturalezaConcepto',
+                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
+                     headerCellClass: 'encabezado',
+                     cellClass: 'text-center',
+                     sort: {
+                        direction: 'asc',
+                        priority: 0
+                    },
+                     width: '25%',
+                 },
                 {
                     field: 'Total',
                     displayName: $translate.instant('TOTAL'),
-                    width: '30%',
+                    width: '25%',
                     cellFilter: 'currency',
                     cellClass: 'alineacion_derecha',
                     headerCellClass: 'encabezado',
@@ -145,7 +156,9 @@ angular.module('titanClienteV2App')
 
 
        titanMidRequest.post('preliquidacion/resumen_conceptos', self.preliquidacion).then(function(response) {
-         self.gridOptions_resumen.data = response.data;
+         self.gridOptions_resumen.data = response.data.ResumenTotalConceptos;
+         self.total_devengos = response.data.TotalDevengos
+         self.total_descuentos = response.data.TotalDescuentos
          //console.log("response", response.data)
        })
 
