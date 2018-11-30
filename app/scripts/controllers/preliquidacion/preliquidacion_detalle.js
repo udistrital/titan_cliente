@@ -29,37 +29,14 @@ angular.module('titanClienteV2App')
             enableSelectAll: false,
             columnDefs: [{
                     field: 'IdPersona',
-                    visible: false
-                },
-                {
-                    field: 'NumeroContrato',
-                    displayName: $translate.instant('NUM_CONTRATO'),
                     width: '20%',
-                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumeroContrato}}</button>',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Disponibilidad === 2) {
-                            return 'si_pago';
-                        } else if (row.entity.Disponibilidad === 1) {
-                            return 'no_pago';
-                        }
-                    }
-                },
-                {
-                    field: 'Vigencia',
-                    displayName: $translate.instant('VIGENCIA'),
-                    width: '10%',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Disponibilidad === 2) {
-                            return 'si_pago';
-                        } else if (row.entity.Disponibilidad === 1) {
-                            return 'no_pago';
-                        }
-                    }
+                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.IdPersona}}</button>',
+                    visible: true
                 },
                 {
                     field: 'NombreCompleto',
                     displayName: $translate.instant('NOMBRE_PERSONA'),
-                    width: '50%',
+                    width: '55%',
                     cellClass: function(grid, row) {
                         if (row.entity.Disponibilidad === 2) {
                             return 'si_pago';
@@ -71,7 +48,7 @@ angular.module('titanClienteV2App')
                 {
                     field: 'Documento',
                     displayName: $translate.instant('DOCUMENTO'),
-                    width: '20%',
+                    width: '25%',
                     cellClass: function(grid, row) {
                         if (row.entity.Disponibilidad === 2) {
                             return 'si_pago';
@@ -93,101 +70,99 @@ angular.module('titanClienteV2App')
         };
 
 
-        /*
-	    self.CalcularTotalesNomina = function(){
-	    	var seleccion_personas = self.gridApi.selection.getSelectedRows();
-	    	var temp_sueldo_neto = 0;
-	    	var temp_resumen_conceptos = {};
-      	 	for (var i=0; i < seleccion_personas.length; i++){
-      	 		for (var j=0; j< seleccion_personas[i].Conceptos.length; j++){
-      	 			if(seleccion_personas[i].Conceptos[j].Naturaleza === "devengo"){
-     					temp_sueldo_neto = temp_sueldo_neto+parseInt(seleccion_personas[i].Conceptos[j].Valor);
-     					if(temp_resumen_conceptos[seleccion_personas[i].Conceptos[j].Nombre] != null){
-     						temp_resumen_conceptos[seleccion_personas[i].Conceptos[j].Nombre] += parseInt(seleccion_personas[i].Conceptos[j].Valor);
-     					}else{
-     						temp_resumen_conceptos[seleccion_personas[i].Conceptos[j].Nombre] = parseInt(seleccion_personas[i].Conceptos[j].Valor);
-     					}
-	     			}else if (seleccion_personas[i].Conceptos[j].Naturaleza === "descuento"){
-	     				temp_sueldo_neto = temp_sueldo_neto-parseInt(seleccion_personas[i].Conceptos[j].Valor);
-	     				if(temp_resumen_conceptos[seleccion_personas[i].Conceptos[j].Nombre] != null){
-     						temp_resumen_conceptos[seleccion_personas[i].Conceptos[j].Nombre] += parseInt(seleccion_personas[i].Conceptos[j].Valor);
-     					}else{
-     						temp_resumen_conceptos[seleccion_personas[i].Conceptos[j].Nombre] = parseInt(seleccion_personas[i].Conceptos[j].Valor);
-     					}
-	     			}
-      	 		}
+        self.gridOptions_detalle = {
 
-      	 	}
-      	 	self.total_sueldos_neto = temp_sueldo_neto;
-      	 	self.resumen_conceptos = temp_resumen_conceptos;
-	    };
- */
-        titanMidRequest.post('preliquidacion/resumen', self.preliquidacion).then(function(response) {
+            paginationPageSizes: [5, 10, 20],
+            paginationPageSize: 10,
+            enableFiltering: true,
+            enableSorting: true,
+            enableRowSelection: false,
+            enableRowHeaderSelection: false,
+            enableSelectAll: false,
 
-            self.total_contratos_liquidados = response.data.length
-            var temp_resumen_conceptos = {};
-            var temp_sueldo_neto = 0;
-            for (var i = 0; i < response.data.length; i++) {
+            columnDefs: [
 
-                for (var j = 0; j < response.data[i].Conceptos.length; j++) {
+               {
+                    field: 'NumeroContrato',
+                    displayName: $translate.instant('NUM_CONTRATO'),
+                    headerCellClass: 'encabezado',
+                    width: '30%',
+                },
+                {
+                    field: 'VigenciaContrato',
+                    displayName: $translate.instant('VIGENCIA'),
+                    width: '20%',
+                    headerCellClass: 'encabezado',
+                },
+                {
+                    field: 'Concepto.AliasConcepto',
+                    displayName: $translate.instant('CONCEPTO_NOMBRE'),
+                    width: '36%',
+                    headerCellClass: 'encabezado',
+                },
+                {
+                    field: 'ValorCalculado',
+                    displayName: $translate.instant('VALOR'),
+                    width: '15%',
+                    cellFilter: 'currency',
+                    headerCellClass: 'encabezado',
+                    cellClass: 'alineacion_derecha'
+                },
 
-                    if (response.data[i].Conceptos[j].Naturaleza === "devengo") {
-
-                        temp_sueldo_neto = temp_sueldo_neto + parseInt(response.data[i].Conceptos[j].Valor);
-                        if (temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] != null) {
-                            temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] += parseInt(response.data[i].Conceptos[j].Valor);
-                        } else {
-                            temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] = parseInt(response.data[i].Conceptos[j].Valor);
-                        }
-                    } else if (response.data[i].Conceptos[j].Naturaleza === "descuento") {
-
-                        temp_sueldo_neto = temp_sueldo_neto - parseInt(response.data[i].Conceptos[j].Valor);
-                        if (temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] != null) {
-                            temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] += parseInt(response.data[i].Conceptos[j].Valor);
-                        } else {
-                            temp_resumen_conceptos[response.data[i].Conceptos[j].Nombre] = parseInt(response.data[i].Conceptos[j].Valor);
-                        }
-                    }
-                }
-
-            }
-            self.gridOptions.data = response.data;
-            self.total_sueldos_neto = temp_sueldo_neto;
-
-            self.resumen_conceptos = temp_resumen_conceptos;
-            self.respuesta_persona = response.data;
+            ]
+        };
 
 
+        self.gridOptions_resumen = {
+
+            paginationPageSizes: [5, 10, 20],
+            paginationPageSize: 10,
+            enableFiltering: true,
+            enableSorting: true,
+            enableRowSelection: false,
+            enableRowHeaderSelection: false,
+            enableSelectAll: false,
+
+            columnDefs: [
+
+               {
+                    field: 'NombreConcepto',
+                    displayName: $translate.instant('CONCEPTO_NOMBRE'),
+                    headerCellClass: 'encabezado',
+                    cellClass: 'text-center',
+                    width: '70%',
+                },
+                {
+                    field: 'Total',
+                    displayName: $translate.instant('TOTAL'),
+                    width: '30%',
+                    cellFilter: 'currency',
+                    cellClass: 'alineacion_derecha',
+                    headerCellClass: 'encabezado',
+                },
+              ]
+        };
+
+
+       titanMidRequest.post('preliquidacion/resumen_conceptos', self.preliquidacion).then(function(response) {
+         self.gridOptions_resumen.data = response.data;
+         //console.log("response", response.data)
+       })
+
+        titanMidRequest.post('preliquidacion/personas_x_preliquidacion', self.preliquidacion).then(function(response) {
+          self.gridOptions.data = response.data;
+          self.total_contratos_liquidados = response.data.length;
         });
 
+
+
         self.ver_seleccion_persona = function(row) {
-
-
-            self.seleccion_conceptos = null;
-            self.seleccion_conceptos = row.entity.Conceptos
-            if (row.entity.Disponibilidad == 1) {
-                self.estado_disponibilidad = $translate.instant('NO');
-            } else {
-                self.estado_disponibilidad = $translate.instant('SI');
-            }
-
-            var temp_sueldo_neto = 0;
-            var temp_total_desc = 0;
-            var temp_total_devengo = 0;
-
-            for (var i = 0; i < self.seleccion_conceptos.length; i++) {
-                if (self.seleccion_conceptos[i].Naturaleza === "devengo") {
-                    temp_sueldo_neto = temp_sueldo_neto + parseInt(self.seleccion_conceptos[i].Valor);
-                    temp_total_devengo = temp_total_devengo + parseInt(self.seleccion_conceptos[i].Valor);
-                } else if (self.seleccion_conceptos[i].Naturaleza === "descuento") {
-                    temp_sueldo_neto = temp_sueldo_neto - parseInt(self.seleccion_conceptos[i].Valor);
-                    temp_total_desc = temp_total_desc + parseInt(self.seleccion_conceptos[i].Valor);
-                }
-
-            }
-            self.seleccion_sueldoNeto = temp_sueldo_neto;
-            self.seleccion_tot_descuentos = temp_total_desc;
-            self.seleccion_tot_devengo = temp_total_devengo;
+          self.gridOptions_detalle.data = [];
+          //Mostrar contratos
+          var query = "query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona
+          titanRequest.get('detalle_preliquidacion/', query).then(function(response) {
+            self.gridOptions_detalle.data = response.data;
+          });
 
         };
 
