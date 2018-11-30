@@ -1,14 +1,17 @@
+<h2 class="page-header text-center">{{'PRELIQUIDACION_EMP' |translate}} : </h2>
+<h3 class="page-header text-center">{{d_verDetallePorPersona.cedula_seleccionado}} - {{d_verDetallePorPersona.nombre_seleccionado}}</h3>
+<div ng-repeat="detalle in d_verDetallePorPersona.detalles">
+
 <div class="col-md-12">
   <legend class="text-primary" ng-click="inputpestanaabierta=!inputpestanaabierta">
-    {{d_verDetallePorPersona.detalle_a_mostrar.NumeroContrato}} de {{d_verDetallePorPersona.detalle_a_mostrar.VigenciaContrato}}
+    {{detalle.NumeroContrato}} de {{detalle.VigenciaContrato}}
     <span class="fa fa-plus pull-right" ng-show="!inputpestanaabierta"></span>
     <span class="fa fa-minus pull-right" ng-show="inputpestanaabierta"></span>
 
   </legend class="text-primary">
 
-    <div class="panel panel-primary" ng-if="inputpestanaabierta">
-
-        <div class="panel-body">
+     <div class="panel panel-primary" ng-if="inputpestanaabierta">
+      <div class="panel-body">
 
             <table class="table  table-scrollable">
                 <tr>
@@ -17,18 +20,18 @@
 
 
                 </tr>
-                <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 1" class="devengo">
+                <tr ng-repeat="concepto in detalle.Conceptos" ng-show="concepto.NaturalezaConcepto === 1" class="devengo">
                     <td class="texto">{{concepto.AliasConcepto}}</td>
                     <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
 
 
                 </tr>
-                <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 2" class="descuento">
+                <tr ng-repeat="concepto in detalle.Conceptos" ng-show="concepto.NaturalezaConcepto === 2" class="descuento">
                     <td class="texto">{{concepto.AliasConcepto}}</td>
                     <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
 
                 </tr>
-                <tr ng-repeat="concepto in d_verDetallePorPersona.detalle_a_mostrar.Conceptos" ng-show="concepto.NaturalezaConcepto === 3" class="seguridad_social">
+                <tr ng-repeat="concepto in detalle.Conceptos" ng-show="concepto.NaturalezaConcepto === 3" class="seguridad_social">
                     <td class="texto">{{concepto.AliasConcepto}}</td>
                     <td class="alineacion_derecha">{{concepto.Valor | currency}}</td>
 
@@ -53,6 +56,5 @@
             </table>
         </div>
     </div>
-
-
+</div>
 </div>

@@ -61,21 +61,50 @@ angular.module('titanClienteV2App')
                   enableRowSelection: true,
                   enableRowHeaderSelection: true,
                   columnDefs: [
-                      { field: 'id_proveedor', visible: false },
-                      { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%',
-                      cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.num_documento}}</button>',
+                      {
+                        field: 'id_proveedor',
+                        visible: false
                       },
-                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '55%' },
-                      { field: 'Preliquidado', displayName: "preliquidado", width: '10%' },
-                      { field: 'IdEPS', visible: false },
-                      { field: 'IdARL', visible: false },
-                      { field: 'IdFondoPension', visible: false },
-                      { field: 'IdCajaCompensacion', visible: false },
+                      {
+                        field: 'num_documento',
+                        displayName: $translate.instant('DOCUMENTO'),
+                        width: '20%',
+                        cellClass: "text-center",
+                        cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.num_documento}}</button>',
+                      },
+                      {
+                        field: 'nom_proveedor',
+                        displayName: $translate.instant('NOMBRE_PERSONA'),
+                        width: '55%',
+                        cellClass: "text-center"
+                      },
+                      {
+                        field: 'Preliquidado',
+                        displayName: "preliquidado",
+                        width: '10%',
+                        cellClass: "text-center" },
+                      {
+                        field: 'IdEPS',
+                        visible: false
+                      },
+                      {
+                        field: 'IdARL',
+                        visible: false
+                      },
+                      {
+                        field: 'IdFondoPension',
+                        visible: false
+                      },
+                      {
+                        field: 'IdCajaCompensacion',
+                        visible: false
+                      },
                       {
                           field: 'Acciones',
                           displayName: $translate.instant('ACCIONES'),
                           width: '10%',
-                          cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>'
+                          cellClass: "text-center",
+                          cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>'
                       }
                   ],
                   onRegisterApi: function(gridApi) {
@@ -251,36 +280,8 @@ angular.module('titanClienteV2App')
 
         self.preliquidar_persona = function(row) {
 
-
-            self.preliquidacion.Definitiva = false;
-            self.nombre_seleccionado = row.entity.nom_proveedor;
-            self.cedula_seleccionado = row.entity.num_documento;
-            var personas_a_liquidar = [];
-              if (self.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || self.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || self.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
-
-                    var persona = {
-                        IdPersona: parseInt(row.entity.id_proveedor),
-                        NumDocumento: parseInt(row.entity.num_documento),
-                        Pendiente: "false",
-
-                    };
-
-                    personas_a_liquidar.push(persona)
-              }
-
-
-            var datos_preliquidacion = {
-                Preliquidacion: self.preliquidacion,
-                PersonasPreLiquidacion: personas_a_liquidar
-
-            };
-
-
-            titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-                  self.detalles = response.data
-                  $('#modal_detalle').modal('show');
-
-            });
+          $scope.persona = row.entity;
+          $('#modal_detalle').modal('show');
 
         };
 

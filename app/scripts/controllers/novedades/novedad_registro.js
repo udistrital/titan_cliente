@@ -86,12 +86,23 @@ angular.module('titanClienteV2App')
             enableRowSelection: true,
             enableRowHeaderSelection: false,
             columnDefs: [
-                { field: 'id_proveedor', visible: false },
-                { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '60%' },
-                { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '40%' }
-
-
-            ],
+                {
+                  field: 'id_proveedor',
+                  visible: false
+                },
+                {
+                  field: 'nom_proveedor',
+                  displayName: $translate.instant('NOMBRE_PERSONA'),
+                  width: '60%',
+                  cellClass: "text-center"
+                },
+                {
+                  field: 'num_documento',
+                  displayName: $translate.instant('DOCUMENTO'),
+                  width: '40%',
+                  cellClass: "text-center"
+                }
+          ],
 
 
         };
@@ -114,16 +125,29 @@ angular.module('titanClienteV2App')
                 {
                     field: 'Concepto.AliasConcepto',
                     displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
-                    width: '30%'
+                    width: '20%',
+                    cellClass: "text-center"
                 },
                 {
                     field: 'Concepto.TipoConcepto.Nombre',
                     visible: false
                 },
                 {
+                    field: 'NumeroContrato',
+                    displayName: $translate.instant('NUM_CONTRATO'),
+                    width: '15%',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'VigenciaContrato',
+                    displayName: $translate.instant('VIGENCIA'),
+                    width: '10%',
+                    cellClass: "text-center"
+                },
+                {
                     field: 'ValorNovedad',
                     displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
-                    width: '20%',
+                    width: '15%',
                     cellClass: "alineacion_derecha",
                     cellFilter: "filtro_formato_valor_novedad:row.entity"
                 },
@@ -135,16 +159,34 @@ angular.module('titanClienteV2App')
                     cellFilter: "filtro_formato_cuotas:row.entity"
 
                 },
-                { field: 'FechaDesde', visible: false },
-                { field: 'FechaHasta', visible: false },
-                { field: 'FechaRegistro', displayName: $translate.instant('FECHA_REGISTRO'), cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>', width: '25%', cellClass: "alineacion_derecha" },
-                { field: 'Activo', visible: false },
-                { field: 'Nomina.Id', visible: false },
+                {
+                  field: 'FechaDesde',
+                  visible: false
+                },
+                {
+                  field: 'FechaHasta',
+                  visible: false
+                },
+                {
+                  field: 'FechaRegistro',
+                  displayName: $translate.instant('FECHA_REGISTRO'),
+                  cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>',
+                  width: '15%',
+                  cellClass: "text-center" },
+                {
+                  field: 'Activo',
+                  visible: false
+                },
+                {
+                  field: 'Nomina.Id',
+                  visible: false
+                },
                 {
                     field: 'Acciones',
                     displayName: $translate.instant('ACCIONES'),
                     width: '10%',
-                    cellTemplate: '<center><btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro><center>',
+                    cellClass: "text-center",
+                    cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>',
                 }
                 //  cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.inactivar_novedad(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion_novedad"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
             ],
@@ -163,18 +205,32 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
 
             columnDefs: [
-                { field: 'Id', visible: false },
-                { field: 'AliasConcepto', displayName: $translate.instant('CONCEPTO') },
+                {
+                  field: 'Id',
+                  visible: false
+                },
+                {
+                  field: 'AliasConcepto',
+                  displayName: $translate.instant('CONCEPTO')
+                },
                 {
                     field: 'NaturalezaConcepto.Nombre',
-                    displayName: $translate.instant('NATURALEZA_NOMBRE')
+                    displayName: $translate.instant('NATURALEZA_NOMBRE'),
+                    cellClass: "text-center"
                 },
                 {
                     field: 'TipoConcepto.Nombre',
-                    displayName: $translate.instant('TIPO_NOMBRE')
+                    displayName: $translate.instant('TIPO_NOMBRE'),
+                    cellClass: "text-center"
                 },
-                { field: 'NaturalezaConcepto.Id', visible: false },
-                { field: 'TipoConcepto.Id', visible: false },
+                {
+                  field: 'NaturalezaConcepto.Id',
+                  visible: false
+                },
+                {
+                  field: 'TipoConcepto.Id',
+                  visible: false
+                },
             ]
 
         };
@@ -187,11 +243,41 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: self.permitir_seleccion_header,
             enableSelectAll: false,
             columnDefs: [
-              { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '20%', enableCellEdit: false },
-              { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'),width: '20%',enableCellEdit: false },
-              { field: 'NivelAcademico', displayName: $translate.instant('NIVEL'),width: '20%',enableCellEdit: false },
-              { field: 'ValorNovedadFijo', displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),width: '20%',enableCellEdit: true },
-              { field: 'CuotasFijo', displayName: $translate.instant('CUOTAS_NOV'),width: '20%',enableCellEdit: true },
+              {
+                field: 'NumeroContrato',
+                displayName: $translate.instant('NUM_CONTRATO'),
+                width: '20%',
+                enableCellEdit: false,
+                cellClass: "text-center"
+              },
+              {
+                field: 'VigenciaContrato',
+                displayName: $translate.instant('VIGENCIA'),
+                width: '20%',
+                enableCellEdit: false,
+                cellClass: "text-center"
+              },
+              {
+                field: 'NivelAcademico',
+                displayName: $translate.instant('NIVEL'),
+                width: '20%',
+                enableCellEdit: false,
+                cellClass: "text-center"
+              },
+              {
+                field: 'ValorNovedadFijo',
+                displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
+                width: '20%',
+                enableCellEdit: true,
+                cellClass: "text-center"
+              },
+              {
+                field: 'CuotasFijo',
+                displayName: $translate.instant('CUOTAS_NOV'),
+                width: '20%',
+                enableCellEdit: true,
+                cellClass: "text-center"
+              },
             ],
             onRegisterApi: function(gridApi) {
                 self.gridApi = gridApi;
@@ -206,9 +292,22 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
             enableSelectAll: false,
             columnDefs: [
-              { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '50%' },
-              { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'),width: '25%' },
-              { field: 'NivelAcademico', displayName: $translate.instant('NIVEL'),width: '25%' },
+              {
+                field: 'NumeroContrato',
+                displayName: $translate.instant('NUM_CONTRATO'),
+                width: '50%',
+                cellClass: "text-center"
+              },
+              {
+                field: 'VigenciaContrato',
+                displayName: $translate.instant('VIGENCIA'),
+                width: '25%',cellClass: "text-center" },
+              {
+                field: 'NivelAcademico',
+                displayName: $translate.instant('NIVEL'),
+                width: '25%',
+                cellClass: "text-center"
+              },
 
             ],
             onRegisterApi: function(gridApi) {
@@ -267,7 +366,7 @@ angular.module('titanClienteV2App')
 self.listar_novedades = function(row) {
     $scope.persona = row.entity
 
-    titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,NumeroContrato:' + $scope.persona.numero_contrato + ',VigenciaContrato:' + $scope.persona.vigencia + ',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
+    titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,Persona:' + $scope.persona.id_proveedor+ ',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
         if (response.data == null) {
             $scope.gridOptions_novedades.data = [];
             self.hayNovedad = false
@@ -379,7 +478,7 @@ self.Registrar = function() {
             ValorNovedad: valor
         };
 
-        
+
         titanRequest.post('concepto_nomina_por_persona', novedad_por_persona).then(function(response) {
 
             if (typeof(response.data) == "object") {
@@ -437,6 +536,8 @@ $scope.inactivar_novedad = function(row) {
             Id: parseInt(row.entity.Concepto.Id)
         }
 
+
+
         var novedad_por_persona_a_inactivar = {
             Id: row.entity.Id,
             Concepto: concepto_novedad,
@@ -445,8 +546,9 @@ $scope.inactivar_novedad = function(row) {
             FechaHasta: row.entity.FechaHasta,
             FechaRegistro: row.entity.FechaRegistro,
             NumCuotas: row.entity.NumCuotas,
-            NumeroContrato: $scope.persona.numero_contrato,
-            VigenciaContrato: parseInt($scope.persona.vigencia),
+            NumeroContrato: row.entity.NumeroContrato,
+            VigenciaContrato: parseInt(row.entity.VigenciaContrato),
+            Persona: parseInt($scope.persona.id_proveedor),
             Nomina: nomina_novedad,
             ValorNovedad: row.entity.ValorNovedad
         };
@@ -554,6 +656,9 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
     })
 }
 };
+
+
+
 
       $scope.$watch("novedadRegistro.anioPeriodo", function() {
 

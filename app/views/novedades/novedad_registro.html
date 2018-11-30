@@ -35,7 +35,7 @@
     </div>
 
     <div class="row" ng-if="!load">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">{{'SELECCION_PERSONA'| translate}}</div>
                 <div class="panel-body">
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
 
             <div class="panel panel-default">
                 <div class="panel-heading">{{'DETALLE_NOVEDAD'| translate}}</div>
@@ -61,13 +61,23 @@
     </div>
 </div>
 
+<div id="modal_detalle" class="modal fade " role="dialog" style="padding-top:5%">
+    <div class="modal-content col-md-offset-4 col-md-5">
+        <div class="modal-header">
+            <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal" ng-click="">&times</button><br>
+        </div>
+
+
+    </div>
+</div>
+
 <div id="modal_adicion_novedad" class="modal fade" role="dialog">
     <style>
         .md-datepicker-calendar-pane {
             z-index: 1200
         }
     </style>
-    <div class="modal-content col-md-7 col-md-offset-3" style="margin-top: 5%">
+    <div class="modal-content col-md-8 col-md-offset-2" style="margin-top: 5%">
         <div class="modal-header">
             <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
         </div>
@@ -77,86 +87,86 @@
                     <h3 class="panel-title">{{'TITULO_REG_NOVEDAD'| translate}}</h3>
                 </div>
                 <div class="panel-body">
+                    <div class = "col-md-6">
                     <div ui-grid="gridOptions_conceptos" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="miGrid"></div>
-                    <div class="col-md-8" ng-if="novedadRegistro.mostrar_grid_contratos_porcentual">
-                        <br>
+                   </div>
+
+                    <div class = "col-md-6">
+
+                      <ver-detalle-por-persona persona="persona" preliquidacion="novedadRegistro.preliquidacion" open="false"></ver-detalle-por-persona>
+
+                    </div>
+
+                    <div class = "row" ng-if="novedadRegistro.mostrar_grid_contratos_porcentual">
+                      <div class = "col-md-7" >
                         <div class="panel panel-default">
                             <div class="panel-heading">{{'CONTRATOS_PARA' | translate}} : {{preliquidacionPersonas.persona_seleccionada}}</div>
                             <div class="panel-body">
                                   <div ui-grid="novedadRegistro.informacion_contratos_porcentual"  ui-grid-auto-resize class="grid"></div>
                             </div>
                         </div>
+                      </div>
+
+                      <div class="col-md-5">
+                      <form name="formplan" ng-submit="formplan.$valid">
+                              <div class="col-md-12">
+                                <br>
+                                <center><b>{{'NOTA' | translate}}: </b></center>
+                                <br>
+                                {{'EXPLICACION_NOV_PORCENTUAL' | translate}}
+                              </div>
+                              <br>
+                              <div class="form-group">
+                                  <br>
+                                  <center><b><label class="col-md-12 col-form-label" for="txtValNovedad">INDIQUE VALOR DEL PORCENTAJE </label></b></center>
+                                  <br>
+                                  <div class="col-md-11">
+                                      <center><input type="number"  pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}" required min="0" max="100"> %</center>
+                                  </div>
+                                  <br>
+                              </div>
+                              <div class="col-md-12 col-form-label">
+                                  <br>
+                                  <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
+                              </div>
+
+                      </form>
+                     </div>
+                    </div>
+
+                    <div class = "row" ng-if="novedadRegistro.mostrar_grid_contratos_fijo">
+                      <div class="col-md-7" >
+                          <br>
+                          <div class="panel panel-default">
+                              <div class="panel-heading">{{'CONTRATOS_PARA' | translate}} : {{preliquidacionPersonas.persona_seleccionada}}</div>
+                              <div class="panel-body">
+                                    <div ui-grid="novedadRegistro.informacion_contratos_fijo" ui-grid-auto-resize ui-grid-edit class="grid"></div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="col-md-5">
+
+                              <div class="col-md-12">
+                                  <br>
+                                  <center><b>{{'NOTA' | translate}}: </b></center>
+                                  <br>
+                                  {{'EXPLICACION_NOV_FIJO' | translate}}
+
+                              </div>
+
+                              <div class="col-md-12 col-form-label">
+                                  <br>
+                                  <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
+                              </div>
+
+                      </div>
 
                     </div>
 
-                    <div class="col-md-8" ng-if="novedadRegistro.mostrar_grid_contratos_fijo">
-                        <br>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">{{'CONTRATOS_PARA' | translate}} : {{preliquidacionPersonas.persona_seleccionada}}</div>
-                            <div class="panel-body">
-                                  <div ui-grid="novedadRegistro.informacion_contratos_fijo" ui-grid-auto-resize ui-grid-edit class="grid"></div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-md-4">
-                    <form name="formplan" ng-submit="formplan.$valid">
-                        <div ng-show="concepto.TipoConcepto.Nombre==='porcentual'">
-                            <!-- Select Basic -->
-                            <div class="col-md-12">
-                                <h2>TEXTO EXPLICANDO COSAS SUPER ÚTILES</h2>
-                            </div>
-
-                            <div class="form-group">
-                                <br>
-                                <br>
-                                <label class="col-md-12 col-form-label" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
-                                <br>
-                                <div class="col-md-11">
-                                    <input type="number"  pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.ValorNovedad" md-placeholder="{{'VALOR_CONCEPTO'| translate}}" required min="0" max="100"> %
-                                </div>
-                                <br>
-                            </div>
-
-                        </div>
-                    </form>
-                   </div>
-
-                   <div class="col-md-4">
-                   <div class="col-md-12 col-form-label">
-                       <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
-                       </div>
-                   </div>
-
-                    <form name="formplan" ng-submit="formplan.$valid">
-                        <div ng-show="concepto.TipoConcepto.Nombre==='seguridad_social'">
-                            <!-- Select Basic -->
-                            <div class="form-group">
-                                <label class="col-md-2 col-form-label col-sm-offset-4" for="txtFechaInicio">{{'FECHA_INICIO' | translate}}</label>
-                                <div class="col-md-6">
-                                    <md-datepicker ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-2 col-form-label col-sm-offset-4" for="txtFechaFin">{{'FECHA_FIN' | translate}}</label>
-                                <div class="col-md-6">
-                                    <md-datepicker ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 col-form-label col-sm-offset-4">
-                                <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
-
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
-            <div>
-                </form>
-            </div>
+
         </div>
     </div>
 </div>

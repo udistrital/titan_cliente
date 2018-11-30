@@ -90,6 +90,8 @@ var text_es = {
   ESTADO_NOMINA: "Estado",
   ESTADO_PRELIQ: "Estado",
   ESTADO_SUS: "Estado",
+  EXPLICACION_NOV_FIJO: "Para la aplicación de la novedad de valor fijo, se debe registrar el valor a descontar POR CONTRATO, en las columnas VALOR NOVEDAD y CUOTAS",
+  EXPLICACION_NOV_PORCENTUAL: "La novedad porcentual se aplicará al total de los contratos mostrados",
   FACULTAD: "Facultad",
   FEBRERO:"Febrero",
   FECHA_FIN: "Fecha de finalización",

@@ -55,11 +55,8 @@
         <div class="modal-header">
             <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal" ng-click="">&times</button><br>
         </div>
-            <h2 class="page-header text-center">{{'PRELIQUIDACION_EMP' |translate}} : </h2>
-            <h3 class="page-header text-center">{{preliquidacionPersonas.cedula_seleccionado}} - {{preliquidacionPersonas.nombre_seleccionado}}</h3>
-            <div ng-repeat="detalle in preliquidacionPersonas.detalles">
-            <ver-detalle-por-persona detalle="detalle"></ver-detalle-por-persona>
-            </div>
+            <ver-detalle-por-persona persona="persona" preliquidacion="preliquidacionPersonas.preliquidacion" open="false"></ver-detalle-por-persona>
+
 
     </div>
 </div>
