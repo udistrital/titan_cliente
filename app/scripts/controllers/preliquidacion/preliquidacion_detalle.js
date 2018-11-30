@@ -185,7 +185,7 @@ angular.module('titanClienteV2App')
                 Id: 4
             }
 
-            console.log(self.preliquidacion)
+            
             self.preliquidacion.EstadoPreliquidacion = Estado_Pre
 
             titanRequest.put('preliquidacion', self.preliquidacion.Id, self.preliquidacion).then(function(response) {

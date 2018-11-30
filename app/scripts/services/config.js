@@ -80,6 +80,6 @@ var conf_presentacion = {
 
 angular.module('titanClienteV2App')
     .constant('CONF', {
-        GENERAL: conf_local
+        GENERAL: conf_pruebas
 
     });

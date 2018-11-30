@@ -102,7 +102,7 @@ angular.module('titanClienteV2App')
 
         });
 
-        
+
 
         self.limpiar = function() {
             self.formVisibility = false;
@@ -224,7 +224,7 @@ angular.module('titanClienteV2App')
           self.preliquidacion.Nomina = self.nomina
           $localStorage.preliquidacion = self.preliquidacion;
 
-          titanMidRequest.post('preliquidacion/resumen', self.preliquidacion).then(function(response) {
+          titanMidRequest.post('preliquidacion/personas_x_preliquidacion', self.preliquidacion).then(function(response) {
               if(response.data === null){
                 swal({
                     html: $translate.instant('NO_PRELIQ'),
