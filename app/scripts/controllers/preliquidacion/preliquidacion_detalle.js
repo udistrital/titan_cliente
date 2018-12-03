@@ -29,26 +29,28 @@ angular.module('titanClienteV2App')
             enableSelectAll: false,
             columnDefs: [{
                     field: 'IdPersona',
-                    width: '20%',
-                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.IdPersona}}</button>',
-                    visible: true
+                    visible: false
                 },
+
                 {
-                    field: 'NombreCompleto',
-                    displayName: $translate.instant('NOMBRE_PERSONA'),
-                    width: '55%',
+                    field: 'NumDocumento',
+                    displayName: $translate.instant('DOCUMENTO'),
+                    width: '40%',
+                    headerCellClass: 'encabezado',
+                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumDocumento}}</button>',
                     cellClass: function(grid, row) {
                         if (row.entity.Disponibilidad === 2) {
-                            return 'si_pago';
+                            return 'text-center si_pago';
                         } else if (row.entity.Disponibilidad === 1) {
-                            return 'no_pago';
+                            return 'text-center no_pago';
                         }
                     }
                 },
                 {
-                    field: 'Documento',
-                    displayName: $translate.instant('DOCUMENTO'),
-                    width: '25%',
+                    field: 'NombreCompleto',
+                    displayName: $translate.instant('NOMBRE_PERSONA'),
+                    width: '60%',
+                    headerCellClass: 'encabezado',
                     cellClass: function(grid, row) {
                         if (row.entity.Disponibilidad === 2) {
                             return 'si_pago';
@@ -95,7 +97,11 @@ angular.module('titanClienteV2App')
                         } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
                             return 'text-center seguridad_social';
                         }
-                    }
+                    },
+                    sort: {
+                       direction: 'asc',
+                       priority: 0
+                   },
                 },
                 {
                     field: 'VigenciaContrato',
@@ -118,7 +124,7 @@ angular.module('titanClienteV2App')
                     width: '36%',
                     sort: {
                        direction: 'asc',
-                       priority: 1
+                       priority: 2
                    },
                     headerCellClass: 'encabezado',
                     cellClass: function(grid, row) {
@@ -135,7 +141,7 @@ angular.module('titanClienteV2App')
                     field: 'Concepto.NaturalezaConcepto.Id',
                     sort: {
                        direction: 'asc',
-                       priority: 0
+                       priority: 1
                    },
                     visible:false
                 },
@@ -217,7 +223,8 @@ angular.module('titanClienteV2App')
                          } else if (row.entity.NaturalezaConcepto === "seguridad_social") {
                              return 'text-center seguridad_social';
                          }
-                     }
+                     },
+                    cellFilter: "filtro_naturaleza_concepto_detalle:row.entity"
                  },
                 {
                     field: 'Total',
@@ -255,6 +262,7 @@ angular.module('titanClienteV2App')
 
 
         self.ver_seleccion_persona = function(row) {
+          self.persona_seleccionada_nombre = row.entity.NombreCompleto
           self.gridOptions_detalle.data = [];
           //Mostrar contratos
           var query = "query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona
@@ -520,5 +528,27 @@ angular.module('titanClienteV2App')
                     }
                 }
             }
+        };
+    }).filter('filtro_naturaleza_concepto_detalle', function($filter) {
+        return function(input, entity) {
+            var output;
+
+            if (undefined === input || null === input) {
+                return "";
+            }
+
+            if (entity.NaturalezaConcepto === "devengo") {
+                output = "Devengo";
+            }
+
+            if (entity.NaturalezaConcepto === "descuento") {
+                output = "Descuento";
+            }
+
+            if (entity.NaturalezaConcepto === "seguridad_social") {
+                output = "Seguridad Social";
+            }
+
+            return output;
         };
     });

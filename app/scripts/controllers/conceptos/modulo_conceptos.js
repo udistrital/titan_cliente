@@ -29,7 +29,8 @@ angular.module('titanClienteV2App')
             enableSorting: true,
             enableRowSelection: false,
             enableRowHeaderSelection: false,
-
+            paginationPageSizes: [5, 10, 20],
+            paginationPageSize: 10,
             columnDefs: [
                 { field: 'Id', visible: false },
                 { field: 'NombreConcepto', visible: false },
@@ -40,31 +41,49 @@ angular.module('titanClienteV2App')
                     field: 'AliasConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
                     width: '40%',
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado",
+                    sort: {
+                       direction: 'asc',
+                       priority: 1
+                   },
                 },
                 {
                     field: 'NaturalezaConcepto.Nombre',
                     displayName: $translate.instant('NATURALEZA_NOMBRE'),
                     width: '20%',
-                    cellFilter: "filtro_naturaleza_concepto:row.entity"
+                    cellFilter: "filtro_naturaleza_concepto:row.entity",
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado",
+                    sort: {
+                       direction: 'asc',
+                       priority: 0
+                   },
                 },
                 {
                     field: 'TipoConcepto.Nombre',
                     displayName: $translate.instant('TIPO_NOMBRE'),
                     width: '15%',
-                    cellFilter: "filtro_tipo_concepto:row.entity"
+                    cellFilter: "filtro_tipo_concepto:row.entity",
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado"
                 },
                 {
                     field: 'EstadoConceptoNomina.Nombre',
                     displayName: $translate.instant('ESTADO_CONCEPTO'),
                     width: '15%',
-                    cellFilter: "filtro_estado_concepto:row.entity"
+                    cellFilter: "filtro_estado_concepto:row.entity",
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado"
                 },
                 {
                     field: 'Acciones',
                     displayName: $translate.instant('ACCIONES'),
                     width: '10%',
-                    cellTemplate: '<center><a ng-if="row.entity.EstadoConceptoNomina.Nombre==\'activo\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_activo" fila="row"></btn-registro><center></a>'+
-                    '<center><a ng-if="row.entity.EstadoConceptoNomina.Nombre==\'inactivo\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_inactivo" fila="row"></btn-registro><center></a>'
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado",
+                    cellTemplate: '<a ng-if="row.entity.EstadoConceptoNomina.Nombre==\'activo\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_activo" fila="row"></btn-registro></a>'+
+                    '<a ng-if="row.entity.EstadoConceptoNomina.Nombre==\'inactivo\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_inactivo" fila="row"></btn-registro></a>'
                 }
             ]
         };

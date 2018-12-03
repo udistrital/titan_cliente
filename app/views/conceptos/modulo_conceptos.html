@@ -1,10 +1,10 @@
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{'TITULO_GENERAL' | translate}}</h2>
+  <h2 class="page-header text-center">{{'TITULO_GENERAL_CONCEPTOS' | translate}}</h2>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6  col-md-offset-3">
+      <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
-            <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
+            <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection  ui-grid-pagination ui-grid-auto-resize class="myGrid"></div></div>
         </div>
       </div>
       <div class="col-md-4 col-md-offset-4">
@@ -25,7 +25,7 @@
      <div class="modal-body">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h3 class="panel-title">{{'TITULO_EDICION' | translate}}</h3>
+           <h3 class="panel-title">{{'TITULO_EDICION_CONCEPTO' | translate}}</h3>
          </div>
          <div class="panel-body">
            <form name="formplan" ng-submit="formplan.$valid">
@@ -67,7 +67,7 @@
      <div class="modal-body">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h3 class="panel-title">{{'TITULO_ADICION' | translate}}</h3>
+           <h3 class="panel-title">{{'TITULO_ADICION_CONCEPTO' | translate}}</h3>
          </div>
          <div class="panel-body">
            <form name="formplan" ng-submit="formplan.$valid">

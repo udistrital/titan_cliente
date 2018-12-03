@@ -1,6 +1,5 @@
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{'TITULO_DETALLE_PRELIQ' | translate}} <b>{{preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.Descripcion}}</b></h2>
-  <h2 class="text-center">{{preliquidacionDetalle.preliquidacion.Mes}} de {{preliquidacionDetalle.preliquidacion.Ano}}</h2>
+  <h2 class="page-header text-center">{{'TITULO_DETALLE_PRELIQ' | translate}} <b>{{preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.Descripcion}}</b><br>{{preliquidacionDetalle.preliquidacion.Mes | translate}} de {{preliquidacionDetalle.preliquidacion.Ano}}</h2>
 <div class="row">
   <div class="col-md-4">
       <div class="panel panel-primary">
@@ -25,20 +24,28 @@
       </div>
 
       <div class="col-md-4">
-        <div class="panel panel-default">
-              <div ui-grid="preliquidacionDetalle.gridOptions_resumen" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+        <div class="panel-primary">
 
-        </div>
-
-        <b><h2>{{'TOTAL_DEV' | translate}}</b> : {{preliquidacionDetalle.total_devengos | currency}}
-        <br>
-        <b>{{'TOTAL_DESC' | translate}}</b>: {{preliquidacionDetalle.total_descuentos | currency}}</h2>
+            <div class="panel-heading">{{'DETALLE_EMP'| translate}}: {{preliquidacionDetalle.persona_seleccionada_nombre}}</div>
+              <div class="panel-body">
+              <div ui-grid="preliquidacionDetalle.gridOptions_detalle" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+              </div>
+            </div>
       </div>
 
       <div class="col-md-4">
-        <div class="panel panel-default">
-              <div ui-grid="preliquidacionDetalle.gridOptions_detalle" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
-              </div>
+        <div class="panel-primary">
+          <div class="panel-heading">{{'RESUMEN_PRELIQ'| translate}}</div>
+            <div class="panel-body">
+              <div ui-grid="preliquidacionDetalle.gridOptions_resumen" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+
+            </div>
+        </div>
+
+
+        <b><h2>{{'TOTAL_DEV' | translate}}</b>  {{preliquidacionDetalle.total_devengos | currency}}</h2>
+        <br>
+        <b><h2>{{'TOTAL_DESC' | translate}}</b> {{preliquidacionDetalle.total_descuentos | currency}}</h2>
       </div>
 
   </div>

@@ -57,3 +57,8 @@ sencillo {
 .si_pago {
 	background-color: #99bbff !important;
 }
+
+.encabezado {
+  text-align: center;
+  color: #31708F;
+}

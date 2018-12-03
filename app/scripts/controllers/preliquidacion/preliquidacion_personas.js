@@ -37,7 +37,7 @@ angular.module('titanClienteV2App')
                       { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '10%' },
                       { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '45%' },
                       { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '15%' },
-                      { field: 'Preliquidado', displayName: "preliquidado", width: '14%' },
+                      { field: 'Preliquidado', visible:false },
                       { field: 'IdEPS', visible: false },
                       { field: 'IdARL', visible: false },
                       { field: 'IdFondoPension', visible: false },
@@ -68,21 +68,38 @@ angular.module('titanClienteV2App')
                       {
                         field: 'num_documento',
                         displayName: $translate.instant('DOCUMENTO'),
-                        width: '20%',
-                        cellClass: "text-center",
+                        width: '25%',
+                        headerCellClass: 'encabezado',
+                        cellClass: function(grid, row) {
+                            if (row.entity.Preliquidado === "si") {
+                                return 'text-center no_pago';
+                            } else if (row.entity.Preliquidado  === "no") {
+                                return 'text-center';
+                            }
+                        },
                         cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.num_documento}}</button>',
                       },
                       {
                         field: 'nom_proveedor',
                         displayName: $translate.instant('NOMBRE_PERSONA'),
-                        width: '55%',
-                        cellClass: "text-center"
+                        width: '62%',
+                        headerCellClass: 'encabezado',
+                        cellClass: function(grid, row) {
+                            if (row.entity.Preliquidado === "si") {
+                                return 'text-center no_pago';
+                            } else if (row.entity.Preliquidado  === "no") {
+                                return 'text-center';
+                            }
+                        },
                       },
                       {
                         field: 'Preliquidado',
-                        displayName: "preliquidado",
-                        width: '10%',
-                        cellClass: "text-center" },
+                        visible:false,
+                        sort: {
+                           direction: 'desc',
+                           priority: 0
+                       },
+                      },
                       {
                         field: 'IdEPS',
                         visible: false
@@ -103,7 +120,14 @@ angular.module('titanClienteV2App')
                           field: 'Acciones',
                           displayName: $translate.instant('ACCIONES'),
                           width: '10%',
-                          cellClass: "text-center",
+                          headerCellClass: 'encabezado',
+                          cellClass: function(grid, row) {
+                              if (row.entity.Preliquidado === "si") {
+                                  return 'text-center no_pago';
+                              } else if (row.entity.Preliquidado  === "no") {
+                                  return 'text-center';
+                              }
+                          },
                           cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>'
                       }
                   ],
@@ -119,9 +143,9 @@ angular.module('titanClienteV2App')
                   enableRowSelection: false,
                   enableSelectAll: false,
                   columnDefs: [
-                    { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '50%' },
-                    { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'),width: '25%' },
-                    { field: 'NivelAcademico', displayName: $translate.instant('NIVEL'),width: '25%' },
+                    { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), width: '50%',  headerCellClass: 'encabezado', cellClass: 'text-center' },
+                    { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'),width: '25%',  headerCellClass: 'encabezado', cellClass: 'text-center' },
+                    { field: 'NivelAcademico', displayName: $translate.instant('NIVEL'),width: '28%',  headerCellClass: 'encabezado', cellClass: 'text-center' },
                   ],
                   onRegisterApi: function(gridApi) {
                       self.gridApi = gridApi;

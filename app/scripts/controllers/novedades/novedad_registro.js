@@ -32,18 +32,18 @@ angular.module('titanClienteV2App')
 
 
         self.meses = {
-            1: "Enero",
-            2: "Febrero",
-            3: "Marzo",
-            4: "Abril",
-            5: "Mayo",
-            6: "Junio",
-            7: "Julio",
-            8: "Agosto",
-            9: "Septiembre",
-            10: "Octubre",
-            11: "Noviembre",
-            12: "Diciembre"
+            1: $translate.instant('ENERO'),
+            2: $translate.instant('FEBRERO'),
+            3: $translate.instant('MARZO'),
+            4: $translate.instant('ABRIL'),
+            5: $translate.instant('MAYO'),
+            6: $translate.instant('JUNIO'),
+            7: $translate.instant('JULIO'),
+            8: $translate.instant('AGOSTO'),
+            9: $translate.instant('SEPTIEMBRE'),
+            10: $translate.instant('OCTUBRE'),
+            11: $translate.instant('NOVIEMBRE'),
+            12: $translate.instant('DICIEMBRE')
         };
 
         //Crea un arreglo de objetos para tener los años desde el 1900 hasta el año actual con el metodo getFullYear()
@@ -94,13 +94,15 @@ angular.module('titanClienteV2App')
                   field: 'nom_proveedor',
                   displayName: $translate.instant('NOMBRE_PERSONA'),
                   width: '60%',
-                  cellClass: "text-center"
+                  cellClass: "text-center",
+                  headerCellClass: 'encabezado',
                 },
                 {
                   field: 'num_documento',
                   displayName: $translate.instant('DOCUMENTO'),
                   width: '40%',
-                  cellClass: "text-center"
+                  cellClass: "text-center",
+                  headerCellClass: 'encabezado',
                 }
           ],
 
@@ -126,6 +128,7 @@ angular.module('titanClienteV2App')
                     field: 'Concepto.AliasConcepto',
                     displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
                     width: '20%',
+                    headerCellClass: 'encabezado',
                     cellClass: "text-center"
                 },
                 {
@@ -136,12 +139,14 @@ angular.module('titanClienteV2App')
                     field: 'NumeroContrato',
                     displayName: $translate.instant('NUM_CONTRATO'),
                     width: '15%',
+                    headerCellClass: 'encabezado',
                     cellClass: "text-center"
                 },
                 {
                     field: 'VigenciaContrato',
                     displayName: $translate.instant('VIGENCIA'),
                     width: '10%',
+                    headerCellClass: 'encabezado',
                     cellClass: "text-center"
                 },
                 {
@@ -149,6 +154,7 @@ angular.module('titanClienteV2App')
                     displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
                     width: '15%',
                     cellClass: "alineacion_derecha",
+                    headerCellClass: 'encabezado',
                     cellFilter: "filtro_formato_valor_novedad:row.entity"
                 },
                 {
@@ -156,6 +162,7 @@ angular.module('titanClienteV2App')
                     displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
                     width: '15%',
                     cellClass: "alineacion_derecha",
+                    headerCellClass: 'encabezado',
                     cellFilter: "filtro_formato_cuotas:row.entity"
 
                 },
@@ -172,6 +179,7 @@ angular.module('titanClienteV2App')
                   displayName: $translate.instant('FECHA_REGISTRO'),
                   cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>',
                   width: '15%',
+                  headerCellClass: 'encabezado',
                   cellClass: "text-center" },
                 {
                   field: 'Activo',
@@ -186,6 +194,7 @@ angular.module('titanClienteV2App')
                     displayName: $translate.instant('ACCIONES'),
                     width: '10%',
                     cellClass: "text-center",
+                    headerCellClass: 'encabezado',
                     cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>',
                 }
                 //  cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.inactivar_novedad(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion_novedad"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
@@ -211,17 +220,20 @@ angular.module('titanClienteV2App')
                 },
                 {
                   field: 'AliasConcepto',
-                  displayName: $translate.instant('CONCEPTO')
+                  displayName: $translate.instant('CONCEPTO'),
+                  headerCellClass: 'encabezado',
                 },
                 {
                     field: 'NaturalezaConcepto.Nombre',
                     displayName: $translate.instant('NATURALEZA_NOMBRE'),
-                    cellClass: "text-center"
+                    cellClass: "text-center",
+                    headerCellClass: 'encabezado',
                 },
                 {
                     field: 'TipoConcepto.Nombre',
                     displayName: $translate.instant('TIPO_NOMBRE'),
-                    cellClass: "text-center"
+                    cellClass: "text-center",
+                    headerCellClass: 'encabezado',
                 },
                 {
                   field: 'NaturalezaConcepto.Id',
