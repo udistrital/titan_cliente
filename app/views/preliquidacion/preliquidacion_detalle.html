@@ -28,8 +28,28 @@
 
             <div class="panel-heading">{{'DETALLE_EMP'| translate}}: {{preliquidacionDetalle.persona_seleccionada_nombre}}</div>
               <div class="panel-body">
-              <div ui-grid="preliquidacionDetalle.gridOptions_detalle" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+                <div ui-grid="preliquidacionDetalle.gridOptions_detalle" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+
+                <table class="table">
+                    <tr>
+                        <th>{{'TOTAL_DEV' | translate}}</th>
+                        <td class="alineacion_derecha">{{preliquidacionDetalle.total_devengos_persona | currency}}</td>
+                    </tr>
+                    <tr>
+
+                        <th>{{'TOTAL_DESC'| translate}}</th>
+                        <td class="alineacion_derecha"> {{preliquidacionDetalle.total_descuentos_persona | currency}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'TOTAL_PAGAR' | translate}}</th>
+                        <td class="alineacion_derecha"> {{preliquidacionDetalle.total_a_pagar_persona | currency}}</td>
+                    </tr>
+
+
+                </table>
+
               </div>
+
             </div>
       </div>
 

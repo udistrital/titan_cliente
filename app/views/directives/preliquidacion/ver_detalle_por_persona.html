@@ -41,15 +41,16 @@
             <table class="table">
                 <tr>
                     <th>{{'TOTAL_DEV' | translate}}</th>
-                    <td class="alineacion_derecha">{{d_verDetallePorPersona.seleccion_tot_devengo | currency}}</td>
+                    <td class="alineacion_derecha">{{detalle.TotalDevengos | currency}}</td>
                 </tr>
                 <tr>
+                    
                     <th>{{'TOTAL_DESC'| translate}}</th>
-                    <td class="alineacion_derecha">{{d_verDetallePorPersona.seleccion_tot_descuentos | currency}}</td>
+                    <td class="alineacion_derecha">{{detalle.TotalDescuentos | currency}}</td>
                 </tr>
                 <tr>
                     <th>{{'TOTAL_PAGAR' | translate}}</th>
-                    <td class="alineacion_derecha">{{d_verDetallePorPersona.seleccion_sueldoNeto | currency}}</td>
+                    <td class="alineacion_derecha">{{detalle.TotalAPagar | currency}}</td>
                 </tr>
 
 

@@ -51,7 +51,7 @@ angular.module('titanClienteV2App')
 
             titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
                   self.detalles = response.data
-
+                  console.log("detallito",self.detalles)
               });
 
           }

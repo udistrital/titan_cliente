@@ -268,9 +268,33 @@ angular.module('titanClienteV2App')
           var query = "query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona
           titanRequest.get('detalle_preliquidacion/', query).then(function(response) {
             self.gridOptions_detalle.data = response.data;
-            console.log(self.gridOptions_detalle)
+            self.calcular_totales(response.data);
           });
 
+        };
+
+        self.calcular_totales = function(detalle){
+
+          var total_devengos = 0;
+          var total_descuentos = 0;
+          var total_a_pagar = 0;
+          angular.forEach(detalle, function(value, key){
+                  if (value.Concepto.NaturalezaConcepto.Nombre == "devengo") {
+                    total_devengos = total_devengos + parseInt(value.ValorCalculado);
+
+                  }
+
+                  if (value.Concepto.NaturalezaConcepto.Nombre == "descuento") {
+                    total_descuentos = total_descuentos + parseInt(value.ValorCalculado);
+
+                  }
+             });
+
+             total_a_pagar = total_devengos - total_descuentos
+             self.total_devengos_persona = total_devengos;
+             self.total_descuentos_persona = total_descuentos;
+             self.total_a_pagar_persona = total_a_pagar;
+             console.log("sel",self.total_devengos_persona)
         };
 
         self.solicitar_op = function() {
