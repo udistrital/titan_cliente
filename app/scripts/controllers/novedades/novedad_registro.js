@@ -125,6 +125,10 @@ angular.module('titanClienteV2App')
                     visible: false
                 },
                 {
+                    field: 'Persona',
+                    visible: false
+                },
+                {
                     field: 'Concepto.AliasConcepto',
                     displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
                     width: '20%',
@@ -344,10 +348,19 @@ angular.module('titanClienteV2App')
                 if($scope.concepto.TipoConcepto.Nombre == "fijo"){
                   self.mostrar_grid_contratos_fijo = true;
                   self.mostrar_grid_contratos_porcentual = false;
+                      self.mostrar_grid_contratos_ss = false;
                 }
 
                 if($scope.concepto.TipoConcepto.Nombre == "porcentual"){
                   self.mostrar_grid_contratos_porcentual = true;
+                  self.mostrar_grid_contratos_fijo = false;
+                      self.mostrar_grid_contratos_ss = false;
+
+                }
+
+                if($scope.concepto.TipoConcepto.Nombre == "seguridad_social"){
+                  self.mostrar_grid_contratos_ss = true;
+                  self.mostrar_grid_contratos_porcentual = false;
                   self.mostrar_grid_contratos_fijo = false;
 
                 }
@@ -404,24 +417,34 @@ self.listar_contratos_por_persona = function() {
     PersonasPreLiquidacion: personas_a_listar
   }
 
+
   titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona/', datos_preliquidacion).then(function(response) {
 
   self.informacion_contratos_fijo.data = [];
   self.informacion_contratos_porcentual.data = [];
+  var contratos = [];
 
       angular.forEach(response.data.Contratos, function(value, key){
-        if($scope.concepto.TipoConcepto.Nombre == "fijo"){
-          self.informacion_contratos_fijo.data.push(value)
-
-        }
-
-        if($scope.concepto.TipoConcepto.Nombre == "porcentual"){
-        self.informacion_contratos_porcentual.data.push(value)
-
-        }
+        contratos.push(value);
 
          });
 
+         if($scope.concepto.TipoConcepto.Nombre == "fijo"){
+           self.informacion_contratos_fijo.data = contratos;
+
+         }
+
+         if($scope.concepto.TipoConcepto.Nombre == "porcentual"){
+         self.informacion_contratos_porcentual.data = contratos;
+
+         }
+
+         if($scope.concepto.TipoConcepto.Nombre == "seguridad_social"){
+           self.informacion_contratos_porcentual.data = contratos;
+
+         }
+
+         console.log("fijos", self.informacion_contratos_fijo)
   });
 
 };
@@ -444,6 +467,7 @@ $scope.loadrow = function(row, operacion) {
 
 self.Registrar = function() {
 
+
     var info_contratos = [];
     var valor;
     var cuotas;
@@ -462,6 +486,7 @@ self.Registrar = function() {
     if ($scope.concepto.TipoConcepto.Nombre === "seguridad_social") {
         valor = 0;
         cuotas = 0;
+        info_contratos = self.informacion_contratos_porcentual.data;
     }
 
 
@@ -604,6 +629,10 @@ $scope.llenar_modal = function(row) {
     self.id_nomina_edicion = row.entity.Nomina.Id
     self.valor_novedad_edicion = row.entity.ValorNovedad
     self.persona_edicion = row.entity.Persona
+    self.num_contrato_edicion = row.entity.NumeroContrato;
+    self.vigencia_contrato_edicion = row.entity.VigenciaContrato;
+    self.persona_edicion = row.entity.Persona;
+
 };
 
 self.Editar = function() {
@@ -634,11 +663,15 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
             FechaHasta: self.FechaFin,
             FechaRegistro: self.CurrentDate,
             NumCuotas: parseInt(self.num_cuotas_edicion),
-            NumeroContrato: $scope.persona.numero_contrato,
-            VigenciaContrato: parseInt($scope.persona.vigencia),
+            NumeroContrato: self.num_contrato_edicion,
+            VigenciaContrato: parseInt(self.vigencia_contrato_edicion),
             Nomina: nomina_novedad,
-            ValorNovedad: parseFloat(self.valor_novedad_edicion)
+            ValorNovedad: parseFloat(self.valor_novedad_edicion),
+            Persona: parseInt(self.persona_edicion)
+
         };
+
+        console.log("objeto edicion", novedad_por_persona_a_editar)
 
         titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
             if (response.data == "OK") {
@@ -663,6 +696,8 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
                 })
             }
         });
+
+
 
 
     })
@@ -739,7 +774,7 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
         }
 
         if (entity.Concepto.TipoConcepto.Nombre === "porcentual") {
-            output = "Fija";
+            output = "Valor";
         }
 
         if (entity.Concepto.TipoConcepto.Nombre === "fijo") {

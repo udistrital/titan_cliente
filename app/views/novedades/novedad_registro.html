@@ -97,6 +97,48 @@
 
                     </div>
 
+                    <div class = "row" ng-if="novedadRegistro.mostrar_grid_contratos_ss">
+                      <div class = "col-md-7" >
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{'CONTRATOS_PARA' | translate}} : {{preliquidacionPersonas.persona_seleccionada}}</div>
+                            <div class="panel-body">
+                                  <div ui-grid="novedadRegistro.informacion_contratos_porcentual"  ui-grid-auto-resize class="grid"></div>
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-5">
+                      <form name="formplan" ng-submit="formplan.$valid">
+                              <div class="col-md-12">
+                                <br>
+                                <center><b>{{'NOTA' | translate}}: </b></center>
+                                <br>
+                                {{'EXPLICACION_NOV_SS' | translate}}
+                              </div>
+                              <br>
+                              <div class="form-group">
+                                <br>
+                                <label class="col-md-12 col-form-label" for="txtFechaInicio">{{'FECHA_INICIO' | translate}}</label>
+                                <div class="col-md-12">
+                                    <md-datepicker ng-model="novedadRegistro.FechaInicio" md-placeholder="{{'FECHA_INICIO'| translate}}"></md-datepicker>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-12 col-form-label" for="txtFechaFin">{{'FECHA_FIN' | translate}}</label>
+                                <div class="col-md-12">
+                                    <md-datepicker ng-model="novedadRegistro.FechaFin" md-placeholder="{{'FECHA_FIN'| translate}}"></md-datepicker>
+                                </div>
+                              </div>
+                              <div class="col-md-12 col-form-label">
+                                  <br>
+                                  <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Registrar()'>
+                              </div>
+
+                      </form>
+                     </div>
+                    </div>
+
                     <div class = "row" ng-if="novedadRegistro.mostrar_grid_contratos_porcentual">
                       <div class = "col-md-7" >
                         <div class="panel panel-default">
@@ -192,13 +234,17 @@
 
                         <div ng-show="novedadRegistro.tipo_concepto_edicion ==='porcentual'">
                             <div class="form-group">
-                                <label class="col-md-1 col-form-label col-sm-offset-4" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
-                                <div class="col-md-4">
-                                    <input type="number" pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required min="0" max="100"> %
+                                <label class="col-md-1 col-form-label col-sm-offset-3" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
+                                <div class="col-md-1">
+                                    <input type="number" pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required min="0" max="100"> 
+                                </div>
+                                <div class="col-md-1 col-sm-offset-3">
+                                  %
                                 </div>
                             </div>
 
                             <div class="col-md-4 col-form-label col-sm-offset-4">
+                                <br>
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Editar()'>
 
                             </div>
@@ -223,6 +269,7 @@
                             </div>
 
                             <div class="col-md-4 col-form-label col-sm-offset-4">
+                                <br>
                                 <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='novedadRegistro.Editar()'>
 
                             </div>
