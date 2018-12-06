@@ -13,14 +13,15 @@ angular.module('titanClienteV2App')
       scope: {
         persona: '=?',
         preliquidacion: '=?',
-        open: '=?'
+        open: '=?',
+        mostrarleyenda: '=?'
       },
       templateUrl: 'views/directives/preliquidacion/ver_detalle_por_persona.html',
 
       controller: function($scope) {
         var self = this;
         $scope.inputpestanaabierta = $scope.open;
-
+        $scope.mostrarleyenda = "false"
         self.preliquidar_persona = function() {
 
           if($scope.persona != undefined && $scope.preliquidacion != undefined){
@@ -34,6 +35,8 @@ angular.module('titanClienteV2App')
                     var persona = {
                         IdPersona: parseInt($scope.persona.id_proveedor),
                         NumDocumento: parseInt($scope.persona.num_documento),
+                        NumeroContrato: $scope.persona.numero_contrato,
+                        VigenciaContrato: parseInt($scope.persona.vigencia),
                         Pendiente: "false",
 
                     };
@@ -51,7 +54,8 @@ angular.module('titanClienteV2App')
 
             titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
                   self.detalles = response.data
-                  console.log("detallito",self.detalles)
+                  $scope.mostrarleyenda = "true";
+
               });
 
           }

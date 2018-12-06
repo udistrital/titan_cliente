@@ -121,7 +121,7 @@ angular.module('titanClienteV2App')
                 {
                     field: 'Concepto.AliasConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
-                    width: '36%',
+                    width: '45%',
                     sort: {
                        direction: 'asc',
                        priority: 2
@@ -149,7 +149,7 @@ angular.module('titanClienteV2App')
                 {
                     field: 'ValorCalculado',
                     displayName: $translate.instant('VALOR'),
-                    width: '25%',
+                    width: '35%',
                     cellFilter: 'currency',
                     headerCellClass: 'encabezado',
                     cellClass: function(grid, row) {
@@ -187,7 +187,7 @@ angular.module('titanClienteV2App')
                        direction: 'asc',
                        priority: 1
                    },
-                    width: '50%',
+                    width: '60%',
                     cellClass: function(grid, row) {
                         if (row.entity.NaturalezaConcepto === "devengo") {
                             return 'text-center devengo';
@@ -229,7 +229,7 @@ angular.module('titanClienteV2App')
                 {
                     field: 'Total',
                     displayName: $translate.instant('TOTAL'),
-                    width: '25%',
+                    width: '35%',
                     cellFilter: 'currency',
                     cellClass: 'alineacion_derecha',
                     headerCellClass: 'encabezado',

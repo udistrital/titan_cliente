@@ -2,12 +2,15 @@
 <h3 class="page-header text-center">{{d_verDetallePorPersona.cedula_seleccionado}} - {{d_verDetallePorPersona.nombre_seleccionado}}</h3>
 <div ng-repeat="detalle in d_verDetallePorPersona.detalles">
 
-<div class="col-md-12">
+  <legend class="text-primary" ng-if="mostrarleyenda=='false'">
+  {{'CARGANDO' | translate}} ...
+  </legend class="text-primary">
+
+<div class="col-md-12"  ng-if="mostrarleyenda=='true'" >
   <legend class="text-primary" ng-click="inputpestanaabierta=!inputpestanaabierta">
     {{detalle.NumeroContrato}} de {{detalle.VigenciaContrato}}
     <span class="fa fa-plus pull-right" ng-show="!inputpestanaabierta"></span>
     <span class="fa fa-minus pull-right" ng-show="inputpestanaabierta"></span>
-
   </legend class="text-primary">
 
      <div class="panel panel-primary" ng-if="inputpestanaabierta">
@@ -44,7 +47,7 @@
                     <td class="alineacion_derecha">{{detalle.TotalDevengos | currency}}</td>
                 </tr>
                 <tr>
-                    
+
                     <th>{{'TOTAL_DESC'| translate}}</th>
                     <td class="alineacion_derecha">{{detalle.TotalDescuentos | currency}}</td>
                 </tr>

@@ -383,6 +383,7 @@ angular.module('titanClienteV2App')
             titanRequest.get('concepto_nomina', 'limit=-1&query=EstadoConceptoNomina.Id:1').then(function(response) {
                 $scope.gridOptions_conceptos.data = response.data;
                 $('#modal_adicion_novedad').modal('show');
+                $scope.mostrar_preliq = true;
             });
 
         };
@@ -704,14 +705,21 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
 }
 };
 
+      $('#modal_adicion_novedad').on('hidden.bs.modal', function (e) {
 
+        self.mostrar_grid_contratos_ss = false;
+        self.mostrar_grid_contratos_fijo = false;
+        self.mostrar_grid_contratos_porcentual = false;
+        $scope.mostrar_preliq = false;
+      })
 
 
       $scope.$watch("novedadRegistro.anioPeriodo", function() {
 
         if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
 
-
+          self.preliquidacion_elegida = true;
+          self.cargando = true;
           self.preliquidacion = {
               Mes: parseInt(self.mesPeriodo),
               Ano: parseInt(self.anioPeriodo),
@@ -719,6 +727,7 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
           }
 
           titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
+              self.cargando = false;
               $scope.gridOptions_personas.data = response.data;
           });
           }
@@ -727,6 +736,8 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
 
       $scope.$watch("novedadRegistro.mesPeriodo", function() {
         if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
+          self.preliquidacion_elegida = true;
+          self.cargando = true;
           self.preliquidacion = {
               Mes: parseInt(self.mesPeriodo),
               Ano: parseInt(self.anioPeriodo),
@@ -735,6 +746,8 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
 
           titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
               $scope.gridOptions_personas.data = response.data;
+              self.cargando = false;
+
           });
 
 

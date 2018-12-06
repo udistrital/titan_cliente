@@ -39,7 +39,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{'SELECCION_PERSONA'| translate}}</div>
                 <div class="panel-body">
-                    <div ui-grid="gridOptions_personas" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="miGrid"></div>
+                    <div ui-grid="gridOptions_personas" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="miGrid">
+                      <div class="watermark" ng-show="!novedadRegistro.preliquidacion_elegida">{{'ALERTA_ELEGIR_PRELIQ'| translate}}</div>
+                      <div class="watermark" ng-show="novedadRegistro.cargando">{{'CARGANDO'| translate}}<i class="fa fa-spin fa-spinner"></i></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,9 +94,9 @@
                     <div ui-grid="gridOptions_conceptos" ui-grid-pagination ui-grid-selection ui-grid-auto-resize class="miGrid"></div>
                    </div>
 
-                    <div class = "col-md-6">
+                    <div class = "col-md-6" ng-if="mostrar_preliq">
 
-                      <ver-detalle-por-persona persona="persona" preliquidacion="novedadRegistro.preliquidacion" open="false"></ver-detalle-por-persona>
+                      <ver-detalle-por-persona persona="persona" preliquidacion="novedadRegistro.preliquidacion" mostrarleyenda="true" open="false"></ver-detalle-por-persona>
 
                     </div>
 
@@ -236,7 +239,7 @@
                             <div class="form-group">
                                 <label class="col-md-1 col-form-label col-sm-offset-3" for="txtValNovedad">{{'VALOR_CONCEPTO' | translate}}</label>
                                 <div class="col-md-1">
-                                    <input type="number" pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required min="0" max="100"> 
+                                    <input type="number" pattern="[0-9]+(\.[0-9]{0,2})?%?" ng-model="novedadRegistro.valor_novedad_edicion" md-placeholder="{{'VALOR_CONCEPTO' | translate}}" required min="0" max="100">
                                 </div>
                                 <div class="col-md-1 col-sm-offset-3">
                                   %

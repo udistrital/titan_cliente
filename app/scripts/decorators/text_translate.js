@@ -36,6 +36,7 @@ var text_es = {
   ALERTA_BEN_CORRECTO: "Beneficiario registrado correctamente",
   ALERTA_BEN_INCORRECTO: "Error al registrar beneficiario",
   ALERTA_COMPLETAR_DATOS_EDICION: "Complete todos los datos",
+  ALERTA_ELEGIR_PRELIQ: "Elija una preliquidación",
   ALERTA_NO_LIQUIDACION: "Esta preliquidación ya ha sido liquidada",
   ALERTA_NO_NOVEDADES: "No hay novedades registradas",
   ALERTA_PERSONAS_SELECCIONADAS: "Debe seleccionar personas para ser liquidadas",

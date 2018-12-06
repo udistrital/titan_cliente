@@ -44,9 +44,8 @@ angular.module('titanClienteV2App')
                       { field: 'IdCajaCompensacion', visible: false },
                   ],
                   onRegisterApi: function(gridApi) {
-                    $scope.gridApi = gridApi;
-                    $scope.mySelectedRows = $scope.gridApi.selection.getSelectedRows();
-                  }
+                    $scope.myGridApi = gridApi;
+                }
               };
 
             }
@@ -229,6 +228,7 @@ angular.module('titanClienteV2App')
             }
         };
 
+
         self.generar_preliquidacion = function() {
             var i;
             var personas = $scope.myGridApi.selection.getSelectedRows();
@@ -308,6 +308,14 @@ angular.module('titanClienteV2App')
           $('#modal_detalle').modal('show');
 
         };
+
+        $('#modal_detalle').on('hidden.bs.modal', function (e) {
+          $scope.mostrarleyenda = "false";
+        
+        })
+
+
+
 
         self.listar_contratos_por_persona = function(row) {
 
