@@ -33,10 +33,12 @@ angular.module('titanClienteV2App')
                       { field: 'numero_contrato',
                         cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.numero_contrato}}</button>',
                         displayName: $translate.instant('NUM_CONTRATO'),
-                        width: '15%' },
-                      { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '10%' },
-                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '45%' },
-                      { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '15%' },
+                        width: '15%',
+                        cellClass: 'text-center'
+                       },
+                      { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '15%',cellClass: 'text-center' },
+                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '45%', cellClass: 'text-center' },
+                      { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%', cellClass: 'text-center' },
                       { field: 'Preliquidado', visible:false },
                       { field: 'IdEPS', visible: false },
                       { field: 'IdARL', visible: false },
@@ -311,7 +313,7 @@ angular.module('titanClienteV2App')
 
         $('#modal_detalle').on('hidden.bs.modal', function (e) {
           $scope.mostrarleyenda = "false";
-        
+
         })
 
 

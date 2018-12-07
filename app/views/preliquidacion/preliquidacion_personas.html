@@ -4,7 +4,8 @@
 
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-6 col-md-offset-1">
+      <div ng-class="{'col-md-8 col-md-offset-2': preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre === 'CT' , 'col-md-6 col-md-offset-1': preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre === 'HCS' || preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre === 'HCH'}">
+
         <div class="panel panel-primary">
           <div class="panel-heading">
            <h4 class="intro-text"> {{ 'PAGOS_REALIZAR' | translate }} </h4>
@@ -16,9 +17,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" ng-if="preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre === 'HCS' || preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre === 'HCH'">
 
-          <div class="col-md-12">
+          <div class="col-md-12" >
               <div class="panel panel-primary">
                   <div class="panel-heading">{{'CONTRATOS_PARA' | translate}} : {{preliquidacionPersonas.persona_seleccionada}}</div>
                   <div class="panel-body">
