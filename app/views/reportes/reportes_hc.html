@@ -106,7 +106,6 @@
 
 	       	 	<div class="col-md-4" ng-if="reportesHc.panel_generacion && (reportesHc.reporte_seleccionado == 'total_nomina_por_pc' || reportesHc.reporte_seleccionado == 'total_nomina_por_facultad')" >
 
-	       	 			{{}}
 	       	 			<div class="col-md-4">
                           <label>{{ 'VALOR_TOTAL' | translate }}</label>
                         </div>
@@ -156,14 +155,14 @@
              </div>
 
 
-            <div class="col-md-12" ng-if="reportesHc.desagregacion_seleccionada == 'desc_nomina_por_facultad' || reportesHc.desagregacion_seleccionada == 'desc_nomina_por_pc'">
+            <div class="col-md-12" ng-if="reportesHc.desagregacion_seleccionada">
             <br>
             <div class="panel panel-default">
                   <div ui-grid="reportesHc.gridOptions_desagregado" ui-grid-selection ui-grid-pagination ui-grid-auto-resize ui-grid-exporter class="myGrid"></div>
                       <div class="watermark" ng-show="!reportesHc.hayData_grid">{{'NO_DATA'| translate}}</div>
                       <div class="watermark" ng-show="reportesHc.cargando_grid">{{'CARGANDO'| translate}}   <i class="fa fa-spin fa-spinner"></i></div>
                   </div>
-             
+
             </div>
           	</div>
 

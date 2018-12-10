@@ -184,7 +184,7 @@ angular.module('titanClienteV2App')
         self.generar_desagregado = function(){
 
           if (self.reporte_seleccionado == "total_nomina_por_pc"){
-              self.desagregacion_seleccionada = "desc_nomina_por_pc";
+              self.desagregacion_seleccionada = true;
               var objeto_nomina_seleccionada = JSON.parse(self.selected_nomina);
               self.nomina_reporte = objeto_nomina_seleccionada.Descripcion;
               self.gridOptions_desagregado.exporterCsvFilename ='Reporte-'+self.nomina_reporte+'-'+self.anoReporte+'-'+self.mesReporte+'.csv';
@@ -194,7 +194,7 @@ angular.module('titanClienteV2App')
 
           if (self.reporte_seleccionado == "total_nomina_por_facultad"){
 
-            self.desagregacion_seleccionada = "desc_nomina_por_facultad";
+            self.desagregacion_seleccionada = true;
             self.generar_desagregado_nomina_facultad();
           }
 
@@ -367,7 +367,9 @@ angular.module('titanClienteV2App')
             self.reporte_seleccionado = panel;
             self.titulo = $translate.instant(titulo);
             self.panel_generacion = false;
-            self.desagregacion_seleccionada = false;
+            self.desagregacion_seleccionada = true;
+            self.gridOptions_desagregado.data = [];
+            self.hayData_grid = false;
 
         };
 
