@@ -188,7 +188,7 @@ var text_es = {
   PRI_APE: "Primer apellido",
   PRI_NOM: "Primer nombre",
   PROYECTO_CURRICULAR: "Proyecto Curricular",
-  REALIZA_PAGO: "¿Se realizará pago?",
+  REALIZA_PAGO: "Estado de pago",
   REGISTRAR: "Registrar",
   REG_NOV_MENU: "Registrar novedades",
   RESUMEN_PRELIQ: "Resumen de la preliquidación",

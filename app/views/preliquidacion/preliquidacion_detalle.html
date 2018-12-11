@@ -32,6 +32,11 @@
 
                 <table class="table">
                     <tr>
+                        
+                        <th>{{'REALIZA_PAGO' | translate}}</th>
+                        <td class="alineacion_derecha">{{preliquidacionDetalle.gridOptions_detalle.data[0].EstadoDisponibilidad.Nombre}}</td>
+                    </tr>
+                    <tr>
                         <th>{{'TOTAL_DEV' | translate}}</th>
                         <td class="alineacion_derecha">{{preliquidacionDetalle.total_devengos_persona | currency}}</td>
                     </tr>

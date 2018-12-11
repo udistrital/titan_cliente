@@ -39,7 +39,7 @@ angular.module('titanClienteV2App')
                       { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '15%',cellClass: 'text-center' },
                       { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '45%', cellClass: 'text-center' },
                       { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%', cellClass: 'text-center' },
-                      { field: 'Preliquidado', visible:false },
+                      { field: 'Preliquidado', visible:true },
                       { field: 'IdEPS', visible: false },
                       { field: 'IdARL', visible: false },
                       { field: 'IdFondoPension', visible: false },
@@ -71,31 +71,23 @@ angular.module('titanClienteV2App')
                         displayName: $translate.instant('DOCUMENTO'),
                         width: '25%',
                         headerCellClass: 'encabezado',
-                        cellClass: function(grid, row) {
-                            if (row.entity.Preliquidado === "si") {
-                                return 'text-center no_pago';
-                            } else if (row.entity.Preliquidado  === "no") {
-                                return 'text-center';
-                            }
-                        },
+                        cellClass: 'text-center',
                         cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.num_documento}}</button>',
                       },
                       {
                         field: 'nom_proveedor',
                         displayName: $translate.instant('NOMBRE_PERSONA'),
-                        width: '62%',
+                        width: '52%',
                         headerCellClass: 'encabezado',
-                        cellClass: function(grid, row) {
-                            if (row.entity.Preliquidado === "si") {
-                                return 'text-center no_pago';
-                            } else if (row.entity.Preliquidado  === "no") {
-                                return 'text-center';
-                            }
-                        },
+                        cellClass: 'text-center',
                       },
                       {
                         field: 'Preliquidado',
-                        visible:false,
+                        visible:true,
+                        displayName: "Preliquidado",
+                        width: '10%',
+                        headerCellClass: 'encabezado',
+                        cellClass: "text-center",
                         sort: {
                            direction: 'desc',
                            priority: 0
@@ -122,13 +114,7 @@ angular.module('titanClienteV2App')
                           displayName: $translate.instant('ACCIONES'),
                           width: '10%',
                           headerCellClass: 'encabezado',
-                          cellClass: function(grid, row) {
-                              if (row.entity.Preliquidado === "si") {
-                                  return 'text-center no_pago';
-                              } else if (row.entity.Preliquidado  === "no") {
-                                  return 'text-center';
-                              }
-                          },
+                          cellClass: 'text-center',
                           cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>'
                       }
                   ],
