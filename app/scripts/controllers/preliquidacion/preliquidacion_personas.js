@@ -37,9 +37,9 @@ angular.module('titanClienteV2App')
                         cellClass: 'text-center'
                        },
                       { field: 'vigencia', displayName: $translate.instant('VIGENCIA'), width: '15%',cellClass: 'text-center' },
-                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '45%', cellClass: 'text-center' },
+                      { field: 'nom_proveedor', displayName: $translate.instant('NOMBRE_PERSONA'), width: '43%', cellClass: 'text-center' },
                       { field: 'num_documento', displayName: $translate.instant('DOCUMENTO'), width: '20%', cellClass: 'text-center' },
-                      { field: 'Preliquidado', visible:true },
+                      { field: 'Preliquidado', visible:true, width: '5%', cellClass: 'text-center'},
                       { field: 'IdEPS', visible: false },
                       { field: 'IdARL', visible: false },
                       { field: 'IdFondoPension', visible: false },
@@ -298,7 +298,8 @@ angular.module('titanClienteV2App')
         };
 
         $('#modal_detalle').on('hidden.bs.modal', function (e) {
-          $scope.mostrarleyenda = "false";
+        
+          $scope.persona = undefined
 
         })
 

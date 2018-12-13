@@ -22,6 +22,7 @@ angular.module('titanClienteV2App')
         var self = this;
         $scope.inputpestanaabierta = $scope.open;
         $scope.mostrarleyenda = "false"
+  
         self.preliquidar_persona = function() {
 
           if($scope.persona != undefined && $scope.preliquidacion != undefined){
@@ -64,6 +65,8 @@ angular.module('titanClienteV2App')
 
         $scope.$watch("persona", function() {
           self.preliquidar_persona();
+          $scope.mostrarleyenda = "false";
+
         });
 
 
