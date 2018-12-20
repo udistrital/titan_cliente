@@ -22,16 +22,17 @@ angular.module('titanClienteV2App')
         var self = this;
         $scope.inputpestanaabierta = $scope.open;
         $scope.mostrarleyenda = "false"
-  
+
         self.preliquidar_persona = function() {
 
           if($scope.persona != undefined && $scope.preliquidacion != undefined){
 
             $scope.preliquidacion.Definitiva = false;
-            self.nombre_seleccionado = $scope.persona.nom_proveedor;
-            self.cedula_seleccionado = $scope.persona.num_documento;
+
             var personas_a_liquidar = [];
               if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
+                self.nombre_seleccionado = $scope.persona.nom_proveedor;
+                self.cedula_seleccionado = $scope.persona.num_documento;
 
                     var persona = {
                         IdPersona: parseInt($scope.persona.id_proveedor),
@@ -45,11 +46,25 @@ angular.module('titanClienteV2App')
                     personas_a_liquidar.push(persona)
               }
 
+              if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "FP") {
+
+                self.nombre_seleccionado = $scope.persona.NombreProveedor;
+                self.cedula_seleccionado = $scope.persona.NumDocumento;
+
+                  var persona = {
+                      IdPersona: parseInt($scope.persona.Id),
+                      NumDocumento: parseInt($scope.persona.NumDocumento),
+                      NumeroContrato: $scope.persona.NumeroContrato,
+                      VigenciaContrato: parseInt($scope.persona.VigenciaContrato),
+                      Pendiente: "false",
+                  };
+
+                    personas_a_liquidar.push(persona)
+              }
 
             var datos_preliquidacion = {
                 Preliquidacion: $scope.preliquidacion,
-                PersonasPreLiquidacion: personas_a_liquidar
-
+                PersonasPreLiquidacion: personas_a_liquidar,
             };
 
 

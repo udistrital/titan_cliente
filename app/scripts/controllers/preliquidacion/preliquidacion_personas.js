@@ -154,14 +154,20 @@ angular.module('titanClienteV2App')
               rowTemplate: rowtpl,
               columnDefs: [
                   { field: 'Id', visible: false },
-                  { field: 'NumDocumento', displayName: $translate.instant('DOCUMENTO') },
-                  { field: 'NombreProveedor', displayName: $translate.instant('NOMBRE_PERSONA') },
-                  { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO') },
-                  { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA') },
+                  {
+                    field: 'NumDocumento', displayName: $translate.instant('DOCUMENTO'),
+                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionPersonas.preliquidar_persona(row)" >{{row.entity.NumDocumento}}</button>',
+                  },
+                  {
+                    field: 'NombreProveedor', displayName: $translate.instant('NOMBRE_PERSONA'),
+                    cellClass: 'text-center'
+                  },
+                  { field: 'NumeroContrato', displayName: $translate.instant('NUM_CONTRATO'), visible:false },
+                  { field: 'VigenciaContrato', displayName: $translate.instant('VIGENCIA'), visible: false },
               ],
               onRegisterApi: function(gridApi) {
-                  self.gridApi = gridApi;
-              }
+                $scope.myGridApi = gridApi;
+            }
           };
 
         }
@@ -293,12 +299,13 @@ angular.module('titanClienteV2App')
         self.preliquidar_persona = function(row) {
 
           $scope.persona = row.entity;
+          console.log("persona", $scope.persona)
           $('#modal_detalle').modal('show');
 
         };
 
         $('#modal_detalle').on('hidden.bs.modal', function (e) {
-        
+
           $scope.persona = undefined
 
         })
