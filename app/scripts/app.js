@@ -42,6 +42,7 @@ angular
         'oikosService',
         'configuracionService',
         'requestService',
+         'implicitToken',
     ])
     .run(function(amMoment) {
         amMoment.changeLocale('es');
