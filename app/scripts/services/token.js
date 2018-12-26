@@ -1,12 +1,6 @@
+/*
 'use strict';
 
-/**
- * @ngdoc service
- * @name titanClienteV2App.token
- * @description
- * # token
- * Factory in the titanClienteV2App.
- */
 
 
 // First, parse the query string
@@ -154,3 +148,4 @@ angular.module('titanClienteV2App')
         service.get_id_token();
         return service;
     });
+    */

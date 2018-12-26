@@ -40,13 +40,6 @@ angular.module('titanClienteV2App')
         calcularAnios();
 
 
-
-        administrativaAmazonRequest.get("dependencia_SIC", "limit=-1").then(function (response) {
-            self.dependencias = response.data;
-
-
-        });
-
          titanRequest.get('nomina', 'limit=-1').then(function(response) {
             self.nominas = response.data;
 
@@ -142,6 +135,9 @@ angular.module('titanClienteV2App')
             self.generar_reporte_nomina_dependencia();
           }
 
+          if (self.reporte_seleccionado == "total_nomina_por_ordenador"){
+            self.generar_reporte_nomina_ordenador();
+          }
 
         };
 
@@ -151,6 +147,11 @@ angular.module('titanClienteV2App')
           if (self.reporte_seleccionado == "total_nomina_por_dependencia"){
             self.desagregacion_seleccionada = "desc_nomina_por_dependencia";
             self.generar_desagregado_nomina_dependencia();
+          }
+
+          if (self.reporte_seleccionado == "total_nomina_por_ordenador"){
+            self.desagregacion_seleccionada = "desc_nomina_por_ordenador";
+            self.generar_desagregado_nomina_ordenador();
           }
 
 
@@ -180,7 +181,7 @@ angular.module('titanClienteV2App')
           self.gridOptions_desagregado.exporterPdfHeader =  { text: 'Reporte Contratistas-'+objeto_dependencia.ESFDEPENCARGADA+'-'+self.anoReporte+'-'+self.mesReporte, style: 'headerStyle' };
 
       titanMidRequest.post('gestion_reportes/desagregado_nomina_por_dependencia/', self.objeto_reporte_dependencia).then(function(response) {
-      
+
           if(response.data.length === 0){
               self.cargando_grid = false;
               self.hayData_grid = false;
@@ -194,6 +195,43 @@ angular.module('titanClienteV2App')
           });
         };
 
+
+        self.generar_reporte_nomina_ordenador = function(){
+
+            self.panel_generacion = "true";
+            self.cargando = true;
+            self.hayData = true;
+            var objeto_ordenador = JSON.parse(self.selected_ordenador);
+
+
+           self.objeto_preliquidacion = {
+                Ano:parseInt(self.anoReporte),
+                Mes:parseInt(self.mesReporte),
+
+            }
+
+            self.objeto_reporte_ordenador = {
+                Ordenador: objeto_ordenador.IdOrdenador,
+                Preliquidacion: self.objeto_preliquidacion
+            }
+
+
+        titanMidRequest.post('gestion_reportes/total_nomina_por_ordenador/', self.objeto_reporte_ordenador).then(function(response) {
+
+            if(response.data === null){
+                self.cargando = false;
+                self.hayData = false;
+            }else{
+                self.cargando = false;
+                self.hayData = true;
+
+                self.respuesta = response.data;
+                console.log("respuesta", self.respuesta.Preliquidacion)
+            }
+
+            });
+
+        };
 
 
         self.generar_reporte_nomina_dependencia = function(){
@@ -238,6 +276,21 @@ angular.module('titanClienteV2App')
             self.titulo = $translate.instant(titulo);
             self.panel_generacion = false;
             self.desagregacion_seleccionada = false;
+
+            if(panel == 'total_nomina_por_dependencia'){
+              administrativaAmazonRequest.get("dependencia_SIC", "limit=-1").then(function (response) {
+                          self.dependencias = response.data;
+                      });
+
+            }
+
+            if(panel == 'total_nomina_por_ordenador'){
+              //ENVIAR MES Y AÑO DE PRELIQ PARA JALAR ORDENADOR VIGENTE PARA ESA FECHA
+              titanMidRequest.post('gestion_reportes/get_ordenadores_gasto/', '').then(function(response) {
+                self.ordenadores = response.data
+              });
+
+            }
 
         };
 

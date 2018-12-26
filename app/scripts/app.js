@@ -41,6 +41,7 @@ angular
         'administrativaAmazonService',
         'oikosService',
         'configuracionService',
+        'requestService',
     ])
     .run(function(amMoment) {
         amMoment.changeLocale('es');

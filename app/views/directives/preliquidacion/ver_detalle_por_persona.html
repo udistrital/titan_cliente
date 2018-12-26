@@ -7,7 +7,7 @@
   </legend class="text-primary">
 <div class="col-md-12"  ng-if="mostrarleyenda=='true'" >
 
-    <legend class="text-primary" ng-click="inputpestanaabierta=!inputpestanaabierta" ng-if="preliquidacion.Nomina.TipoNomina.Nombre === 'CT' || preliquidacion.Nomina.TipoNomina.Nombre === 'HCS' || preliquidacion.Nomina.TipoNomina.Nombre === 'HCH'">
+    <legend class="text-primary" ng-click="inputpestanaabierta=!inputpestanaabierta" ng-show="preliquidacion.Nomina.TipoNomina.Nombre === 'CT' || preliquidacion.Nomina.TipoNomina.Nombre === 'HCS' || preliquidacion.Nomina.TipoNomina.Nombre === 'HCH'">
       {{detalle.NumeroContrato}} de {{detalle.VigenciaContrato}}
       <span class="fa fa-plus pull-right" ng-show="!inputpestanaabierta"></span>
       <span class="fa fa-minus pull-right" ng-show="inputpestanaabierta"></span>

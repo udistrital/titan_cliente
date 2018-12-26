@@ -5,9 +5,13 @@
       <div class="col-md-3">
          <div class="panel panel-default">
 
-         	  <legend class="text-primary" ng-click="reportesCt.reporte_a_mostrar('total_nomina_por_dependencia', 'TOTAL_NOMINA_DEPENDENCIA')">
+         	 <legend class="text-primary" ng-click="reportesCt.reporte_a_mostrar('total_nomina_por_dependencia', 'TOTAL_NOMINA_DEPENDENCIA')">
 			     {{'TOTAL_NOMINA_DEPENDENCIA' | translate}}
 			   </legend class="text-primary">
+
+         <legend class="text-primary" ng-click="reportesCt.reporte_a_mostrar('total_nomina_por_ordenador', 'TOTAL_NOMINA_ORDENADOR')">
+        {{'TOTAL_NOMINA_ORDENADOR' | translate}}
+      </legend class="text-primary">
 
 
          </div>
@@ -15,7 +19,7 @@
 
 
        	 <div class="panel panel-default">
-       	 	<div class="col-md-9" ng-if="reportesCt.reporte_seleccionado == 'total_nomina_por_dependencia' || reportesCt.reporte_seleccionado == 'total_nomina_por_dependencia'">
+       	 	<div class="col-md-9" ng-if="reportesCt.reporte_seleccionado == 'total_nomina_por_dependencia' || reportesCt.reporte_seleccionado == 'total_nomina_por_ordenador'">
        	 		<h2 class="page-header text-center"> {{reportesCt.titulo}}</h2>
 	       	 	<div class="col-md-6">
 
@@ -42,18 +46,33 @@
 		                <br>
 		                </div>
 
+                    <div ng-if="reportesCt.reporte_seleccionado == 'total_nomina_por_dependencia'">
+                    <div class="col-md-3">
+                       <label for="input_ano" >{{'DEPENDENCIA' | translate}}</label>
+                   </div>
+                   <div class="col-md-9">
+                       <select ng-model="reportesCt.selected_dependencia" ng-init="reportesCt.proyecto_reporte" class="form-control" required>
+                           <option value="" disabled>{{'DEPENDENCIA' | translate}}</option>
+                           <option ng-repeat="a in reportesCt.dependencias" value="{{a}}" required>{{a.ESFDEPENCARGADA}}</option>
+                           <!--<option value="DEP12"> OFICINA ASESORA DE SISTEMAS </option>-->
+                         </select>
+                   <br>
+                    </div>
+                  </div>
 
+                    <div ng-if="reportesCt.reporte_seleccionado == 'total_nomina_por_ordenador'">
 		                <div class="col-md-3">
-		                    <label for="input_ano" >{{'DEPENDENCIA' | translate}}</label>
+		                    <label for="input_ano" >{{'ORDENADORES' | translate}}</label>
 		                </div>
 		                <div class="col-md-9">
-		                    <select ng-model="reportesCt.selected_dependencia" ng-init="reportesCt.proyecto_reporte" class="form-control" required>
-		                        <option value="" disabled>{{'DEPENDENCIA' | translate}}</option>
-		                        <option ng-repeat="a in reportesCt.dependencias" value="{{a}}" required>{{a.ESFDEPENCARGADA}}</option>
+                      <select ng-model="reportesCt.selected_ordenador" ng-init="reportesCt.proyecto_reporte" class="form-control" required>
+		                        <option value="" disabled>{{'ORDENADORES' | translate}}</option>
+		                        <option ng-repeat="a in reportesCt.ordenadores" value="{{a}}" required>{{a.NombreOrdenador}}</option>
                             <!--<option value="DEP12"> OFICINA ASESORA DE SISTEMAS </option>-->
 		                      </select>
 		                <br>
 		                </div>
+                  </div>
 
 
                   <div class="col-md-10 col-md-offset-4">
@@ -68,7 +87,7 @@
 
 	       	 	<div class="col-md-6" ng-if="reportesCt.panel_generacion && (reportesCt.reporte_seleccionado == 'total_nomina_por_dependencia')" >
 
-	       	 			{{}}
+
 	       	 			<div class="col-md-4">
                           <label>{{ 'VALOR_TOTAL' | translate }}</label>
                         </div>
@@ -126,7 +145,7 @@
                       <div class="watermark" ng-show="!reportesCt.hayData_grid">{{'NO_DATA'| translate}}</div>
                       <div class="watermark" ng-show="reportesCt.cargando_grid">{{'CARGANDO'| translate}}   <i class="fa fa-spin fa-spinner"></i></div>
                   </div>
-    
+
             </div>
           	</div>
 
