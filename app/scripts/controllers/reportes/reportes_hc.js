@@ -227,7 +227,7 @@ angular.module('titanClienteV2App')
               Preliquidacion: self.objeto_preliquidacion
           }
 
-      titanMidRequest.post('gestion_reportes/desagregado_nomina_por_facultad/', self.objeto_reporte_facultad).then(function(response) {
+      titanMidRequest.post('gestion_reportes/desagregado_nomina_por_facultad', self.objeto_reporte_facultad).then(function(response) {
 
           if(response.data === null){
               self.cargando_grid = false;
@@ -269,7 +269,7 @@ angular.module('titanClienteV2App')
               Preliquidacion: self.objeto_preliquidacion
           }
 
-      titanMidRequest.post('gestion_reportes/desagregado_nomina_por_pc/', self.objeto_reporte_facultad).then(function(response) {
+      titanMidRequest.post('gestion_reportes/desagregado_nomina_por_pc', self.objeto_reporte_facultad).then(function(response) {
 
           if(response.data === null){
               self.cargando_grid = false;
@@ -310,7 +310,7 @@ angular.module('titanClienteV2App')
                 Preliquidacion: self.objeto_preliquidacion
             }
 
-        titanMidRequest.post('gestion_reportes/total_nomina_por_proyecto/', self.objeto_reporte_pc).then(function(response) {
+        titanMidRequest.post('gestion_reportes/total_nomina_por_proyecto', self.objeto_reporte_pc).then(function(response) {
 
             if(response.data === null){
                 self.cargando = false;
@@ -348,7 +348,7 @@ angular.module('titanClienteV2App')
                 Preliquidacion: self.objeto_preliquidacion
             }
 
-        titanMidRequest.post('gestion_reportes/total_nomina_por_facultad/', self.objeto_reporte_facultad).then(function(response) {
+        titanMidRequest.post('gestion_reportes/total_nomina_por_facultad', self.objeto_reporte_facultad).then(function(response) {
 
             if(response.data === null){
                 self.cargando = false;

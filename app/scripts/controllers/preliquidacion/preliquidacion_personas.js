@@ -197,13 +197,13 @@ angular.module('titanClienteV2App')
         };
 
 
-        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo/', self.preliquidacion).then(function(response) {
+        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
             self.gridOptions.data = response.data;
 
 
         });
 
-        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_pendientes/', self.preliquidacion).then(function(response) {
+        titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_pendientes', self.preliquidacion).then(function(response) {
             self.personas_pendientes.data = response.data;
 
         });
@@ -327,7 +327,7 @@ angular.module('titanClienteV2App')
             PersonasPreLiquidacion: personas_a_listar
           }
 
-          titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona/', datos_preliquidacion).then(function(response) {
+          titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona', datos_preliquidacion).then(function(response) {
 
           self.informacion_contratos.data = [];
 

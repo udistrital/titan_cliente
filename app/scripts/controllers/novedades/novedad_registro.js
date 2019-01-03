@@ -419,7 +419,7 @@ self.listar_contratos_por_persona = function() {
   }
 
 
-  titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona/', datos_preliquidacion).then(function(response) {
+  titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona', datos_preliquidacion).then(function(response) {
 
   self.informacion_contratos_fijo.data = [];
   self.informacion_contratos_porcentual.data = [];

@@ -8,14 +8,16 @@
  * Service in the titanClienteV2App.
  */
 var conf_prod = {
-  CONFIGURACION_SERVICE: "http://api.intranetoas.udistrital.edu.co:8086/v1/",
+  ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
+  CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
+  OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
   TITAN_MID_SERVICE: "http://api.intranetoas.udistrital.edu.co:8082/v1/",
   TITAN_SERVICE: "http://pruebasapi.intranetoas.udistrital.edu.co:8081/v1/",
   TOKEN: {
       AUTORIZATION_URL: "https://10.20.0.162:9443/oauth2/authorize",
       URL_USER_INFO: "https://10.20.0.162:9443/oauth2/userinfo",
-      CLIENTE_ID: "bfPMflsiPVN6WFjJZIpzjsLdlx8a",
-      REDIRECT_URL: "http://localhost:9000/",
+      CLIENTE_ID: "69McR85b2teQuHDWxNZf1YFt_LEa",
+      REDIRECT_URL: "http://titan.portaloas.udistrital.edu.co/",
       RESPONSE_TYPE: "code",
       SCOPE: "openid email",
       BUTTON_CLASS: "btn btn-warning btn-sm",
@@ -28,14 +30,16 @@ var conf_prod = {
 };
 
 var conf_preprod = {
-  CONFIGURACION_SERVICE: "http://pruebasapi.intranetoas.udistrital.edu.co:8086/v1/",
+  ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
+  CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
+  OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1",
   TITAN_MID_SERVICE: "http://pruebasapi.intranetoas.udistrital.edu.co:8082/v1/",
   TITAN_SERVICE: "http://pruebasapi.intranetoas.udistrital.edu.co:8081/v1/",
   TOKEN: {
       AUTORIZATION_URL: "https://10.20.0.162:9443/oauth2/authorize",
       URL_USER_INFO: "https://10.20.0.162:9443/oauth2/userinfo",
-      CLIENTE_ID: "bfPMflsiPVN6WFjJZIpzjsLdlx8a",
-      REDIRECT_URL: "http://localhost:9000/",
+      CLIENTE_ID: "B8dEcXp6KGJrHtAxZm3_OQ_pm4Ia",
+      REDIRECT_URL: "http://titanpruebas.portaloas.udistrital.edu.co/",
       RESPONSE_TYPE: "code",
       SCOPE: "openid email",
       BUTTON_CLASS: "btn btn-warning btn-sm",
@@ -49,10 +53,10 @@ var conf_preprod = {
 
 var conf_pruebas = {
     ADMINISTRATIVA_AMAZON_SERVICE: "https://tuleap.udistrital.edu.co/go_api/administrativa_amazon_api/v1/",
+    CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
+    OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1",
     TITAN_SERVICE: "http://10.20.0.254/titan_api_crud/v1/",
     TITAN_MID_SERVICE: "http://10.20.0.254/titan_api_mid/v1/",
-    OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
-    CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TOKEN: {
         AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
         URL_USER_INFO: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/userinfo",

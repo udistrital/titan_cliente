@@ -180,7 +180,7 @@ angular.module('titanClienteV2App')
           self.gridOptions_desagregado.exporterCsvFilename ='Reporte Contratistas-'+objeto_dependencia.ESFDEPENCARGADA+'-'+self.anoReporte+'-'+self.mesReporte+'.csv';
           self.gridOptions_desagregado.exporterPdfHeader =  { text: 'Reporte Contratistas-'+objeto_dependencia.ESFDEPENCARGADA+'-'+self.anoReporte+'-'+self.mesReporte, style: 'headerStyle' };
 
-      titanMidRequest.post('gestion_reportes/desagregado_nomina_por_dependencia/', self.objeto_reporte_dependencia).then(function(response) {
+      titanMidRequest.post('gestion_reportes/desagregado_nomina_por_dependencia', self.objeto_reporte_dependencia).then(function(response) {
 
           if(response.data.length === 0){
               self.cargando_grid = false;
@@ -216,7 +216,7 @@ angular.module('titanClienteV2App')
             }
 
 
-        titanMidRequest.post('gestion_reportes/total_nomina_por_ordenador/', self.objeto_reporte_ordenador).then(function(response) {
+        titanMidRequest.post('gestion_reportes/total_nomina_por_ordenador', self.objeto_reporte_ordenador).then(function(response) {
 
             if(response.data === null){
                 self.cargando = false;
@@ -254,7 +254,7 @@ angular.module('titanClienteV2App')
             }
 
 
-        titanMidRequest.post('gestion_reportes/total_nomina_por_dependencia/', self.objeto_reporte_dependencia).then(function(response) {
+        titanMidRequest.post('gestion_reportes/total_nomina_por_dependencia', self.objeto_reporte_dependencia).then(function(response) {
 
             if(response.data === null){
                 self.cargando = false;
@@ -286,7 +286,7 @@ angular.module('titanClienteV2App')
 
             if(panel == 'total_nomina_por_ordenador'){
               //ENVIAR MES Y AÑO DE PRELIQ PARA JALAR ORDENADOR VIGENTE PARA ESA FECHA
-              titanMidRequest.post('gestion_reportes/get_ordenadores_gasto/', '').then(function(response) {
+              titanMidRequest.post('gestion_reportes/get_ordenadores_gasto', '').then(function(response) {
                 self.ordenadores = response.data
               });
 
