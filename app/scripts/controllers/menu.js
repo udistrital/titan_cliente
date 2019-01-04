@@ -162,7 +162,7 @@
 
          if ($scope.token_service.live_token()) {
              self.perfil = $scope.token_service.getRoles();
-             configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + self.perfil + '/Kronos').then(function (response) {
+             configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + self.perfil + '/Titan', '').then(function (response) {
                  $rootScope.my_menu = response.data;
                  /*configuracionRequest.update_menu(https://10.20.0.162:9443/store/apis/authenticate response.data);
                  console.log("get menu");

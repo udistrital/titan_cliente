@@ -1,31 +1,38 @@
-/**
- * @ngdoc overview
- * @name configuracionService
- * @description
- * # configuracionService
- * Service in the titanClienteV2App.
- */
+'use strict';
 
+
+/**
+  * @ngdoc overview
+  * @name configuracionService
+  * @description Modulo para servicio de configracion provee los servicios descritos en {@link configuracionService.service:configuracionRequest configuracionRequest}
+  */
 angular.module('configuracionService', [])
 
 /**
  * @ngdoc service
  * @name configuracionService.service:configuracionRequest
  * @requires $http
+ * @requires $q
+ * @requires $CONF
+ * @requires token_service
  * @param {injector} $http componente http de angular
- * @requires $websocket
- * @param {injector} $websocket componente websocket de angular-websocket
+ * @param {injector} $q componente para promesas de angular
+ * @param {injector} CONF componente de configuracion
+ * @param {injector} token_service componente de autenticacion
  * @description
  * # configuracionRequest
  * Factory que permite gestionar los servicios para construir y gestion los elementos que se muestran por el cliente a traves del menú
  */
 
-.factory('configuracionRequest', function($http, $q, CONF) {
-    // Service logic
-    // ...
+.factory('configuracionRequest', function($http, $q, CONF, token_service) {
+    /**
+     * @ngdoc object
+     * @name path
+     * @propertyOf configuracionService.service:configuracionRequest
+     * @description
+     * Dirección del servicio consumen los servicios proveidos por {@link titanClienteV2App.service:CONF confService}
+     */
     var path = CONF.GENERAL.CONFIGURACION_SERVICE;
-    // Public API here
-
     return {
 
         /**
@@ -43,7 +50,7 @@ angular.module('configuracionService', [])
                     return a[i];
                 } else if (a[i].Opciones !== null) {
                     var y;
-                    if ((y = this.get_acciones(path, a[i].Opciones)) && y !== null) {
+                    if ((y = this.get_acciones(path, a[i].Opciones)) && y != null) {
                         return y;
                     }
                 }
@@ -61,7 +68,7 @@ angular.module('configuracionService', [])
          * @description Metodo GET del servicio
          */
         get: function(tabla, params) {
-            return $http.get(path + tabla + "/?" + params);
+           return $http.get(path + tabla + params, token_service.setting_bearer);
         },
         /**
          * @ngdoc function
@@ -73,7 +80,7 @@ angular.module('configuracionService', [])
          * @description Metodo POST del servicio
          */
         post: function(tabla, elemento) {
-            return $http.post(path + tabla, elemento);
+            return $http.post(path + tabla, elemento, token_service.setting_bearer);
         },
 
         /**
@@ -87,7 +94,7 @@ angular.module('configuracionService', [])
          * @description Metodo PUT del servicio
          */
         put: function(tabla, id, elemento) {
-            return $http.put(path + tabla + "/" + id, elemento);
+            return $http.put(path + tabla + "/" + id, elemento, token_service.setting_bearer);
         },
 
         /**
@@ -100,7 +107,7 @@ angular.module('configuracionService', [])
          * @description Metodo DELETE del servicio
          */
         delete: function(tabla, id) {
-            return $http.delete(path + tabla + "/" + id);
+            return $http.delete(path + tabla + "/" + id, token_service.setting_bearer);
         }
     };
 

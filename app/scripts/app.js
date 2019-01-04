@@ -129,6 +129,9 @@ angular
                 controller: 'BeneficiariosCtrl',
                 controllerAs: 'beneficiarios'
             })
+            .when('/no_permission', {
+                templateUrl: '404.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });
