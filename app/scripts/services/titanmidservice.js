@@ -68,7 +68,7 @@
            * @description Metodo GET del servicio
            */
           get: function(tabla, params) {
-             return $http.get(path + tabla + params, token_service.setting_bearer);
+            $http.get(path+tabla+"/?"+params, token_service.setting_bearer);
           },
           /**
            * @ngdoc function
