@@ -12,7 +12,7 @@
          $scope.token_service = token_service;
          $scope.$on('$routeChangeStart', function (scope, next, current) {
 
-           /*
+           /* Comentado porque no sirve para interfaces que pasan parámetroscon
              var waitForMenu = function () {
                  if ($rootScope.my_menu != undefined) {
                      if ($scope.token_service.live_token() && current != undefined ) {
@@ -29,8 +29,8 @@
                  }
              }
              waitForMenu();
-             */
 
+             */
 
          });
 
@@ -101,7 +101,6 @@
 
          $scope.redirect_url = function (path) {
              var path_sub = path.substring(0, 4);
-             console.log("Paaath", path)
              switch (path_sub.toUpperCase()) {
                  case "HTTP":
                      $window.open(path, "_blank");
@@ -116,12 +115,15 @@
          };
 
          $scope.havePermission = function (viewPath, menu) {
+
              if (viewPath !== undefined && viewPath !== null) {
                  var currentPath = viewPath.substr(1);
                  var head = menu;
                  var permission = 0;
                  if (currentPath !== "main") {
+
                      permission = $scope.menuWalkThrough(head, currentPath);
+
                  } else {
                      permission = 1;
                  }

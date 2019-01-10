@@ -65,7 +65,7 @@ angular.module('implicitToken', [])
                     headers: {
                         'Accept': 'application/json',
                         "Authorization": "Bearer " + window.localStorage.getItem('access_token'),
-                    }
+                      }
                 };
                 return service.setting_bearer;
             },
@@ -100,7 +100,7 @@ angular.module('implicitToken', [])
                         headers: {
                             'Accept': 'application/json',
                             "Authorization": "Bearer " + window.localStorage.getItem('access_token'),
-                        }
+                            }
                     };
                     service.logout_url = CONF.GENERAL.TOKEN.SIGN_OUT_URL;
                     service.logout_url += '?id_token_hint=' + window.localStorage.getItem('id_token');

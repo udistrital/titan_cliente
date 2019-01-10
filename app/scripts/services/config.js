@@ -54,7 +54,7 @@ var conf_preprod = {
 var conf_pruebas = {
     ADMINISTRATIVA_AMAZON_SERVICE: "https://tuleap.udistrital.edu.co/go_api/administrativa_amazon_api/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
-    OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1",
+    OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
     TITAN_SERVICE: "http://10.20.0.254/titan_api_crud/v1/",
     TITAN_MID_SERVICE: "http://10.20.0.254/titan_api_mid/v1/",
     TOKEN: {
@@ -75,13 +75,14 @@ var conf_pruebas = {
 var conf_local = {
 
     ADMINISTRATIVA_AMAZON_SERVICE: "https://tuleap.udistrital.edu.co/go_api/administrativa_amazon_api/v1/",
+    CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TITAN_SERVICE: "http://localhost:8080/v1/",
     TITAN_MID_SERVICE: "http://localhost:8081/v1/",
     OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
-     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
-  /*
+
+    /*
     ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
-    CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
+    CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
     OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1",
     TITAN_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_mid/v1/",
     TITAN_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_crud/v1/",
