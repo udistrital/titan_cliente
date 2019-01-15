@@ -130,6 +130,6 @@ var conf_presentacion = {
 
 angular.module('titanClienteV2App')
     .constant('CONF', {
-        GENERAL: conf_pruebas
+        GENERAL: conf_preprod
 
     });
