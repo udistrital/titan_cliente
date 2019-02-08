@@ -52,22 +52,17 @@ var conf_preprod = {
 };
 
 var conf_pruebas = {
-    ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
-    CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
-    OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1",
-    TITAN_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_mid/v1/",
-    TITAN_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_crud/v1/",
-  /*
+
     ADMINISTRATIVA_AMAZON_SERVICE: "https://tuleap.udistrital.edu.co/go_api/administrativa_amazon_api/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
-    ,
-    */
+    TITAN_MID_SERVICE: "http://10.20.0.254/titan_api_mid/v1/",
+    TITAN_SERVICE: "http://10.20.0.254/titan_api_crud/v1/",
     TOKEN: {
         AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
         URL_USER_INFO: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/userinfo",
         CLIENTE_ID: "tFtMBfhin7fFRpaKZVNg5rO8pW0a",
-        REDIRECT_URL: "http://10.20.0.254/titan/",
+        REDIRECT_URL:"http://10.20.0.254/titan/",
         RESPONSE_TYPE: "id_token token",
         SCOPE: "openid email",
         BUTTON_CLASS: "btn btn-warning btn-sm",
@@ -84,8 +79,8 @@ var conf_local = {
     ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
     CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
     OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1",
-    TITAN_SERVICE: "http://localhost:8080/v1/",
-    TITAN_MID_SERVICE: "http://localhost:8081/v1/",
+    TITAN_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_mid/v1/",
+    TITAN_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_crud/v1/",
 
     TOKEN: {
         AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
