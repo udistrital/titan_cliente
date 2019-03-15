@@ -10,7 +10,7 @@
     "angular-route": "latest",
     "angular-touch": "latest",
     "angular-ui-grid": "*",
-    "AngularJS-OAuth2": "latest",
+    "AngularJS-OAuth2": "angularjs-oauth2#^1.2.1",
     "angular-material": "*",
     "angular-tree-control": "*",
     "pdfmake": "*",
