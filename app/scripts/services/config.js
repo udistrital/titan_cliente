@@ -15,17 +15,17 @@ var conf_pruebas = {
     TITAN_MID_SERVICE: "http://10.20.0.254/titan_api_mid/v1/",
     CONFIGURACION_SERVICE: "http://10.20.0.254/configuracion_api/v1/",
     TOKEN: {
-        AUTORIZATION_URL: "https://autenticacion.udistrital.edu.co/oauth2/authorize",
-        URL_USER_INFO: "https://autenticacion.udistrital.edu.co/oauth2/userinfo",
+        AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
+        URL_USER_INFO: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/userinfo",
         CLIENTE_ID: "RtKvddUD9v_IvIOjaR9FXFaxc4Qa",
-        REDIRECT_URL: "http://titan.portaloas.udistrital.edu.co/",
+        REDIRECT_URL: "https://titan.portaloas.udistrital.edu.co/",
         RESPONSE_TYPE: "code",
         SCOPE: "openid email",
         BUTTON_CLASS: "btn btn-warning btn-sm",
-        SIGN_OUT_URL: "https://autenticacion.udistrital.edu.co/oidc/logout",
-        SIGN_OUT_REDIRECT_URL: "http://titan.portaloas.udistrital.edu.co/",
+        SIGN_OUT_URL: "https://autenticacion.portaloas.udistrital.edu.co/oidc/logout",
+        SIGN_OUT_REDIRECT_URL: "https://titan.portaloas.udistrital.edu.co/",
         SIGN_OUT_APPEND_TOKEN: "true",
-        REFRESH_TOKEN: "https://autenticacion.udistrital.edu.co/oauth2/token",
+        REFRESH_TOKEN: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/token",
         CLIENT_SECRET: "AQXub7W8mEdS89cdNv3SR7fftxEa"
     },
 };
