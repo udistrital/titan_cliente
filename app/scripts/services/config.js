@@ -12,7 +12,7 @@ var conf_cloud = {
 };
 var conf_pruebas = {
     TITAN_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_crud//v1/",
-    TITAN_MID_SERVICE: https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_mid/v1/",
+    TITAN_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_mid/v1/",
     CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
     TOKEN: {
         AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
