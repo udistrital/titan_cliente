@@ -1,0 +1,6 @@
+projectKey=titan_cliente
+serverUrl=http://10.20.0.77:9000
+serverVersion=7.0.0.36138
+dashboardUrl=http://10.20.0.77:9000/dashboard/index/titan_cliente
+ceTaskId=AWNvDEDQehz9wCZ_SCQj
+ceTaskUrl=http://10.20.0.77:9000/api/ce/task?id=AWNvDEDQehz9wCZ_SCQj

@@ -20,6 +20,7 @@ angular
         'afOAuth2',
         'treeControl',
         'ngMaterial',
+        'ui.grid.exporter',
         'ui.grid',
         'ui.grid.edit',
         'ui.grid.rowEdit',
@@ -37,7 +38,11 @@ angular
         'pascalprecht.translate',
         'titanService',
         'titanMidService',
-        'configuracionService',    
+        'administrativaAmazonService',
+        'oikosService',
+        'configuracionService',
+        'requestService',
+         'implicitToken',
     ])
     .run(function(amMoment) {
         amMoment.changeLocale('es');
@@ -63,15 +68,21 @@ angular
                 controller: 'AboutCtrl',
                 controllerAs: 'about'
             })
-            .when('/nomina/nomina_consulta/:tipo', {
-                templateUrl: 'views/nomina/nomina_consulta.html',
-                controller: 'NominaNominaConsultaCtrl',
-                controllerAs: 'nominaConsulta'
-            })
+
             .when('/conceptos/modulo_conceptos', {
                 templateUrl: 'views/conceptos/modulo_conceptos.html',
                 controller: 'ConceptoConceptosConsultaCtrl',
                 controllerAs: 'conceptosConsulta'
+            })
+            .when('/reportes/reportes_hc', {
+                templateUrl: 'views/reportes/reportes_hc.html',
+                controller: 'ReportesHcCtrl',
+                controllerAs: 'reportesHc'
+            })
+            .when('/reportes/reportes_ct', {
+                templateUrl: 'views/reportes/reportes_ct.html',
+                controller: 'ReportesCtCtrl',
+                controllerAs: 'reportesCt'
             })
             .when('/preliquidacion/preliquidacion_registro/:tipo', {
                 templateUrl: 'views/preliquidacion/preliquidacion_registro.html',
@@ -113,6 +124,9 @@ angular
                 templateUrl: 'views/pensiones/beneficiarios.html',
                 controller: 'BeneficiariosCtrl',
                 controllerAs: 'beneficiarios'
+            })
+            .when('/no_permission', {
+                templateUrl: '404.html'
             })
             .otherwise({
                 redirectTo: '/'
