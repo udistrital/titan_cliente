@@ -1,51 +1,65 @@
-clone:
-  path: github.com/udistrital/titan_cliente
+workspace:
+  base: /go
+  path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
+  when:
+      branch: [master, develop]
+      event: push
 
-build:
+pipeline:
 
   # build and test the go program
   nodejs:
-    image: node:9.5.0
+    image: node:10.7.0
     commands:
      - apt-get update -y
-     - apt-get install -y zip
      - npm install -g grunt-cli bower
      - npm install
      - bower install --allow-root
      - grunt build
-     - zip -r app.zip dist/
-
+          
     when:
-      branch: develop
+      branch: [master, develop]
       event: push
-
-publish:
 
   # upload app.zip to s3 bucket for CodePipline
-  s3:
+  publish_s3:
+    image: plugins/s3
+    secrets: [ aws_access_key_id, aws_secret_access_key ]
     region: "us-east-1"
-    bucket: "drone-helper-bucket"
-    access_key: $$DRONE_AWS_ACCESS_KEY_ID
-    secret_key: $$DRONE_AWS_SECRET_ACCESS_KEY
-    source: app.zip
-    target: /apps/titan_cliente-$$BRANCH.zip
+    bucket: "pruebastitan.portaloas.udistrital.edu.co"
+    source: dist/**/*
+    target: /
+    strip_prefix: dist/
     when:
-      branch: develop
+      branch: [develop]
       event: push
 
-notify:
-
-  # notify telegram
-  webhook:
-    urls:
-      - https://api.telegram.org/bot$$DRONE_TELEGRAM_TOKEN/sendMessage
-    content_type: application/json
-    template: >
-      {
-        "chat_id": "-129350403",
-        "parse_mode": "Markdown",
-        "text": "`{{repo.full_name}}` [{{uppercase build.status}}]({{build.link_url}}) `{{build.branch}}`@{{truncate build.commit 7}}"
-      }
+  publish_s3:
+    image: plugins/s3
+    secrets: [ aws_access_key_id, aws_secret_access_key ]
+    region: "us-east-1"
+    bucket: "titan.portaloas.udistrital.edu.co"
+    source: dist/**/*
+    target: /
+    strip_prefix: dist/
     when:
-      branch: develop
+      branch: [master]
+      event: push
+
+  #Notify results to telegram
+  notify_telegram:
+    image: appleboy/drone-telegram
+    secrets: [ telegram_token, telegram_to ]
+    format: html
+    message: >
+      {{#success build.status}}
+        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">SUCCESS</a>
+        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+      {{else}}
+        <code>{{repo.owner}}/{{repo.name}}</code> <a href="{{build.link}}">FAILURE</a>
+        <code>{{commit.branch}}</code>@<a href="{{commit.link}}">{{truncate commit.sha 7}}</a>
+      {{/success}}
+    when:
+      status: [success, failure]
+      branch: [master, develop]
       event: push
