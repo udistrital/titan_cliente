@@ -10,21 +10,21 @@
 var conf_prod = {
     ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
     CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
-    OIKOS_SERVICE: "https://tuleap.udistrital.edu.co/go_api/oikos_api/v1/",
+    OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1/",
     TITAN_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_mid/v1/",
     TITAN_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_crud/v1/",
     TOKEN: {
-        AUTORIZATION_URL: "https://10.20.0.162:9443/oauth2/authorize",
-        URL_USER_INFO: "https://10.20.0.162:9443/oauth2/userinfo",
-        CLIENTE_ID: "69McR85b2teQuHDWxNZf1YFt_LEa",
-        REDIRECT_URL: "http://titan.portaloas.udistrital.edu.co/",
+        AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
+        URL_USER_INFO: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/userinfo",
+        CLIENTE_ID: "RtKvddUD9v_IvIOjaR9FXFaxc4Qa",
+        REDIRECT_URL: "https://titan.portaloas.udistrital.edu.co/",
         RESPONSE_TYPE: "code",
         SCOPE: "openid email",
         BUTTON_CLASS: "btn btn-warning btn-sm",
-        SIGN_OUT_URL: "https://10.20.0.162:9443/oidc/logout",
-        SIGN_OUT_REDIRECT_URL: "http://localhost:9000/",
+        SIGN_OUT_URL: "https://autenticacion.portaloas.udistrital.edu.co/oidc/logout",
+        SIGN_OUT_REDIRECT_URL: "https://titan.portaloas.udistrital.edu.co/",
         SIGN_OUT_APPEND_TOKEN: "true",
-        REFRESH_TOKEN: "https://10.20.0.162:9443/oauth2/token",
+        REFRESH_TOKEN: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/token",
         CLIENT_SECRET: "4C_HkdaZsMF4Fthfm6D2n5joLzEa"
     },
 };
@@ -43,7 +43,7 @@ var conf_preprod = {
         RESPONSE_TYPE: "code",
         SCOPE: "openid email",
         BUTTON_CLASS: "btn btn-warning btn-sm",
-        SIGN_OUT_URL: "https://10.20.0.162:9443/oidc/logout",
+        SIGN_OUT_URL: "https://autenticacion.portaloas.udistrital.edu.co/oidc/logout",
         SIGN_OUT_REDIRECT_URL: "http://localhost:9000/",
         SIGN_OUT_APPEND_TOKEN: "true",
         REFRESH_TOKEN: "https://10.20.0.162:9443/oauth2/token",
@@ -102,6 +102,6 @@ var conf_local = {
 
 angular.module('titanClienteV2App')
     .constant('CONF', {
-        GENERAL: conf_pruebas
+        GENERAL: conf_prod
 
     });
