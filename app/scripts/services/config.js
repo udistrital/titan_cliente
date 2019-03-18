@@ -18,7 +18,7 @@ var conf_prod = {
         URL_USER_INFO: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/userinfo",
         CLIENTE_ID: "RtKvddUD9v_IvIOjaR9FXFaxc4Qa",
         REDIRECT_URL: "https://titan.portaloas.udistrital.edu.co/",
-        RESPONSE_TYPE: "code",
+        RESPONSE_TYPE: "id_token token",
         SCOPE: "openid email",
         BUTTON_CLASS: "btn btn-warning btn-sm",
         SIGN_OUT_URL: "https://autenticacion.portaloas.udistrital.edu.co/oidc/logout",
