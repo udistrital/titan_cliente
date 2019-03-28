@@ -11,7 +11,9 @@ pipeline:
   nodejs:
     image: node:10.7.0
     commands:
+
      #- apt-get update -y
+
      - npm install -g grunt-cli bower
      - npm install
      - npm install natives
