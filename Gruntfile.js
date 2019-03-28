@@ -72,7 +72,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -407,7 +407,17 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
-        }]
+        },
+        {
+              expand: true,
+              flatten: true,
+              dest: 'dist/styles/',
+              src: ['bower_components/angular-ui-grid/ui-grid.ttf',
+                    'bower_components/angular-ui-grid/ui-grid.woff',
+                    'bower_components/angular-ui-grid/ui-grid.eot',
+                    'bower_components/angular-ui-grid/ui-grid.svg'
+                    ]
+            }]
       },
       styles: {
         expand: true,
@@ -431,6 +441,29 @@ module.exports = function (grunt) {
         'svgmin'
       ]
     },
+
+    //sonar
+    sonarRunner: {
+      analysis: {
+        options: {
+          debug: true,
+          separator: '\n',
+          dryRun: false,
+          sonar: {
+            host: {
+              url: 'http://localhost:9000'
+            },
+            projectKey: 'titan_cliente',
+            projectName: 'titan_cliente',
+            projectVersion: '0.01',
+            sources: ['app','test'].join(','),
+            language: 'js',
+            sourceEncoding: 'UTF-8'
+          }
+        }
+      }
+    },
+    // fin sonar
 
     // Test settings
     karma: {

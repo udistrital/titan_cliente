@@ -1,9 +1,9 @@
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{'TITULO_PRELIQ_REGIS' | translate}} <b>{{preliquidacionRegistro.nomina.TipoNomina.Nombre}}</b></h2>
+  <h2 class="page-header text-center">{{'TITULO_PRELIQ_REGIS' | translate}} <b>{{preliquidacionRegistro.nomina.TipoNomina.Descripcion}}</b></h2>
 
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
           <div ui-grid="preliquidacionRegistro.gridOptions" ui-grid-selection ui-grid-pagination class="grid"></div>
         </div>
@@ -27,7 +27,7 @@
 
 
 <div id="myModal" class="modal fade " role="dialog" style="padding-top:5%">
-    <div class="modal-content col-md-offset-2 col-md-8">
+    <div class="modal-content col-md-offset-4 col-md-4">
         <div class="modal-header">
             <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal" ng-click="">&times</button><br>
         </div>
@@ -38,10 +38,10 @@
             <br>
 
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 col-md-offset-1">
                     <label for="input_mes" class="col-sm-5 col-form-label">{{'MES_PRELIQ' | translate}}</label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5 col-md-offset-1">
                     <select ng-model="preliquidacionRegistro.mesPeriodo" ng-init="preliquidacionRegistro.mesPeriodo" class="form-control" required>
                           <option value="" disabled>{{ 'MES_PRELIQ' | translate }}</option>
                           <option ng-repeat="(key, value) in preliquidacionRegistro.meses" value="{{key}}">{{value}}</option>
@@ -50,10 +50,10 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 col-md-offset-1">
                     <label for="input_ano" class="col-sm-5 col-form-label">{{'ANO_PRELIQ' | translate}}</label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-5 col-md-offset-1">
                     <select ng-model="preliquidacionRegistro.anioPeriodo" ng-init="preliquidacionRegistro.anioPeriodo" class="form-control" required>
                         <option value="" disabled>{{'ANO_PRELIQ' | translate}}</option>
                         <option ng-repeat="a in preliquidacionRegistro.anios" value="{{a.anio}}" required>{{a.anio}}</option>
@@ -65,6 +65,7 @@
                 <center>
                     <button ng-click='preliquidacionRegistro.registrar_preliqu()' class="btn btn-success">{{'REGISTRAR'| translate}}</button>
                 </center>
+                <br>
             </div>
 
         </div>
