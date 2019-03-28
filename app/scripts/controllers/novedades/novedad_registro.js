@@ -79,8 +79,8 @@ angular.module('titanClienteV2App')
 
 
         $scope.gridOptions_personas = {
-            paginationPageSizes: [5, 10, 20],
-            paginationPageSize: 10,
+            paginationPageSizes: [20, 40,60],
+            paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: true,
