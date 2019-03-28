@@ -409,15 +409,15 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>'
         },
         {
-          expand: true,
-          flatten: true,
-          cwd: '<%= yeoman.client %>',
-          dest: '<%= yeoman.dist %>/public/app', //change destination base to your file structure
-          src: [
-            '*.{ttf,woff,eot,svg}',
-            'bower_components/angular-ui-grid/*',
-          ]
-        }]
+              expand: true,
+              flatten: true,
+              dest: 'dist/styles/',
+              src: ['bower_components/angular-ui-grid/ui-grid.ttf',
+                    'bower_components/angular-ui-grid/ui-grid.woff',
+                    'bower_components/angular-ui-grid/ui-grid.eot',
+                    'bower_components/angular-ui-grid/ui-grid.svg'
+                    ]
+            }]
       },
       styles: {
         expand: true,
