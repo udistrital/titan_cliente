@@ -20,8 +20,8 @@ angular.module('titanClienteV2App')
         self.preliquidacion = $localStorage.preliquidacion
 
         self.gridOptions = {
-            paginationPageSizes: [10, 20],
-            paginationPageSize: 10,
+            paginationPageSizes: [20, 40,60],
+            paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: false,
@@ -74,8 +74,8 @@ angular.module('titanClienteV2App')
 
         self.gridOptions_detalle = {
 
-            paginationPageSizes: [5, 10, 20],
-            paginationPageSize: 10,
+            paginationPageSizes: [20, 40,60],
+            paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: false,
@@ -169,8 +169,8 @@ angular.module('titanClienteV2App')
 
         self.gridOptions_resumen = {
 
-            paginationPageSizes: [5, 10, 20],
-            paginationPageSize: 10,
+            paginationPageSizes: [20, 40,60],
+            paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: false,

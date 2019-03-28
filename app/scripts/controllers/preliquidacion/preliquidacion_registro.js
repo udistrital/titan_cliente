@@ -62,8 +62,8 @@ angular.module('titanClienteV2App')
             enableSorting: true,
             treeRowHeaderAlwaysVisible: false,
             showTreeExpandNoChildren: false,
-            paginationPageSizes: [10, 20],
-            paginationPageSize: 10,
+            paginationPageSizes: [40,50],
+            paginationPageSize: 40,
             enableRowSelection: false,
             enableRowHeaderSelection: false,
 
