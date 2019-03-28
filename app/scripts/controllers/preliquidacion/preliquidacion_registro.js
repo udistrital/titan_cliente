@@ -227,6 +227,7 @@ angular.module('titanClienteV2App')
           $localStorage.preliquidacion = self.preliquidacion;
 
           titanMidRequest.post('preliquidacion/personas_x_preliquidacion', self.preliquidacion).then(function(response) {
+            console.log("response no data", response)
               if(response.data === null){
                 swal({
                     html: $translate.instant('NO_PRELIQ'),
