@@ -7,6 +7,7 @@
  * # config
  * Service in the titanClienteV2App.
  */
+
 var conf_prod = {
     ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
     CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
@@ -102,6 +103,8 @@ var conf_local = {
 
 angular.module('titanClienteV2App')
     .constant('CONF', {
-        GENERAL: conf_local
+
+        GENERAL: conf_preprod
+
 
     });
