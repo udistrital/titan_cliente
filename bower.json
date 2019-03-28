@@ -4,7 +4,6 @@
   "dependencies": {
     "angular": "latest",
     "bootstrap": "^3.2.0",
-<<<<<<< HEAD
     "angular-animate": "^1.6.8",
     "angular-cookies": "^1.6.8",
     "angular-resource": "^1.6.8",
@@ -12,15 +11,6 @@
     "angular-sanitize": "^1.6.8",
     "angular-touch": "^1.6.8",
     "angular-ui-grid": "4.6.0",
-=======
-    "angular-animate": "latest",
-    "angular-cookies": "latest",
-    "angular-resource": "latest",
-    "angular-route": "latest",
-    "angular-sanitize": "latest",
-    "angular-touch": "latest",
-    "angular-ui-grid": "*",
->>>>>>> 2b7f17ab5d45b565153e2879704ab4e4a9a0dc30
     "AngularJS-OAuth2": "angularjs-oauth2#^1.2.1",
     "angular-material": "*",
     "angular-tree-control": "*",
