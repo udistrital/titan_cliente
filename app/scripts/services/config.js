@@ -40,7 +40,7 @@ var conf_preprod = {
         AUTORIZATION_URL: "https://10.20.0.162:9443/oauth2/authorize",
         URL_USER_INFO: "https://10.20.0.162:9443/oauth2/userinfo",
         CLIENTE_ID: "B8dEcXp6KGJrHtAxZm3_OQ_pm4Ia",
-        REDIRECT_URL: "http://titanpruebas.portaloas.udistrital.edu.co/",
+        REDIRECT_URL: "https://pruebastitan.udistrital.edu.co",
         RESPONSE_TYPE: "code",
         SCOPE: "openid email",
         BUTTON_CLASS: "btn btn-warning btn-sm",
