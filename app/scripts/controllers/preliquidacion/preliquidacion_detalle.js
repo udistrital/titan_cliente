@@ -266,7 +266,7 @@ angular.module('titanClienteV2App')
           self.gridOptions_detalle.data = [];
           //Mostrar contratos
           var query = "query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona
-          titanRequest.get('detalle_preliquidacion/', query).then(function(response) {
+          titanRequest.get('detalle_preliquidacion', query).then(function(response) {
             self.gridOptions_detalle.data = response.data;
             self.calcular_totales(response.data);
           });
