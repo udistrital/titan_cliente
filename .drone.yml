@@ -7,8 +7,8 @@ workspace:
 
 pipeline:
 
-  # build and test the AngularJS program
-  nodejs:
+  # install the AngularJS program
+  nodeJS-install:
     image: node:10.7.0
     commands:
      - npm install -g grunt-cli bower
@@ -16,7 +16,22 @@ pipeline:
      - npm install natives
      - npm install grunt-sonar-runner
      - bower install --allow-
+    when:
+      branch: [master, develop]
+      event: push
+
+  # run grunt sonar runner
+  grunt-sonarRunner:
+    image: openjdk:8-alpine
+    commands:
      - grunt sonarRunner:analysis
+    when:
+      branch: [master, dev]
+
+  # build the AngularJS program
+  nodeJS-build:
+    image: node:10.7.0
+    commands:
      - grunt build
     when:
       branch: [master, develop]
