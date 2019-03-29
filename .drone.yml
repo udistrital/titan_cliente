@@ -32,7 +32,8 @@ pipeline:
      - rm -rf sonar-scanner-$RELEASE-linux/jre
      - sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' ./sonar-scanner-$RELEASE-linux/bin/sonar-scanner
      - export PATH=$PATH:/go/src/github.com/udistrital/${DRONE_REPO##udistrital/}/sonar-scanner-$RELEASE-linux/bin
-     - cp sonar-project.properties ./sonar-scanner-$RELEASE-linux/conf/sonar-scanner.properties
+     #- cp sonar-project.properties ./sonar-scanner-$RELEASE-linux/conf/sonar-scanner.properties
+     #- sonar-scanner
      - grunt sonarRunner:analysis
     when:
       branch: [master, develop]
