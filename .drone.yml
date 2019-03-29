@@ -11,7 +11,7 @@ pipeline:
   nodeJS-install:
     image: node:10.7.0
     commands:
-     - npm install -g grunt-cli bower
+     - sudo npm install -g grunt-cli bower
      - npm install
      - npm install natives
      - npm install grunt-sonar-runner --save-dev
