@@ -14,7 +14,7 @@ pipeline:
      - npm install
      - npm install -g grunt-cli
      - npm install -g bower natives
-     - npm install grunt-sonar-runner --save-dev
+     - npm install -g grunt-sonar-runner --save-dev
      - grunt sonarRunner:analysis
      - bower install --allow-root
     when:
