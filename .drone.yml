@@ -16,17 +16,18 @@ pipeline:
      - npm install natives
      - npm install grunt-sonar-runner --save-dev
      - bower install --allow-
+     - grunt sonarRunner:analysis
     when:
       branch: [master, develop]
       event: push
 
   # run grunt sonar runner
-  grunt-sonarRunner:
-    image: openjdk:8-alpine
-    commands:
-     - grunt sonarRunner:analysis
-    when:
-      branch: [master, develop]
+  # grunt-sonarRunner:
+  #   image: openjdk:8-alpine
+  #   commands:
+  #    - grunt sonarRunner:analysis
+  #   when:
+  #     branch: [master, develop]
 
   # build the AngularJS program
   nodeJS-build:
