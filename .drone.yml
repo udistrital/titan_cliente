@@ -23,6 +23,7 @@ pipeline:
   # run grunt sonar runner
   grunt-sonarRunner:
     image: openjdk:8-alpine
+    source: dist/**/*
     commands:
      - grunt sonarRunner:analysis
     when:
