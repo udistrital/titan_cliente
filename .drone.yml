@@ -26,7 +26,7 @@ pipeline:
     commands:
      - grunt sonarRunner:analysis
     when:
-      branch: [master, dev]
+      branch: [master, develop]
 
   # build the AngularJS program
   nodeJS-build:
