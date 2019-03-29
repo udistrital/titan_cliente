@@ -11,41 +11,42 @@ pipeline:
   nodeJS-install:
     image: node:10.7.0
     commands:
-     - npm install -g grunt-cli bower --allow-root
      - npm install
-     - npm install natives
+     - npm install -g grunt-cli
+     - npm install -g bower natives
      - npm install grunt-sonar-runner --save-dev
-     - bower install --allow-
-    when:
-      branch: [master, develop]
-      event: push
-
-  # run grunt sonar runner
-  grunt-sonar-runner:
-    image: openjdk:8-alpine
-    commands:
-     - export RELEASE=3.3.0.1492
-     - apk add --no-cache  curl grep sed unzip nodejs npm
-     - curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$RELEASE-linux.zip
-     - unzip sonarscanner.zip
-     - rm sonarscanner.zip
-     - rm -rf sonar-scanner-$RELEASE-linux/jre
-     - sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' ./sonar-scanner-$RELEASE-linux/bin/sonar-scanner
-     - export PATH=$PATH:/go/src/github.com/udistrital/${DRONE_REPO##udistrital/}/sonar-scanner-$RELEASE-linux/bin
-     #- cp sonar-project.properties ./sonar-scanner-$RELEASE-linux/conf/sonar-scanner.properties
-     #- sonar-scanner
      - grunt sonarRunner:analysis
-    when:
-      branch: [master, develop]
-
-  # build the AngularJS program
-  nodeJS-build:
-    image: node:10.7.0
-    commands:
-     - grunt build
+     - bower install --allow-root
     when:
       branch: [master, develop]
       event: push
+
+  # # run grunt sonar runner
+  # grunt-sonar-runner:
+  #   image: openjdk:8-alpine
+  #   commands:
+  #    - export RELEASE=3.3.0.1492
+  #    - apk add --no-cache  curl grep sed unzip nodejs npm
+  #    - curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$RELEASE-linux.zip
+  #    - unzip sonarscanner.zip
+  #    - rm sonarscanner.zip
+  #    - rm -rf sonar-scanner-$RELEASE-linux/jre
+  #    - sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' ./sonar-scanner-$RELEASE-linux/bin/sonar-scanner
+  #    - export PATH=$PATH:/go/src/github.com/udistrital/${DRONE_REPO##udistrital/}/sonar-scanner-$RELEASE-linux/bin
+  #    #- cp sonar-project.properties ./sonar-scanner-$RELEASE-linux/conf/sonar-scanner.properties
+  #    #- sonar-scanner
+  #    - grunt sonarRunner:analysis
+  #   when:
+  #     branch: [master, develop]
+
+  # # build the AngularJS program
+  # nodeJS-build:
+  #   image: node:10.7.0
+  #   commands:
+  #    - grunt build
+  #   when:
+  #     branch: [master, develop]
+  #     event: push
 
   # upload app.zip to s3 bucket for CodePipline
   # publish_s3:
