@@ -16,6 +16,8 @@ pipeline:
      - npm install natives
      - npm install grunt-sonar-runner
      - bower install --allow-
+     - pwd
+     - ls
     when:
       branch: [master, develop]
       event: push
