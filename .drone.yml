@@ -14,10 +14,8 @@ pipeline:
      - npm install -g grunt-cli bower
      - npm install
      - npm install natives
-     - npm install grunt-sonar-runner
+     - npm install grunt-sonar-runner --save-dev
      - bower install --allow-
-     - pwd
-     - ls
     when:
       branch: [master, develop]
       event: push
@@ -26,8 +24,6 @@ pipeline:
   grunt-sonarRunner:
     image: openjdk:8-alpine
     commands:
-     - pwd
-     - ls
      - grunt sonarRunner:analysis
     when:
       branch: [master, develop]
