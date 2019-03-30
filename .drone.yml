@@ -7,35 +7,23 @@ workspace:
 
 pipeline:
 
-  # npm-config:
-  #   image: node:10.7.0
-  #   commands:
-  #    - mkdir ~/.npm-global
-  #    - npm config set prefix '~/.npm-global'
-  #    - export PATH=~/.npm-global/bin:$PATH
-  #   when:
-  #     branch: [master, develop]
-  #     event: push
-
   # install the AngularJS program
   nodeJS-install:
-    image: node:10.7.0
+    image: timbru31/java-node
     commands:
-     - npm install -g grunt-cli bower grunt
-    #  - npm install grunt --save-dev
+     - npm install -g grunt-cli bower
+     - npm install grunt --save-dev
      - npm install grunt-sonar-runner --save-dev
      - npm install natives
      - npm install
      - bower install --allow-root
-    #  - npm install -g jdk
-    #  - grunt sonarRunner:analysis
     when:
       branch: [master, develop]
       event: push
 
   # run grunt sonar runner
   grunt-sonar-runner:
-    image: openjdk:8-alpine
+    image: timbru31/java-node
     commands:
      - grunt sonarRunner:analysis
     when:
