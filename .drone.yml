@@ -26,6 +26,7 @@ pipeline:
      - npm install natives
      - npm install
      - bower install --allow-root
+     - grunt build
     when:
       branch: [master, develop]
       event: push
@@ -34,6 +35,7 @@ pipeline:
   grunt-sonar-runner:
     image: openjdk:8-alpine
     commands:
+     - grunt build
      - grunt sonarRunner:analysis
     when:
       branch: [master, develop]
