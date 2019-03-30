@@ -21,7 +21,7 @@ pipeline:
   nodeJS-install:
     image: node:10.7.0
     commands:
-     - npm install -g grunt-cli bower yo generator-karma generator-oas
+     - npm install -g grunt grunt-cli bower
      - npm install grunt-sonar-runner --save-dev
      - npm install natives
      - npm install
