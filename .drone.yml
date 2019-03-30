@@ -35,9 +35,7 @@ pipeline:
   java-sonar-runner:
     image: node:10.7.0
     commands:
-     - npm install --global java-download
-     - java-download --version=7 --type=jre
-     - javadl --version=8 --type=jre --platform=linux
+     - npm install -g jdk
      - grunt sonarRunner:analysis
     when:
       branch: [master, develop]
