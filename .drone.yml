@@ -21,11 +21,12 @@ pipeline:
   nodeJS-install:
     image: node:10.7.0
     commands:
-     - npm install -g grunt-cli bower
+     - npm install -g grunt-cli bower yo generator-karma generator-oas
+     - npm install grunt-sonar-runner --save-dev
      - npm install natives
      - npm install
-     - npm install grunt-sonar-runner --save-dev
      - bower install --allow-root
+     - grunt sonarRunner:analysis
     when:
       branch: [master, develop]
       event: push
