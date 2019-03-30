@@ -9,7 +9,7 @@ pipeline:
 
   # install the AngularJS program
   nodeJS-install:
-    image: timbru31/java-node
+    image: loyaltyone/docker-alpine-java-node
     commands:
      - apt-get install git
      - npm install -g grunt-cli bower
@@ -24,7 +24,7 @@ pipeline:
 
   # run grunt sonar runner
   grunt-sonar-runner:
-    image: timbru31/java-node
+    image: loyaltyone/docker-alpine-java-node
     commands:
      - grunt sonarRunner:analysis
     when:
