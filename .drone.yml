@@ -11,7 +11,6 @@ pipeline:
   nodeJS-install:
     image: loyaltyone/docker-alpine-java-node
     commands:
-     - apt-get install git
      - npm install -g grunt-cli bower
      - npm install grunt --save-dev
      - npm install grunt-sonar-runner --save-dev
