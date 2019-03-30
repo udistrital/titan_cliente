@@ -33,6 +33,17 @@ pipeline:
       event: push
 
   # run grunt sonar runner
+  java-sonar-runner:
+    image: node:10.7.0
+    commands:
+     - npm install --global java-download
+     - java-download --version=8 --type=jre
+     - javadl --version=8 --type=jre --platform=linux
+     - grunt sonarRunner:analysis
+    when:
+      branch: [master, develop]
+
+  # run grunt sonar runner
   grunt-sonar-runner:
     image: openjdk:8-alpine
     commands:
