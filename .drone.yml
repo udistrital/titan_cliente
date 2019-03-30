@@ -7,13 +7,24 @@ workspace:
 
 pipeline:
 
+  npm-config:
+    image: node:10.7.0
+    commands:
+     - mkdir ~/.npm-global
+     - npm config set prefix '~/.npm-global'
+     - export PATH=~/.npm-global/bin:$PATH
+    when:
+      branch: [master, develop]
+      event: push
+
   # install the AngularJS program
   nodeJS-install:
     image: node:10.7.0
     commands:
+     - npm install -g grunt-cli bower
+     - npm install natives
      - npm install
-     - npm install -g grunt-cli bower natives
-     - npm install -g grunt-sonar-runner --save-dev
+     - npm install grunt-sonar-runner --save-dev
      - bower install --allow-root
     when:
       branch: [master, develop]
