@@ -16,7 +16,7 @@ pipeline:
      - npm install grunt-sonar-runner --save-dev
      - npm install natives
      - npm install
-     - bower install --allow-root
+     - bower install
     when:
       branch: [master, develop]
       event: push
