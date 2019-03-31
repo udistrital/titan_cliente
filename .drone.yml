@@ -9,7 +9,7 @@ pipeline:
 
   # run grunt sonar runner
   grunt-sonar-runner:
-    image: loyaltyone/docker-alpine-java-node
+    image: timbru31/java-node
     commands:
      - npm install -g grunt-cli bower
      - npm install grunt --save-dev
