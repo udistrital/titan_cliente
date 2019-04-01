@@ -45,7 +45,7 @@ pipeline:
       branch: [develop]
       event: push
 
-  # publish_s3:
+  publish_s3:
     image: plugins/s3
     secrets: [ aws_access_key_id, aws_secret_access_key ]
     region: "us-east-1"
@@ -57,7 +57,7 @@ pipeline:
       branch: [master]
       event: push
 
-  # #Notify results to telegram
+  #Notify results to telegram
   notify_telegram:
     image: appleboy/drone-telegram
     secrets: [ telegram_token, telegram_to ]
