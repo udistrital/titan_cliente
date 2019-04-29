@@ -48,8 +48,9 @@ angular
         amMoment.changeLocale('es');
     })
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-        cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-    }])
+       cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+       cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-div"><div><span class="fa loading-spinner"></div><div class="fa sub-loading-div">Por favor espere, cargando...</div></div>';
+}])
     .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix("");
         $routeProvider
