@@ -9,6 +9,10 @@
 
 module.exports = function (grunt) {
 
+  // Test wich SonarQube
+  grunt.loadNpmTasks('grunt-sonar-runner');
+
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -433,7 +437,7 @@ module.exports = function (grunt) {
       ]
     },
 
-    //sonar
+    // sonar
     sonarRunner: {
       analysis: {
         options: {
@@ -442,11 +446,11 @@ module.exports = function (grunt) {
           dryRun: false,
           sonar: {
             host: {
-              url: 'http://localhost:9000'
+              url: 'http://10.20.0.77:9000'
             },
             projectKey: 'titan_cliente',
             projectName: 'titan_cliente',
-            projectVersion: '0.01',
+            projectVersion: '0.1',
             sources: ['app','test'].join(','),
             language: 'js',
             sourceEncoding: 'UTF-8'

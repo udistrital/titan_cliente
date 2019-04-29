@@ -5,3 +5,4 @@ lastupdate.tmp
 /.tmp
 /.sass-cache
 /bower_components
+.sonar/*
