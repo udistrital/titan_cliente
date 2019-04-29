@@ -1,7 +1,3 @@
-#loading-bar .bar {
-    background-color: #337ab7 !important;
-}
-
 .watermark {
     border: 1px blue solid;
     position: absolute;
@@ -33,8 +29,8 @@ sencillo {
     color: #d10000
 }
 
-.alineacion_derecha{
-	text-align: right;
+.alineacion_derecha {
+    text-align: right;
 }
 
 .devengo {
@@ -49,16 +45,15 @@ sencillo {
     background: #A9F5D0 !important;
 }
 
-
 .no_pago {
-	background-color: #ffb3b3 !important;
+    background-color: #ffb3b3 !important;
 }
 
 .si_pago {
-	background-color: #99bbff !important;
+    background-color: #99bbff !important;
 }
 
 .encabezado {
-  text-align: center;
-  color: #31708F;
+    text-align: center;
+    color: #31708F;
 }
