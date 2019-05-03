@@ -304,7 +304,7 @@ angular.module('titanClienteV2App')
                 console.log("console",response.data)
                   if (response.data == "OK") {
                       swal({
-                          html: $translate.instant('ACTUALIZACION_CORRECTA'),
+                          html: $translate.instant('CAMBIO_ESTADO_OP_CORRECTO'),
                           type: "success",
                           showCancelButton: false,
                           confirmButtonColor: "#449D44",
@@ -315,7 +315,7 @@ angular.module('titanClienteV2App')
                       })
                   } else {
                       swal({
-                          html: $translate.instant('ACTUALIZACION_INCORRECTA'),
+                          html: $translate.instant('CAMBIOS_ESTADO_OP_INCORRECTO'),
                           type: "error",
                           showCancelButton: false,
                           confirmButtonColor: "#449D44",

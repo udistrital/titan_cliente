@@ -15,13 +15,13 @@ angular.module('titanClienteV2App')
       },
       templateUrl: 'views/directives/preliquidacion/preliquidacion_pendientes.html',
 
-      controller: function($scope, $translate,$location) {
+      controller: function($scope, $translate,$location,$route) {
         var self = this;
 
         //* --- Definición de grid para HCH y HCS --- *//
       if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS") {
 
-        self.gridOptions = {
+        $scope.gridOptions = {
             paginationPageSizes: [20, 40,60],
             paginationPageSize: 40,
             enableFiltering: true,
@@ -112,13 +112,21 @@ angular.module('titanClienteV2App')
 
       //* --- Definición de grid para CT --- *//
       if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
-        self.gridOptions = {
+        $scope.gridOptions = {
            paginationPageSizes: [20, 40,60],
            paginationPageSize: 40,
-           enableFiltering: true,
-           enableSorting: true,
            enableRowSelection: true,
            enableSelectAll: true,
+           selectionRowHeaderWidth: 35,
+           rowHeight: 35,
+           showGridFooter:true,
+           enableHighlighting:false,
+           isRowSelectable: function(row) {
+             console.log("row.entity.Pendiente", row.entity.EstadoDisponibilidad)
+             if(row.entity.EstadoDisponibilidad === 1) return true; //rirani is not selectable
+             return false; //everyone else is
+           },
+           enableFullRowSelection: false,
            columnDefs: [
                  { field: 'IdPersona', visible: false },
                  { field: 'NumeroContrato',
@@ -150,9 +158,10 @@ angular.module('titanClienteV2App')
                    headerCellClass: "encabezado",
                  },
                  {
-                   field: 'Pendiente',
+                   field: 'EstadoDisponibilidad',
                    visible:true,
                    width: '14%',
+                   cellFilter: "filtro_estado_disp:row.entity",
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                  },
@@ -163,13 +172,14 @@ angular.module('titanClienteV2App')
              ],
              onRegisterApi: function(gridApi) {
                $scope.myGridApi = gridApi;
-           }
+
+           },
          };
 
       }
 
       titanMidRequest.post('preliquidacion/personas_x_preliquidacion', $scope.preliquidacion).then(function(response) {
-          self.gridOptions.data = response.data;
+          $scope.gridOptions.data = response.data;
           console.log("datos personas para preliq", response.data)
         });
 
@@ -213,7 +223,16 @@ angular.module('titanClienteV2App')
         };
 
         self.preliquidar_persona = function(row) {
-          $scope.persona = row.entity;
+
+          var persona = {
+              id_proveedor: parseInt(row.entity.IdPersona),
+              num_documento: parseInt(row.entity.NumDocumento),
+              numero_contrato: row.entity.NumeroContrato,
+              vigencia: parseInt(row.entity.VigenciaContrato),
+              Pendiente: "false",
+
+          };
+          $scope.persona = persona;
           $('#modal_detalle').modal('show');
         };
 
@@ -225,7 +244,8 @@ angular.module('titanClienteV2App')
             var i;
             var personas = $scope.myGridApi.selection.getSelectedRows();
            $scope.preliquidacion.Definitiva = true;
-
+           console.log("preliquidacion", $scope.preliquidacion)
+              console.log("personas", $scope.personas)
             var personas_a_liquidar = [];
 
               if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
@@ -233,11 +253,12 @@ angular.module('titanClienteV2App')
 
                 for (i = 0; i < personas.length; i++) {
                     var persona = {
-                        IdPersona: parseInt(personas[i].id_proveedor),
-                        NumDocumento: parseInt(personas[i].num_documento),
-                        NumeroContrato: personas[i].numero_contrato,
-                        VigenciaContrato: parseInt(personas[i].vigencia),
-                        Pendiente: "false",
+                        IdPersona: parseInt(personas[i].IdPersona),
+                        NumDocumento: parseInt(personas[i].NumDocumento),
+                        NumeroContrato: personas[i].NumeroContrato,
+                        VigenciaContrato: parseInt(personas[i].VigenciaContrato),
+                        Pendiente: "true",
+                        Preliquidacion: $scope.preliquidacion.Id
                     };
 
                     personas_a_liquidar.push(persona)
@@ -252,7 +273,7 @@ angular.module('titanClienteV2App')
                     NumDocumento: parseInt(personas[i].NumDocumento),
                     NumeroContrato: personas[i].NumeroContrato,
                     VigenciaContrato: parseInt(personas[i].VigenciaContrato),
-                    Pendiente: "false",
+                    Pendiente: "true",
                 };
 
                 personas_a_liquidar.push(persona)
@@ -279,4 +300,27 @@ angular.module('titanClienteV2App')
       },
       controllerAs: 'd_preliquidacionPendientes'
     };
+  }).filter('filtro_estado_disp', function($filter) {
+      return function(input, entity) {
+          var output;
+          if (undefined === input || null === input) {
+              return "";
+          }
+
+          if (entity.EstadoDisponibilidad === 1) {
+              output = "Pendiente de pago";
+          }
+
+          if (entity.EstadoDisponibilidad === 2) {
+              output = "Listo para pago";
+          }
+
+          if (entity.EstadoDisponibilidad === 3) {
+              output = "Pagado";
+          }
+
+
+
+          return output;
+      };
   });

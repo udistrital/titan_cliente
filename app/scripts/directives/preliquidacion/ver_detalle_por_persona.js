@@ -25,7 +25,7 @@ angular.module('titanClienteV2App')
         self.preliquidar_persona = function() {
 
           if($scope.persona != undefined && $scope.preliquidacion != undefined){
-
+          
             $scope.preliquidacion.Definitiva = false;
 
             var personas_a_liquidar = [];

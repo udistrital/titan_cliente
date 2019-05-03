@@ -15,7 +15,7 @@ angular.module('titanClienteV2App')
       },
       templateUrl: 'views/directives/preliquidacion/preliquidacion_abierta.html',
 
-      controller: function($scope, $translate,$location) {
+      controller: function($scope, $translate,$location,$route) {
         var self = this;
 
         //* --- Definición de grid para HCH y HCS --- *//
@@ -172,11 +172,13 @@ angular.module('titanClienteV2App')
 
       }
 
+        //*--- Listar personas a preliquidar para esa nómina --* //
         titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', $scope.preliquidacion).then(function(response) {
             self.gridOptions.data = response.data;
 
         });
 
+        //*--- Funciones de botones de Acción --* //
         $scope.loadrow = function(row, operacion) {
             self.operacion = operacion;
             switch (operacion) {
@@ -189,6 +191,8 @@ angular.module('titanClienteV2App')
                 default:
             }
         };
+
+        //*--- Listar los contratos por docente --* //
 
         self.listar_contratos_por_persona = function(row) {
 
@@ -216,6 +220,7 @@ angular.module('titanClienteV2App')
 
         };
 
+        //*--- Previsualización de preliquidacion de persona --* //
         self.preliquidar_persona = function(row) {
           $scope.persona = row.entity;
           $('#modal_detalle').modal('show');
@@ -225,6 +230,7 @@ angular.module('titanClienteV2App')
           $scope.persona = undefined
         })
 
+          //*--- Generación de preliquidacion  --* //
         self.generar_preliquidacion = function() {
             var i;
             var personas = $scope.myGridApi.selection.getSelectedRows();
