@@ -23,9 +23,19 @@ angular.module('titanClienteV2App')
             self.formVisibility = true;
         };
 
-        $scope.botones = [
-            { clase_color: "ver", clase_css: "fa fa-money fa-lg  faa-shake animated-hover", titulo: $translate.instant('GENERAR'), operacion: 'generar', estado: true },
+        $scope.botones_en_op = [
             { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
+        ];
+
+        $scope.botones_op_pendientes = [
+            { clase_color: "ver", clase_css: "fa fa-exclamation fa-lg  faa-shake animated-hover", titulo: $translate.instant('VER_PENDIENTES'), operacion: 'generar', estado: true },
+            { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
+        ];
+
+        $scope.botones_abierta = [
+          { clase_color: "ver", clase_css: "fa fa-money fa-lg  faa-shake animated-hover", titulo: $translate.instant('PRELIQUIDAR'), operacion: 'generar', estado: true },
+          { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true },
+          { clase_color: "ver", clase_css: "fa fa-file fa-lg  faa-shake animated-hover", titulo: $translate.instant('GENERAR_OP'), operacion: 'op', estado: true }
         ];
 
         self.anioPeriodo = new Date().getFullYear();
@@ -77,10 +87,12 @@ angular.module('titanClienteV2App')
                 {
                     field: 'Acciones',
                     displayName: $translate.instant('ACCIONES'),
-                    width: '12%',
+                    width: '10%',
                     cellClass: 'text-center',
                     headerCellClass: 'encabezado',
-                    cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>'
+                    cellTemplate: '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'Abierta\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_abierta" fila="row"></btn-registro></a>'+
+                    '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'EnOrdenPago\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_en_op" fila="row"></btn-registro></a>'+
+                    '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'OrdenPagoPendientes\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_op_pendientes" fila="row"></btn-registro></a>'
                 }
 
             ]
@@ -118,6 +130,9 @@ angular.module('titanClienteV2App')
                     break;
                 case "ver":
                     self.detalle_preliquidacion(row);
+                    break;
+                case "op":
+                    self.generar_op(row);
                     break;
                 default:
             }
@@ -247,6 +262,80 @@ angular.module('titanClienteV2App')
 
         };
 
+        self.generar_op = function(row) {
+
+          self.preliquidacion = preliquidacion;
+          self.preliquidacion.Id = row.entity.Id;
+          self.preliquidacion.Descripcion = row.entity.Descripcion;
+          self.preliquidacion.Mes = row.entity.Mes;
+          self.preliquidacion.Ano = row.entity.Ano;
+          self.preliquidacion.EstadoPreliquidacion = row.entity.EstadoPreliquidacion;
+          self.preliquidacion.FechaRegistro = row.entity.FechaRegistro;
+          self.preliquidacion.Nomina = self.nomina
+
+
+          var nueva_preliquidacion = {
+            Nomina: {
+              Id: self.nomina.Id
+            },
+            Id: parseInt(row.entity.Id),
+            Descripcion : row.entity.Descripcion,
+            Mes: row.entity.Mes,
+            Ano :  row.entity.Ano,
+            FechaRegistro: row.entity.FechaRegistro,
+            EstadoPreliquidacion : {
+              Id: 4
+            }
+        }
+
+        titanMidRequest.post('preliquidacion/personas_x_preliquidacion', self.preliquidacion).then(function(response) {
+          console.log("response no data", response)
+            if(response.data === null){
+              swal({
+                  html: $translate.instant('NO_PRELIQ'),
+                  type: "error",
+                  showCancelButton: true,
+                  showConfirmButton: false,
+                  cancelButtonColor: "#C9302C",
+                  cancelButtonText: $translate.instant('SALIR'),
+              })
+            }else{
+              titanRequest.put('preliquidacion', nueva_preliquidacion.Id, nueva_preliquidacion).then(function(response) {
+                console.log("console",response.data)
+                  if (response.data == "OK") {
+                      swal({
+                          html: $translate.instant('CAMBIO_ESTADO_OP_CORRECTO'),
+                          type: "success",
+                          showCancelButton: false,
+                          confirmButtonColor: "#449D44",
+                          confirmButtonText: $translate.instant('VOLVER'),
+                      }).then(function() {
+
+                          $window.location.reload()
+                      })
+                  } else {
+                      swal({
+                          html: $translate.instant('CAMBIOS_ESTADO_OP_INCORRECTO'),
+                          type: "error",
+                          showCancelButton: false,
+                          confirmButtonColor: "#449D44",
+                          confirmButtonText: $translate.instant('VOLVER'),
+                      }).then(function() {
+
+                          $window.location.reload()
+                      })
+                  }
+              });
+            }
+        });
+
+
+
+
+          //Cambiar estado de preliquidacion a 4
+
+        };
+
     }).filter('filtro_nombres_meses', function($filter, $translate) {
         return function(input, entity) {
             var output;
@@ -310,6 +399,9 @@ angular.module('titanClienteV2App')
             }
             if (entity.EstadoPreliquidacion.Nombre === "EnOrdenPago") {
                 output = $translate.instant('OP_SOLICITADA');
+            }
+            if (entity.EstadoPreliquidacion.Nombre === "OrdenPagoPendientes") {
+                output = $translate.instant('OP_PENDIENTES');
             }
 
             return output;

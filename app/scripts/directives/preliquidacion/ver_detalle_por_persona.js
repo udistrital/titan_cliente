@@ -22,11 +22,10 @@ angular.module('titanClienteV2App')
         var self = this;
         $scope.inputpestanaabierta = $scope.open;
         $scope.mostrarleyenda = "false"
-
         self.preliquidar_persona = function() {
 
           if($scope.persona != undefined && $scope.preliquidacion != undefined){
-
+          
             $scope.preliquidacion.Definitiva = false;
 
             var personas_a_liquidar = [];

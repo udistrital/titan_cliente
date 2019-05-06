@@ -26,13 +26,13 @@
       <div class="col-md-4">
         <div class="panel-primary">
             <div class="panel-heading" ng-if="preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.CodigoAbreviacion =='TN-HC'">{{'DETALLE_DOC'| translate}}: {{preliquidacionDetalle.persona_seleccionada_nombre}}</div>
-            <div class="panel-heading" ng-if="preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.CodigoAbreviacion =='TN-CONT'">{{'DETALLE_CONT'| translate}}: {{preliquidacionDetalle.persona_seleccionada_nombre}}</div>
+            <div class="panel-heading" ng-if="preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.CodigoAbreviacion =='TN-CONT'">{{'DETALLE_CONT'| translate}}: {{preliquidacionDetalle.persona_seleccionada_nombre}} - {{preliquidacionDetalle.num_contrato}} {{preliquidacionDetalle.vigencia}}</div>
               <div class="panel-body">
                 <div ui-grid="preliquidacionDetalle.gridOptions_detalle" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
 
                 <table class="table">
                     <tr>
-                        
+
                         <th>{{'REALIZA_PAGO' | translate}}</th>
                         <td class="alineacion_derecha">{{preliquidacionDetalle.gridOptions_detalle.data[0].EstadoDisponibilidad.Nombre}}</td>
                     </tr>
