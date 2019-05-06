@@ -26,7 +26,7 @@ angular.module('titanClienteV2App')
             paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
-            enableRowSelection: true,
+            enableRowSelection: false,
             enableRowHeaderSelection: true,
             columnDefs: [
                 {
@@ -122,9 +122,8 @@ angular.module('titanClienteV2App')
            showGridFooter:true,
            enableHighlighting:false,
            isRowSelectable: function(row) {
-             console.log("row.entity.Pendiente", row.entity.EstadoDisponibilidad)
-             if(row.entity.EstadoDisponibilidad === 1) return true; //rirani is not selectable
-             return false; //everyone else is
+             if(row.entity.EstadoDisponibilidad === 1) return true; 
+             return false;
            },
            enableFullRowSelection: false,
            columnDefs: [
@@ -323,4 +322,13 @@ angular.module('titanClienteV2App')
 
           return output;
       };
-  });
+  }).directive('uiGridSelectionRowHeaderButtons', function() {
+  return {
+    priority: -1,
+    link: function($scope, $elm) {
+      if(!$scope.grid.options.isRowSelectable($scope.row)) {
+        $elm.removeClass('ui-grid-icon-ok').addClass('ui-grid-row-not-selectable');
+      }
+    }
+  };
+});;

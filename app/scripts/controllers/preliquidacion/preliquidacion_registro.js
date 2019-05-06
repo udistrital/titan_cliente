@@ -28,14 +28,14 @@ angular.module('titanClienteV2App')
         ];
 
         $scope.botones_op_pendientes = [
-            { clase_color: "ver", clase_css: "fa fa-exclamation fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'generar', estado: true },
+            { clase_color: "ver", clase_css: "fa fa-exclamation fa-lg  faa-shake animated-hover", titulo: $translate.instant('VER_PENDIENTES'), operacion: 'generar', estado: true },
             { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
         ];
 
         $scope.botones_abierta = [
-          { clase_color: "ver", clase_css: "fa fa-money fa-lg  faa-shake animated-hover", titulo: $translate.instant('GENERAR'), operacion: 'generar', estado: true },
+          { clase_color: "ver", clase_css: "fa fa-money fa-lg  faa-shake animated-hover", titulo: $translate.instant('PRELIQUIDAR'), operacion: 'generar', estado: true },
           { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true },
-          { clase_color: "ver", clase_css: "fa fa-file fa-lg  faa-shake animated-hover", titulo: $translate.instant('OP'), operacion: 'op', estado: true }
+          { clase_color: "ver", clase_css: "fa fa-file fa-lg  faa-shake animated-hover", titulo: $translate.instant('GENERAR_OP'), operacion: 'op', estado: true }
         ];
 
         self.anioPeriodo = new Date().getFullYear();
@@ -87,7 +87,7 @@ angular.module('titanClienteV2App')
                 {
                     field: 'Acciones',
                     displayName: $translate.instant('ACCIONES'),
-                    width: '12%',
+                    width: '10%',
                     cellClass: 'text-center',
                     headerCellClass: 'encabezado',
                     cellTemplate: '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'Abierta\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_abierta" fila="row"></btn-registro></a>'+

@@ -149,14 +149,14 @@ angular.module('titanClienteV2App')
                  {
                    field: 'num_documento',
                    displayName: $translate.instant('DOCUMENTO'),
-                   width: '18%',
+                   width: '20%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado",
                  },
                  {
                    field: 'Preliquidado',
                    visible:true,
-                   width: '14%',
+                   width: '12%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                  },

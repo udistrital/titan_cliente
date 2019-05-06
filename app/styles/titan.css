@@ -57,3 +57,11 @@ sencillo {
     text-align: center;
     color: #31708F;
 }
+
+.ui-grid-selection-row-header-buttons.ui-grid-row-not-selectable {
+  cursor: not-allowed;
+}
+
+.ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell{
+  background-color: #C9DDE1;
+}
