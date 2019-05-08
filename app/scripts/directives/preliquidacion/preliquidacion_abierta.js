@@ -7,7 +7,7 @@
  * # verRp
  */
 angular.module('titanClienteV2App')
-  .directive('preliquidacionAbierta', function(titanMidRequest,) {
+  .directive('preliquidacionAbierta', function(titanMidRequest) {
     return {
       restrict: 'E',
       scope: {
