@@ -84,44 +84,11 @@ angular.module('titanClienteV2App')
 
             columnDefs: [
 
-               {
-                    field: 'NumeroContrato',
-                    displayName: $translate.instant('NUM_CONTRATO'),
-                    headerCellClass: 'encabezado',
-                    width: '20%',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
-                            return 'text-center devengo';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
-                            return 'text-center descuento';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
-                            return 'text-center seguridad_social';
-                        }
-                    },
-                    sort: {
-                       direction: 'asc',
-                       priority: 0
-                   },
-                },
-                {
-                    field: 'VigenciaContrato',
-                    displayName: $translate.instant('VIGENCIA'),
-                    width: '20%',
-                    headerCellClass: 'encabezado',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
-                            return 'text-center devengo';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
-                            return 'text-center descuento';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
-                            return 'text-center seguridad_social';
-                        }
-                    }
-                },
+
                 {
                     field: 'Concepto.AliasConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
-                    width: '45%',
+                    width: '60%',
                     sort: {
                        direction: 'asc',
                        priority: 2
@@ -149,7 +116,7 @@ angular.module('titanClienteV2App')
                 {
                     field: 'ValorCalculado',
                     displayName: $translate.instant('VALOR'),
-                    width: '35%',
+                    width: '40%',
                     cellFilter: 'currency',
                     headerCellClass: 'encabezado',
                     cellClass: function(grid, row) {
@@ -208,7 +175,7 @@ angular.module('titanClienteV2App')
                  },
                 {
                      field: 'NaturalezaConcepto',
-                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
+                     displayName: $translate.instant('TIPO_CONCEPTO'),
                      headerCellClass: 'encabezado',
                      sort: {
                         direction: 'asc',
@@ -268,6 +235,8 @@ angular.module('titanClienteV2App')
           var query = "query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona
           titanRequest.get('detalle_preliquidacion', query).then(function(response) {
             self.gridOptions_detalle.data = response.data;
+            self.num_contrato = response.data[0].NumeroContrato + " de "
+            self.vigencia = response.data[0].VigenciaContrato
             self.calcular_totales(response.data);
           });
 
