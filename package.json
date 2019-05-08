@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "bower": "^1.8.8",
+    "natives": "^1.1.6",
     "npm-install-global": "^1.0.0"
   }
 }

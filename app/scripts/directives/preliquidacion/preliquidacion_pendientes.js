@@ -322,13 +322,4 @@ angular.module('titanClienteV2App')
 
           return output;
       };
-  }).directive('uiGridSelectionRowHeaderButtons', function() {
-  return {
-    priority: -1,
-    link: function($scope, $elm) {
-      if(!$scope.grid.options.isRowSelectable($scope.row)) {
-        $elm.removeClass('ui-grid-icon-ok').addClass('ui-grid-row-not-selectable');
-      }
-    }
-  };
-});;
+  });
