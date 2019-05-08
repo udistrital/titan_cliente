@@ -7,7 +7,7 @@
  * # verRp
  */
 angular.module('titanClienteV2App')
-  .directive('preliquidacionPendientes', function(titanMidRequest,) {
+  .directive('preliquidacionPendientes', function(titanMidRequest) {
     return {
       restrict: 'E',
       scope: {
@@ -122,7 +122,7 @@ angular.module('titanClienteV2App')
            showGridFooter:true,
            enableHighlighting:false,
            isRowSelectable: function(row) {
-             if(row.entity.EstadoDisponibilidad === 1) return true; 
+             if(row.entity.EstadoDisponibilidad === 1) return true;
              return false;
            },
            enableFullRowSelection: false,
