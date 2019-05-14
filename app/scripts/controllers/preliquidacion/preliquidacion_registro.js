@@ -23,13 +23,14 @@ angular.module('titanClienteV2App')
             self.formVisibility = true;
         };
 
-        $scope.botones_en_op = [
+        $scope.botones_cerrada = [
             { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
         ];
 
         $scope.botones_op_pendientes = [
             { clase_color: "ver", clase_css: "fa fa-exclamation fa-lg  faa-shake animated-hover", titulo: $translate.instant('VER_PENDIENTES'), operacion: 'generar', estado: true },
-            { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
+            { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true },
+            { clase_color: "ver", clase_css: "fa fa-file fa-lg  faa-shake animated-hover", titulo: $translate.instant('GENERAR_OP'), operacion: 'op', estado: true }
         ];
 
         $scope.botones_abierta = [
@@ -91,7 +92,7 @@ angular.module('titanClienteV2App')
                     cellClass: 'text-center',
                     headerCellClass: 'encabezado',
                     cellTemplate: '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'Abierta\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_abierta" fila="row"></btn-registro></a>'+
-                    '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'EnOrdenPago\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_en_op" fila="row"></btn-registro></a>'+
+                    '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'Cerrada\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_cerrada" fila="row"></btn-registro></a>'+
                     '<a ng-if="row.entity.EstadoPreliquidacion.Nombre==\'OrdenPagoPendientes\'"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_op_pendientes" fila="row"></btn-registro></a>'
                 }
 
@@ -300,30 +301,27 @@ angular.module('titanClienteV2App')
                   cancelButtonText: $translate.instant('SALIR'),
               })
             }else{
-              titanRequest.put('preliquidacion', nueva_preliquidacion.Id, nueva_preliquidacion).then(function(response) {
+              titanMidRequest.post('gestion_ops/generar_op', self.preliquidacion).then(function(response) {
                 console.log("console",response.data)
-                  if (response.data == "OK") {
-                      swal({
-                          html: $translate.instant('CAMBIO_ESTADO_OP_CORRECTO'),
-                          type: "success",
-                          showCancelButton: false,
-                          confirmButtonColor: "#449D44",
-                          confirmButtonText: $translate.instant('VOLVER'),
-                      }).then(function() {
-
-                          $window.location.reload()
-                      })
+                  if (response.data.Type  == "error") {
+                    swal({
+                        html: $translate.instant('CAMBIOS_ESTADO_OP_INCORRECTO'),
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#449D44",
+                        confirmButtonText: $translate.instant('VOLVER'),
+                    })
                   } else {
-                      swal({
-                          html: $translate.instant('CAMBIOS_ESTADO_OP_INCORRECTO'),
-                          type: "error",
-                          showCancelButton: false,
-                          confirmButtonColor: "#449D44",
-                          confirmButtonText: $translate.instant('VOLVER'),
-                      }).then(function() {
+                    swal({
+                        html: $translate.instant('CAMBIO_ESTADO_OP_CORRECTO'),
+                        type: "success",
+                        showCancelButton: false,
+                        confirmButtonColor: "#449D44",
+                        confirmButtonText: $translate.instant('VOLVER'),
+                    }).then(function() {
 
-                          $window.location.reload()
-                      })
+                        $window.location.reload()
+                    })
                   }
               });
             }
@@ -388,7 +386,7 @@ angular.module('titanClienteV2App')
                 return "";
             }
 
-            if (entity.EstadoPreliquidacion.Nombres === "Cerrada") {
+            if (entity.EstadoPreliquidacion.Nombre === "Cerrada") {
                 output = $translate.instant('CERRADA');
             }
             if (entity.EstadoPreliquidacion.Nombre === "Abierta") {
@@ -397,10 +395,7 @@ angular.module('titanClienteV2App')
             if (entity.EstadoPreliquidacion.Nombre === "SolicitudNecesidad") {
                 output = $translate.instant('NEC_SOLICITADA');
             }
-            if (entity.EstadoPreliquidacion.Nombre === "EnOrdenPago") {
-                output = $translate.instant('OP_SOLICITADA');
-            }
-            if (entity.EstadoPreliquidacion.Nombre === "OrdenPagoPendientes") {
+           if (entity.EstadoPreliquidacion.Nombre === "OrdenPagoPendientes") {
                 output = $translate.instant('OP_PENDIENTES');
             }
 
