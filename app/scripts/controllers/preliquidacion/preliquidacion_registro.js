@@ -29,7 +29,8 @@ angular.module('titanClienteV2App')
 
         $scope.botones_op_pendientes = [
             { clase_color: "ver", clase_css: "fa fa-exclamation fa-lg  faa-shake animated-hover", titulo: $translate.instant('VER_PENDIENTES'), operacion: 'generar', estado: true },
-            { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true }
+            { clase_color: "ver", clase_css: "fa fa-eye fa-lg  faa-shake animated-hover", titulo: $translate.instant('DETALLE'), operacion: 'ver', estado: true },
+            { clase_color: "ver", clase_css: "fa fa-file fa-lg  faa-shake animated-hover", titulo: $translate.instant('GENERAR_OP'), operacion: 'op', estado: true }
         ];
 
         $scope.botones_abierta = [
