@@ -717,37 +717,67 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
       $scope.$watch("novedadRegistro.anioPeriodo", function() {
 
         if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
+          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion.Id:1').then(function(response) {
 
-          self.preliquidacion_elegida = true;
-          self.cargando = true;
-          self.preliquidacion = {
-              Mes: parseInt(self.mesPeriodo),
-              Ano: parseInt(self.anioPeriodo),
-              Nomina: nomina
-          }
+              if (response.data != null){
+                swal({
+                    html: $translate.instant('ERROR_NOV_PRELIQ'),
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#449D44",
+                    confirmButtonText: $translate.instant('VOLVER'),
+                })
+              }else{
+                self.preliquidacion_elegida = true;
+                self.cargando = true;
+                self.preliquidacion = {
+                    Mes: parseInt(self.mesPeriodo),
+                    Ano: parseInt(self.anioPeriodo),
+                    Nomina: nomina
+                }
 
-          titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
-              self.cargando = false;
-              $scope.gridOptions_personas.data = response.data;
+
+                titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
+                    self.cargando = false;
+                    $scope.gridOptions_personas.data = response.data;
+                });
+              }
           });
+
+
+
           }
 
       }, true);
 
       $scope.$watch("novedadRegistro.mesPeriodo", function() {
+
         if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
-          self.preliquidacion_elegida = true;
-          self.cargando = true;
-          self.preliquidacion = {
-              Mes: parseInt(self.mesPeriodo),
-              Ano: parseInt(self.anioPeriodo),
-              Nomina: nomina
-          }
+          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion.Id:1').then(function(response) {
 
-          titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
-              $scope.gridOptions_personas.data = response.data;
-              self.cargando = false;
+              if (response.data != null){
+                swal({
+                    html: $translate.instant('ERROR_NOV_PRELIQ'),
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#449D44",
+                    confirmButtonText: $translate.instant('VOLVER'),
+                })
+              }else{
+                self.preliquidacion_elegida = true;
+                self.cargando = true;
+                self.preliquidacion = {
+                    Mes: parseInt(self.mesPeriodo),
+                    Ano: parseInt(self.anioPeriodo),
+                    Nomina: nomina
+                }
 
+
+                titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
+                    self.cargando = false;
+                    $scope.gridOptions_personas.data = response.data;
+                });
+              }
           });
 
 
