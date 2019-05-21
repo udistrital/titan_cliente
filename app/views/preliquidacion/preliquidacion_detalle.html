@@ -9,12 +9,6 @@
               <!--<button ng-click="preliquidacionDetalle.generar_pdf()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>-->
             <div ui-grid="preliquidacionDetalle.gridOptions" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
 
-
-
-              <div ng-show="preliquidacionDetalle.preliquidacion.Nomina.Id == 3 || preliquidacionDetalle.preliquidacion.Nomina.Id == 4 || preliquidacionDetalle.preliquidacion.Nomina.Id == 5">
-                  <br>
-                  <button ng-click="preliquidacionDetalle.solicitar_op()" class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_OP' | translate}}</button>
-              </div>
               <div ng-show="preliquidacionDetalle.preliquidacion.Nomina.Id == 1 || preliquidacionDetalle.preliquidacion.Nomina.Id == 2">
                   <br>
                   <button ng-click="preliquidacionDetalle.solicitar_necesidad()" class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_NECESIDAD' | translate}}</button>

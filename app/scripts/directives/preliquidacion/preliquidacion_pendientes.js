@@ -167,7 +167,37 @@ angular.module('titanClienteV2App')
                  { field: 'IdEPS', visible: false },
                  { field: 'IdARL', visible: false },
                  { field: 'IdFondoPension', visible: false },
-                 { field: 'IdCajaCompensacion', visible: false },
+                 { field: 'IdCajaCompensacion', visible: false }, {
+                    field: 'tipo_registro',
+                    visible:true,
+                    width: '12%',
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado"
+                  },
+                  {
+                    field: 'fecha_inicio',
+                    visible:true,
+                    width: '12%',
+                    cellClass: 'text-center',
+                    cellTemplate: '<span>{{row.entity.fecha_inicio | date:"yyyy-MM-dd" :"+0900"}}</span>',
+                    headerCellClass: "encabezado"
+                  },
+                  {
+                    field: 'fecha_fin',
+                    visible:true,
+                    width: '12%',
+                    cellClass: 'text-center',
+                    cellTemplate: '<span>{{row.entity.fecha_fin | date:"yyyy-MM-dd" :"+0900"}}</span>',
+                    headerCellClass: "encabezado"
+                  },
+                  {
+                    field: 'valor_contrato',
+                    visible:true,
+                    width: '12%',
+                    cellFilter: 'currency',
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado"
+                  }
              ],
              onRegisterApi: function(gridApi) {
                $scope.myGridApi = gridApi;
@@ -228,6 +258,9 @@ angular.module('titanClienteV2App')
               num_documento: parseInt(row.entity.NumDocumento),
               numero_contrato: row.entity.NumeroContrato,
               vigencia: parseInt(row.entity.VigenciaContrato),
+              FechaInicio:personas[i].fecha_inicio,
+              FechaFin:personas[i].fecha_fin,
+              ValorContrato:personas[i].valor_contrato,
               Pendiente: "false",
 
           };
