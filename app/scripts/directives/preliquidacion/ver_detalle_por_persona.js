@@ -25,7 +25,7 @@ angular.module('titanClienteV2App')
         self.preliquidar_persona = function() {
 
           if($scope.persona != undefined && $scope.preliquidacion != undefined){
-          
+
             $scope.preliquidacion.Definitiva = false;
 
             var personas_a_liquidar = [];
@@ -39,7 +39,9 @@ angular.module('titanClienteV2App')
                         NumeroContrato: $scope.persona.numero_contrato,
                         VigenciaContrato: parseInt($scope.persona.vigencia),
                         Pendiente: "false",
-
+                        FechaInicio:$scope.persona.fecha_inicio,
+                        FechaFin:$scope.persona.fecha_fin,
+                        ValorContrato:$scope.persona.valor_contrato,
                     };
 
                     personas_a_liquidar.push(persona)

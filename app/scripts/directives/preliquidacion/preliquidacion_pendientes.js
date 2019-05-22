@@ -131,35 +131,35 @@ angular.module('titanClienteV2App')
                  { field: 'NumeroContrato',
                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.d_preliquidacionPendientes.preliquidar_persona(row)" >{{row.entity.NumeroContrato}}</button>',
                    displayName: $translate.instant('NUM_CONTRATO'),
-                   width: '15%',
+                   width: '10%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                   },
                  {
                    field: 'VigenciaContrato',
                    displayName: $translate.instant('VIGENCIA'),
-                   width: '15%',
+                   width: '10%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                  },
                  {
                    field: 'NombreCompleto',
                    displayName: $translate.instant('NOMBRE_PERSONA'),
-                   width: '35%',
+                   width: '20%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                  },
                  {
                    field: 'NumDocumento',
                    displayName: $translate.instant('DOCUMENTO'),
-                   width: '18%',
+                   width: '10%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado",
                  },
                  {
                    field: 'EstadoDisponibilidad',
                    visible:true,
-                   width: '14%',
+                   width: '13%',
                    cellFilter: "filtro_estado_disp:row.entity",
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
@@ -167,7 +167,30 @@ angular.module('titanClienteV2App')
                  { field: 'IdEPS', visible: false },
                  { field: 'IdARL', visible: false },
                  { field: 'IdFondoPension', visible: false },
-                 { field: 'IdCajaCompensacion', visible: false },
+                 {
+                    field: 'FechaInicio',
+                    visible:true,
+                    width: '12%',
+                    cellClass: 'text-center',
+                    cellTemplate: '<span>{{row.entity.FechaInicio | date:"yyyy-MM-dd"}}</span>',
+                    headerCellClass: "encabezado"
+                  },
+                  {
+                    field: 'FechaFin',
+                    visible:true,
+                    width: '12%',
+                    cellClass: 'text-center',
+                    cellTemplate: '<span>{{row.entity.FechaFin | date:"yyyy-MM-dd"}}</span>',
+                    headerCellClass: "encabezado"
+                  },
+                  {
+                    field: 'ValorContrato',
+                    visible:true,
+                    width: '11%',
+                    cellFilter: 'currency',
+                    cellClass: 'text-center',
+                    headerCellClass: "encabezado"
+                  }
              ],
              onRegisterApi: function(gridApi) {
                $scope.myGridApi = gridApi;
@@ -228,6 +251,9 @@ angular.module('titanClienteV2App')
               num_documento: parseInt(row.entity.NumDocumento),
               numero_contrato: row.entity.NumeroContrato,
               vigencia: parseInt(row.entity.VigenciaContrato),
+              fecha_inicio:row.entity.FechaInicio,
+              fecha_fin:row.entity.FechaFin,
+              valor_contrato:row.entity.ValorContrato,
               Pendiente: "false",
 
           };
