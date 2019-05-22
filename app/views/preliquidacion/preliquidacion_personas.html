@@ -1,6 +1,6 @@
 
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Descripcion}}<br>{{'FECHA_PRELIQ'| translate}} : {{preliquidacionPersonas.preliquidacion.FechaRegistro | date:"yyyy-MM-dd":"+0900"}}</h2>
+  <h2 class="page-header text-center">{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Descripcion}}<br>{{preliquidacionPersonas.preliquidacion.Mes | translate}} de {{preliquidacionPersonas.preliquidacion.Ano}}</h2>
 
   <div ng-if="preliquidacionPersonas.preliquidacion.EstadoPreliquidacion.Nombre === 'Abierta'">
     <preliquidacion-abierta preliquidacion="preliquidacionPersonas.preliquidacion" ></preliquidacion-abierta>

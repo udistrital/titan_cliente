@@ -128,35 +128,63 @@ angular.module('titanClienteV2App')
                  { field: 'numero_contrato',
                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.d_preliquidacionAbierta.preliquidar_persona(row)" >{{row.entity.numero_contrato}}</button>',
                    displayName: $translate.instant('NUM_CONTRATO'),
-                   width: '15%',
+                   width: '10%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                   },
                  {
                    field: 'vigencia',
                    displayName: $translate.instant('VIGENCIA'),
-                   width: '15%',
+                   width: '10%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                  },
                  {
                    field: 'nom_proveedor',
                    displayName: $translate.instant('NOMBRE_PERSONA'),
-                   width: '35%',
+                   width: '20%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                  },
                  {
                    field: 'num_documento',
                    displayName: $translate.instant('DOCUMENTO'),
-                   width: '20%',
+                   width: '15%',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado",
                  },
                  {
                    field: 'Preliquidado',
                    visible:true,
+                   width: '8%',
+                   cellClass: 'text-center',
+                   headerCellClass: "encabezado"
+                 },
+                 {
+                   field: 'tipo_registro',
+                   visible:false,
+                 },
+                 {
+                   field: 'fecha_inicio',
+                   visible:true,
                    width: '12%',
+                   cellClass: 'text-center',
+                   cellTemplate: '<span>{{row.entity.fecha_inicio | date:"yyyy-MM-dd"}}</span>',
+                   headerCellClass: "encabezado"
+                 },
+                 {
+                   field: 'fecha_fin',
+                   visible:true,
+                   width: '12%',
+                   cellClass: 'text-center',
+                   cellTemplate: '<span>{{row.entity.fecha_fin | date:"yyyy-MM-dd"}}</span>',
+                   headerCellClass: "encabezado"
+                 },
+                 {
+                   field: 'valor_contrato',
+                   visible:true,
+                   width: '10%',
+                   cellFilter: 'currency',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
                  },
@@ -247,6 +275,9 @@ angular.module('titanClienteV2App')
                         NumDocumento: parseInt(personas[i].num_documento),
                         NumeroContrato: personas[i].numero_contrato,
                         VigenciaContrato: parseInt(personas[i].vigencia),
+                        FechaInicio:personas[i].fecha_inicio,
+                        FechaFin:personas[i].fecha_fin,
+                        ValorContrato:personas[i].valor_contrato,
                         Pendiente: "false",
                     };
 
@@ -282,6 +313,7 @@ angular.module('titanClienteV2App')
                 $route.reload()
 
             });
+
 
         };
 
