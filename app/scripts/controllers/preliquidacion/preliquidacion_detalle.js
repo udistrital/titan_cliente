@@ -266,45 +266,7 @@ angular.module('titanClienteV2App')
              console.log("sel",self.total_devengos_persona)
         };
 
-        self.solicitar_op = function() {
-
-            var Estado_Pre = {
-                Id: 4
-            }
-
-
-            self.preliquidacion.EstadoPreliquidacion = Estado_Pre
-
-            titanRequest.put('preliquidacion', self.preliquidacion.Id, self.preliquidacion).then(function(response) {
-
-                if (response.data == "OK") {
-                    swal({
-                        html: $translate.instant('CAMBIO_ESTADO_OP_CORRECTO'),
-                        type: "success",
-                        showCancelButton: false,
-                        confirmButtonColor: "#449D44",
-                        confirmButtonText: $translate.instant('VOLVER'),
-                    }).then(function() {
-                        $location.path('/preliquidacion/preliquidacion_registro/' + self.preliquidacion.Nomina.TipoNomina.Nombre);
-                        $route.reload()
-                    })
-
-                } else {
-                    swal({
-                        html: $translate.instant('CAMBIOS_ESTADO_OP_INCORRECTO'),
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#449D44",
-                        confirmButtonText: $translate.instant('VOLVER'),
-                    }).then(function() {
-                        $location.path('/preliquidacion/preliquidacion_registro/' + self.preliquidacion.Nomina.TipoNomina.Nombre);
-                        $route.reload()
-                    })
-                }
-            });
-
-        };
-
+      
         self.solicitar_necesidad = function() {
 
 

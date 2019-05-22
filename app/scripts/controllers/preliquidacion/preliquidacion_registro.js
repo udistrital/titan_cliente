@@ -161,8 +161,7 @@ angular.module('titanClienteV2App')
 
             titanRequest.post('preliquidacion', pliquidacion).then(function(response) {
 
-                if (typeof(response.data) == "object") {
-                    swal({
+                swal({
                         html: $translate.instant('PRELIQ_REG_CORRECTA'),
                         type: "success",
                         showCancelButton: false,
@@ -171,24 +170,22 @@ angular.module('titanClienteV2App')
                     }).then(function() {
                         $('#myModal').modal('hide');
                     })
-                    titanRequest.get('preliquidacion', 'limit=0&query=Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
+                    titanRequest.get('preliquidacion', 'limit=-1&query=Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
                         self.gridOptions.data = response.data;
                     });
-                }
-                if (typeof(response.data) == "string") {
-                    console.log(response.data)
-                    swal({
-                        html: $translate.instant('PRELIQ_REG_INCORRECTA'),
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#449D44",
-                        confirmButtonText: $translate.instant('VOLVER'),
-                    }).then(function() {
-                        $('#myModal').modal('hide');
-                    })
 
-                }
-            });
+
+            }).catch(function(response) {
+              swal({
+                  html: $translate.instant('PRELIQ_REG_INCORRECTA'),
+                  type: "error",
+                  showCancelButton: false,
+                  confirmButtonColor: "#449D44",
+                  confirmButtonText: $translate.instant('VOLVER'),
+              }).then(function() {
+                  $('#myModal').modal('hide');
+              })
+          });
 
             self.formVisibility = false;
         };
