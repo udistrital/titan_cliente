@@ -183,7 +183,7 @@ angular.module('titanClienteV2App')
                  {
                    field: 'valor_contrato',
                    visible:true,
-                   width: '10%',
+                   width: '11%',
                    cellFilter: 'currency',
                    cellClass: 'text-center',
                    headerCellClass: "encabezado"
