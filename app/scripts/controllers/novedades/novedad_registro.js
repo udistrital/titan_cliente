@@ -393,7 +393,7 @@ self.listar_novedades = function(row) {
     $scope.persona = row.entity
 
     titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,Persona:' + $scope.persona.id_proveedor+ ',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
-        if (response.data == null) {
+        if (Object.keys(response.data[0]).length == 0) {
             $scope.gridOptions_novedades.data = [];
             self.hayNovedad = false
         } else {
@@ -592,7 +592,7 @@ $scope.inactivar_novedad = function(row) {
         };
 
         titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_inactivar.Id, novedad_por_persona_a_inactivar).then(function(response) {
-            if (response.data == "OK") {
+
                 swal({
                     html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
                     type: "success",
@@ -602,18 +602,18 @@ $scope.inactivar_novedad = function(row) {
                 }).then(function() {
                     $window.location.reload()
                 })
-            } else {
-                swal({
-                    html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                    confirmButtonText: $translate.instant('VOLVER'),
-                }).then(function() {
-                    $window.location.reload()
-                })
-            }
-        });
+
+        }).catch(function(response) {
+          swal({
+              html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
+              type: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#449D44",
+              confirmButtonText: $translate.instant('VOLVER'),
+          }).then(function() {
+              $window.location.reload()
+          })
+      });
 
 
     })
@@ -675,7 +675,7 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
         console.log("objeto edicion", novedad_por_persona_a_editar)
 
         titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
-            if (response.data == "OK") {
+
                 swal({
                     html: $translate.instant('EDICION_CORRECTA_NOV'),
                     type: "success",
@@ -685,18 +685,16 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
                 }).then(function() {
                     $window.location.reload()
                 })
-            } else {
-                swal({
-                    html: $translate.instant('EDICION_INCORRECTA_NOV'),
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                    confirmButtonText: $translate.instant('VOLVER'),
-                }).then(function() {
-                    $window.location.reload()
-                })
-            }
-        });
+
+        }).catch(function(response) {
+          swal({
+              html: $translate.instant('EDICION_INCORRECTA_NOV'),
+              type: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#449D44",
+              confirmButtonText: $translate.instant('VOLVER'),
+          })
+      });
 
 
 
@@ -717,9 +715,9 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
       $scope.$watch("novedadRegistro.anioPeriodo", function() {
 
         if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
-          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion.Id:1').then(function(response) {
+          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion:1').then(function(response) {
 
-              if (response.data != null){
+              if (Object.keys(response.data[0]).length != 0){
                 swal({
                     html: $translate.instant('ERROR_NOV_PRELIQ'),
                     type: "error",
@@ -742,20 +740,27 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
                     $scope.gridOptions_personas.data = response.data;
                 });
               }
-          });
+          }).catch(function(response) {
+            swal({
+                html: $translate.instant('ERROR_NOV_PRELIQ'),
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#449D44",
+                confirmButtonText: $translate.instant('VOLVER'),
+            })
+        });
 
 
-
-          }
+        }
 
       }, true);
 
       $scope.$watch("novedadRegistro.mesPeriodo", function() {
 
         if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
-          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion.Id:1').then(function(response) {
+          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion:1').then(function(response) {
 
-              if (response.data != null){
+              if (Object.keys(response.data[0]).length != 0){
                 swal({
                     html: $translate.instant('ERROR_NOV_PRELIQ'),
                     type: "error",
@@ -778,7 +783,15 @@ if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_noved
                     $scope.gridOptions_personas.data = response.data;
                 });
               }
-          });
+          }).catch(function(response) {
+            swal({
+                html: $translate.instant('ERROR_NOV_PRELIQ'),
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#449D44",
+                confirmButtonText: $translate.instant('VOLVER'),
+            })
+        });
 
 
         }

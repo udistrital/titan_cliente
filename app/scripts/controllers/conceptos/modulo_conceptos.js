@@ -197,9 +197,7 @@ angular.module('titanClienteV2App')
                     };
 
                     titanRequest.put('concepto_nomina', concepto_editado.Id, concepto_editado).then(function(response) {
-
-                        if (response.data == "OK") {
-                            swal({
+                        swal({
                                 html: $translate.instant('ACTUALIZACION_CORRECTA'),
                                 type: "success",
                                 showCancelButton: false,
@@ -207,21 +205,23 @@ angular.module('titanClienteV2App')
                                 confirmButtonText: $translate.instant('VOLVER'),
                             }).then(function() {
                                 $('#modal_edicion').modal('hide');
-                                $window.location.reload()
+                                titanRequest.get('concepto_nomina', 'limit=-1').then(function(response) {
+                                    self.gridOptions_conceptos.data = response.data;
+                                });
                             })
-                        } else {
-                            swal({
-                                html: $translate.instant('ACTUALIZACION_INCORRECTA'),
-                                type: "error",
-                                showCancelButton: false,
-                                confirmButtonColor: "#449D44",
-                                confirmButtonText: $translate.instant('VOLVER'),
-                            }).then(function() {
-                                $('#modal_edicion').modal('hide');
-                                $window.location.reload()
-                            })
-                        }
-                    });
+
+                    }).catch(function(response) {
+                      swal({
+                          html: $translate.instant('ACTUALIZACION_INCORRECTA'),
+                          type: "error",
+                          showCancelButton: false,
+                          confirmButtonColor: "#449D44",
+                          confirmButtonText: $translate.instant('VOLVER'),
+                      }).then(function() {
+                          $('#modal_edicion').modal('hide');
+
+                      })
+                  });
 
                 }, function(dismiss) {
                     if (dismiss === 'cancel') {
@@ -276,28 +276,27 @@ angular.module('titanClienteV2App')
 
               titanRequest.put('concepto_nomina', concepto_editado.Id, concepto_editado).then(function(response) {
 
-                    if (response.data == "OK") {
-                        swal({
+                swal({
                             html: $translate.instant('INACTIVACION_CONCEPTO_CORRECTA'),
                             type: "success",
                             showCancelButton: false,
                             confirmButtonColor: "#449D44",
                             confirmButtonText: $translate.instant('VOLVER'),
                         }).then(function() {
-                            $window.location.reload()
+                          titanRequest.get('concepto_nomina', 'limit=-1').then(function(response) {
+                              self.gridOptions_conceptos.data = response.data;
+                          });
                         })
-                    } else {
-                        swal({
-                            html: $translate.instant('INACTIVACION_CONCEPTO_INCORRECTA'),
-                            type: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function() {
-                            $window.location.reload()
-                        })
-                    }
-                });
+
+                }).catch(function(response) {
+                  swal({
+                      html: $translate.instant('INACTIVACION_CONCEPTO_INCORRECTA'),
+                      type: "error",
+                      showCancelButton: false,
+                      confirmButtonColor: "#449D44",
+                      confirmButtonText: $translate.instant('VOLVER'),
+                  })
+              });
 
 
             })
@@ -338,28 +337,27 @@ angular.module('titanClienteV2App')
 
               titanRequest.put('concepto_nomina', concepto_editado.Id, concepto_editado).then(function(response) {
 
-                    if (response.data == "OK") {
-                        swal({
+                    swal({
                             html: $translate.instant('ACTIVACION_CONCEPTO_CORRECTA'),
                             type: "success",
                             showCancelButton: false,
                             confirmButtonColor: "#449D44",
                             confirmButtonText: $translate.instant('VOLVER'),
                         }).then(function() {
-                            $window.location.reload()
+                          titanRequest.get('concepto_nomina', 'limit=-1').then(function(response) {
+                              self.gridOptions_conceptos.data = response.data;
+                          });
                         })
-                    } else {
-                        swal({
-                            html: $translate.instant('ACTIVACION_CONCEPTO_INCORRECTA'),
-                            type: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function() {
-                            $window.location.reload()
-                        })
-                    }
-                });
+
+                }).catch(function(response) {
+                  swal({
+                      html: $translate.instant('ACTIVACION_CONCEPTO_INCORRECTA'),
+                      type: "error",
+                      showCancelButton: false,
+                      confirmButtonColor: "#449D44",
+                      confirmButtonText: $translate.instant('VOLVER'),
+                  })
+              });
 
 
             })
@@ -401,7 +399,7 @@ angular.module('titanClienteV2App')
                     };
 
                     var concepto_nuevo_temp = {
-
+                      
                         NombreConcepto: "nombrereglaxxx",
                         NaturalezaConcepto: naturaleza_concepto,
                         AliasConcepto: self.alias_concepto_adicion,
@@ -409,10 +407,7 @@ angular.module('titanClienteV2App')
                         EstadoConceptoNomina: estado_concepto
                     };
 
-
                     titanRequest.post('concepto_nomina', concepto_nuevo_temp).then(function(response) {
-
-                        if (typeof(response.data) == "object") {
 
                             var concepto_nuevo = {
                                 Id: response.data.Id,
@@ -424,9 +419,6 @@ angular.module('titanClienteV2App')
                             };
 
                             titanRequest.put('concepto_nomina', concepto_nuevo.Id, concepto_nuevo).then(function(response) {
-
-                                if (response.data == "OK") {
-
                                     swal({
                                         html: $translate.instant('ADICION_CORRECTA'),
                                         type: "success",
@@ -434,37 +426,36 @@ angular.module('titanClienteV2App')
                                         confirmButtonColor: "#449D44",
                                         confirmButtonText: $translate.instant('VOLVER'),
                                     }).then(function() {
-                                        $window.location.reload()
+                                      $('#modal_adicion').modal('hide');
+                                      self.alias_concepto_adicion = ""
+                                      self.selectNaturalezaConcepto = ""
+                                      self.selectTipoConcepto = ""
+                                      titanRequest.get('concepto_nomina', 'limit=-1').then(function(response) {
+
+                                          self.gridOptions_conceptos.data = response.data;
+                                      });
                                     })
-                                } else {
 
-                                    swal({
-                                        html: $translate.instant('ADICION_INCORRECTA'),
-                                        type: "error",
-                                        showCancelButton: false,
-                                        confirmButtonColor: "#449D44",
-                                        confirmButtonText: $translate.instant('VOLVER'),
-                                    }).then(function() {
+                            }).catch(function(response) {
+                                swal({
+                                      html: $translate.instant('ADICION_INCORRECTA'),
+                                      type: "error",
+                                      showCancelButton: false,
+                                      confirmButtonColor: "#449D44",
+                                      confirmButtonText: $translate.instant('VOLVER'),
+                                  })
+                          });
 
-                                        $window.location.reload()
-                                    })
-                                }
-                            });
-                        }
-                        if (typeof(response.data) == "string") {
 
-                            swal({
-                                html: $translate.instant('ADICION_INCORRECTA'),
-                                type: "error",
-                                showCancelButton: false,
-                                confirmButtonColor: "#449D44",
-                                confirmButtonText: $translate.instant('VOLVER'),
-                            }).then(function() {
-
-                                $window.location.reload()
-                            })
-                        }
-                    });
+                    }).catch(function(response) {
+                        swal({
+                              html: $translate.instant('ADICION_INCORRECTA'),
+                              type: "error",
+                              showCancelButton: false,
+                              confirmButtonColor: "#449D44",
+                              confirmButtonText: $translate.instant('VOLVER'),
+                          })
+                  });
 
                 })
             } else {
