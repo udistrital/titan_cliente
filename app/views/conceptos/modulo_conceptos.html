@@ -1,25 +1,31 @@
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{'TITULO_GENERAL' | translate}}</h2>
-  <div class="panel panel-default">
-      <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection ui-grid-auto-resize class="myGrid"></div></div>
+  <h2 class="page-header text-center">{{'TITULO_GENERAL_CONCEPTOS' | translate}}</h2>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div ui-grid="conceptosConsulta.gridOptions_conceptos" ui-grid-selection  ui-grid-pagination ui-grid-auto-resize class="myGrid"></div></div>
+        </div>
+      </div>
+      <div class="col-md-4 col-md-offset-4">
+        <center><button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">{{'ANADIR_CONCEPTO'| translate}}</button>
+      </div>
+
+    </div>
   </div>
-  <div class="row">
-      <center><button class="btn btn-success" data-toggle="modal" data-target="#modal_adicion">{{'ANADIR_CONCEPTO'| translate}}</button>
-      </center>
-  </div>
-  <br><br><br>
-</div>
+
+
 
 
 <div id="modal_edicion" class="modal fade" role="dialog">
-   <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">
+   <div class="modal-content col-md-4 col-md-offset-4" style="margin-top: 5%">
      <div class="modal-header">
        <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
      </div>
      <div class="modal-body">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h3 class="panel-title">{{'TITULO_EDICION' | translate}}</h3>
+           <h3 class="panel-title">{{'TITULO_EDICION_CONCEPTO' | translate}}</h3>
          </div>
          <div class="panel-body">
            <form name="formplan" ng-submit="formplan.$valid">
@@ -43,7 +49,8 @@
                  <option ng-repeat="ttipo in conceptosConsulta.TipoConcepto"  value="{{ttipo}}">{{ttipo.Descripcion}}</option>
                </select>
              </fieldset>
-             <center><button  ng-click='conceptosConsulta.actualizar()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
+             <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='conceptosConsulta.actualizar(row)'>
+
            </form>
          </div>
        </div>
@@ -53,14 +60,14 @@
 </div>
 
 <div id="modal_adicion" class="modal fade" role="dialog">
-   <div class="modal-content col-md-10 col-md-offset-1" style="margin-top: 5%">
+   <div class="modal-content col-md-4 col-md-offset-4" style="margin-top: 5%">
      <div class="modal-header">
        <button type="button" class="btn btn-outline btn-danger btn-xs pull-right" data-dismiss="modal">&times</button><br>
      </div>
      <div class="modal-body">
        <div class="panel panel-default">
          <div class="panel-heading">
-           <h3 class="panel-title">{{'TITULO_ADICION' | translate}}</h3>
+           <h3 class="panel-title">{{'TITULO_ADICION_CONCEPTO' | translate}}</h3>
          </div>
          <div class="panel-body">
            <form name="formplan" ng-submit="formplan.$valid">
@@ -84,7 +91,8 @@
                  <option ng-repeat="ttipo in conceptosConsulta.TipoConcepto"  value="{{ttipo}}">{{ttipo.Descripcion}}</option>
                </select>
              </fieldset>
-             <center><button  ng-click='conceptosConsulta.anadir()' class="btn btn-outline btn-primary">{{'CONFIRMAR' | translate}}</button></center>
+             <input type="submit" class="form-control btn btn-success" value="{{'CONFIRMAR' | translate}}" ng-click='conceptosConsulta.anadir()'>
+
            </form>
          </div>
        </div>

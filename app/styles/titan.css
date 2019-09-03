@@ -1,7 +1,3 @@
-#loading-bar .bar {
-    background-color: #337ab7 !important;
-}
-
 .watermark {
     border: 1px blue solid;
     position: absolute;
@@ -33,14 +29,39 @@ sencillo {
     color: #d10000
 }
 
-tr.devengo {
-    background: #8BB9CD;
+.alineacion_derecha {
+    text-align: right;
 }
 
-tr.descuento {
-    background: #FFB2B2;
+.devengo {
+    background: #8BB9CD !important;
 }
 
-tr.seguridad_social {
-    background: #A9F5D0;
+.descuento {
+    background: #FFB2B2 !important;
+}
+
+.seguridad_social {
+    background: #A9F5D0 !important;
+}
+
+.no_pago {
+    background-color: #ffb3b3 !important;
+}
+
+.si_pago {
+    background-color: #99bbff !important;
+}
+
+.encabezado {
+    text-align: center;
+    color: #31708F;
+}
+
+.ui-grid-selection-row-header-buttons.ui-grid-row-not-selectable {
+  cursor: not-allowed;
+}
+
+.ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell{
+  background-color: #C9DDE1;
 }

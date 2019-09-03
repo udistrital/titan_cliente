@@ -1,97 +1,73 @@
-</div>
+<div class="panel panel-primary panel-body">
+  <h2 class="page-header text-center">{{'TITULO_DETALLE_PRELIQ' | translate}} <b>{{preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.Descripcion}}</b><br>{{preliquidacionDetalle.preliquidacion.Mes | translate}} de {{preliquidacionDetalle.preliquidacion.Ano}}</h2>
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3><b>{{'TITULO_DETALLE_PRELIQ' | translate}} {{preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.Nombre}}</b></h3>
-            </div>
-            <div class="panel-body">
-                <!--<button ng-click="preliquidacionDetalle.generar_pdf()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>-->
+  <div class="col-md-4">
+      <div class="panel panel-primary">
 
-                <table style="width:95%;">
-                    <tr>
-                        <td>
-                            <div ui-grid="preliquidacionDetalle.gridOptions" ui-grid-selection ui-grid-exporter class="myGrid"></div>
-                        </td>
-                    </tr>
+          <center><h4>{{'TOTAL_CONT_LIQUIDADOS'| translate}} : {{preliquidacionDetalle.total_contratos_liquidados}}</h4></center>
+          <div class="panel-body">
+              <!--<button ng-click="preliquidacionDetalle.generar_pdf()"  class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_PDF' | translate}}</button>-->
+            <div ui-grid="preliquidacionDetalle.gridOptions" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
 
-                </table>
-                <br>
+              <div ng-show="preliquidacionDetalle.preliquidacion.Nomina.Id == 1 || preliquidacionDetalle.preliquidacion.Nomina.Id == 2">
+                  <br>
+                  <button ng-click="preliquidacionDetalle.solicitar_necesidad()" class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_NECESIDAD' | translate}}</button>
+              </div>
+              </div>
+          </div>
+      </div>
 
-                <h2>{{'RESUMEN_PRELIQ'| translate}}</h2>
+      <div class="col-md-4">
+        <div class="panel-primary">
+            <div class="panel-heading" ng-if="preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.CodigoAbreviacion =='TN-HC'">{{'DETALLE_DOC'| translate}}: {{preliquidacionDetalle.persona_seleccionada_nombre}}</div>
+            <div class="panel-heading" ng-if="preliquidacionDetalle.preliquidacion.Nomina.TipoNomina.CodigoAbreviacion =='TN-CONT'">{{'DETALLE_CONT'| translate}}: {{preliquidacionDetalle.persona_seleccionada_nombre}} - {{preliquidacionDetalle.num_contrato}} {{preliquidacionDetalle.vigencia}}</div>
+              <div class="panel-body">
+                <div ui-grid="preliquidacionDetalle.gridOptions_detalle" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+
                 <table class="table">
                     <tr>
-                        <th>{{'CONCEPTO' | translate}}</th>
-                        <th>{{'TOTAL' | translate}}</th>
+
+                        <th>{{'REALIZA_PAGO' | translate}}</th>
+                        <td class="alineacion_derecha">{{preliquidacionDetalle.gridOptions_detalle.data[0].EstadoDisponibilidad.Nombre}}</td>
                     </tr>
-                    <tr>
-                        <th>{{'SUELDOS_NETOS' | translate}} </th>
-                        <td>{{preliquidacionDetalle.total_sueldos_neto | currency}}</td>
-                    </tr>
-                    <tr ng-repeat="(key, value) in preliquidacionDetalle.resumen_conceptos">
-                        <th>{{key}}</th>
-                        <td>{{value | currency}}</td>
-                    </tr>
-                </table>
-                <div ng-show="preliquidacionDetalle.preliquidacion.Nomina.Id == 3 || preliquidacionDetalle.preliquidacion.Nomina.Id == 4 || preliquidacionDetalle.preliquidacion.Nomina.Id == 5">
-                    <button ng-click="preliquidacionDetalle.solicitar_op()" class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_OP' | translate}}</button>
-                </div>
-                <div ng-show="preliquidacionDetalle.preliquidacion.Nomina.Id == 1 || preliquidacionDetalle.preliquidacion.Nomina.Id == 2">
-                    <button ng-click="preliquidacionDetalle.solicitar_necesidad()" class="btn btn-primary btn-lg " ng-disabled="preliquidacionDetalle.saving"> <i class="fa fa-spinner fa-spin" ng-show="preliquidacionDetalle.saving" ></i>{{'GENERAR_NECESIDAD' | translate}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="panel panel-primary">
-            <div class="panel-heading">{{'DETALLE_EMP' | translate}}</div>
-            <div class="panel-body" ng-show="preliquidacionDetalle.seleccion_conceptos">
-                <table class="table  table-scrollable">
-                    <tr>
-                        <th>{{'CONCEPTO' | translate}}</th>
-                        <th>{{'VALOR'|translate}}</th>
-                        <th>{{'NATURALEZA'| translate}}</th>
-                        <th>{{'TIPO'| translate}}</th>
-                    </tr>
-                    <tr ng-repeat="concepto in preliquidacionDetalle.seleccion_conceptos" ng-show="concepto.Naturaleza === 'devengo'" class="devengo">
-                        <td class="texto">{{concepto.Nombre}}</td>
-                        <td class="dinero">{{concepto.Valor | currency}}</td>
-                        <td>{{concepto.Naturaleza}}</td>
-                        <td>{{concepto.TipoPreliquidacion}}</td>
-                    </tr>
-                    <tr ng-repeat="concepto in preliquidacionDetalle.seleccion_conceptos" ng-show="concepto.Naturaleza === 'descuento'" class="descuento">
-                        <td class="texto">{{concepto.Nombre}}</td>
-                        <td class="dinero">{{concepto.Valor | currency}}</td>
-                        <td>{{concepto.Naturaleza}}</td>
-                    </tr>
-                    <tr ng-repeat="concepto in preliquidacionDetalle.seleccion_conceptos" ng-show="concepto.Naturaleza === 'seguridad_social'" class="seguridad_social">
-                        <td class="texto">{{concepto.Nombre}}</td>
-                        <td class="dinero">{{concepto.Valor | currency}}</td>
-                        <td>{{concepto.Naturaleza}}</td>
-                    </tr>
-                </table>
-                <br>
-                <table class="table">
                     <tr>
                         <th>{{'TOTAL_DEV' | translate}}</th>
-                        <td class="dinero_total">{{preliquidacionDetalle.seleccion_tot_devengo | currency}}</td>
+                        <td class="alineacion_derecha">{{preliquidacionDetalle.total_devengos_persona | currency}}</td>
                     </tr>
                     <tr>
+
                         <th>{{'TOTAL_DESC'| translate}}</th>
-                        <td class="dinero_total">{{preliquidacionDetalle.seleccion_tot_descuentos | currency}}</td>
+                        <td class="alineacion_derecha"> {{preliquidacionDetalle.total_descuentos_persona | currency}}</td>
                     </tr>
                     <tr>
                         <th>{{'TOTAL_PAGAR' | translate}}</th>
-                        <td class="dinero_total">{{preliquidacionDetalle.seleccion_sueldoNeto | currency}}</td>
-                    </tr>
-                    <tr>
-                        <th> ¿Disponibilidad? </th>
-                        <td>{{preliquidacionDetalle.estado_disponibilidad}}</td>
+                        <td class="alineacion_derecha"> {{preliquidacionDetalle.total_a_pagar_persona | currency}}</td>
                     </tr>
 
+
                 </table>
+
+              </div>
+
+            </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="panel-primary">
+          <div class="panel-heading">{{'RESUMEN_PRELIQ'| translate}}</div>
+            <div class="panel-body">
+              <div ui-grid="preliquidacionDetalle.gridOptions_resumen" ui-grid-selection ui-grid-pagination ui-grid-auto-resize class="myGrid"></div>
+
             </div>
         </div>
-    </div>
+
+
+        <b><h2>{{'TOTAL_DEV' | translate}}</b>  {{preliquidacionDetalle.total_devengos | currency}}</h2>
+        <br>
+        <b><h2>{{'TOTAL_DESC' | translate}}</b> {{preliquidacionDetalle.total_descuentos | currency}}</h2>
+      </div>
+
+  </div>
+
 
 </div>

@@ -31,7 +31,7 @@ angular.module('titanClienteV2App')
                 };
                 $interval(function() {
                     $scope.loading = parseInt(cfpLoadingBar.status() * 100);
-                    if ($scope.loading == 0 || $scope.loading == 100) {
+                    if ($scope.loading === 0 || $scope.loading === 100) {
                         $scope.load = false;
 
                     } else {

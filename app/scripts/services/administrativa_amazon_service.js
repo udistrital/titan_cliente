@@ -1,16 +1,17 @@
+
   'use strict';
 
 
   /**
     * @ngdoc overview
-    * @name titanMidService
-    * @description Modulo para servicio de configracion provee los servicios descritos en {@link titanMidService.service:titanMidRequest titanMidRequest}
+    * @name administrativaAmazonService
+    * @description Modulo para servicio de configracion provee los servicios descritos en {@link administrativaAmazonService.service:administrativaAmazonRequest administrativaAmazonRequest}
     */
-  angular.module('titanMidService', [])
+  angular.module('administrativaAmazonService', [])
 
   /**
    * @ngdoc service
-   * @name titanMidService.service:titanMidRequest
+   * @name administrativaAmazonService.service:administrativaAmazonRequest
    * @requires $http
    * @requires $q
    * @requires $CONF
@@ -20,25 +21,25 @@
    * @param {injector} CONF componente de configuracion
    * @param {injector} token_service componente de autenticacion
    * @description
-   * # titanMidRequest
+   * # administrativaAmazonRequest
    * Factory que permite gestionar los servicios para construir y gestion los elementos que se muestran por el cliente a traves del menú
    */
 
-  .factory('titanMidRequest', function($http, $q, CONF, token_service) {
+  .factory('administrativaAmazonRequest', function($http, $q, CONF, token_service) {
       /**
        * @ngdoc object
        * @name path
-       * @propertyOf titanMidService.service:titanMidRequest
+       * @propertyOf administrativaAmazonService.service:administrativaAmazonRequest
        * @description
        * Dirección del servicio consumen los servicios proveidos por {@link titanClienteV2App.service:CONF confService}
        */
-      var path = CONF.GENERAL.TITAN_MID_SERVICE;
+      var path = CONF.GENERAL.ADMINISTRATIVA_AMAZON_SERVICE;
       return {
 
           /**
            * @ngdoc function
-           * @name titanMidService.service:titanMidRequest#get_acciones
-           * @methodOf titanMidService.service:titanMidRequest
+           * @name administrativaAmazonService.service:administrativaAmazonRequest#get_acciones
+           * @methodOf administrativaAmazonService.service:administrativaAmazonRequest
            * @param {string} path url del menu a consultar opciones
            * @param {string} a menu
            * @description Metodo get_acciones para obtener las acciones ejecutables en un modulo
@@ -60,22 +61,22 @@
 
           /**
            * @ngdoc function
-           * @name titanMidService.service:titanMidRequest#get
-           * @methodOf titanMidService.service:titanMidRequest
+           * @name administrativaAmazonService.service:administrativaAmazonRequest#get
+           * @methodOf administrativaAmazonService.service:administrativaAmazonRequest
            * @param {string} tabla Nombre de la tabla en el API
            * @param {string} params parametros para filtrar la busqueda
            * @return {array|object} objeto u objetos del get
            * @description Metodo GET del servicio
            */
           get: function(tabla, params) {
-            $http.get(path+tabla+"/?"+params, token_service.setting_bearer);
+             return $http.get(path+tabla+"/?"+params, token_service.setting_bearer);
           },
           /**
            * @ngdoc function
-           * @name titanMidService.service:titanMidRequest#post
+           * @name administrativaAmazonService.service:administrativaAmazonRequest#post
            * @param {string} tabla Nombre de la tabla en el API
            * @param {object} elemento objeto a ser creado por el API
-           * @methodOf titanMidService.service:titanMidRequest
+           * @methodOf administrativaAmazonService.service:administrativaAmazonRequest
            * @return {array|string} mensajes del evento en el servicio
            * @description Metodo POST del servicio
            */
@@ -85,11 +86,11 @@
 
           /**
            * @ngdoc function
-           * @name titanMidService.service:titanMidRequest#put
+           * @name administrativaAmazonService.service:administrativaAmazonRequest#put
            * @param {string} tabla Nombre de la tabla en el API
            * @param {string|int} id del elemento en el API
            * @param {object} elemento objeto a ser actualizado por el API
-           * @methodOf titanMidService.service:titanMidRequest
+           * @methodOf administrativaAmazonService.service:administrativaAmazonRequest
            * @return {array|string} mensajes del evento en el servicio
            * @description Metodo PUT del servicio
            */
@@ -99,8 +100,8 @@
 
           /**
            * @ngdoc function
-           * @name titanMidService.service:titanMidRequest#delete
-           * @methodOf titanMidService.service:titanMidRequest
+           * @name administrativaAmazonService.service:administrativaAmazonRequest#delete
+           * @methodOf administrativaAmazonService.service:administrativaAmazonRequest
            * @param {string} tabla Nombre de la tabla en el API
            * @param {object} elemento objeto a ser eliminado por el API
            * @return {array|string} mensajes del evento en el servicio

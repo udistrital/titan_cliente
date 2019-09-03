@@ -1,18 +1,11 @@
 
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Nombre}}<br>{{'FECHA_PRELIQ'| translate}} : {{preliquidacionPersonas.preliquidacion.FechaRegistro | date:"yyyy-MM-dd":"+0900"}}</h2>
+  <h2 class="page-header text-center">{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Descripcion}}<br>{{preliquidacionPersonas.preliquidacion.Mes | translate}} de {{preliquidacionPersonas.preliquidacion.Ano}}</h2>
 
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div ui-grid="preliquidacionPersonas.gridOptions" ui-grid-selection ui-grid-pagination class="grid"></div>
-        </div>
-      </div>
-      <div class="col-md-4 col-md-offset-4">
-        <input type="submit" class="form-control btn btn-success" value="{{preliquidacionPersonas.btnGenerartxt}}" ng-click="preliquidacionPersonas.generar_preliquidacion()">
-      </div>
-
-    </div>
+  <div ng-if="preliquidacionPersonas.preliquidacion.EstadoPreliquidacion.Nombre === 'Abierta'">
+    <preliquidacion-abierta preliquidacion="preliquidacionPersonas.preliquidacion" ></preliquidacion-abierta>
+  </div>
+  <div ng-if="preliquidacionPersonas.preliquidacion.EstadoPreliquidacion.Nombre === 'OrdenPagoPendientes'">
+    <preliquidacion-pendientes preliquidacion="preliquidacionPersonas.preliquidacion" ></preliquidacion-pendientes>
   </div>
 </div>
