@@ -140,9 +140,14 @@
     <section layout="row" flex>
         <md-sidenav class="md-sidenav-left" md-component-id="left">
             <md-content>
-                <a ng-repeat="app in menu_app" title="{{app.title}}" ng-click="redirect_url(app.url)" target="_blank">
-                    <img class="menu-app" id="{{app.id}}"></img>
-                </a>
+                <div ng-repeat="app in menu_app">
+            <img class="menu-app img-circle" id="{{app.id}}"/>
+            </img>
+          <a  title="{{app.title}}" ng-click="redirect_url(app.url)" target="_blank">
+                      {{app.title}}
+                  </a>
+          <md-divider></md-divider>
+          </div>
             </md-content>
         </md-sidenav>
     </section>

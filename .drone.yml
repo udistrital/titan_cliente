@@ -8,6 +8,7 @@ workspace:
 pipeline:
 
   # run grunt sonar runner
+
   # grunt-sonar-runner:
   #   image: timbru31/java-node
   #   commands:
@@ -18,6 +19,7 @@ pipeline:
   #   when:
   #     branch: [master, develop]
   #     event: push
+
 
   # install the AngularJS program
   nodejs-build:
