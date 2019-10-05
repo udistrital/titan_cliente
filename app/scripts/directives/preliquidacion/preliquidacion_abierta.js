@@ -265,9 +265,9 @@ angular.module('titanClienteV2App')
            $scope.preliquidacion.Definitiva = true;
 
            
-            console.log("aqui");  
+    
               if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
-                console.log("aqui");  
+          
 
                 for (i = 0; i < personas.length; i++) {
                   var personas_a_liquidar = [];
@@ -290,8 +290,8 @@ angular.module('titanClienteV2App')
       
                   };
                    
-                    console.log(datos_preliquidacion);
-                    titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
+                   
+                    titanMidRequest.post_cola('preliquidar', datos_preliquidacions).then(function(response) {
                       
                     });
                 }
