@@ -33,6 +33,7 @@
        * Dirección del servicio consumen los servicios proveidos por {@link titanClienteV2App.service:CONF confService}
        */
       var path = CONF.GENERAL.TITAN_MID_SERVICE;
+      var path2 = CONF.GENERAL.COLAS_SERVICE;
       return {
 
           /**
@@ -82,6 +83,19 @@
           post: function(tabla, elemento) {
               return $http.post(path + tabla, elemento, token_service.setting_bearer);
           },
+          /**
+           * @ngdoc function
+           * @name titanMidService.service:titanMidRequest#post
+           * @param {string} tabla Nombre de la tabla en el API
+           * @param {object} elemento objeto a ser creado por el API
+           * @methodOf titanMidService.service:titanMidRequest
+           * @return {array|string} mensajes del evento en el servicio
+           * @description Metodo POST del servicio
+           */
+          post_cola: function(tabla, elemento) {
+            return $http.post(path2 + tabla, elemento, token_service.setting_bearer);
+        },
+
 
           /**
            * @ngdoc function

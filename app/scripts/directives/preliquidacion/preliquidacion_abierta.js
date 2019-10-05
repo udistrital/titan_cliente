@@ -264,12 +264,13 @@ angular.module('titanClienteV2App')
             var personas = $scope.myGridApi.selection.getSelectedRows();
            $scope.preliquidacion.Definitiva = true;
 
-            var personas_a_liquidar = [];
-
+           
+            console.log("aqui");  
               if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
-
+                console.log("aqui");  
 
                 for (i = 0; i < personas.length; i++) {
+                  var personas_a_liquidar = [];
                     var persona = {
                         IdPersona: parseInt(personas[i].id_proveedor),
                         NumDocumento: parseInt(personas[i].num_documento),
@@ -281,7 +282,18 @@ angular.module('titanClienteV2App')
                         Pendiente: "false",
                     };
 
-                    personas_a_liquidar.push(persona)
+                    personas_a_liquidar.push(persona);
+                    
+                    var datos_preliquidacion = {
+                      Preliquidacion: $scope.preliquidacion,
+                      PersonasPreLiquidacion: personas_a_liquidar
+      
+                  };
+                   
+                    console.log(datos_preliquidacion);
+                    titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
+                      
+                    });
                 }
 
               }
@@ -296,25 +308,27 @@ angular.module('titanClienteV2App')
                     Pendiente: "false",
                 };
 
-                personas_a_liquidar.push(persona)
+                //personas_a_liquidar.push(persona)
             }
 
           }
 
-          var datos_preliquidacion = {
-                Preliquidacion: $scope.preliquidacion,
-                PersonasPreLiquidacion: personas_a_liquidar
+         // var datos_preliquidacion = {
+         //       Preliquidacion: $scope.preliquidacion,
+         //       PersonasPreLiquidacion: personas_a_liquidar
 
-            };
+         //  };
+            
 
-            titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
+            
+            //titanMidRequest.post_cola('preliquidar', datos_preliquidacion[i]).then(function(response) {
+  
+                //$location.path('/preliquidacion/preliquidacion_personas');
+               // $route.reload()
+            //  });
+           
 
-                $location.path('/preliquidacion/preliquidacion_personas');
-                $route.reload()
-
-            });
-
-
+         // }
         };
 
 
