@@ -286,13 +286,13 @@ angular.module('titanClienteV2App')
                     
                     var datos_preliquidacion = {
                       Preliquidacion: $scope.preliquidacion,
-                      PersonasPreLiquidacion: personas_a_liquidar
+                      PersonasPreliquidacion: personas_a_liquidar
       
                   };
                    
                    
-                    titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
-                      
+                   // titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
+                    titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) { 
                     });
                 }
 
