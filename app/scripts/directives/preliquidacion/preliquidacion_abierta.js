@@ -283,6 +283,7 @@ angular.module('titanClienteV2App')
                     };
 
                     personas_a_liquidar.push(persona);
+                    personas_a_liquidar.push({});
                     
                     var datos_preliquidacion = {
                       Preliquidacion: $scope.preliquidacion,
@@ -291,8 +292,8 @@ angular.module('titanClienteV2App')
                   };
                    
                    
-                   // titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
-                    titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) { 
+                  titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
+                   // titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) { 
                     });
                 }
 
@@ -302,7 +303,7 @@ angular.module('titanClienteV2App')
             for (i = 0; i < personas.length; i++) {
                 var persona = {
                     IdPersona: parseInt(personas[i].Id),
-                    NumDocumento: parseInt(personas[i].NumDocumento),
+                    NumDocumento: String(personas[i].NumDocumento),
                     NumeroContrato: personas[i].NumeroContrato,
                     VigenciaContrato: parseInt(personas[i].VigenciaContrato),
                     Pendiente: "false",
