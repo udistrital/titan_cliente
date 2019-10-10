@@ -293,7 +293,9 @@ angular.module('titanClienteV2App')
                    
                    
                   titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
-                   // titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) { 
+                    })
+                    .catch(function(error){
+
                     });
                 }
 
