@@ -232,7 +232,7 @@ angular.module('titanClienteV2App')
           self.persona_seleccionada_nombre = row.entity.NombreCompleto
           self.gridOptions_detalle.data = [];
           //Mostrar contratos
-          var query = "query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona+",NumeroContrato:"+row.entity.NumeroContrato+",VigenciaContrato:"+row.entity.VigenciaContrato; 
+          var query = "limit=-1&query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona+",NumeroContrato:"+row.entity.NumeroContrato+",VigenciaContrato:"+row.entity.VigenciaContrato; 
           titanRequest.get('detalle_preliquidacion', query).then(function(response) {
             self.gridOptions_detalle.data = response.data;
             self.num_contrato = response.data[0].NumeroContrato + " de "
