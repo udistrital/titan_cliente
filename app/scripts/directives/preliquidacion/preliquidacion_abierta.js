@@ -154,6 +154,13 @@ angular.module('titanClienteV2App')
                    headerCellClass: "encabezado",
                  },
                  {
+                  field: 'Cumplido',
+                  visible:true,
+                  width: '8%',
+                  cellClass: 'text-center',
+                  headerCellClass: "encabezado"
+                },
+                 {
                    field: 'Preliquidado',
                    visible:true,
                    width: '8%',
@@ -195,6 +202,22 @@ angular.module('titanClienteV2App')
              ],
              onRegisterApi: function(gridApi) {
                $scope.myGridApi = gridApi;
+
+               $scope.myGridApi.selection.on.rowSelectionChanged($scope,function(row){
+                //var msg = 'row selected ' + row;
+
+                if(row.entity.Cumplido == "No"){
+
+                  swal({
+                    html: 'La persona seleccionada no tiene cumplido aprobado',
+                    type: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#449D44",
+                }).then(function() {
+                  //
+                })
+                }
+              });
            }
          };
 
