@@ -209,12 +209,19 @@ angular.module('titanClienteV2App')
                 if(row.entity.Cumplido == "No"){
 
                   swal({
-                    html: 'La persona seleccionada no tiene cumplido aprobado',
+                    html: 'La persona seleccionada no tiene cumplido aprobado para pago, ¿está seguro de incluirla en la nómina?',
                     type: "warning",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                }).then(function() {
-                  //
+                    showCancelButton: true,
+                    confirmButtonText: 'No',
+                    cancelButtonText: 'Si',
+                    confirmButtonColor: "#FF0000",
+                }).then(function(response) {
+
+                  if(response){
+                  
+                    row.setSelected(false);
+                  
+                  }
                 })
                 }
               });
