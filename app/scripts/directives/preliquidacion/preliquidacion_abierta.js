@@ -216,12 +216,19 @@ angular.module('titanClienteV2App')
                     cancelButtonText: 'Si',
                     confirmButtonColor: "#FF0000",
                 }).then(function(response) {
-
-                  if(response){
+                  
+                 
                   
                     row.setSelected(false);
                   
+                  
+                }, function (res){
+
+                  if(res == 'cancel'){
+
+                    row.setSelected(true);
                   }
+
                 })
                 }
               });
