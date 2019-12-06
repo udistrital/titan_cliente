@@ -303,7 +303,7 @@ angular.module('titanClienteV2App')
 
            
     
-              if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
+              if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS") {
           
 
                 for (i = 0; i < personas.length; i++) {
@@ -323,6 +323,41 @@ angular.module('titanClienteV2App')
                     personas_a_liquidar.push({});
                     
                     var datos_preliquidacion = {
+                      Preliquidacion: $scope.preliquidacion,
+                      PersonasPreliquidacion: personas_a_liquidar
+      
+                  };
+                   
+                   
+                  titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function(response) {
+                    })
+                    .catch(function(error){
+
+                    });
+                }
+
+              }
+
+              if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
+          
+
+                for (i = 0; i < personas.length; i++) {
+                  var personas_a_liquidar = [];
+                    var persona = {
+                        IdPersona: parseInt(personas[i].id_proveedor),
+                        NumDocumento: parseInt(personas[i].num_documento),
+                        NumeroContrato:"c"+ personas[i].numero_contrato,
+                        VigenciaContrato: parseInt(personas[i].vigencia),
+                        FechaInicio:personas[i].fecha_inicio,
+                        FechaFin:personas[i].fecha_fin,
+                        ValorContrato:"v"+personas[i].valor_contrato,
+                        Pendiente: "false",
+                    };
+
+                    personas_a_liquidar.push(persona);
+                    personas_a_liquidar.push({});
+                    
+                   var datos_preliquidacion = {
                       Preliquidacion: $scope.preliquidacion,
                       PersonasPreliquidacion: personas_a_liquidar
       
