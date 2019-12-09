@@ -9,24 +9,15 @@ pipeline:
 
   # build and test the go program
   nodejs:
-    image: node:12.6.0
+    image: node:10.7.0
     commands:
-     - node --version
-     - npm i
-     - npm run build:test
+     - npm install -g grunt-cli bower
+     - bower install --allow-root
+     - grunt build
     when:
-      branch: [test]
+      branch: [test, master]
       event: [push, pull_request]
       
-  nodejs:  
-    image: node:12.6.0
-    commands:
-     - node --version
-     - npm i
-     - npm run build:prod
-    when:
-      branch: [master]
-      event: [push, pull_request]
 
   # upload app.zip to s3 bucket for CodePipline
   publish_s3:
