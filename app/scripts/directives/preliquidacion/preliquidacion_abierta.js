@@ -65,6 +65,18 @@ angular.module('titanClienteV2App')
                  },
                 },
                 {
+                  field: 'Cumplido',
+                  visible:true,
+                  displayName: "Cumplido",
+                  width: '10%',
+                  headerCellClass: 'encabezado',
+                  cellClass: "text-center",
+                  sort: {
+                     direction: 'desc',
+                     priority: 0
+                 },
+                },
+                {
                   field: 'IdEPS',
                   visible: false
                 },
@@ -91,6 +103,35 @@ angular.module('titanClienteV2App')
             ],
             onRegisterApi: function(gridApi) {
               $scope.myGridApi = gridApi;
+
+              $scope.myGridApi.selection.on.rowSelectionChanged($scope,function(row){
+
+                if(row.entity.Cumplido == "No"){
+
+                  swal({
+                    html: 'La persona seleccionada no tiene cumplido aprobado para pago, ¿está seguro de incluirla en la nómina?',
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: 'No',
+                    cancelButtonText: 'Si',
+                    confirmButtonColor: "#FF0000",
+                }).then(function(response) {
+                  
+                 
+                  
+                    row.setSelected(false);
+                  
+                  
+                }, function (res){
+
+                  if(res == 'cancel'){
+
+                    row.setSelected(true);
+                  }
+
+                })
+                }
+              });
           }
         };
 
