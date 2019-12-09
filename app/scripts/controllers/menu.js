@@ -44,45 +44,46 @@
 
          $scope.breadcrumb = [];
 
-         $scope.menu_app = [{
-             id: "kronos",
-             title: "KRONOS",
-             url: "http://10.20.0.254/kronos"
-         },
-         {
-             id: "agora",
-             title: "AGORA",
-             url: "https://pruebasfuncionarios.intranetoas.udistrital.edu.co/agora"
-         }, {
-             id: "argo",
-             title: "ARGO",
-             url: "https://pruebasfuncionarios.intranetoas.udistrital.edu.co/argo"
-         }, {
-             id: "arka",
-             title: "ARKA",
-             url: "https://pruebasfuncionarios.intranetoas.udistrital.edu.co/arka"
-         }, {
-             id: "temis",
-             title: "TEMIS",
-             url: "https://pruebasfuncionarios.intranetoas.udistrital.edu.co/gefad"
-         }, {
-             id: "polux",
-             title: "POLUX",
-             url: "http://10.20.0.254/polux"
-         }, {
-             id: "jano",
-             title: "JANO",
-             url: "http://10.20.0.254/kronos"
-         }, {
-             id: "kyron",
-             title: "KYRON",
-             url: "http://10.20.0.254/kronos"
-         }, {
-             id: "sga",
-             title: "SGA",
-             url: "http://10.20.0.254/kronos"
-         }
-         ];
+        $scope.menu_app = [{
+                id: "seguridadsocial",
+                title: "SEGURIDAD SOCIAL",
+                url: "https://seguridadsocial.portaloas.udistrital.edu.co"
+            },
+            {
+                id: "titan",
+                title: "TITAN",
+                url: "https://titan.portaloas.udistrital.edu.co"
+            },
+            {
+                id: "agora",
+                title: "AGORA",
+                url: "https://funcionarios.portaloas.udistrital.edu.co/agora"
+            }, {
+                id: "argo",
+                title: "ARGO",
+                url: "https://funcionarios.portaloas.udistrital.edu.co/argo"
+            }, {
+                id: "arka",
+                title: "ARKA",
+                url: "https://funcionarios.portaloas.udistrital.edu.co/arka"
+            }, {
+                id: "temis",
+                title: "TEMIS",
+                url: "https://pruebasfuncionarios.intranetoas.udistrital.edu.co/gefad"
+            }, {
+                id: "jano",
+                title: "JANO",
+                url: "https://funcionarios.portaloas.udistrital.edu.co/jano"
+            }, {
+                id: "kyron",
+                title: "KYRON",
+                url: "https://funcionarios.portaloas.udistrital.edu.co/kyron"
+            }, {
+                id: "sga",
+                title: "SISTEMA DE GESTION ACADEMICA",
+                url: "https://estudiantes.portaloas.udistrital.edu.co"
+            }
+        ];
          //$scope.menu_service = [];
          $scope.changeLanguage = function (key) {
              $translate.use(key);

@@ -42,7 +42,7 @@ var conf_preprod = {
         AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
         URL_USER_INFO: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/userinfo",
         CLIENTE_ID: "B8dEcXp6KGJrHtAxZm3_OQ_pm4Ia",
-        REDIRECT_URL: "https://pruebastitan.udistrital.edu.co",
+        REDIRECT_URL: "https://pruebastitan.portaloas.udistrital.edu.co/",
         RESPONSE_TYPE: "id_token token",
         SCOPE: "openid email",
         BUTTON_CLASS: "btn btn-warning btn-sm",
@@ -108,7 +108,7 @@ var conf_local = {
 angular.module('titanClienteV2App')
     .constant('CONF', {
 
-        GENERAL: conf_prod
+        GENERAL: conf_preprod
 
 
     });
