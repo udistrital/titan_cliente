@@ -1,5 +1,5 @@
 # titan_cliente
-Interfaz de usuario para la liquidación a funcionarios de planta, a docentes de planta, a docentes de vinculación especial, a contratistas y pensionados, 
+Interfaz de usuario para la liquidación a funcionarios de planta, a docentes de planta, a docentes de vinculación especial, a contratistas y pensionados,  
 
 ## Instalación
 
