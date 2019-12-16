@@ -250,11 +250,9 @@ angular.module('titanClienteV2App')
                 if(row.entity.Cumplido == "No"){
 
                   swal({
-                    html: 'La persona seleccionada no tiene cumplido aprobado para pago, ¿está seguro de incluirla en la nómina?',
+                    html: 'La persona seleccionada no tiene cumplido aprobado para pago y no se puede preliquidar',
                     type: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: 'No',
-                    cancelButtonText: 'Si',
+                    confirmButtonText: 'Ok',
                     confirmButtonColor: "#FF0000",
                 }).then(function(response) {
                   
@@ -263,13 +261,6 @@ angular.module('titanClienteV2App')
                     row.setSelected(false);
                   
                   
-                }, function (res){
-
-                  if(res == 'cancel'){
-
-                    row.setSelected(true);
-                  }
-
                 })
                 }
               });
@@ -381,9 +372,21 @@ angular.module('titanClienteV2App')
 
               if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
           
-
+                swal({
+                  html: 'Las personas a las que no se les ha generado cumplido, no serán agregadas para la liquidación',
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: "#FF0000",
+              }).then(function(response) {
+                
+               
                 for (i = 0; i < personas.length; i++) {
+
                   var personas_a_liquidar = [];
+
+                    if(personas[i].Cumplido != "No"){
+
                     var persona = {
                         IdPersona: parseInt(personas[i].id_proveedor),
                         NumDocumento: parseInt(personas[i].num_documento),
@@ -410,7 +413,14 @@ angular.module('titanClienteV2App')
                     .catch(function(error){
 
                     });
+
+                    }
                 }
+                
+                
+              })
+
+    
 
               }
 
