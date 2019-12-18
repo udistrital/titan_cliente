@@ -106,7 +106,7 @@ angular.module('titanClienteV2App')
 
               $scope.myGridApi.selection.on.rowSelectionChanged($scope,function(row){
 
-                if(row.entity.Cumplido == "No"){
+                if(row.entity.Cumplido == "NO"){
 
                   swal({
                     html: 'La persona seleccionada no tiene cumplido aprobado para pago, ¿está seguro de incluirla en la nómina?',
@@ -247,7 +247,7 @@ angular.module('titanClienteV2App')
                $scope.myGridApi.selection.on.rowSelectionChanged($scope,function(row){
                 //var msg = 'row selected ' + row;
 
-                if(row.entity.Cumplido == "No"){
+                if(row.entity.Cumplido == "NO"){
 
                   swal({
                     html: 'La persona seleccionada no tiene cumplido aprobado para pago y no se puede preliquidar',
@@ -385,7 +385,7 @@ angular.module('titanClienteV2App')
 
                   var personas_a_liquidar = [];
 
-                    if(personas[i].Cumplido != "No"){
+                    if(personas[i].Cumplido != "NO"){
 
                     var persona = {
                         IdPersona: parseInt(personas[i].id_proveedor),
