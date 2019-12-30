@@ -232,18 +232,7 @@ angular.module('titanClienteV2App')
 
         self.preliquidar_persona = function(row) {
 
-          var persona = {
-              id_proveedor: parseInt(row.entity.IdPersona),
-              num_documento: parseInt(row.entity.NumDocumento),
-              numero_contrato: row.entity.NumeroContrato,
-              vigencia: parseInt(row.entity.VigenciaContrato),
-              fecha_inicio:row.entity.FechaInicio,
-              fecha_fin:row.entity.FechaFin,
-              valor_contrato:row.entity.ValorContrato,
-              Pendiente: "false",
-
-          };
-          $scope.persona = persona;
+          $scope.persona = row.entity;
           $('#modal_detalle').modal('show');
         };
 
