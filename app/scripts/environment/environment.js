@@ -1,17 +1,17 @@
 'use strict';
 
-// Reemplace MODULE_APP por el nombre del módulo de la aplicación principal
+// Reemplace titanClienteV2App por el nombre del módulo de la aplicación principal
 
 /**
  * @ngdoc service
- * @name MODULE_APP.config
+ * @name titanClienteV2App.config
  * @description
  * # config
- * Constant in the MODULE_APP.
+ * Constant in the titanClienteV2App.
  */
 
 
-angular.module('MODULE_APP')
+angular.module('titanClienteV2App')
   .constant('CONF', {
     APP: "titan", // Nombre de la app, esto cargará el logo.
     APP_MENU: "Titan", // Ingrese valor de la aplicación asociado al menú registrado en wso2
@@ -22,7 +22,7 @@ angular.module('MODULE_APP')
       TITAN_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_mid/v1/",
       TITAN_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/titan_api_crud/v1/",
       COLAS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/cola/v1/",
-  
+      NOTIFICACION_WS: "wss://pruebasapi.portaloas.udistrital.edu.co:8116/ws/join",
       TOKEN: {
           AUTORIZATION_URL: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/authorize",
           URL_USER_INFO: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/userinfo",

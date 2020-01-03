@@ -1,17 +1,17 @@
 'use strict';
 
-// Reemplace MODULE_APP por el nombre del módulo de la aplicación principal
+// Reemplace titanClienteV2App por el nombre del módulo de la aplicación principal
 
 /**
  * @ngdoc service
- * @name MODULE_APP.config
+ * @name titanClienteV2App.config
  * @description
  * # config
- * Constant in the MODULE_APP.
+ * Constant in the titanClienteV2App.
  */
 
 
-angular.module('MODULE_APP')
+angular.module('titanClienteV2App')
   .constant('CONF', {
     APP: "", // Nombre de la app, esto cargará el logo.
     APP_MENU: "", // Ingrese valor de la aplicación asociado al menú registrado en wso2

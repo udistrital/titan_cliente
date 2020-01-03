@@ -42,17 +42,17 @@ angular
         'oikosService',
         'configuracionService',
         'requestService',
-         'implicitToken',
-         'core'
+        'implicitToken',
+        'core',
     ])
-    .run(function(amMoment) {
+    .run(function (amMoment) {
         amMoment.changeLocale('es');
     })
-    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-       cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-       cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-div"><div><span class="fa loading-spinner"></div><div class="fa sub-loading-div">Por favor espere, cargando...</div></div>';
-}])
-    .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+    .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+        cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-div"><div><span class="fa loading-spinner"></div><div class="fa sub-loading-div">Por favor espere, cargando...</div></div>';
+    }])
+    .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix("");
         $routeProvider
             .when('/', {
@@ -112,7 +112,7 @@ angular
                 controllerAs: 'novedadRegistro'
             })
 
-        .when('/liquidacion/liquidacion_detalle', {
+            .when('/liquidacion/liquidacion_detalle', {
                 templateUrl: 'views/liquidacion/liquidacion_detalle.html',
                 controller: 'LiquidacionCtrl',
                 controllerAs: 'liquidacion'
