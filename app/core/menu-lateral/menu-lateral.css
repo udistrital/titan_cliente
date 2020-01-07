@@ -113,7 +113,7 @@
   border-color: #fff;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .content-options > div {
