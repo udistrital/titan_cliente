@@ -448,8 +448,8 @@ module.exports = function (grunt) {
             host: {
               url: 'http://10.20.0.77:9000'
             },
-            projectKey: 'titan_cliente',
-            projectName: 'titan_cliente',
+            projectKey: '<%= yeoman.app %>',
+            projectName: '<%= yeoman.app %>',
             projectVersion: '0.1',
             sources: ['app','test'].join(','),
             language: 'js',

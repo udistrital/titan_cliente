@@ -18,13 +18,18 @@ angular.module('core')
             $scope.app = (CONF.APP.toLowerCase()).trim() + "-isotipo";
             $scope.app_large = (CONF.APP.toLowerCase()).trim() + "-header";
 
-            if (token_service.live_token()) {
-                $scope.isLogin = true;
-                $scope.notificacion = notificacion;
-                $scope.token = token_service.getPayload();
-            } else {
-                $scope.isLogin = false;
-            }
+            token_service.getPayload2()
+                .then(function (response) {
+                    $scope.token = response;
+                    if (token_service.logginned) {
+                        $scope.isLogin = true;
+                        $scope.notificacion = notificacion;
+
+                    } else {
+                        $scope.isLogin = false;
+                    }
+                })
+
             $scope.logout = function () {
                 token_service.logout();
             }

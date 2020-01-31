@@ -62,7 +62,7 @@ angular.module('notificacionService', [])
                     }
                 });
         };
-        if (token_service.live_token()) {
+        if (token_service.logginned) {
 
             payload = token_service.getPayload();
             if (!angular.isUndefined(payload.role)) {

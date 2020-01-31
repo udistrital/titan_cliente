@@ -8,7 +8,7 @@
  */
 angular.module('core')
     .controller('menuaplicacionesCtrl',
-        function (configuracionRequest, $scope, behaviorTheme) {
+        function (token_service, configuracionRequest, $scope, behaviorTheme) {
             var categorias = [
                 {
                     nombre: 'GAIA - Gestión Administrativa',
@@ -156,25 +156,9 @@ angular.module('core')
                 },
             ];
             $scope.claseAppContainer = behaviorTheme.aplicacion;
-            var getRoles = function () {
-
-                var data = [];
-                if (window.localStorage.getItem('id_token') !== null) {
-                    //isLogin = true;
-                    // tslint:disable-next-line: variable-name
-                    var id_token = window.localStorage.getItem('id_token').split('.');
-                    var payload = JSON.parse(atob(id_token[1]));
-                    return payload.role.map(function (element) {
-                        return { Nombre: element }
-                    });
-                } else {
-                    //this.isLogin = false;
-                    //this.dataFilterSubject.next(this.categorias);
-                }
-            }
 
             var container_aplicativos = document.getElementById("menu-aplicaciones");
-            
+
             var existe = function (nombre, array) {
 
                 var filtro = array.filter(function (data) {
@@ -183,18 +167,24 @@ angular.module('core')
                 return filtro.length > 0;
             }
 
-            configuracionRequest.post('aplicacion_rol/aplicacion_rol', getRoles())
-                .then(function (response) {
+            token_service.getPayload2()
+                .then(function (userInfo) {
+                    var role = userInfo.role.map(function (element) {
+                        return { Nombre: element }
+                    });
+                    configuracionRequest.post('aplicacion_rol/aplicacion_rol', role)
+                        .then(function (response) {
+                            var nuevasAplicaciones = categorias.map(function (categoria) {
+                                categoria.aplicaciones = categoria.aplicaciones.filter(function (aplicacion) {
+                                    return existe(aplicacion.nombre, response.data)
+                                })
+                                return categoria
+                            })
+                            nuevasAplicaciones = nuevasAplicaciones.filter(function (categoria) { return (categoria.aplicaciones.length > 0) });
+                            $scope.categorias = nuevasAplicaciones;
 
-                     var nuevasAplicaciones = categorias.map(function (categoria) {
+                        }).catch(function (error) { console.log(error) });
+                })
 
-                        categoria.aplicaciones = categoria.aplicaciones.filter(function (aplicacion) {
-                            return existe(aplicacion.nombre, response.data)
-                        })
-                        return categoria
-                    })
-                    nuevasAplicaciones = nuevasAplicaciones.filter(function (categoria) { return (categoria.aplicaciones.length > 0) });  
-                        $scope.categorias = nuevasAplicaciones;
-                    
-                }).catch(function (error) {console.log(error)});
+
         });

@@ -22,7 +22,7 @@ angular.module('core')
 
             // optiene los menus segun el rol
 
-            if (token_service.live_token()) {
+            if (token_service.logginned) {
                 $scope.token = token_service.getPayload();
                 if (!angular.isUndefined($scope.token.role)) {
                     var roles = "";

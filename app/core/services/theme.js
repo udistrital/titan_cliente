@@ -11,20 +11,20 @@
 
 angular.module('themeService', [])
 
-/**
- * @ngdoc service
- * @name themeService.service:behaviorTheme
- * @requires $http
- * @param {injector} $http componente http de angular
- * @requires $websocket
- * @param {injector} $websocket componente websocket de angular-websocket
- * @param {injector} $websocket componente websocket de angular-websocket
- * @description
- * # notificacion
- * Permite gestionar workflow de notificaciones
- */
+    /**
+     * @ngdoc service
+     * @name themeService.service:behaviorTheme
+     * @requires $http
+     * @param {injector} $http componente http de angular
+     * @requires $websocket
+     * @param {injector} $websocket componente websocket de angular-websocket
+     * @param {injector} $websocket componente websocket de angular-websocket
+     * @description
+     * # notificacion
+     * Permite gestionar workflow de notificaciones
+     */
 
-.factory('behaviorTheme', function( CONF, configuracionRequest) {
+    .factory('behaviorTheme', function (CONF, configuracionRequest) {
 
         var methods = {
             sidebar: {
@@ -38,13 +38,13 @@ angular.module('themeService', [])
                 textoMenuLateralClase: 'menulateral-text'
             },
             aplicacion: {
-                open:false,
+                open: false,
                 clase: 'apps_menu_container',
                 scroll: false,
-                scrollClase : 'container-aplicativos'
+                scrollClase: 'container-aplicativos'
             },
             notificacion: {
-                open:false,
+                open: false,
                 clase: 'notificacion_container'
             },
             menu: [],
@@ -52,11 +52,11 @@ angular.module('themeService', [])
                 methods.menu = menu;
             },
 
-            toogleOpenSideBar: function (){
-                
+            toogleOpenSideBar: function () {
+
                 var textoMenuLateral = document.getElementsByClassName("menulateral-text");
-                if (!methods.sidebar.open){
-                    for(var i =0, il = textoMenuLateral.length;i<il;i++){
+                if (!methods.sidebar.open) {
+                    for (var i = 0, il = textoMenuLateral.length; i < il; i++) {
                         textoMenuLateral[i].classList.remove("oculto");
                     }
                     methods.sidebar.sidebarDivClase = 'sidebar_is_active';
@@ -65,15 +65,15 @@ angular.module('themeService', [])
                     methods.sidebar.containerBodyClase = 'container-body-off';
                     methods.sidebar.containerLogoCollapsedClase = 'inline-block';
                     methods.sidebar.containerLogoClase = 'none';
-                    methods.sidebar.open=true;
-         
+                    methods.sidebar.open = true;
+
                 }
             },
-            toogleCloseSideBar: function (){
+            toogleCloseSideBar: function () {
                 var textoMenuLateral = document.getElementsByClassName("menulateral-text");
                 if (methods.sidebar.open) {
                     methods.closeAllMenu(methods.menu);
-                    for(var i =0, il = textoMenuLateral.length;i<il;i++){
+                    for (var i = 0, il = textoMenuLateral.length; i < il; i++) {
                         textoMenuLateral[i].classList.add("oculto");
                     }
                     methods.sidebar.sidebarDivClase = 'sidebar_off';
@@ -81,16 +81,16 @@ angular.module('themeService', [])
                     methods.sidebar.containerBodyClase = 'container-body';
                     methods.sidebar.containerLogoCollapsedClase = 'none';
                     methods.sidebar.containerLogoClase = 'inline-block';
-                    methods.sidebar.open=false;
-                }  
-                
+                    methods.sidebar.open = false;
+                }
+
             },
             toogleSidebar: function () {
                 var textoMenuLateral = document.getElementsByClassName("menulateral-text");
                 methods.sidebar.open = !methods.sidebar.open;
                 if (!methods.sidebar.open) {
                     methods.closeAllMenu(methods.menu);
-                    for(var i =0, il = textoMenuLateral.length;i<il;i++){
+                    for (var i = 0, il = textoMenuLateral.length; i < il; i++) {
                         textoMenuLateral[i].classList.add("oculto");
                     }
                     methods.sidebar.sidebarDivClase = 'sidebar_off';
@@ -98,8 +98,8 @@ angular.module('themeService', [])
                     methods.sidebar.containerBodyClase = 'container-body';
                     methods.sidebar.containerLogoCollapsedClase = 'none';
                     methods.sidebar.containerLogoClase = 'inline-block';
-                }else {
-                    for(var i =0, il = textoMenuLateral.length;i<il;i++){
+                } else {
+                    for (var i = 0, il = textoMenuLateral.length; i < il; i++) {
                         textoMenuLateral[i].classList.remove("oculto");
                     }
                     methods.sidebar.sidebarDivClase = 'sidebar_is_active';
@@ -111,29 +111,31 @@ angular.module('themeService', [])
                 }
             },
 
-            closeAllMenu: function(menu) {           
-                methods.menu = menu.map(function(n) {
-                    var node = {};
-                    node = {
-                        open: false,
-                        clase: "content-menu-off",
-                        style_icon : 'opcion-down'
-                    };
-                    if (n.hasOwnProperty('Opciones')) {
-                        if (n.Opciones !== null) {
-                            var children = { Opciones: methods.closeAllMenu(n.Opciones)};
-
-                            node = Object.assign(n, node, children);
-                        }else {
-                            var children = { Opciones: null }
-                            node = Object.assign(n, node, children);
+            closeAllMenu: function (menu) {
+                if(typeof menu !== 'undefined') {
+                    methods.menu = menu.map(function (n) {
+                        var node = {};
+                        node = {
+                            open: false,
+                            clase: "content-menu-off",
+                            style_icon: 'opcion-down'
+                        };
+                        if (n.hasOwnProperty('Opciones')) {
+                            if (n.Opciones !== null) {
+                                var children = { Opciones: methods.closeAllMenu(n.Opciones) };
+    
+                                node = Object.assign(n, node, children);
+                            } else {
+                                var children = { Opciones: null }
+                                node = Object.assign(n, node, children);
+                            }
+                            return node;
+                        } else {
+    
+                            return node;
                         }
-                        return node;
-                    } else {
-                        
-                        return node;
-                    }
-                });
+                    });
+                }
                 return methods.menu;
             },
 
@@ -144,38 +146,38 @@ angular.module('themeService', [])
                 methods.notificacion.open = !methods.notificacion.open;
                 if (methods.notificacion.open) {
                     methods.notificacion.clase = 'notificacion_container menu_is_active';
-                }else {
+                } else {
                     methods.notificacion.clase = 'notificacion_container';
                 }
             },
 
 
             toogleAplicacion: function () {
-                var containerApps=document.getElementById('menu-aplicaciones')
+                var containerApps = document.getElementById('menu-aplicaciones')
                 methods.aplicacion.scroll = $(containerApps).hasScrollBar();
                 if (methods.notificacion.open) {
                     methods.toogleNotificacion();
                 }
-                if(!methods.aplicacion.scroll){
+                if (!methods.aplicacion.scroll) {
                     methods.aplicacion.scrollClase = "container-aplicativos";
-                }else{
+                } else {
 
                     methods.aplicacion.scrollClase = "container-aplicativos-scroll";
                 }
                 methods.aplicacion.open = !methods.aplicacion.open;
                 if (methods.aplicacion.open) {
                     methods.aplicacion.clase = 'apps_menu_container menu_is_active';
-                }else {
+                } else {
                     methods.aplicacion.clase = 'apps_menu_container';
                 }
             },
         };
         return methods;
-});
+    });
 
-(function($) {
+(function ($) {
     $('body').removeClass('modal-backdrop fade in');
-    $.fn.hasScrollBar = function() {
+    $.fn.hasScrollBar = function () {
         return this.get(0).scrollHeight > this.height();
     }
 })(jQuery);
