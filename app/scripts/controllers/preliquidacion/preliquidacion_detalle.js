@@ -215,12 +215,12 @@ angular.module('titanClienteV2App')
         };
 
 
-       titanMidRequest.post('preliquidacion/resumen_conceptos', self.preliquidacion).then(function(response) {
-         self.gridOptions_resumen.data = response.data.ResumenTotalConceptos;
-         self.total_devengos = response.data.TotalDevengos
-         self.total_descuentos = response.data.TotalDescuentos
+      // titanMidRequest.post('preliquidacion/resumen_conceptos', self.preliquidacion).then(function(response) {
+        // self.gridOptions_resumen.data = response.data.ResumenTotalConceptos;
+         //self.total_devengos = response.data.TotalDevengos
+         //self.total_descuentos = response.data.TotalDescuentos
          //console.log("response", response.data)
-       })
+      // })
 
         titanMidRequest.post('preliquidacion/personas_x_preliquidacion', self.preliquidacion).then(function(response) {
           self.gridOptions.data = response.data;
@@ -230,7 +230,7 @@ angular.module('titanClienteV2App')
 
 
         self.ver_seleccion_persona = function(row) {
-          self.persona_seleccionada_nombre = row.entity.NombreCompleto
+          /*self.persona_seleccionada_nombre = row.entity.NombreCompleto
           self.gridOptions_detalle.data = [];
           //Mostrar contratos
           var query = "limit=-1&query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona+",NumeroContrato:"+row.entity.NumeroContrato+",VigenciaContrato:"+row.entity.VigenciaContrato; 
@@ -238,7 +238,7 @@ angular.module('titanClienteV2App')
             self.gridOptions_detalle.data = response.data;
             self.num_contrato = response.data[0].NumeroContrato + " de "
             self.vigencia = response.data[0].VigenciaContrato
-            self.calcular_totales(response.data);
+          //  self.calcular_totales(response.data);
           });
 
         };
@@ -282,15 +282,11 @@ angular.module('titanClienteV2App')
              self.total_a_pagar_persona = total_a_pagar;
              //este es el valor si la universidad paga la salud
              self.total_con_salud=total_devengos - total_descuentos;
-             console.log("sel",self.total_devengos_persona);
+             console.log("sel",self.total_devengos_persona);*/
         };
 
       
-        self.solicitar_necesidad = function() {
-
-
-        };
-
+      /*
         self.generar_pdf = function() {
             $http.get("scripts/models/imagen_ud.json")
                 .then(function(response) {
@@ -323,7 +319,7 @@ angular.module('titanClienteV2App')
                     }
                 });
 
-        };
+        };*/
 
         self.generar_reporte_para_todos = function(row) {
 
