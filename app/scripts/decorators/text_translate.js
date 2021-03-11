@@ -249,11 +249,13 @@ VALOR_PDF: "Valor",
 VER_PENDIENTES: "Ver pendientes",
 VIGENCIA: "Vigencia",
 VOLVER: "Volver",
+TOTAL_PAGAR_SALUD:"Total con salud",
 BTN:{
 EDITAR:"Editar",
 BORRAR:"Eliminar",
 INACTIVAR: "Inactivar",
 ACTIVAR: "Activar"
+
 },
 };
 
@@ -478,6 +480,7 @@ VALOR_CONCEPTO: "Value",
 VALOR_CONCEPTO_NOVEDAD: "Change value",
 VALOR_TOTAL: "Total Value",
 VALOR_TOTAL_DESCUENTOS: "Total Discounts",
+TOTAL_PAGAR_SALUD:"Total whit helcare",
 VALOR_PDF: "Values",
 VIGENCIA: "Term",
 VOLVER: "Back",
