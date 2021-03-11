@@ -104,18 +104,18 @@ angular.module('titanClienteV2App')
               TotalConSalud:0
             };
                   var totalapagar=0;
-                  
+                  var consalud=0;
                   
                   totalapagar=response.data[0].TotalAPagar;
-                  response.data[0].TotalAPagar=totalapagar+salud+pension+arl;
-                  contrato.TotalConSalud=totalapagar;
+                  consalud=totalapagar+salud+pension+arl;
+                  contrato.TotalConSalud=consalud;
                   contrato.EstadoPago=response.data[0].EstadoPago;
                   contrato.Id=response.data[0].Id;
                   contrato.NumDocumento=response.data[0].NumDocumento;
                   contrato.NumeroContrato=response.data[0].NumeroContrato;
                   contrato.Conceptos=response.data[0].Conceptos;
                   contrato.Saldo_RP= response.data[0].Saldo_RP;
-                  contrato.TotalAPagar=response.data[0].TotalAPagar;
+                  contrato.TotalAPagar=totalapagar;
                   contrato.TotalDescuentos=response.data[0].TotalDescuentos;
                   contrato.TotalDevengos=response.data[0].TotalDevengos;
                   contrato.VigenciaContrato= response.data[0].VigenciaContrato;
