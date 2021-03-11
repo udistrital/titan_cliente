@@ -16,6 +16,7 @@ angular.module('titanClienteV2App')
         self.seleccion_sueldoNeto = 0;
         self.respuesta_persona;
         self.respuesta_conceptos;
+        
         //self.preliquidacion = preliquidacion;
         self.preliquidacion = $localStorage.preliquidacion
 
@@ -247,6 +248,9 @@ angular.module('titanClienteV2App')
           var total_devengos = 0;
           var total_descuentos = 0;
           var total_a_pagar = 0;
+          var salud=0;
+          var pension=0;
+          var arl=0;
           angular.forEach(detalle, function(value, key){
                   if (value.Concepto.NaturalezaConcepto.Nombre == "devengo") {
                     total_devengos = total_devengos + parseInt(value.ValorCalculado);
@@ -257,12 +261,24 @@ angular.module('titanClienteV2App')
                     total_descuentos = total_descuentos + parseInt(value.ValorCalculado);
 
                   }
+                  //se toma el valor puntual para salud, pension y arl
+                  if (value.nombre=="salud"){
+                      salud=parseInt(value.ValorCalculado);
+                  }
+                  if (value.nombre="pension"){
+                    pension=parseInt(value.ValorCalculado);
+                }
+                if (value.nombre="arl"){
+                    arl=parseInt(value.ValorCalculado);
+                }
              });
-
-             total_a_pagar = total_devengos - total_descuentos
+             //como la salud, la pensión y la arl, son descuentos se suman al total que va con descuentos
+             total_a_pagar = total_devengos - total_descuentos+salud+pension+arl;
              self.total_devengos_persona = total_devengos;
              self.total_descuentos_persona = total_descuentos;
              self.total_a_pagar_persona = total_a_pagar;
+             //este es el valor si la universidad paga la salud
+             self.total_con_salud=total_devengos - total_descuentos;
              console.log("sel",self.total_devengos_persona)
         };
 
