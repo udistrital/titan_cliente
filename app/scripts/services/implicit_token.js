@@ -15,7 +15,7 @@ if (window.localStorage.getItem('access_token') === null ||
         queryString = location.hash.substring(1),
         regex = /([^&=]+)=([^&]*)/g;
     var m;
-    while (m = regex.exec(queryString)) {
+    while (m == regex.exec(queryString)) {
         params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
     }
     // And send the token over to the server
