@@ -74,9 +74,9 @@ angular.module('titanClienteV2App')
               var salud=0;
               var pension=0;
               var arl=0;
-              console.log(response.data);
+              
               angular.forEach(response.data[0].Conceptos, function(value, key){
-                console.log(value);
+                
                 
                 //se toma el valor puntual para salud, pension y arl
                 if (value.Nombre=="salud"){
@@ -104,23 +104,27 @@ angular.module('titanClienteV2App')
               TotalConSalud:0
             };
                   var totalapagar=0;
-                  
+                  var consalud=0;
                   
                   totalapagar=response.data[0].TotalAPagar;
-                  response.data[0].TotalAPagar=totalapagar+salud+pension+arl;
-                  contrato.TotalConSalud=totalapagar;
+                  console.log(totalapagar);
+                  console.log(salud);
+                  console.log(pension);
+                  console.log(arl);
+                  consalud=totalapagar+salud+pension+arl;
+                  contrato.TotalConSalud=consalud;
                   contrato.EstadoPago=response.data[0].EstadoPago;
                   contrato.Id=response.data[0].Id;
                   contrato.NumDocumento=response.data[0].NumDocumento;
                   contrato.NumeroContrato=response.data[0].NumeroContrato;
                   contrato.Conceptos=response.data[0].Conceptos;
                   contrato.Saldo_RP= response.data[0].Saldo_RP;
-                  contrato.TotalAPagar=response.data[0].TotalAPagar;
+                  contrato.TotalAPagar=totalapagar;
                   contrato.TotalDescuentos=response.data[0].TotalDescuentos;
                   contrato.TotalDevengos=response.data[0].TotalDevengos;
                   contrato.VigenciaContrato= response.data[0].VigenciaContrato;
                   response.data[0]=contrato;
-                  console.log(contrato);
+                 
                   self.detalles = response.data;
                   $scope.mostrarleyenda = "true";
 
