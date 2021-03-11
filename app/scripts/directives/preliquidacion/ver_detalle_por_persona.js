@@ -80,13 +80,13 @@ angular.module('titanClienteV2App')
                 
                 //se toma el valor puntual para salud, pension y arl
                 if (value.Nombre=="salud"){
-                    salud=parseInt(value.ValorCalculado);
+                    salud=parseInt(value.Valor);
                 }
                 if (value.Nombre=="pension"){
-                  pension=parseInt(value.ValorCalculado);
+                  pension=parseInt(value.Valor);
               }
               if (value.Nombre=="arl"){
-                  arl=parseInt(value.ValorCalculado);
+                  arl=parseInt(value.Valor);
               }
            });
            //se crea objeto concepto
