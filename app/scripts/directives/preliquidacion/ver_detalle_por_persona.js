@@ -70,7 +70,58 @@ angular.module('titanClienteV2App')
 
 
             titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-                  self.detalles = response.data
+              var totalapagar=0;
+              var salud=0;
+              var pension=0;
+              var arl=0;
+              console.log(response.data);
+              angular.forEach(response.data[0].Conceptos, function(value, key){
+                console.log(value);
+                
+                //se toma el valor puntual para salud, pension y arl
+                if (value.Nombre=="salud"){
+                    salud=parseInt(value.ValorCalculado);
+                }
+                if (value.Nombre=="pension"){
+                  pension=parseInt(value.ValorCalculado);
+              }
+              if (value.Nombre=="arl"){
+                  arl=parseInt(value.ValorCalculado);
+              }
+           });
+           //se crea objeto concepto
+           const contrato = {
+              Conceptos:  [],
+              EstadoPago: "Listo para pago",
+              Id: 0,
+              NumDocumento: 0,
+              NumeroContrato: "",
+              Saldo_RP: 0,
+              TotalAPagar: 0,
+              TotalDescuentos: 0,
+              TotalDevengos: 0,
+              VigenciaContrato: "",
+              TotalConSalud:0
+            };
+                  var totalapagar=0;
+                  
+                  
+                  totalapagar=response.data[0].TotalAPagar;
+                  response.data[0].TotalAPagar=totalapagar+salud+pension+arl;
+                  contrato.TotalConSalud=totalapagar;
+                  contrato.EstadoPago=response.data[0].EstadoPago;
+                  contrato.Id=response.data[0].Id;
+                  contrato.NumDocumento=response.data[0].NumDocumento;
+                  contrato.NumeroContrato=response.data[0].NumeroContrato;
+                  contrato.Conceptos=response.data[0].Conceptos;
+                  contrato.Saldo_RP= response.data[0].Saldo_RP;
+                  contrato.TotalAPagar=response.data[0].TotalAPagar;
+                  contrato.TotalDescuentos=response.data[0].TotalDescuentos;
+                  contrato.TotalDevengos=response.data[0].TotalDevengos;
+                  contrato.VigenciaContrato= response.data[0].VigenciaContrato;
+                  response.data[0]=contrato;
+                  console.log(contrato);
+                  self.detalles = response.data;
                   $scope.mostrarleyenda = "true";
 
               });
