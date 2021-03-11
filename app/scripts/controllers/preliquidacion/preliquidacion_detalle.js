@@ -265,21 +265,24 @@ angular.module('titanClienteV2App')
                   if (value.nombre=="salud"){
                       salud=parseInt(value.ValorCalculado);
                   }
-                  if (value.nombre="pension"){
+                  if (value.nombre=="pension"){
                     pension=parseInt(value.ValorCalculado);
                 }
-                if (value.nombre="arl"){
+                if (value.nombre=="arl"){
                     arl=parseInt(value.ValorCalculado);
                 }
              });
              //como la salud, la pensión y la arl, son descuentos se suman al total que va con descuentos
              total_a_pagar = total_devengos - total_descuentos+salud+pension+arl;
+             console.log(arl);
+             console.log(salud);
+             console.log(pension);
              self.total_devengos_persona = total_devengos;
              self.total_descuentos_persona = total_descuentos;
              self.total_a_pagar_persona = total_a_pagar;
              //este es el valor si la universidad paga la salud
              self.total_con_salud=total_devengos - total_descuentos;
-             console.log("sel",self.total_devengos_persona)
+             console.log("sel",self.total_devengos_persona);
         };
 
       
