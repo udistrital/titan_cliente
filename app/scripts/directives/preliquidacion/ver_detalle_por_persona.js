@@ -88,6 +88,7 @@ angular.module('titanClienteV2App')
               if (value.Nombre=="arl"){
                   arl=parseInt(value.Valor);
               }
+              console.log(response.data[0].Conceptos);
            });
            //se crea objeto concepto
            const contrato = {
@@ -111,6 +112,7 @@ angular.module('titanClienteV2App')
                   console.log(salud);
                   console.log(pension);
                   console.log(arl);
+                  
                   consalud=totalapagar+salud+pension-arl;
                   contrato.TotalConSalud=totalapagar;
                   contrato.EstadoPago=response.data[0].EstadoPago;
