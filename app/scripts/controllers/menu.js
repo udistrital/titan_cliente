@@ -7,7 +7,7 @@
  * Controller of the titanClienteV2App
  */
  angular.module('titanClienteV2App')
-     .controller('menuCtrl', function ($location, $window, $q, requestRequest, $scope, token_service, notificacion, $translate, $route, $mdSidenav, configuracionRequest, $rootScope, $http) {
+     .controller('menuCtrl', function ($location, $window, $q, requestRequest, $scope, token_service,  $translate, $route, $mdSidenav, configuracionRequest, $rootScope, $http) {
          var paths = [];
          $scope.token_service = token_service;
          $scope.$on('$routeChangeStart', function (scope, next, current) {
@@ -39,7 +39,7 @@
              es: "btn btn-primary btn-circle btn-outline active",
              en: "btn btn-primary btn-circle btn-outline"
          };
-         $scope.notificacion = notificacion;
+        // $scope.notificacion = notificacion;
          $scope.actual = "";
 
          $scope.breadcrumb = [];
@@ -152,7 +152,7 @@
              }
 
          };
-
+/*
          if (self.perfil !== undefined) {
              $scope.notificacion.get_crud('notify', $.param({
                  query: "NotificacionConfiguracion.NotificacionConfiguracionPerfil.Perfil.Nombre__in:" + self.perfil.join('|') + "&sortby=id&order=asc&limit=-1"
@@ -164,7 +164,7 @@
                      }
                  });
          }
-
+*/
          if ($scope.token_service.live_token()) {
              self.perfil = $scope.token_service.getRoles();
              configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + self.perfil + '/Titan', '').then(function (response) {
