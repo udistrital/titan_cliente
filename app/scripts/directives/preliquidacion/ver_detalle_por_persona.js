@@ -111,15 +111,15 @@ angular.module('titanClienteV2App')
                   console.log(salud);
                   console.log(pension);
                   console.log(arl);
-                  consalud=totalapagar+salud+pension+arl;
-                  contrato.TotalConSalud=consalud;
+                  consalud=totalapagar+salud+pension-arl;
+                  contrato.TotalConSalud=totalapagar;
                   contrato.EstadoPago=response.data[0].EstadoPago;
                   contrato.Id=response.data[0].Id;
                   contrato.NumDocumento=response.data[0].NumDocumento;
                   contrato.NumeroContrato=response.data[0].NumeroContrato;
                   contrato.Conceptos=response.data[0].Conceptos;
                   contrato.Saldo_RP= response.data[0].Saldo_RP;
-                  contrato.TotalAPagar=totalapagar;
+                  contrato.TotalAPagar=consalud;
                   contrato.TotalDescuentos=response.data[0].TotalDescuentos;
                   contrato.TotalDevengos=response.data[0].TotalDevengos;
                   contrato.VigenciaContrato= response.data[0].VigenciaContrato;
