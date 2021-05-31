@@ -24,9 +24,9 @@ angular.module('titanClienteV2App')
 
         sbi.services.setBaseUrl({
           protocol: 'https', 
-          host: 'intelligentia.udistrital.edu.co', 
-          port: '8443', 
-          contextPath: 'SpagoBI', 
+          host: 'inteligenciainstitucional.portaloas.udistrital.edu.co', 
+          port: '443', 
+          contextPath: 'knowage', 
           controllerPath: 'servlet/AdapterHTTP'
         });
 
@@ -38,7 +38,7 @@ angular.module('titanClienteV2App')
             function execTest() {
               var url = sbi.api.getDocumentHtml({
                 documentLabel: $scope.reporte, 
-                executionRole: '/spagobi/admin', 
+                executionRole: '/spagobi/user', 
                
                 displayToolbar: true, 
                 displaySliders: true, 
@@ -54,8 +54,8 @@ angular.module('titanClienteV2App')
 
             sbi.api.authenticate({
               params: {
-                user: 'sergio_orjuela',
-                password: 'sergio_orjuela'
+                user: 'desarrollooas',
+                password: 'desarrollooas'
               },
               callback: {
                 fn: execTest,
