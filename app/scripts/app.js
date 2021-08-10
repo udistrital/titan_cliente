@@ -43,6 +43,7 @@ angular
         'configuracionService',
         'requestService',
          'implicitToken',
+         'autenticacionMidService',
     ])
     .run(function(amMoment) {
         amMoment.changeLocale('es');

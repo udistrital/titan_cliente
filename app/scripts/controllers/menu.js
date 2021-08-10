@@ -165,23 +165,39 @@
                  });
          }
 */
-         if ($scope.token_service.live_token()) {
-             self.perfil = $scope.token_service.getRoles();
-             configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + self.perfil + '/Titan', '').then(function (response) {
-                 $rootScope.my_menu = response.data;
-                 /*configuracionRequest.update_menu(https://10.20.0.162:9443/store/apis/authenticate response.data);
-                 console.log("get menu");
-                 $scope.menu_service = configuracionRequest.get_menu();*/
-             }).catch(function (err) {
-                 console.log('err ', err);
-                 $location.path("/no_permission");
-                 $http.pendingRequests.forEach(function (request) {
-                     if (request.cancel) {
-                         request.cancel.resolve();
-                     }
-                 });
-             });
-         }
+if (token_service.live_token()) {
+    token_service.getLoginData()
+        .then(function() {
+            $scope.token = token_service.getAppPayload();
+            if (!angular.isUndefined($scope.token.appUserRole)) {
+                var roles = "";
+                if (typeof $scope.token.appUserRole === "object") {
+                    var rl = [];
+                    
+                    
+                    for (var index = 0; index < $scope.token.appUserRole.length; index++) {
+                        if ($scope.token.appUserRole[index].indexOf(",") < 0) {
+                            rl.push($scope.token.appUserRole[index]);
+                        }
+                    }
+                    roles = rl.toString();
+                    console.log(roles);
+                } else {
+                    roles = $scope.token.appUserRole;
+                }
+                roles = roles.replace('Internal/everyone,', '','g');
+                configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + roles + '/Titan', '').then(function(response) {
+                        $rootScope.my_menu = response.data;
+
+                    })
+                    .catch(
+                        function(response) {
+                            $rootScope.my_menu = response.data;
+
+                        });
+            }
+        });
+}
 
          //$scope.menuserv.actualizar_menu("Admin");
          //$scope.menu_service =$scope.menuserv.get_menu();

@@ -29,6 +29,7 @@ var conf_prod = {
         REFRESH_TOKEN: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/token",
         CLIENT_SECRET: "4C_HkdaZsMF4Fthfm6D2n5joLzEa"
     },
+    AUTENTICATION_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/",
 };
 
 var conf_preprod = {
@@ -52,6 +53,7 @@ var conf_preprod = {
         REFRESH_TOKEN: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/token",
         CLIENT_SECRET: "4C_HkdaZsMF4Fthfm6D2n5joLzEa"
     },
+    AUTENTICATION_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/",
 };
 
 var conf_local = {
@@ -78,6 +80,7 @@ var conf_local = {
         REFRESH_TOKEN: "https://autenticacion.portaloas.udistrital.edu.co/oauth2/token",
         CLIENT_SECRET: "Y8WA3LDAH79QjiMvCkTfaiZsOtEa"
     },
+    AUTENTICATION_MID_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/autenticacion_mid/v1/",
 };
 
 
@@ -85,7 +88,7 @@ var conf_local = {
 angular.module('titanClienteV2App')
     .constant('CONF', {
 
-        GENERAL: conf_prod
+        GENERAL: conf_local
 
 
     });
