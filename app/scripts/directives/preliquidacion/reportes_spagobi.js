@@ -48,20 +48,12 @@ angular.module('titanClienteV2App')
                     width: '100%.'
                 }
               });
+              url="https://inteligenciainstitucional.portaloas.udistrital.edu.co/knowage/servlet/AdapterHTTP?ACTION_NAME=EXECUTE_DOCUMENT_ACTION&TOOLBAR_VISIBLE=true&ORGANIZATION=DEFAULT_TENANT&NEW_SESSION=true&OBJECT_LABEL="+RteTitan
               $('#frame').html('');
               $('#frame').append(url);
             };
 
-            sbi.api.authenticate({
-              params: {
-                user: 'desarrollooas',
-                password: 'desarrollooas'
-              },
-              callback: {
-                fn: execTest,
-                scope: this
-              }
-            });
+            
           }
         });
       },
