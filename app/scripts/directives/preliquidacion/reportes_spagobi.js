@@ -33,26 +33,10 @@ angular.module('titanClienteV2App')
         $scope.$watch('reporte', function (newValue, oldValue) {
             
           if ($scope.reporte && $scope.reporte.length !== 0) {
-            var parametros = '';
-                                
-            function execTest() {
-              var url = sbi.api.getDocumentHtml({
-                documentLabel: $scope.reporte, 
-                executionRole: '/spagobi/user', 
-               
-                displayToolbar: true, 
-                displaySliders: true, 
-                iframe: {
-                    style: 'border: 0px;',
-                    height: '500px;',
-                    width: '100%.'
-                }
-              });
-              url="https://inteligenciainstitucional.portaloas.udistrital.edu.co/knowage/servlet/AdapterHTTP?ACTION_NAME=EXECUTE_DOCUMENT_ACTION&TOOLBAR_VISIBLE=true&ORGANIZATION=DEFAULT_TENANT&NEW_SESSION=true&OBJECT_LABEL="+RteTitan
+           
+            url="https://inteligenciainstitucional.portaloas.udistrital.edu.co/knowage/servlet/AdapterHTTP?ACTION_NAME=EXECUTE_DOCUMENT_ACTION&TOOLBAR_VISIBLE=true&ORGANIZATION=DEFAULT_TENANT&NEW_SESSION=true&OBJECT_LABEL="+RteTitan
               $('#frame').html('');
               $('#frame').append(url);
-            };
-
             
           }
         });
