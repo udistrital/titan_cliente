@@ -185,8 +185,8 @@ if (token_service.live_token()) {
                 } else {
                     roles = $scope.token.appUserRole;
                 }
-                roles = roles.replace('Internal/everyone,', '','g');
-                roles = roles.replace('Internal/everyone', '','g');
+                roles = roles.replace('/everyone', '','g');
+                
                 configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + roles + '/Titan', '').then(function(response) {
                         $rootScope.my_menu = response.data;
 
