@@ -185,7 +185,7 @@ if (token_service.live_token()) {
                 } else {
                     roles = $scope.token.appUserRole;
                 }
-                roles = roles.replace(/,/g, '%2C');
+                roles = roles.replace(/\//g, '-');
                 
                 configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + roles + '/Titan', '').then(function(response) {
                         $rootScope.my_menu = response.data;
