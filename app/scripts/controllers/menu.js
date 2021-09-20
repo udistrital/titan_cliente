@@ -185,7 +185,7 @@ if (token_service.live_token()) {
                 } else {
                     roles = $scope.token.appUserRole;
                 }
-                roles = replaceAll(roles,/,'%2C');
+                roles = roles.replace(/,/g, '%2C');
                 
                 configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + roles + '/Titan', '').then(function(response) {
                         $rootScope.my_menu = response.data;
@@ -200,14 +200,7 @@ if (token_service.live_token()) {
         });
 }
 
-         //$scope.menuserv.actualizar_menu("Admin");
-         //$scope.menu_service =$scope.menuserv.get_menu();
-        function escapeRegExp(string) {
-  return string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-} 
-   function replaceAll(str, find, replace) {
-  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
+    
          function buildToggler(componentId) {
              return function () {
                  $mdSidenav(componentId).toggle();
