@@ -17,7 +17,7 @@ angular.module('titanClienteV2App')
 
       controller: function($scope, $translate,$location,$route) {
         var self = this;
-
+      console.log("entrando donde no debo")
         //* --- Definición de grid para HCH y HCS --- *//
       if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS") {
 
@@ -231,14 +231,13 @@ angular.module('titanClienteV2App')
         };
 
         self.preliquidar_persona = function(row) {
-
           $scope.persona = row.entity;
-          $('#modal_detalle').modal('show');
+          //$('#modal_detalle').modal('show');
         };
-
+        /*
         $('#modal_detalle').on('hidden.bs.modal', function (e) {
           $scope.persona = undefined
-        })
+        })*/
 
           //*--- Generación de preliquidacion  --* //
           self.generar_preliquidacion = function() {
@@ -384,9 +383,6 @@ angular.module('titanClienteV2App')
           if (entity.EstadoDisponibilidad === 3) {
               output = "Pagado";
           }
-
-
-
           return output;
       };
   });

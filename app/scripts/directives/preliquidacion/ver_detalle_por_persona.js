@@ -7,143 +7,51 @@
  * # verRp
  */
 angular.module('titanClienteV2App')
-  .directive('verDetallePorPersona', function(titanMidRequest) {
+  .directive('verDetallePorPersona', function (titanMidRequest, titanRequest) {
     return {
       restrict: 'E',
       scope: {
-        persona: '=?',
+        contrato: '=?',
         preliquidacion: '=?',
         open: '=?',
         mostrarleyenda: '=?'
       },
       templateUrl: 'views/directives/preliquidacion/ver_detalle_por_persona.html',
 
-      controller: function($scope) {
+      controller: function ($scope) {
         var self = this;
-        $scope.inputpestanaabierta = $scope.open;
+        $scope.inputpestanaContrato = $scope.open;
+        $scope.inputpestanaResolucion = $scope.open;
         $scope.mostrarleyenda = "false"
-        self.preliquidar_persona = function() {
+        self.ver_detalle_persona = function () {
+          if ($scope.contrato != undefined && $scope.preliquidacion != undefined) {
 
-          if($scope.persona != undefined && $scope.preliquidacion != undefined){
+            self.nombre_seleccionado = $scope.contrato.NombreCompleto
+            self.cedula_seleccionado = $scope.contrato.Documento
 
-            $scope.preliquidacion.Definitiva = false;
-
-            var personas_a_liquidar = [];
-              if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCH" || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "HCS"  || $scope.preliquidacion.Nomina.TipoNomina.Nombre === "CT") {
-                self.nombre_seleccionado = $scope.persona.nom_proveedor;
-                self.cedula_seleccionado = $scope.persona.num_documento;
-
-                    var persona = {
-                        IdPersona: parseInt($scope.persona.id_proveedor),
-                        NumDocumento: parseInt($scope.persona.num_documento),
-                        NumeroContrato: $scope.persona.numero_contrato,
-                        VigenciaContrato: parseInt($scope.persona.vigencia),
-                        Pendiente: "false",
-                        FechaInicio:$scope.persona.fecha_inicio,
-                        FechaFin:$scope.persona.fecha_fin,
-                        ValorContrato:$scope.persona.valor_contrato,
-                    };
-
-                    personas_a_liquidar.push(persona)
-              }
-
-              if ($scope.preliquidacion.Nomina.TipoNomina.Nombre === "FP") {
-
-                self.nombre_seleccionado = $scope.persona.NombreProveedor;
-                self.cedula_seleccionado = $scope.persona.NumDocumento;
-
-                  var persona = {
-                      IdPersona: parseInt($scope.persona.Id),
-                      NumDocumento: parseInt($scope.persona.NumDocumento),
-                      NumeroContrato: $scope.persona.NumeroContrato,
-                      VigenciaContrato: parseInt($scope.persona.VigenciaContrato),
-                      Pendiente: "false",
-                  };
-
-                    personas_a_liquidar.push(persona)
-              }
-
-            var datos_preliquidacion = {
-                Preliquidacion: $scope.preliquidacion,
-                PersonasPreLiquidacion: personas_a_liquidar,
-            };
-
-
-            titanMidRequest.post('preliquidacion', datos_preliquidacion).then(function(response) {
-              var totalapagar=0;
-              var salud=0;
-              var pension=0;
-              var arl=0;
-              
-              angular.forEach(response.data[0].Conceptos, function(value, key){
-                
-                
-                //se toma el valor puntual para salud, pension y arl
-                if (value.Nombre=="salud"){
-                    salud=parseInt(value.Valor);
-                }
-                if (value.Nombre=="pension"){
-                  pension=parseInt(value.Valor);
-              }
-              if (value.Nombre=="arl"){
-                  arl=parseInt(value.Valor);
-              }
-              console.log(response.data[0].Conceptos);
-           });
-           //se crea objeto concepto
-           const contrato = {
-              Conceptos:  [],
-              EstadoPago: "Listo para pago",
-              Id: 0,
-              NumDocumento: 0,
-              NumeroContrato: "",
-              Saldo_RP: 0,
-              TotalAPagar: 0,
-              TotalDescuentos: 0,
-              TotalDevengos: 0,
-              VigenciaContrato: "",
-              TotalConSalud:0
-            };
-                  var totalapagar=0;
-                  var consalud=0;
-                  
-                  totalapagar=response.data[0].TotalAPagar;
-                  console.log(totalapagar);
-                  console.log(salud);
-                  console.log(pension);
-                  console.log(arl);
-                  
-                  consalud=totalapagar+salud+pension+arl;
-                  contrato.TotalConSalud=totalapagar;
-                  contrato.EstadoPago=response.data[0].EstadoPago;
-                  contrato.Id=response.data[0].Id;
-                  contrato.NumDocumento=response.data[0].NumDocumento;
-                  contrato.NumeroContrato=response.data[0].NumeroContrato;
-                  contrato.Conceptos=response.data[0].Conceptos;
-                  contrato.Saldo_RP= response.data[0].Saldo_RP;
-                  contrato.TotalAPagar=consalud;
-                  contrato.TotalDescuentos=response.data[0].TotalDescuentos;
-                  contrato.TotalDevengos=response.data[0].TotalDevengos;
-                  contrato.VigenciaContrato= response.data[0].VigenciaContrato;
-                  response.data[0]=contrato;
-                 
-                  self.detalles = response.data;
-                  $scope.mostrarleyenda = "true";
-
+            if ($scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "CT"){
+              titanMidRequest.get('detalle_preliquidacion', '/obtener_detalle_CT/' + $scope.preliquidacion.Ano + '/' + $scope.preliquidacion.Mes + '/' + $scope.contrato.NumeroContrato).then(function (response) {
+                self.detalle = [response.data.Data];
+                console.log(self.detalle)
+                $scope.mostrarleyenda= "true";
+                self.detalle_CT = true
+                self.detalle_HCH = false
               });
-
+            } else if ($scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "HCH"){
+              titanMidRequest.get('detalle_preliquidacion', '/obtener_detalle_HCH/' + $scope.preliquidacion.Ano + '/' + $scope.preliquidacion.Mes + '/' + $scope.contrato.Documento).then(function (response) {
+                self.detalle = response.data.Data;
+                console.log(self.detalle)
+                $scope.mostrarleyenda= "true";
+                self.detalle_CT = false
+                self.detalle_HCH = true
+              });
+            }
           }
         }
-
-
-        $scope.$watch("persona", function() {
-          self.preliquidar_persona();
+        $scope.$watch("contrato", function () {
+          self.ver_detalle_persona();
           $scope.mostrarleyenda = "false";
-
         });
-
-
-
       },
       controllerAs: 'd_verDetallePorPersona'
     };
