@@ -44,7 +44,6 @@ angular.module('titanClienteV2App')
                     $scope.myGridApi = gridApi;
                 }
             };
-
         }
 
 

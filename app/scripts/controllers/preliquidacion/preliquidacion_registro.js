@@ -98,14 +98,14 @@ angular.module('titanClienteV2App')
                     headerCellClass: 'encabezado',
                     cellTemplate: '<a ng-if="row.entity.EstadoPreliquidacionId==403"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_abierta" fila="row"></btn-registro></a>' +
                         '<a ng-if="row.entity.EstadoPreliquidacionId==402"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_cerrada" fila="row"></btn-registro></a>' +
-                        '<a ng-if="row.entity.EstadoPreliquidacionId==404"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_op_pendientes" fila="row"></btn-registro></a>'
+                        '<a ng-if="row.entity.EstadoPreliquidacionId==405"> <btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones_op_pendientes" fila="row"></btn-registro></a>'
                 }
 
             ]
         };
 
-        
-        titanRequest.get('preliquidacion', 'limit=-1&query=EstadoPreliquidacionId.in:403|402,NominaId:' + self.tipo_id + '&sortby=Ano,Mes&order=desc').then(function (response) {
+
+        titanRequest.get('preliquidacion', 'limit=-1&query=EstadoPreliquidacionId.in:403|402|405,NominaId:' + self.tipo_id + '&sortby=Ano,Mes&order=desc').then(function (response) {
             for (var i = 0; i < response.data.Data.length; i++) {
                 response.data.Data[i].FechaModificacion = response.data.Data[i].FechaModificacion.split(" ")[0]
             }
@@ -141,9 +141,9 @@ angular.module('titanClienteV2App')
         };
 
         self.activar_preliqu = function () {
-            titanRequest.get('preliquidacion','limit=-1&query=Ano:' + self.anioPeriodo + ',Mes:' + self.mesPeriodo+',NominaId:'+self.tipo_id).then(function (response) {
+            titanRequest.get('preliquidacion', 'limit=-1&query=Ano:' + self.anioPeriodo + ',Mes:' + self.mesPeriodo + ',NominaId:' + self.tipo_id).then(function (response) {
                 if (response.data.Data.length != 0) {
-                     
+
                     var preliquidacionActiva = {
                         Id: response.data.Data[0].Id,
                         Descripcion: response.data.Data[0].Descripcion,
@@ -210,16 +210,16 @@ angular.module('titanClienteV2App')
                     cancelButtonText: $translate.instant('SALIR'),
                 })
             } else {
-                if (row.entity.EstadoPreliquidacionId == 405) {
-                    swal({
-                        html: $translate.instant('ALERTA_PRELIQUIDACION_OP'),
-                        type: "error",
-                        showCancelButton: true,
-                        showConfirmButton: false,
-                        cancelButtonColor: "#C9302C",
-                        cancelButtonText: $translate.instant('SALIR'),
-                    })
-                } else {
+                // if (row.entity.EstadoPreliquidacionId == 405) {
+                //     swal({
+                //         html: $translate.instant('ALERTA_PRELIQUIDACION_OP'),
+                //         type: "error",
+                //         showCancelButton: true,
+                //         showConfirmButton: false,
+                //         cancelButtonColor: "#C9302C",
+                //         cancelButtonText: $translate.instant('SALIR'),
+                //     })
+                // } else {
                     self.preliquidacion = preliquidacion;
                     self.preliquidacion.Id = row.entity.Id;
                     self.preliquidacion.Descripcion = row.entity.Descripcion;
@@ -231,7 +231,7 @@ angular.module('titanClienteV2App')
                     $localStorage.preliquidacion = self.preliquidacion;
                     $location.path('/preliquidacion/preliquidacion_personas');
                     $route.reload()
-                }
+            //}
             }
         };
 

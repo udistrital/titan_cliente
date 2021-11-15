@@ -22,7 +22,7 @@ angular.module('titanClienteV2App')
             { clase_color: "editar", clase_css: "fa fa-pencil fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.EDITAR'), operacion: 'edit', estado: true },
             { clase_color: "add", clase_css: "fa fa-plus fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.ACTIVAR'), operacion: 'active', estado: true }
         ];
-        //  self.tipo="porcentaje";
+        
         self.gridOptions_conceptos = {
 
             enableFiltering: true,

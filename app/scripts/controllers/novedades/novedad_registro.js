@@ -219,7 +219,6 @@ angular.module('titanClienteV2App')
             {
                 field: 'FechaCreacion',
                 displayName: $translate.instant('FECHA_REGISTRO'),
-                cellFilter: "filtro_fecha:row.entity",
                 width: '10%',
                 headerCellClass: 'encabezado',
                 cellClass: "text-center"
@@ -332,6 +331,9 @@ angular.module('titanClienteV2App')
                 $scope.gridOptions_novedades.data = [];
                 self.hayNovedad = false
             } else {
+                for (var i = 0; i < response.data.Data.length; i++) {
+                    response.data.Data[i].FechaModificacion = response.data.Data[i].FechaModificacion.split(" ")[0]
+                }
                 $scope.gridOptions_novedades.data = response.data.Data;
                 self.hayNovedad = true
             }
@@ -379,16 +381,16 @@ angular.module('titanClienteV2App')
 
         self.Registrar = function () {
            
-            // if (self.ValorNovedad == undefined || self.Cuotas == undefined) {
-            //     swal({
-            //         html: $translate.instant('NOVEDAD_REG_ERROR'),
-            //         type: "error",
-            //         showCancelButton: true,
-            //         showConfirmButton: false,
-            //         cancelButtonColor: "#C9302C",
-            //         cancelButtonText: $translate.instant('SALIR'),
-            //     })
-            // } else {
+            if (self.ValorNovedad == undefined || self.Cuotas == undefined) {
+                swal({
+                    html: $translate.instant('NOVEDAD_REG_ERROR'),
+                    type: "error",
+                    showCancelButton: true,
+                    showConfirmButton: false,
+                    cancelButtonColor: "#C9302C",
+                    cancelButtonText: $translate.instant('SALIR'),
+                })
+            } else {
                 if ($scope.concepto.TipoConceptoNominaId === 420 || $scope.concepto.TipoConceptoNominaId) {
                     self.novedad = {
                         ContratoId: {
@@ -442,9 +444,7 @@ angular.module('titanClienteV2App')
                         })
                     }
                 });
-            
-
-
+            }
         };
 
 
@@ -459,7 +459,9 @@ angular.module('titanClienteV2App')
                 }).then(function (response) {
                     row.setSelected(false);
                 })
-            } else if (parseInt(row.entity.FechaFin.split("-")[1], 10) <= (fecha_actual.getMonth() + 1)) {
+            } else if (parseInt(row.entity.FechaFin.split("-")[1], 10) < (fecha_actual.getMonth() + 1)) {
+                console.log(row.entity.FechaFin.split("-")[1])
+                console.log(fecha_actual.getMonth() + 1)
                 swal({
                     html: 'No se puede inactivar una novedad pasada',
                     type: "warning",
@@ -672,11 +674,6 @@ angular.module('titanClienteV2App')
                 output = "Seguridad Social";
             }
             return output;
-        };
-    }).filter('filtro_fecha', function ($filter, $translate) {
-        return function (input, entity) {
-            var output = entity.FechaCreacion.split(" ");
-            return output[0]
         };
     }).filter('filtro_activo', function ($filter, $translate) {
         return function (input, entity) {

@@ -188,7 +188,7 @@ var text_es = {
     PRELIQUIDACION_EMP: "Preliquidación para",
     PRELIQ_NOMINA: "Personas a preliquidar para: ",
     PRELIQ_REG_CORRECTA: "Preliquidación registrada correctamente",
-    PRELIQ_REG_INCORRECTA: "Error al registrar la preliquidación",
+    PRELIQ_REG_INCORRECTA: "No hay registros para la preliquidación seleccionada",
     PRI_APE: "Primer apellido",
     PRI_NOM: "Primer nombre",
     PROYECTO_CURRICULAR: "Proyecto Curricular",
