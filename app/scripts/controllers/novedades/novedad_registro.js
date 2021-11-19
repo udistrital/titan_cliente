@@ -316,7 +316,7 @@ angular.module('titanClienteV2App')
 
         self.listar_conceptos = function () {
             titanRequest.get('concepto_nomina', 'limit=-1&query=Activo:TRUE').then(function (response) {
-                if (Object.keys(response.data.Data[0]).length == 0) {
+                if (response.data.Data[0].length == 0) {
                     $scope.gridOptions_conceptos.data = [];
                     self.hayNovedad = false
                 } else {
@@ -327,7 +327,7 @@ angular.module('titanClienteV2App')
         }
 
         titanRequest.get('novedad', 'limit=-1&query=ContratoId.TipoNominaId:' + self.tipo_id + '&sortby=FechaCreacion&order=desc').then(function (response) {
-            if (Object.keys(response.data.Data).length == 0) {
+            if (response.data.Data.length == 0) {
                 $scope.gridOptions_novedades.data = [];
                 self.hayNovedad = false
             } else {
@@ -342,7 +342,8 @@ angular.module('titanClienteV2App')
 
         self.listar_contratos = function () {
             titanRequest.get('contrato_preliquidacion', 'limit=-1&query=PreliquidacionId.Ano:' + self.CurrentDate.getFullYear() + ',PreliquidacionId.Mes:' + self.CurrentDate.getMonth() + ',PreliquidacionId.NominaId:' + self.tipoNom_id).then(function (response) {
-                if (Object.keys(response.data.Data).length == 0) {
+                if (response.data.Data.length == 0) {
+                    console.log("Error")
                     swal({
                         html: $translate.instant('ERROR_NOV_PRELIQ'),
                         type: "error",

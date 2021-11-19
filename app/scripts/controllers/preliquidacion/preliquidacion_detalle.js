@@ -16,6 +16,8 @@ angular.module('titanClienteV2App')
         self.seleccion_sueldoNeto = 0;
         self.respuesta_persona;
         self.respuesta_conceptos;
+        self.totalDescuentos;
+        self.totalDevengos;
 
         self.preliquidacion = $localStorage.preliquidacion
 
@@ -88,15 +90,6 @@ angular.module('titanClienteV2App')
                     }
                 },
                 {
-                    field: 'Concepto.NaturalezaConcepto.Id',
-                    sort: {
-                        direction: 'asc',
-                        priority: 1
-                    },
-                    visible: false
-                },
-
-                {
                     field: 'ValorCalculado',
                     displayName: $translate.instant('VALOR'),
                     width: '40%',
@@ -130,7 +123,7 @@ angular.module('titanClienteV2App')
             columnDefs: [
 
                 {
-                    field: 'NombreConcepto',
+                    field: 'ConceptoNominaId.AliasConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
                     headerCellClass: 'encabezado',
                     sort: {
@@ -139,25 +132,17 @@ angular.module('titanClienteV2App')
                     },
                     width: '60%',
                     cellClass: function (grid, row) {
-                        if (row.entity.NaturalezaConceptoNominaId === "devengo") {
+                        if (row.entity.NaturalezaConceptoNominaId === 423) {
                             return 'text-center devengo';
-                        } else if (row.entity.NaturalezaConceptoNominaId === "descuento") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 424) {
                             return 'text-center descuento';
-                        } else if (row.entity.NaturalezaConceptoNominaId === "seguridad_social") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 425) {
                             return 'text-center seguridad_social';
                         }
                     }
                 },
                 {
-                    field: 'NaturalezaConceptoId',
-                    sort: {
-                        direction: 'asc',
-                        priority: 0
-                    },
-                    visible: false
-                },
-                {
-                    field: 'NaturalezaConcepto',
+                    field: 'ConceptoNominaId.NaturalezaConceptoNominaId',
                     displayName: $translate.instant('TIPO_CONCEPTO'),
                     headerCellClass: 'encabezado',
                     sort: {
@@ -166,29 +151,29 @@ angular.module('titanClienteV2App')
                     },
                     width: '25%',
                     cellClass: function (grid, row) {
-                        if (row.entity.NaturalezaConceptoNominaId === "devengo") {
+                        if (row.entity.ConceptoNominaId.NaturalezaConceptoNominaId === 423) {
                             return 'text-center devengo';
-                        } else if (row.entity.NaturalezaConceptoNominaId === "descuento") {
+                        } else if (row.entity.ConceptoNominaId.NaturalezaConceptoNominaId === 424) {
                             return 'text-center descuento';
-                        } else if (row.entity.NaturalezaConceptoNominaId === "seguridad_social") {
+                        } else if (row.entity.ConceptoNominaId.NaturalezaConceptoNominaId === 425) {
                             return 'text-center seguridad_social';
                         }
                     },
                     cellFilter: "filtro_naturaleza_concepto_detalle:row.entity"
                 },
                 {
-                    field: 'Total',
+                    field: 'ValorCalculado',
                     displayName: $translate.instant('TOTAL'),
                     width: '35%',
                     cellFilter: 'currency',
                     cellClass: 'alineacion_derecha',
                     headerCellClass: 'encabezado',
                     cellClass: function (grid, row) {
-                        if (row.entity.NaturalezaConceptoNominaId === "devengo") {
+                        if (row.entity.NaturalezaConceptoNominaId === 423) {
                             return 'alineacion_derecha devengo';
-                        } else if (row.entity.NaturalezaConceptoNominaId === "descuento") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 424) {
                             return 'alineacion_derecha descuento';
-                        } else if (row.entity.NaturalezaConceptoNominaId === "seguridad_social") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 425) {
                             return 'alineacion_derecha seguridad_social';
                         }
                     }
@@ -198,7 +183,13 @@ angular.module('titanClienteV2App')
 
         titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + self.preliquidacion.Ano + ',PreliquidacionId.Mes:' + self.preliquidacion.Mes + ',PreliquidacionId.NominaId:' + self.preliquidacion.NominaId.Id + '&fields=ContratoId&limit=-1').then(function (response) {
             self.gridOptions.data = response.data.Data;
-            self.total_contratos_liquidados = response.data.length;
+            self.total_contratos_liquidados = response.data.Data.length;
+        });
+
+        titanMidRequest.get('preliquidacion', '/obtener_resumen_preliquidacion/' + self.preliquidacion.Mes + '/' + self.preliquidacion.Ano + '/' + self.preliquidacion.NominaId.Id).then(function (response) {
+            self.gridOptions_resumen.data = response.data.Data.Detalle;
+            self.totalDescuentos = response.data.Data.TotalDescuentos;
+            self.totalDevengos = response.data.Data.TotalDevengado;
         });
 
 
@@ -481,15 +472,15 @@ angular.module('titanClienteV2App')
                 return "";
             }
 
-            if (entity.NaturalezaConceptoNominaId === 423) {
+            if (entity.ConceptoNominaId.NaturalezaConceptoNominaId === 423) {
                 output = "Devengo";
             }
 
-            if (entity.NaturalezaConceptoNominaId === 424) {
+            if (entity.ConceptoNominaId.NaturalezaConceptoNominaId === 424) {
                 output = "Descuento";
             }
 
-            if (entity.NaturalezaConceptoNominaId === 425) {
+            if (entity.ConceptoNominaId.NaturalezaConceptoNominaId === 425) {
                 output = "Seguridad Social";
             }
 
