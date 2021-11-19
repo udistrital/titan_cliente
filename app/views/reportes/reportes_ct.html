@@ -2,24 +2,11 @@
   <h2 class="page-header text-center">{{ 'MODULO_REPORTES' | translate}}</h2>
   <div class="panel-body">
     <div class="row">
-      <div class="col-md-3">
-         <div class="panel panel-default">
-         
-          <select class="form-control" ng-model="reportesCt.nombreReporte">
-            <option value="" disabled>{{"SELECCIONE_REPORTE" | translate}}</option>
-            <option value="RteTitan">{{"LIQUIDACION CPS" | translate}}</option>
-          </select>
-        
-         
-       
-        
-        </div>
-         </div>
-         
-       
-      </div>
-      <div class="col-md-1" ng-show="reportesCt.mesReporte !== 0"></div>
-          <spagobi reporte="{{reportesCt.nombreReporte}}"></spagobi>
-    </div>
-  </div>
+      
+          <iframe width="100%" height="1200" 
+          src=https://inteligenciainstitucional.portaloas.udistrital.edu.co/knowage/servlet/AdapterHTTP?ACTION_NAME=EXECUTE_DOCUMENT_ACTION&OBJECT_LABEL=RteTitan&TOOLBAR_VISIBLE=true&ORGANIZATION=DEFAULT_TENANT&NEW_SESSION=true
+           frameborder="0">
+     </iframe>
+   </div>
+ </div>
 </div>
