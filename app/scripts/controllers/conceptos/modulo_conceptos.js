@@ -22,7 +22,7 @@ angular.module('titanClienteV2App')
             { clase_color: "editar", clase_css: "fa fa-pencil fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.EDITAR'), operacion: 'edit', estado: true },
             { clase_color: "add", clase_css: "fa fa-plus fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.ACTIVAR'), operacion: 'active', estado: true }
         ];
-        
+
         self.gridOptions_conceptos = {
 
             enableFiltering: true,
@@ -150,6 +150,7 @@ angular.module('titanClienteV2App')
             self.alias_concepto_edicion = row.entity.AliasConcepto
             self.nombre_concepto_edicion = row.entity.NombreConcepto
             self.estado_concepto_edicion = row.entity.EstadoConceptoNominaId
+            self.FechaCreacion = row.entity.FechaCreacion
 
         };
 
@@ -158,6 +159,8 @@ angular.module('titanClienteV2App')
             if (self.alias_concepto_edicion && self.selectNaturalezaConcepto && self.selectTipoConcepto) {
                 var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
                 var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
+
+                console.log(self.FechaCreacion)
 
                 swal({
                     html: $translate.instant('CONFIRMACION_EDICION') +
@@ -180,17 +183,15 @@ angular.module('titanClienteV2App')
                         Id: objeto_tipo_concepto.Id
                     };
 
-                    var estado_concepto = {
-                        Id: self.estado_concepto_edicion
-                    };
-
                     var concepto_editado = {
                         Id: self.id_edicion,
                         NombreConcepto: self.nombre_concepto_edicion,
                         NaturalezaConceptoNominaId: naturaleza_concepto.Id,
                         AliasConcepto: self.alias_concepto_edicion,
                         TipoConceptoNominaId: tipo_concepto.Id,
-                        EstadoConceptoNominaId: self.estado_concepto_edicion
+                        EstadoConceptoNominaId: self.estado_concepto_edicion,
+                        FechaCreacion: self.FechaCreacion,
+                        Activo: true
                     };
 
                     titanRequest.put('concepto_nomina', concepto_editado.Id, concepto_editado).then(function (response) {
@@ -248,8 +249,6 @@ angular.module('titanClienteV2App')
                 confirmButtonText: $translate.instant('CONFIRMAR'),
                 cancelButtonText: $translate.instant('CANCELAR'),
             }).then(function () {
-
-
                 var concepto_editado = {
                     Id: row.entity.Id,
                     NombreConcepto: row.entity.NombreConcepto,
@@ -257,11 +256,10 @@ angular.module('titanClienteV2App')
                     AliasConcepto: row.entity.AliasConcepto,
                     TipoConceptoNominaId: row.entity.TipoConceptoNominaId,
                     EstadoConceptoNominaId: 418,
+                    FechaCreacion: row.entity.FechaCreacion,
                     Activo: false
                 };
-
-                titanRequest.put('concepto_nomina', concepto_editado.Id, concepto_editado).then(function (response) {
-
+                titanRequest.put('concepto_nomina', row.entity.Id, concepto_editado).then(function (response) {
                     swal({
                         html: $translate.instant('INACTIVACION_CONCEPTO_CORRECTA'),
                         type: "success",
@@ -273,7 +271,6 @@ angular.module('titanClienteV2App')
                             self.gridOptions_conceptos.data = response.data.Data;
                         });
                     })
-
                 }).catch(function (response) {
                     swal({
                         html: $translate.instant('INACTIVACION_CONCEPTO_INCORRECTA'),
@@ -304,6 +301,7 @@ angular.module('titanClienteV2App')
                     AliasConcepto: row.entity.AliasConcepto,
                     TipoConceptoNominaId: row.entity.TipoConceptoNominaId,
                     EstadoConceptoNominaId: 417,
+                    FechaCreacion: row.entity.FechaCreacion,
                     Activo: true
                 };
 
@@ -358,64 +356,34 @@ angular.module('titanClienteV2App')
                     var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
                     var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
 
-                    var naturaleza_concepto = {
-                        Id: objeto_naturaleza_concepto.Id
-                    };
-
-                    var tipo_concepto = {
-                        Id: objeto_tipo_concepto.Id
-                    };
-
-
                     var concepto_nuevo_temp = {
                         Id: 0,
-                        NombreConcepto: "nombrereglaxxx",
-                        NaturalezaConceptoNominaId: naturaleza_concepto.Id,
+                        NombreConcepto: self.alias_concepto_adicion,
+                        NaturalezaConceptoNominaId: objeto_naturaleza_concepto.Id,
                         AliasConcepto: self.alias_concepto_adicion,
-                        TipoConceptoNominaId: tipo_concepto.Id,
-                        EstadoConceptoNominaId: 417
+                        TipoConceptoNominaId: objeto_tipo_concepto.Id,
+                        EstadoConceptoNominaId: 417,
+                        Activo: true
                     };
-
-                    console.log(concepto_nuevo_temp)
 
                     titanRequest.post('concepto_nomina', concepto_nuevo_temp).then(function (response) {
 
-                        var concepto_nuevo = {
-                            Id: response.data.Data.Id,
-                            NombreConcepto: "nombreregla" + response.data.Data.Id.toString(),
-                            NaturalezaConceptoNominaId: response.data.Data.NaturalezaConceptoNominaId,
-                            AliasConcepto: response.data.Data.AliasConcepto,
-                            TipoConceptoNominaId: response.data.Data.TipoConceptoNominaId,
-                            EstadoConceptoNominaId: response.data.Data.EstadoConceptoNominaId
-                        };
+                        swal({
+                            html: $translate.instant('ADICION_CORRECTA'),
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#449D44",
+                            confirmButtonText: $translate.instant('VOLVER'),
+                        }).then(function () {
+                            $('#modal_adicion').modal('hide');
+                            self.alias_concepto_adicion = ""
+                            self.selectNaturalezaConcepto = ""
+                            self.selectTipoConcepto = ""
+                            titanRequest.get('concepto_nomina', 'limit=-1').then(function (response) {
 
-                        titanRequest.put('concepto_nomina', concepto_nuevo.Id, concepto_nuevo).then(function (response) {
-                            swal({
-                                html: $translate.instant('ADICION_CORRECTA'),
-                                type: "success",
-                                showCancelButton: false,
-                                confirmButtonColor: "#449D44",
-                                confirmButtonText: $translate.instant('VOLVER'),
-                            }).then(function () {
-                                $('#modal_adicion').modal('hide');
-                                self.alias_concepto_adicion = ""
-                                self.selectNaturalezaConcepto = ""
-                                self.selectTipoConcepto = ""
-                                titanRequest.get('concepto_nomina', 'limit=-1').then(function (response) {
-
-                                    self.gridOptions_conceptos.data = response.data.Data;
-                                });
-                            })
-
-                        }).catch(function (response) {
-                            swal({
-                                html: $translate.instant('ADICION_INCORRECTA'),
-                                type: "error",
-                                showCancelButton: false,
-                                confirmButtonColor: "#449D44",
-                                confirmButtonText: $translate.instant('VOLVER'),
-                            })
-                        });
+                                self.gridOptions_conceptos.data = response.data.Data;
+                            });
+                        })
 
 
                     }).catch(function (response) {
@@ -457,7 +425,7 @@ angular.module('titanClienteV2App')
             if (entity.TipoConceptoNominaId === 421) {
                 output = "Seguridad Social";
             }
-            if (entity.TipoConceptoNominaId === 422){
+            if (entity.TipoConceptoNominaId === 422) {
                 output = 'Pago Seguridad Social'
             }
 
