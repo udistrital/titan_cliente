@@ -381,7 +381,7 @@ angular.module('titanClienteV2App')
         };
 
         self.Registrar = function () {
-           
+
             if (self.ValorNovedad == undefined || self.Cuotas == undefined) {
                 swal({
                     html: $translate.instant('NOVEDAD_REG_ERROR'),
@@ -412,9 +412,7 @@ angular.module('titanClienteV2App')
                     info_contratos = self.informacion_contratos_porcentual.data;
                 }
 
-                console.log(self.novedad)
                 titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
-                    console.log(response.data)
                     if (response.data == null) {
                         swal({
                             html: $translate.instant('NOVEDAD_REG_ERROR'),
@@ -460,49 +458,96 @@ angular.module('titanClienteV2App')
                 }).then(function (response) {
                     row.setSelected(false);
                 })
-            } else if (parseInt(row.entity.FechaFin.split("-")[1], 10) < (fecha_actual.getMonth() + 1)) {
-                console.log(row.entity.FechaFin.split("-")[1])
-                console.log(fecha_actual.getMonth() + 1)
-                swal({
-                    html: 'No se puede inactivar una novedad pasada',
-                    type: "warning",
-                    confirmButtonText: 'Ok',
-                    confirmButtonColor: "#FF0000",
-                }).then(function (response) {
-                    row.setSelected(false);
-                })
-            } else {
-                swal({
-                    html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.ConceptoNominaId.AliasConcepto + "?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#449D44",
-                    cancelButtonColor: "#C9302C",
-                    confirmButtonText: $translate.instant('CONFIRMAR'),
-                    cancelButtonText: $translate.instant('CANCELAR'),
-                }).then(function () {
-                    titanMidRequest.get('novedad', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
-                        swal({
-                            html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
-                            type: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function () {
-                            $window.location.reload()
-                        })
-                    }).catch(function (response) {
-                        swal({
-                            html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
-                            type: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function () {
-                            $window.location.reload()
-                        })
-                    });
-                })
+            } else if (parseInt(row.entity.FechaFin.split("-")[0], 10) == (fecha_actual.getFullYear)) {
+                if (parseInt(row.entity.FechaFin.split("-")[1], 10) < (fecha_actual.getMonth() + 1)){
+                    console.log(row.entity.FechaFin.split("-")[1])
+                    console.log(fecha_actual.getMonth() + 1)
+                    swal({
+                        html: 'No se puede inactivar una novedad pasada',
+                        type: "warning",
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: "#FF0000",
+                    }).then(function (response) {
+                        row.setSelected(false);
+                    })
+                }else {
+                    swal({
+                        html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.ConceptoNominaId.AliasConcepto + "?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#449D44",
+                        cancelButtonColor: "#C9302C",
+                        confirmButtonText: $translate.instant('CONFIRMAR'),
+                        cancelButtonText: $translate.instant('CANCELAR'),
+                    }).then(function () {
+                        titanMidRequest.get('novedad', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        }).catch(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        });
+                    })
+                }
+            } else if (parseInt(row.entity.FechaFin.split("-")[0], 10) != (fecha_actual.getFullYear)) {
+                if (parseInt(row.entity.FechaFin.split("-")[1], 10) +12 < (fecha_actual.getMonth() + 1)){
+                    console.log(row.entity.FechaFin.split("-")[1])
+                    console.log(fecha_actual.getMonth() + 13)
+                    swal({
+                        html: 'No se puede inactivar una novedad pasada',
+                        type: "warning",
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: "#FF0000",
+                    }).then(function (response) {
+                        row.setSelected(false);
+                    })
+                }else {
+                    swal({
+                        html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.ConceptoNominaId.AliasConcepto + "?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#449D44",
+                        cancelButtonColor: "#C9302C",
+                        confirmButtonText: $translate.instant('CONFIRMAR'),
+                        cancelButtonText: $translate.instant('CANCELAR'),
+                    }).then(function () {
+                        titanMidRequest.get('novedad', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        }).catch(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        });
+                    })
+                }
             }
         };
 
@@ -521,68 +566,6 @@ angular.module('titanClienteV2App')
             self.vigencia_contrato_edicion = row.entity.VigenciaContrato;
             self.persona_edicion = row.entity.Persona;
 
-        };
-
-        self.Editar = function () {
-
-            if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_novedad_edicion == 0 && self.num_cuotas_edicion == 0)) {
-                swal({
-                    html: $translate.instant('CONFIRMACION_EDICION_NOV') +
-                        "<br><b>" + self.concepto_nombre_edicion + "?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#449D44",
-                    cancelButtonColor: "#C9302C",
-                    confirmButtonText: $translate.instant('CONFIRMAR'),
-                    cancelButtonText: $translate.instant('CANCELAR'),
-                }).then(function () {
-                    var nomina_novedad = {
-                        Id: parseInt(self.id_nomina_edicion)
-                    }
-                    var concepto_novedad = {
-                        Id: parseInt(self.id_concepto_edicion)
-                    }
-
-                    var novedad_por_persona_a_editar = {
-                        Id: parseInt(self.id_edicion),
-                        Concepto: concepto_novedad,
-                        Activo: Boolean("true"),
-                        FechaDesde: self.FechaInicio,
-                        FechaHasta: self.FechaFin,
-                        FechaRegistro: self.CurrentDate,
-                        NumCuotas: parseInt(self.num_cuotas_edicion),
-                        NumeroContrato: self.num_contrato_edicion,
-                        VigenciaContrato: parseInt(self.vigencia_contrato_edicion),
-                        Nomina: nomina_novedad,
-                        ValorNovedad: parseFloat(self.valor_novedad_edicion),
-                        Persona: parseInt(self.persona_edicion)
-                    };
-
-                    console.log("objeto edicion", novedad_por_persona_a_editar)
-
-                    titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function (response) {
-
-                        swal({
-                            html: $translate.instant('EDICION_CORRECTA_NOV'),
-                            type: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function () {
-                            $window.location.reload()
-                        })
-
-                    }).catch(function (response) {
-                        swal({
-                            html: $translate.instant('EDICION_INCORRECTA_NOV'),
-                            type: "error",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        })
-                    });
-                })
-            }
         };
 
         $('#modal_adicion_novedad').on('hidden.bs.modal', function (e) {
@@ -622,7 +605,7 @@ angular.module('titanClienteV2App')
             }
 
             if (entity.ConceptoNominaId.TipoConceptoNominaId === 420) {
-                output = "Valor";
+                output = input;
             }
 
             if (entity.ConceptoNominaId.TipoConceptoNominaId === 419) {

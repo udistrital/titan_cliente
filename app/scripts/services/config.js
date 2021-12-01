@@ -60,12 +60,11 @@ var conf_preprod = {
 
 var conf_local = {
 
-
     ADMINISTRATIVA_AMAZON_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/administrativa_amazon_api/v1/",
     CONFIGURACION_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/configuracion_crud_api/v1/",
     OIKOS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/oikos_crud_api/v1",
-    TITAN_MID_SERVICE: "http://localhost:8081/v1/",
-    TITAN_SERVICE: "http://localhost:8080/v1/",
+    TITAN_MID_SERVICE: "http://pruebasapi.intranetoas.udistrital.edu.co:8082/v1/",
+    TITAN_SERVICE: "http://pruebasapi.intranetoas.udistrital.edu.co:8081/v1/",
     PARAMETROS_SERVICE: "http://pruebasapi.intranetoas.udistrital.edu.co:8510/v1/",
     COLAS_SERVICE: "https://autenticacion.portaloas.udistrital.edu.co/apioas/cola/v1/",
 
