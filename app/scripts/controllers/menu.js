@@ -171,7 +171,7 @@ angular.module('titanClienteV2App')
                         } else {
                             roles = $scope.token.appUserRole;
                         }
-                        roles = roles.replace('/everyone', '', 'g');
+                        roles = roles.replace(/\//g, '-');
 
                         configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + roles + '/Titan', '').then(function (response) {
                             $rootScope.my_menu = response.data;
