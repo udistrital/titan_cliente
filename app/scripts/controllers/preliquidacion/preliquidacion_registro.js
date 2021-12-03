@@ -210,16 +210,6 @@ angular.module('titanClienteV2App')
                     cancelButtonText: $translate.instant('SALIR'),
                 })
             } else {
-                // if (row.entity.EstadoPreliquidacionId == 405) {
-                //     swal({
-                //         html: $translate.instant('ALERTA_PRELIQUIDACION_OP'),
-                //         type: "error",
-                //         showCancelButton: true,
-                //         showConfirmButton: false,
-                //         cancelButtonColor: "#C9302C",
-                //         cancelButtonText: $translate.instant('SALIR'),
-                //     })
-                // } else {
                     self.preliquidacion = preliquidacion;
                     self.preliquidacion.Id = row.entity.Id;
                     self.preliquidacion.Descripcion = row.entity.Descripcion;
@@ -231,7 +221,7 @@ angular.module('titanClienteV2App')
                     $localStorage.preliquidacion = self.preliquidacion;
                     $location.path('/preliquidacion/preliquidacion_personas');
                     $route.reload()
-            //}
+
             }
         };
 

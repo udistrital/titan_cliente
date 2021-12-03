@@ -356,9 +356,15 @@ angular.module('titanClienteV2App')
                     var objeto_naturaleza_concepto = JSON.parse(self.selectNaturalezaConcepto);
                     var objeto_tipo_concepto = JSON.parse(self.selectTipoConcepto);
 
+                    //pasar alias a minúscula para eliminar espacios
+                    var nombre = ""+self.alias_concepto_adicion
+                    nombre = nombre.toLowerCase()
+                    nombre = nombre.replace(/\s+/g, '')
+
+
                     var concepto_nuevo_temp = {
                         Id: 0,
-                        NombreConcepto: self.alias_concepto_adicion,
+                        NombreConcepto: nombre,
                         NaturalezaConceptoNominaId: objeto_naturaleza_concepto.Id,
                         AliasConcepto: self.alias_concepto_adicion,
                         TipoConceptoNominaId: objeto_tipo_concepto.Id,
