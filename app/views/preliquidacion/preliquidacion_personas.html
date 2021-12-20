@@ -1,11 +1,11 @@
 
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.TipoNomina.Descripcion}}<br>{{preliquidacionPersonas.preliquidacion.Mes | translate}} de {{preliquidacionPersonas.preliquidacion.Ano}}</h2>
+  <h2 class="page-header text-center">{{'PRELIQ_NOMINA'| translate}}{{preliquidacionPersonas.preliquidacion.Nomina.ParametroPadreId.Descripcion}}<br>{{preliquidacionPersonas.preliquidacion.Mes | translate}} de {{preliquidacionPersonas.preliquidacion.Ano}}</h2>
 
-  <div ng-if="preliquidacionPersonas.preliquidacion.EstadoPreliquidacion.Nombre === 'Abierta'">
+  <div ng-if="preliquidacionPersonas.preliquidacion.EstadoPreliquidacionId === 403">
     <preliquidacion-abierta preliquidacion="preliquidacionPersonas.preliquidacion" ></preliquidacion-abierta>
   </div>
-  <div ng-if="preliquidacionPersonas.preliquidacion.EstadoPreliquidacion.Nombre === 'OrdenPagoPendientes'">
+  <div ng-if="preliquidacionPersonas.preliquidacion.EstadoPreliquidacionId === 405">
     <preliquidacion-pendientes preliquidacion="preliquidacionPersonas.preliquidacion" ></preliquidacion-pendientes>
   </div>
 </div>

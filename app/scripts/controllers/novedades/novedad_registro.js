@@ -8,9 +8,33 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('NovedadesNovedadRegistroCtrl', function(titanRequest, titanMidRequest, $scope, $translate, $routeParams, $window) {
+    .controller('NovedadesNovedadRegistroCtrl', function (titanRequest, titanMidRequest, parametrosRequest, $scope, $translate, $routeParams, $window) {
         var self = this;
+        self.CurrentDate = new Date()
         self.tipo = $routeParams.tipo;
+
+        if (self.tipo == 'CT') {
+            self.tipo_id = 411
+        } else if (self.tipo == 'HCH') {
+            self.tipo_id = 409
+        } else if (self.tipo == 'HCS') {
+            self.tipo_id = 410
+        }
+
+
+        if (self.tipo_id == 411) {
+            self.tipoNom_id = 414
+        } else if (self.tipo_id == 419) {
+            self.tipo_id = 415
+        } else if (self.tipo == 410) {
+            self.tipo_id = 416
+        }
+
+        self.ShowForm = function () {
+            self.formVisibility = true;
+            this.listar_contratos()
+        };
+
         self.Nomina;
         self.CurrentDate = new Date();
         self.id_edicion;
@@ -22,8 +46,9 @@ angular.module('titanClienteV2App')
         self.valor_novedad_edicion;
         self.persona_edicion;
         self.concepto_nombre_edicion;
+        self.Cuotas;
         $scope.botones = [
-            { clase_color: "editar", clase_css: "fa fa-pencil fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.EDITAR'), operacion: 'edit', estado: true },
+            //{ clase_color: "editar", clase_css: "fa fa-pencil fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.EDITAR'), operacion: 'edit', estado: true },
             { clase_color: "borrar", clase_css: "fa fa-trash fa-lg  faa-shake animated-hover", titulo: $translate.instant('BTN.BORRAR'), operacion: 'delete', estado: true }
         ];
 
@@ -75,11 +100,8 @@ angular.module('titanClienteV2App')
             Activo: Boolean("true"),
         };
 
-
-
-
         $scope.gridOptions_personas = {
-            paginationPageSizes: [20, 40,60],
+            paginationPageSizes: [20, 40, 60],
             paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
@@ -87,26 +109,27 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
             columnDefs: [
                 {
-                  field: 'id_proveedor',
-                  visible: false
+                    field: 'ContratoId.NumeroContrato',
+                    displayName: $translate.instant('NUM_CONTRATO'),
+                    width: '20%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
                 },
                 {
-                  field: 'nom_proveedor',
-                  displayName: $translate.instant('NOMBRE_PERSONA'),
-                  width: '60%',
-                  cellClass: "text-center",
-                  headerCellClass: 'encabezado',
+                    field: 'ContratoId.Documento',
+                    displayName: $translate.instant('DOCUMENTO'),
+                    width: '20%',
+                    cellClass: "text-center",
+                    headerCellClass: 'encabezado',
                 },
                 {
-                  field: 'num_documento',
-                  displayName: $translate.instant('DOCUMENTO'),
-                  width: '40%',
-                  cellClass: "text-center",
-                  headerCellClass: 'encabezado',
-                }
-          ],
-
-
+                    field: 'ContratoId.NombreCompleto',
+                    displayName: $translate.instant('NOMBRE_PERSONA'),
+                    width: '60%',
+                    cellClass: "text-center",
+                    headerCellClass: 'encabezado',
+                },
+            ],
         };
 
         $scope.gridOptions_novedades = {
@@ -117,252 +140,168 @@ angular.module('titanClienteV2App')
             enableRowSelection: false,
             enableRowHeaderSelection: false,
             columnDefs: [{
-                    field: 'Id',
-                    visible: false
-                },
-                {
-                    field: 'Concepto.Id',
-                    visible: false
-                },
-                {
-                    field: 'Persona',
-                    visible: false
-                },
-                {
-                    field: 'Concepto.AliasConcepto',
-                    displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
-                    width: '20%',
-                    headerCellClass: 'encabezado',
-                    cellClass: "text-center"
-                },
-                {
-                    field: 'Concepto.TipoConcepto.Nombre',
-                    visible: false
-                },
-                {
-                    field: 'NumeroContrato',
-                    displayName: $translate.instant('NUM_CONTRATO'),
-                    width: '15%',
-                    headerCellClass: 'encabezado',
-                    cellClass: "text-center"
-                },
-                {
-                    field: 'VigenciaContrato',
-                    displayName: $translate.instant('VIGENCIA'),
-                    width: '10%',
-                    headerCellClass: 'encabezado',
-                    cellClass: "text-center"
-                },
-                {
-                    field: 'ValorNovedad',
-                    displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
-                    width: '15%',
-                    cellClass: "alineacion_derecha",
-                    headerCellClass: 'encabezado',
-                    cellFilter: "filtro_formato_valor_novedad:row.entity"
-                },
-                {
-                    field: 'NumCuotas',
-                    displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
-                    width: '15%',
-                    cellClass: "alineacion_derecha",
-                    headerCellClass: 'encabezado',
-                    cellFilter: "filtro_formato_cuotas:row.entity"
+                field: 'Id',
+                visible: false
+            },
+            {
+                field: 'ConceptoNominaId.Id',
+                visible: false
+            },
+            {
+                field: 'ContratoId.Id',
+                visible: false
+            },
+            {
+                field: 'ContratoId.NumeroContrato',
+                displayName: $translate.instant('NUM_CONTRATO'),
+                width: '10%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'ContratoId.Vigencia',
+                displayName: $translate.instant('VIGENCIA'),
+                width: '10%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'ContratoId.NombreCompleto',
+                displayName: $translate.instant('NOMBRE_PERSONA'),
+                width: '20%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'ConceptoNominaId.AliasConcepto',
+                displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
+                width: '15%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'ConceptoNominaId.TipoConceptoNominaId',
+                visible: false
+            },
+            {
+                field: 'Valor',
+                displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
+                width: '10%',
+                cellClass: "text-center",
+                headerCellClass: 'encabezado',
+                cellFilter: "filtro_formato_valor_novedad:row.entity"
+            },
+            {
+                field: 'Cuotas',
+                displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
+                width: '10%',
+                cellClass: "text-center",
+                headerCellClass: 'encabezado',
+                cellFilter: "filtro_formato_cuotas:row.entity"
 
-                },
-                {
-                  field: 'FechaDesde',
-                  visible: false
-                },
-                {
-                  field: 'FechaHasta',
-                  visible: false
-                },
-                {
-                  field: 'FechaRegistro',
-                  displayName: $translate.instant('FECHA_REGISTRO'),
-                  cellTemplate: '<span>{{row.entity.FechaRegistro| date:"yyyy-MM-dd":"+0900"}}</span>',
-                  width: '15%',
-                  headerCellClass: 'encabezado',
-                  cellClass: "text-center" },
-                {
-                  field: 'Activo',
-                  visible: false
-                },
-                {
-                  field: 'Nomina.Id',
-                  visible: false
-                },
-                {
-                    field: 'Acciones',
-                    displayName: $translate.instant('ACCIONES'),
-                    width: '10%',
-                    cellClass: "text-center",
-                    headerCellClass: 'encabezado',
-                    cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>',
-                }
-                //  cellTemplate: '<button class="btn btn-danger btn-circle" ng-click="grid.appScope.inactivar_novedad(row)" type="submit"><i class="glyphicon glyphicon-trash"></i></button>&nbsp;<button type="button" class="btn btn-success btn-circle" ng-click="grid.appScope.llenar_modal(row)" data-toggle="modal" data-target="#modal_edicion_novedad"><i class="glyphicon glyphicon-pencil"></i></button>&nbsp'},
+            },
+            {
+                field: 'FechaInicio',
+                displayName: $translate.instant('FECHA_INICIO'),
+                cellTemplate: '<span>{{row.entity.FechaInicio| date:"yyyy-MM-dd":"+0900"}}</span>',
+                width: '10%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'FechaHasta',
+                displayName: $translate.instant('FECHA_FIN'),
+                cellTemplate: '<span>{{row.entity.FechaFin| date:"yyyy-MM-dd":"+0900"}}</span>',
+                width: '10%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'FechaCreacion',
+                displayName: $translate.instant('FECHA_REGISTRO'),
+                width: '10%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'Activo',
+                cellFilter: "filtro_activo:row.entity",
+                width: '10%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'Acciones',
+                displayName: $translate.instant('ACCIONES'),
+                width: '10%',
+                cellClass: "text-center",
+                headerCellClass: 'encabezado',
+                cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>',
+            }
             ],
-
         };
 
 
-
         $scope.gridOptions_conceptos = {
-
             paginationPageSizes: [5, 15, 20],
             paginationPageSize: 10,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: true,
             enableRowHeaderSelection: false,
-
             columnDefs: [
                 {
-                  field: 'Id',
-                  visible: false
+                    field: 'AliasConcepto',
+                    displayName: $translate.instant('CONCEPTO'),
+                    headerCellClass: 'encabezado',
                 },
                 {
-                  field: 'AliasConcepto',
-                  displayName: $translate.instant('CONCEPTO'),
-                  headerCellClass: 'encabezado',
-                },
-                {
-                    field: 'NaturalezaConcepto.Nombre',
+                    field: 'NaturalezaConceptoNominaId',
                     displayName: $translate.instant('NATURALEZA_NOMBRE'),
                     cellClass: "text-center",
                     headerCellClass: 'encabezado',
+                    cellFilter: "filtro_formato_naturaleza:row.entity"
                 },
                 {
-                    field: 'TipoConcepto.Nombre',
+                    field: 'TipoConceptoNominaId',
                     displayName: $translate.instant('TIPO_NOMBRE'),
                     cellClass: "text-center",
                     headerCellClass: 'encabezado',
-                },
-                {
-                  field: 'NaturalezaConcepto.Id',
-                  visible: false
-                },
-                {
-                  field: 'TipoConcepto.Id',
-                  visible: false
-                },
+                    cellFilter: "filtro_formato_tipos:row.entity"
+                }
             ]
-
         };
 
-        self.informacion_contratos_fijo = {
-
-            enableFiltering: true,
-            enableSorting: true,
-            enableRowSelection: self.permitir_seleccion,
-            enableRowHeaderSelection: self.permitir_seleccion_header,
-            enableSelectAll: false,
-            columnDefs: [
-              {
-                field: 'NumeroContrato',
-                displayName: $translate.instant('NUM_CONTRATO'),
-                width: '20%',
-                enableCellEdit: false,
-                cellClass: "text-center"
-              },
-              {
-                field: 'VigenciaContrato',
-                displayName: $translate.instant('VIGENCIA'),
-                width: '20%',
-                enableCellEdit: false,
-                cellClass: "text-center"
-              },
-              {
-                field: 'NivelAcademico',
-                displayName: $translate.instant('NIVEL'),
-                width: '20%',
-                enableCellEdit: false,
-                cellClass: "text-center"
-              },
-              {
-                field: 'ValorNovedadFijo',
-                displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
-                width: '20%',
-                enableCellEdit: true,
-                cellClass: "text-center"
-              },
-              {
-                field: 'CuotasFijo',
-                displayName: $translate.instant('CUOTAS_NOV'),
-                width: '20%',
-                enableCellEdit: true,
-                cellClass: "text-center"
-              },
-            ],
-            onRegisterApi: function(gridApi) {
-                self.gridApi = gridApi;
-            }
-        };
-
-        self.informacion_contratos_porcentual = {
-
-            enableFiltering: true,
-            enableSorting: true,
-            enableRowSelection: false,
-            enableRowHeaderSelection: false,
-            enableSelectAll: false,
-            columnDefs: [
-              {
-                field: 'NumeroContrato',
-                displayName: $translate.instant('NUM_CONTRATO'),
-                width: '50%',
-                cellClass: "text-center"
-              },
-              {
-                field: 'VigenciaContrato',
-                displayName: $translate.instant('VIGENCIA'),
-                width: '25%',cellClass: "text-center" },
-              {
-                field: 'NivelAcademico',
-                displayName: $translate.instant('NIVEL'),
-                width: '25%',
-                cellClass: "text-center"
-              },
-
-            ],
-            onRegisterApi: function(gridApi) {
-                self.gridApi = gridApi;
-            }
-        };
-
-        $scope.gridOptions_personas.onRegisterApi = function(gridApi) {
+        $scope.gridOptions_personas.onRegisterApi = function (gridApi) {
             self.gridApi = gridApi;
-            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-                self.listar_novedades(row)
+            gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                $scope.Contrato = row.entity.ContratoId
+                self.listar_conceptos()
             });
-
         };
 
-        $scope.gridOptions_conceptos.onRegisterApi = function(gridApi) {
+        $scope.gridOptions_conceptos.onRegisterApi = function (gridApi) {
             self.gridApi = gridApi;
-            gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            gridApi.selection.on.rowSelectionChanged($scope, function (row) {
                 $scope.concepto = row.entity
-                self.listar_contratos_por_persona();
 
-                if($scope.concepto.TipoConcepto.Nombre == "fijo"){
-                  self.mostrar_grid_contratos_fijo = true;
-                  self.mostrar_grid_contratos_porcentual = false;
-                      self.mostrar_grid_contratos_ss = false;
+                if ($scope.concepto.TipoConceptoNominaId == 419) {
+                    self.mostrar_grid_contratos_fijo = true;
+                    self.mostrar_grid_contratos_porcentual = false;
+                    self.mostrar_grid_contratos_ss = false;
                 }
 
-                if($scope.concepto.TipoConcepto.Nombre == "porcentual"){
-                  self.mostrar_grid_contratos_porcentual = true;
-                  self.mostrar_grid_contratos_fijo = false;
-                      self.mostrar_grid_contratos_ss = false;
+                if ($scope.concepto.TipoConceptoNominaId == 420) {
+                    self.mostrar_grid_contratos_porcentual = true;
+                    self.mostrar_grid_contratos_fijo = false;
+                    self.mostrar_grid_contratos_ss = false;
 
                 }
 
-                if($scope.concepto.TipoConcepto.Nombre == "seguridad_social"){
-                  self.mostrar_grid_contratos_ss = true;
-                  self.mostrar_grid_contratos_porcentual = false;
-                  self.mostrar_grid_contratos_fijo = false;
-
+                if ($scope.concepto.ConceptoNominaId == 421) {
+                    self.mostrar_grid_contratos_ss = true;
+                    self.mostrar_grid_contratos_porcentual = false;
+                    self.mostrar_grid_contratos_fijo = false;
                 }
             });
         };
@@ -371,476 +310,370 @@ angular.module('titanClienteV2App')
         $scope.gridOptions_novedades.multiSelect = false;
         $scope.gridOptions_conceptos.multiSelect = false;
 
-
-
-
-        titanRequest.get('nomina', 'limit=0&query=TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
-            self.Nomina = response.data[0]
-
+        parametrosRequest.get('parametro', 'limit=-1&query=Nombre:' + self.tipo).then(function (response) {
+            self.Nomina = response.data.Data[0]
         });
 
-        self.listar_conceptos = function() {
-            titanRequest.get('concepto_nomina', 'limit=-1&query=EstadoConceptoNomina.Id:1').then(function(response) {
-                $scope.gridOptions_conceptos.data = response.data;
-                $('#modal_adicion_novedad').modal('show');
-                $scope.mostrar_preliq = true;
+        self.listar_conceptos = function () {
+            titanRequest.get('concepto_nomina', 'limit=-1&query=Activo:TRUE').then(function (response) {
+                if (response.data.Data[0].length == 0) {
+                    $scope.gridOptions_conceptos.data = [];
+                    self.hayNovedad = false
+                } else {
+                    $scope.gridOptions_conceptos.data = response.data.Data;
+                    self.hayNovedad = true
+                }
             });
-
-        };
-
-
-self.listar_novedades = function(row) {
-    $scope.persona = row.entity
-
-    titanRequest.get('concepto_nomina_por_persona', 'limit=0&query=Activo:TRUE,Persona:' + $scope.persona.id_proveedor+ ',Nomina.TipoNomina.Nombre:' + self.tipo + '&sortby=Id&order=desc').then(function(response) {
-        if (Object.keys(response.data[0]).length == 0) {
-            $scope.gridOptions_novedades.data = [];
-            self.hayNovedad = false
-        } else {
-            $scope.gridOptions_novedades.data = response.data;
-            self.hayNovedad = true
         }
 
-    });
-}
-
-self.listar_contratos_por_persona = function() {
-
-  var personas_a_listar = [];
-  var persona = {
-      NumDocumento: parseInt($scope.persona.num_documento),
-  };
-
-  personas_a_listar.push(persona)
-
-  var datos_preliquidacion = {
-    Preliquidacion: self.preliquidacion,
-    PersonasPreLiquidacion: personas_a_listar
-  }
+        titanRequest.get('novedad', 'limit=-1&query=ContratoId.TipoNominaId:' + self.tipo_id + '&sortby=FechaCreacion&order=desc').then(function (response) {
+            if (response.data.Data.length == 0) {
+                $scope.gridOptions_novedades.data = [];
+                self.hayNovedad = false
+            } else {
+                for (var i = 0; i < response.data.Data.length; i++) {
+                    response.data.Data[i].FechaModificacion = response.data.Data[i].FechaModificacion.split(" ")[0]
+                }
+                $scope.gridOptions_novedades.data = response.data.Data;
+                self.hayNovedad = true
+            }
+        });
 
 
-  titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona', datos_preliquidacion).then(function(response) {
-
-  self.informacion_contratos_fijo.data = [];
-  self.informacion_contratos_porcentual.data = [];
-  var contratos = [];
-
-      angular.forEach(response.data.Contratos, function(value, key){
-        contratos.push(value);
-
-         });
-
-         if($scope.concepto.TipoConcepto.Nombre == "fijo"){
-           self.informacion_contratos_fijo.data = contratos;
-
-         }
-
-         if($scope.concepto.TipoConcepto.Nombre == "porcentual"){
-         self.informacion_contratos_porcentual.data = contratos;
-
-         }
-
-         if($scope.concepto.TipoConcepto.Nombre == "seguridad_social"){
-           self.informacion_contratos_porcentual.data = contratos;
-
-         }
-
-         console.log("fijos", self.informacion_contratos_fijo)
-  });
-
-};
-
-
-
-$scope.loadrow = function(row, operacion) {
-    self.operacion = operacion;
-    switch (operacion) {
-        case "edit":
-            $scope.llenar_modal(row);
-            $('#modal_edicion_novedad').modal('show');
-            break;
-        case "delete":
-            $scope.inactivar_novedad(row);
-            break;
-        default:
-    }
-};
-
-self.Registrar = function() {
-
-
-    var info_contratos = [];
-    var valor;
-    var cuotas;
-
-    if ($scope.concepto.TipoConcepto.Nombre === "porcentual") {
-        cuotas = 999;
-        valor = parseFloat(self.ValorNovedad)
-        info_contratos = self.informacion_contratos_porcentual.data;
-
-    }
-
-    if ($scope.concepto.TipoConcepto.Nombre === "fijo") {
-        info_contratos = self.informacion_contratos_fijo.data;
-    }
-
-    if ($scope.concepto.TipoConcepto.Nombre === "seguridad_social") {
-        valor = 0;
-        cuotas = 0;
-        info_contratos = self.informacion_contratos_porcentual.data;
-    }
-
-
-
-      angular.forEach(info_contratos, function(value, key){
-
-
-        var concepto = { Id: parseInt($scope.concepto.Id) };
-        var nomina = { Id: parseInt(self.Nomina.Id) };
-        if ($scope.concepto.TipoConcepto.Nombre === "fijo") {
-            valor = parseInt(value.ValorNovedadFijo);
-            cuotas = parseInt(value.CuotasFijo);
-        }
-
-        var novedad_por_persona = {
-            Concepto: concepto,
-            Activo: Boolean("true"),
-            FechaDesde: self.FechaInicio,
-            FechaHasta: self.FechaFin,
-            FechaRegistro: self.CurrentDate,
-            NumCuotas: cuotas,
-            Persona : parseInt($scope.persona.id_proveedor),
-            NumeroContrato: value.NumeroContrato,
-            VigenciaContrato: parseInt(value.VigenciaContrato),
-            Nomina: nomina,
-            ValorNovedad: valor
-        };
-
-
-        titanRequest.post('concepto_nomina_por_persona', novedad_por_persona).then(function(response) {
-
-            if (typeof(response.data) == "object") {
+        self.listar_contratos = function () {
+            titanRequest.get('contrato_preliquidacion', 'limit=-1&query=PreliquidacionId.Ano:' + self.CurrentDate.getFullYear() + ',PreliquidacionId.Mes:' + self.CurrentDate.getMonth() + ',PreliquidacionId.NominaId:' + self.tipoNom_id).then(function (response) {
+                if (response.data.Data.length == 0) {
+                    console.log("Error")
+                    swal({
+                        html: $translate.instant('ERROR_NOV_PRELIQ'),
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#449D44",
+                        confirmButtonText: $translate.instant('VOLVER'),
+                    })
+                } else {
+                    $scope.gridOptions_personas.data = response.data.Data;
+                }
+            }).catch(function (response) {
                 swal({
-                    html: $translate.instant('NOVEDAD_REG_CORRECTO'),
-                    type: "success",
+                    html: $translate.instant('ERROR_NOV_PRELIQ'),
+                    type: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#449D44",
                     confirmButtonText: $translate.instant('VOLVER'),
-                }).then(function() {
-                    $('#modal_adicion_novedad').modal('hide');
-                    $window.location.reload()
                 })
+            });
+        }
 
+
+        $scope.loadrow = function (row, operacion) {
+            self.operacion = operacion;
+            switch (operacion) {
+                case "edit":
+                    $scope.llenar_modal(row);
+                    $('#modal_edicion_novedad').modal('show');
+                    break;
+                case "delete":
+                    $scope.inactivar_novedad(row);
+                    break;
+                default:
             }
-            if (typeof(response.data) == "string") {
+        };
+
+        self.Registrar = function () {
+
+            if (self.ValorNovedad == undefined || self.Cuotas == undefined) {
                 swal({
                     html: $translate.instant('NOVEDAD_REG_ERROR'),
                     type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                    confirmButtonText: $translate.instant('VOLVER'),
-                }).then(function() {
-                    $('#modal_adicion_novedad').modal('hide');
-                    $window.location.reload()
+                    showCancelButton: true,
+                    showConfirmButton: false,
+                    cancelButtonColor: "#C9302C",
+                    cancelButtonText: $translate.instant('SALIR'),
                 })
+            } else {
+                if ($scope.concepto.TipoConceptoNominaId === 420 || $scope.concepto.TipoConceptoNominaId) {
+                    self.novedad = {
+                        ContratoId: {
+                            Id: $scope.Contrato.Id
+                        },
+                        ConceptoNominaId: {
+                            Id: $scope.concepto.Id
+                        },
+                        Valor: self.ValorNovedad,
+                        Cuotas: self.Cuotas,
+                        Activo: true
+                    }
+                }
 
+                if ($scope.concepto.TipoConceptoNominaId === 421) {
+                    valor = 0;
+                    cuotas = 0;
+                    info_contratos = self.informacion_contratos_porcentual.data;
+                }
+
+                titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
+                    if (response.data == null) {
+                        swal({
+                            html: $translate.instant('NOVEDAD_REG_ERROR'),
+                            type: "error",
+                            showCancelButton: true,
+                            showConfirmButton: false,
+                            cancelButtonColor: "#C9302C",
+                            cancelButtonText: $translate.instant('SALIR'),
+                        })
+                    } else {
+                        swal({
+                            html: $translate.instant('NOVEDAD_REG_CORRECTO'),
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#449D44",
+                            confirmButtonText: $translate.instant('VOLVER'),
+                        }).then(function () {
+                            $('#modal_adicion_novedad').modal('hide');
+                        })
+                        titanRequest.get('novedad', 'limit=-1&query=ContratoId.TipoNominaId:' + self.tipo_id + '&sortby=FechaCreacion&order=desc').then(function (response) {
+                            if (Object.keys(response.data.Data[0]).length == 0) {
+                                $scope.gridOptions_novedades.data = [];
+                                self.hayNovedad = false
+                            } else {
+                                $scope.gridOptions_novedades.data = response.data.Data;
+                                self.hayNovedad = true
+                            }
+                        })
+                    }
+                });
             }
-        });
-
-
-      });
-
-
-
-
-
-};
-
-
-$scope.inactivar_novedad = function(row) {
-    swal({
-        html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.Concepto.AliasConcepto + "?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#449D44",
-        cancelButtonColor: "#C9302C",
-        confirmButtonText: $translate.instant('CONFIRMAR'),
-        cancelButtonText: $translate.instant('CANCELAR'),
-    }).then(function() {
-        var nomina_novedad = {
-            Id: parseInt(row.entity.Nomina.Id)
-        }
-        var concepto_novedad = {
-            Id: parseInt(row.entity.Concepto.Id)
-        }
-
-
-
-        var novedad_por_persona_a_inactivar = {
-            Id: row.entity.Id,
-            Concepto: concepto_novedad,
-            Activo: Boolean(false),
-            FechaDesde: row.entity.FechaDesde,
-            FechaHasta: row.entity.FechaHasta,
-            FechaRegistro: row.entity.FechaRegistro,
-            NumCuotas: row.entity.NumCuotas,
-            NumeroContrato: row.entity.NumeroContrato,
-            VigenciaContrato: parseInt(row.entity.VigenciaContrato),
-            Persona: parseInt($scope.persona.id_proveedor),
-            Nomina: nomina_novedad,
-            ValorNovedad: row.entity.ValorNovedad
         };
 
-        titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_inactivar.Id, novedad_por_persona_a_inactivar).then(function(response) {
 
+        $scope.inactivar_novedad = function (row) {
+            var fecha_actual = new Date()
+            if (row.entity.Activo == false) {
                 swal({
-                    html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                    confirmButtonText: $translate.instant('VOLVER'),
-                }).then(function() {
-                    $window.location.reload()
+                    html: 'La novedad Ya se encuentra inactiva',
+                    type: "warning",
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: "#FF0000",
+                }).then(function (response) {
+                    row.setSelected(false);
                 })
+            } else if (parseInt(row.entity.FechaFin.split("-")[0], 10) == (fecha_actual.getFullYear)) {
+                if (parseInt(row.entity.FechaFin.split("-")[1], 10) < (fecha_actual.getMonth() + 1)){
+                    console.log(row.entity.FechaFin.split("-")[1])
+                    console.log(fecha_actual.getMonth() + 1)
+                    swal({
+                        html: 'No se puede inactivar una novedad pasada',
+                        type: "warning",
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: "#FF0000",
+                    }).then(function (response) {
+                        row.setSelected(false);
+                    })
+                }else {
+                    swal({
+                        html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.ConceptoNominaId.AliasConcepto + "?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#449D44",
+                        cancelButtonColor: "#C9302C",
+                        confirmButtonText: $translate.instant('CONFIRMAR'),
+                        cancelButtonText: $translate.instant('CANCELAR'),
+                    }).then(function () {
+                        titanMidRequest.get('novedad', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        }).catch(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        });
+                    })
+                }
+            } else if (parseInt(row.entity.FechaFin.split("-")[0], 10) != (fecha_actual.getFullYear)) {
+                if (parseInt(row.entity.FechaFin.split("-")[1], 10) +12 < (fecha_actual.getMonth() + 1)){
+                    console.log(row.entity.FechaFin.split("-")[1])
+                    console.log(fecha_actual.getMonth() + 13)
+                    swal({
+                        html: 'No se puede inactivar una novedad pasada',
+                        type: "warning",
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: "#FF0000",
+                    }).then(function (response) {
+                        row.setSelected(false);
+                    })
+                }else {
+                    swal({
+                        html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.ConceptoNominaId.AliasConcepto + "?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#449D44",
+                        cancelButtonColor: "#C9302C",
+                        confirmButtonText: $translate.instant('CONFIRMAR'),
+                        cancelButtonText: $translate.instant('CANCELAR'),
+                    }).then(function () {
+                        titanMidRequest.get('novedad', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        }).catch(function (response) {
+                            swal({
+                                html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $window.location.reload()
+                            })
+                        });
+                    })
+                }
+            }
+        };
 
-        }).catch(function(response) {
-          swal({
-              html: $translate.instant('INACTIVIDAD_INCORRECTA_NOV'),
-              type: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#449D44",
-              confirmButtonText: $translate.instant('VOLVER'),
-          }).then(function() {
-              $window.location.reload()
-          })
-      });
+        $scope.llenar_modal = function (row) {
 
-
-    })
-};
-
-$scope.llenar_modal = function(row) {
-
-    self.id_edicion = row.entity.Id
-    self.id_concepto_edicion = row.entity.Concepto.Id
-    self.concepto_nombre_edicion = row.entity.Concepto.AliasConcepto
-    self.tipo_concepto_edicion = row.entity.Concepto.TipoConcepto.Nombre
-    self.activo_edicion = row.entity.Activo
-    self.num_cuotas_edicion = row.entity.NumCuotas
-    self.id_nomina_edicion = row.entity.Nomina.Id
-    self.valor_novedad_edicion = row.entity.ValorNovedad
-    self.persona_edicion = row.entity.Persona
-    self.num_contrato_edicion = row.entity.NumeroContrato;
-    self.vigencia_contrato_edicion = row.entity.VigenciaContrato;
-    self.persona_edicion = row.entity.Persona;
-
-};
-
-self.Editar = function() {
-
-if ((self.valor_novedad_edicion && self.num_cuotas_edicion) || (self.valor_novedad_edicion == 0 && self.num_cuotas_edicion == 0)) {
-    swal({
-        html: $translate.instant('CONFIRMACION_EDICION_NOV') +
-            "<br><b>" + self.concepto_nombre_edicion + "?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#449D44",
-        cancelButtonColor: "#C9302C",
-        confirmButtonText: $translate.instant('CONFIRMAR'),
-        cancelButtonText: $translate.instant('CANCELAR'),
-    }).then(function() {
-        var nomina_novedad = {
-            Id: parseInt(self.id_nomina_edicion)
-        }
-        var concepto_novedad = {
-            Id: parseInt(self.id_concepto_edicion)
-        }
-
-        var novedad_por_persona_a_editar = {
-            Id: parseInt(self.id_edicion),
-            Concepto: concepto_novedad,
-            Activo: Boolean("true"),
-            FechaDesde: self.FechaInicio,
-            FechaHasta: self.FechaFin,
-            FechaRegistro: self.CurrentDate,
-            NumCuotas: parseInt(self.num_cuotas_edicion),
-            NumeroContrato: self.num_contrato_edicion,
-            VigenciaContrato: parseInt(self.vigencia_contrato_edicion),
-            Nomina: nomina_novedad,
-            ValorNovedad: parseFloat(self.valor_novedad_edicion),
-            Persona: parseInt(self.persona_edicion)
+            self.id_edicion = row.entity.Id
+            self.id_concepto_edicion = row.entity.Concepto.Id
+            self.concepto_nombre_edicion = row.entity.Concepto.AliasConcepto
+            self.tipo_concepto_edicion = row.entity.Concepto.TipoConcepto.Nombre
+            self.activo_edicion = row.entity.Activo
+            self.num_cuotas_edicion = row.entity.NumCuotas
+            self.id_nomina_edicion = row.entity.Nomina.Id
+            self.valor_novedad_edicion = row.entity.ValorNovedad
+            self.persona_edicion = row.entity.Persona
+            self.num_contrato_edicion = row.entity.NumeroContrato;
+            self.vigencia_contrato_edicion = row.entity.VigenciaContrato;
+            self.persona_edicion = row.entity.Persona;
 
         };
 
-        console.log("objeto edicion", novedad_por_persona_a_editar)
+        $('#modal_adicion_novedad').on('hidden.bs.modal', function (e) {
 
-        titanRequest.put('concepto_nomina_por_persona', novedad_por_persona_a_editar.Id, novedad_por_persona_a_editar).then(function(response) {
+            self.mostrar_grid_contratos_ss = false;
+            self.mostrar_grid_contratos_fijo = false;
+            self.mostrar_grid_contratos_porcentual = false;
+            $scope.mostrar_preliq = false;
+        })
 
-                swal({
-                    html: $translate.instant('EDICION_CORRECTA_NOV'),
-                    type: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                    confirmButtonText: $translate.instant('VOLVER'),
-                }).then(function() {
-                    $window.location.reload()
-                })
+    }).filter('filtro_formato_valor_novedad', function ($filter) {
+        return function (input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-        }).catch(function(response) {
-          swal({
-              html: $translate.instant('EDICION_INCORRECTA_NOV'),
-              type: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#449D44",
-              confirmButtonText: $translate.instant('VOLVER'),
-          })
-      });
+            if (entity.ConceptoNominaId.TipoConceptoNominaId === 420) {
+                output = (input) + "%";
+            }
 
+            if (entity.ConceptoNominaId.TipoConceptoNominaId === 419) {
+                output = "$" + (input);
+            }
 
+            if (entity.ConceptoNominaId.TipoConceptoNominaId === 421) {
+                output = "No aplica";
+            }
 
+            return output;
+        };
+    }).filter('filtro_formato_cuotas', function ($filter) {
+        return function (input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-    })
-}
-};
+            if (entity.ConceptoNominaId.TipoConceptoNominaId === 420) {
+                output = input;
+            }
 
-      $('#modal_adicion_novedad').on('hidden.bs.modal', function (e) {
+            if (entity.ConceptoNominaId.TipoConceptoNominaId === 419) {
+                output = input;
+            }
 
-        self.mostrar_grid_contratos_ss = false;
-        self.mostrar_grid_contratos_fijo = false;
-        self.mostrar_grid_contratos_porcentual = false;
-        $scope.mostrar_preliq = false;
-      })
+            if (entity.ConceptoNominaId.TipoConceptoNominaId === 421) {
+                output = "No aplica";
+            }
 
+            return output;
+        };
+    }).filter('filtro_formato_naturaleza', function ($filter) {
+        return function (input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-      $scope.$watch("novedadRegistro.anioPeriodo", function() {
+            if (entity.NaturalezaConceptoNominaId === 423) {
+                output = "Devengo";
+            }
 
-        if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
-          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion:1').then(function(response) {
+            if (entity.NaturalezaConceptoNominaId === 424) {
+                output = "Descuento";
+            }
 
-              if (Object.keys(response.data[0]).length != 0){
-                swal({
-                    html: $translate.instant('ERROR_NOV_PRELIQ'),
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                    confirmButtonText: $translate.instant('VOLVER'),
-                })
-              }else{
-                self.preliquidacion_elegida = true;
-                self.cargando = true;
-                self.preliquidacion = {
-                    Mes: parseInt(self.mesPeriodo),
-                    Ano: parseInt(self.anioPeriodo),
-                    Nomina: nomina
-                }
+            if (entity.NaturalezaConceptoNominaId === 425) {
+                output = "Seguridad Social";
+            }
 
+            return output;
+        };
+    }).filter('filtro_formato_tipos', function ($filter) {
+        return function (input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-                titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
-                    self.cargando = false;
-                    $scope.gridOptions_personas.data = response.data;
-                });
-              }
-          }).catch(function(response) {
-            swal({
-                html: $translate.instant('ERROR_NOV_PRELIQ'),
-                type: "error",
-                showCancelButton: false,
-                confirmButtonColor: "#449D44",
-                confirmButtonText: $translate.instant('VOLVER'),
-            })
-        });
+            if (entity.TipoConceptoNominaId === 420) {
+                output = "Porcentual";
+            }
 
+            if (entity.TipoConceptoNominaId === 419) {
+                output = "fijo";
+            }
 
-        }
+            if (entity.TipoConceptoNominaId === 421) {
+                output = "Seguridad Social";
+            }
+            return output;
+        };
+    }).filter('filtro_activo', function ($filter, $translate) {
+        return function (input, entity) {
+            var output;
+            if (undefined === input || null === input) {
+                return "";
+            }
 
-      }, true);
+            if (entity.Activo === true) {
+                output = "Activo";
+            }
 
-      $scope.$watch("novedadRegistro.mesPeriodo", function() {
+            if (entity.Activo === false) {
+                output = "Inactivo";
+            }
 
-        if (self.anioPeriodo != undefined && self.mesPeriodo != undefined){
-          titanRequest.get('preliquidacion', 'limit=-1&query=Ano:'+self.anioPeriodo+',Mes:'+self.mesPeriodo+',Nomina.TipoNomina.Nombre:'+nomina.TipoNomina.Nombre+',EstadoPreliquidacion:1').then(function(response) {
-
-              if (Object.keys(response.data[0]).length != 0){
-                swal({
-                    html: $translate.instant('ERROR_NOV_PRELIQ'),
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#449D44",
-                    confirmButtonText: $translate.instant('VOLVER'),
-                })
-              }else{
-                self.preliquidacion_elegida = true;
-                self.cargando = true;
-                self.preliquidacion = {
-                    Mes: parseInt(self.mesPeriodo),
-                    Ano: parseInt(self.anioPeriodo),
-                    Nomina: nomina
-                }
-
-
-                titanMidRequest.post('gestion_personas_a_liquidar/listar_personas_a_preliquidar_argo', self.preliquidacion).then(function(response) {
-                    self.cargando = false;
-                    $scope.gridOptions_personas.data = response.data;
-                });
-              }
-          }).catch(function(response) {
-            swal({
-                html: $translate.instant('ERROR_NOV_PRELIQ'),
-                type: "error",
-                showCancelButton: false,
-                confirmButtonColor: "#449D44",
-                confirmButtonText: $translate.instant('VOLVER'),
-            })
-        });
-
-
-        }
-
-      }, true);
-
-
-
-
-}).filter('filtro_formato_valor_novedad', function($filter) {
-    return function(input, entity) {
-        var output;
-        if (undefined === input || null === input) {
-            return "";
-        }
-
-        if (entity.Concepto.TipoConcepto.Nombre === "porcentual") {
-            output = (input) + "%";
-        }
-
-        if (entity.Concepto.TipoConcepto.Nombre === "fijo") {
-            output = "$" + (input);
-        }
-
-        if (entity.Concepto.TipoConcepto.Nombre === "seguridad_social") {
-            output = "No aplica";
-        }
-
-        return output;
-    };
-}).filter('filtro_formato_cuotas', function($filter) {
-    return function(input, entity) {
-        var output;
-        if (undefined === input || null === input) {
-            return "";
-        }
-
-        if (entity.Concepto.TipoConcepto.Nombre === "porcentual") {
-            output = "Valor";
-        }
-
-        if (entity.Concepto.TipoConcepto.Nombre === "fijo") {
-            output = input;
-        }
-
-        if (entity.Concepto.TipoConcepto.Nombre === "seguridad_social") {
-            output = "No aplica";
-        }
-
-        return output;
-    };
-});
+            return output;
+        };
+    });

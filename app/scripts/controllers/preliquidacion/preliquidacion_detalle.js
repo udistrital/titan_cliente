@@ -8,7 +8,7 @@
  * Controller of the titanClienteV2App
  */
 angular.module('titanClienteV2App')
-    .controller('PreliquidacionPreliquidacionDetalleCtrl', function($localStorage, $scope, titanMidRequest, titanRequest, preliquidacion, $translate, $http, $route, $location) {
+    .controller('PreliquidacionPreliquidacionDetalleCtrl', function ($localStorage, $scope, titanMidRequest, titanRequest, preliquidacion, $translate, $http, $route, $location) {
         var self = this;
         self.numero_conceptos = 0;
         self.resumen_conceptos;
@@ -16,12 +16,13 @@ angular.module('titanClienteV2App')
         self.seleccion_sueldoNeto = 0;
         self.respuesta_persona;
         self.respuesta_conceptos;
-        
-        //self.preliquidacion = preliquidacion;
+        self.totalDescuentos;
+        self.totalDevengos;
+
         self.preliquidacion = $localStorage.preliquidacion
 
         self.gridOptions = {
-            paginationPageSizes: [20, 40,60],
+            paginationPageSizes: [20, 40, 60],
             paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
@@ -29,53 +30,38 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: false,
             enableSelectAll: false,
             columnDefs: [{
-                    field: 'IdPersona',
-                    visible: false
-                },
+                field: 'ContratoId.PersonaId',
+                visible: false
+            },
 
-                {
-                    field: 'NumDocumento',
-                    displayName: $translate.instant('DOCUMENTO'),
-                    width: '40%',
-                    headerCellClass: 'encabezado',
-                    cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.NumDocumento}}</button>',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Disponibilidad === 2) {
-                            return 'text-center si_pago';
-                        } else if (row.entity.Disponibilidad === 1) {
-                            return 'text-center no_pago';
-                        }
-                    }
-                },
-                {
-                    field: 'NombreCompleto',
-                    displayName: $translate.instant('NOMBRE_PERSONA'),
-                    width: '60%',
-                    headerCellClass: 'encabezado',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Disponibilidad === 2) {
-                            return 'si_pago';
-                        } else if (row.entity.Disponibilidad === 1) {
-                            return 'no_pago';
-                        }
-                    }
-                },
-                {
-                    field: 'Disponibilidad',
-                    visible: false
-                }
+            {
+                field: 'ContratoId.Documento',
+                displayName: $translate.instant('DOCUMENTO'),
+                width: '40%',
+                headerCellClass: 'encabezado',
+                cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.preliquidacionDetalle.ver_seleccion_persona(row)" >{{row.entity.ContratoId.Documento}}</button>',
+            },
+            {
+                field: 'ContratoId.NombreCompleto',
+                displayName: $translate.instant('NOMBRE_PERSONA'),
+                width: '60%',
+                headerCellClass: 'encabezado',
+            },
+            {
+                field: 'Disponibilidad',
+                visible: false
+            }
 
             ],
-            onRegisterApi: function(gridApi) {
+            onRegisterApi: function (gridApi) {
                 self.gridApi = gridApi;
-
             }
         };
 
 
         self.gridOptions_detalle = {
 
-            paginationPageSizes: [20, 40,60],
+            paginationPageSizes: [20, 40, 60],
             paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
@@ -84,48 +70,37 @@ angular.module('titanClienteV2App')
             enableSelectAll: false,
 
             columnDefs: [
-
-
                 {
                     field: 'Concepto.AliasConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
                     width: '60%',
                     sort: {
-                       direction: 'asc',
-                       priority: 2
-                   },
+                        direction: 'asc',
+                        priority: 2
+                    },
                     headerCellClass: 'encabezado',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
+                    cellClass: function (grid, row) {
+                        if (row.entity.Concepto.NaturalezaConceptoNominaId === 423) {
                             return 'text-center devengo';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
+                        } else if (row.entity.Concepto.NaturalezaConceptoNominaId === 424) {
                             return 'text-center descuento';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
+                        } else if (row.entity.Concepto.NaturalezaConceptoNominaId === 425) {
                             return 'text-center seguridad_social';
                         }
                     }
                 },
-                {
-                    field: 'Concepto.NaturalezaConcepto.Id',
-                    sort: {
-                       direction: 'asc',
-                       priority: 1
-                   },
-                    visible:false
-                },
-
                 {
                     field: 'ValorCalculado',
                     displayName: $translate.instant('VALOR'),
                     width: '40%',
                     cellFilter: 'currency',
                     headerCellClass: 'encabezado',
-                    cellClass: function(grid, row) {
-                        if (row.entity.Concepto.NaturalezaConcepto.Id === 1) {
+                    cellClass: function (grid, row) {
+                        if (row.entity.Concepto.NaturalezaConceptoNominaId === 423) {
                             return 'alineacion_derecha devengo';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 2) {
+                        } else if (row.entity.Concepto.NaturalezaConceptoNominaId === 424) {
                             return 'alineacion_derecha descuento';
-                        } else if (row.entity.Concepto.NaturalezaConcepto.Id === 3) {
+                        } else if (row.entity.Concepto.NaturalezaConceptoNominaId === 425) {
                             return 'alineacion_derecha seguridad_social';
                         }
                     }
@@ -137,7 +112,7 @@ angular.module('titanClienteV2App')
 
         self.gridOptions_resumen = {
 
-            paginationPageSizes: [20, 40,60],
+            paginationPageSizes: [20, 40, 60],
             paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
@@ -147,187 +122,125 @@ angular.module('titanClienteV2App')
 
             columnDefs: [
 
-               {
-                    field: 'NombreConcepto',
+                {
+                    field: 'ConceptoNominaId.AliasConcepto',
                     displayName: $translate.instant('CONCEPTO_NOMBRE'),
                     headerCellClass: 'encabezado',
                     sort: {
-                       direction: 'asc',
-                       priority: 1
-                   },
+                        direction: 'asc',
+                        priority: 1
+                    },
                     width: '60%',
-                    cellClass: function(grid, row) {
-                        if (row.entity.NaturalezaConcepto === "devengo") {
+                    cellClass: function (grid, row) {
+                        if (row.entity.NaturalezaConceptoNominaId === 423) {
                             return 'text-center devengo';
-                        } else if (row.entity.NaturalezaConcepto === "descuento") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 424) {
                             return 'text-center descuento';
-                        } else if (row.entity.NaturalezaConcepto === "seguridad_social") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 425) {
                             return 'text-center seguridad_social';
                         }
                     }
                 },
                 {
-                     field: 'NaturalezaConceptoId',
-                     sort: {
-                        direction: 'asc',
-                        priority: 0
-                    },
-                     visible:false
-                 },
-                {
-                     field: 'NaturalezaConcepto',
-                     displayName: $translate.instant('TIPO_CONCEPTO'),
-                     headerCellClass: 'encabezado',
-                     sort: {
+                    field: 'ConceptoNominaId.NaturalezaConceptoNominaId',
+                    displayName: $translate.instant('TIPO_CONCEPTO'),
+                    headerCellClass: 'encabezado',
+                    sort: {
                         direction: 'asc',
                         priority: 1
                     },
-                     width: '25%',
-                     cellClass: function(grid, row) {
-                         if (row.entity.NaturalezaConcepto === "devengo") {
-                             return 'text-center devengo';
-                         } else if (row.entity.NaturalezaConcepto === "descuento") {
-                             return 'text-center descuento';
-                         } else if (row.entity.NaturalezaConcepto === "seguridad_social") {
-                             return 'text-center seguridad_social';
-                         }
-                     },
+                    width: '25%',
+                    cellClass: function (grid, row) {
+                        if (row.entity.ConceptoNominaId.NaturalezaConceptoNominaId === 423) {
+                            return 'text-center devengo';
+                        } else if (row.entity.ConceptoNominaId.NaturalezaConceptoNominaId === 424) {
+                            return 'text-center descuento';
+                        } else if (row.entity.ConceptoNominaId.NaturalezaConceptoNominaId === 425) {
+                            return 'text-center seguridad_social';
+                        }
+                    },
                     cellFilter: "filtro_naturaleza_concepto_detalle:row.entity"
-                 },
+                },
                 {
-                    field: 'Total',
+                    field: 'ValorCalculado',
                     displayName: $translate.instant('TOTAL'),
                     width: '35%',
                     cellFilter: 'currency',
                     cellClass: 'alineacion_derecha',
                     headerCellClass: 'encabezado',
-                    cellClass: function(grid, row) {
-                        if (row.entity.NaturalezaConcepto === "devengo") {
+                    cellClass: function (grid, row) {
+                        if (row.entity.NaturalezaConceptoNominaId === 423) {
                             return 'alineacion_derecha devengo';
-                        } else if (row.entity.NaturalezaConcepto === "descuento") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 424) {
                             return 'alineacion_derecha descuento';
-                        } else if (row.entity.NaturalezaConcepto === "seguridad_social") {
+                        } else if (row.entity.NaturalezaConceptoNominaId === 425) {
                             return 'alineacion_derecha seguridad_social';
                         }
                     }
                 },
-              ]
+            ]
         };
 
+        titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + self.preliquidacion.Ano + ',PreliquidacionId.Mes:' + self.preliquidacion.Mes + ',PreliquidacionId.NominaId:' + self.preliquidacion.NominaId.Id + '&fields=ContratoId&limit=-1').then(function (response) {
+            self.gridOptions.data = response.data.Data;
+            self.total_contratos_liquidados = response.data.Data.length;
+        });
 
-      // titanMidRequest.post('preliquidacion/resumen_conceptos', self.preliquidacion).then(function(response) {
-        // self.gridOptions_resumen.data = response.data.ResumenTotalConceptos;
-         //self.total_devengos = response.data.TotalDevengos
-         //self.total_descuentos = response.data.TotalDescuentos
-         //console.log("response", response.data)
-      // })
-
-        titanMidRequest.post('preliquidacion/personas_x_preliquidacion', self.preliquidacion).then(function(response) {
-          self.gridOptions.data = response.data;
-          self.total_contratos_liquidados = response.data.length;
+        titanMidRequest.get('preliquidacion', '/obtener_resumen_preliquidacion/' + self.preliquidacion.Mes + '/' + self.preliquidacion.Ano + '/' + self.preliquidacion.NominaId.Id).then(function (response) {
+            self.gridOptions_resumen.data = response.data.Data.Detalle;
+            self.totalDescuentos = response.data.Data.TotalDescuentos;
+            self.totalDevengos = response.data.Data.TotalDevengado;
         });
 
 
 
-        self.ver_seleccion_persona = function(row) {
-          /*self.persona_seleccionada_nombre = row.entity.NombreCompleto
-          self.gridOptions_detalle.data = [];
-          //Mostrar contratos
-          var query = "limit=-1&query=Preliquidacion.Id:"+self.preliquidacion.Id+",Persona:"+row.entity.IdPersona+",NumeroContrato:"+row.entity.NumeroContrato+",VigenciaContrato:"+row.entity.VigenciaContrato; 
-          titanRequest.get('detalle_preliquidacion', query).then(function(response) {
-            self.gridOptions_detalle.data = response.data;
-            self.num_contrato = response.data[0].NumeroContrato + " de "
-            self.vigencia = response.data[0].VigenciaContrato
-          //  self.calcular_totales(response.data);
-          });
-
+        self.ver_seleccion_persona = function (row) {
+            
         };
 
-        self.calcular_totales = function(detalle){
 
-          var total_devengos = 0;
-          var total_descuentos = 0;
-          var total_a_pagar = 0;
-          var salud=0;
-          var pension=0;
-          var arl=0;
-          angular.forEach(detalle, function(value, key){
-                  if (value.Concepto.NaturalezaConcepto.Nombre == "devengo") {
-                    total_devengos = total_devengos + parseInt(value.ValorCalculado);
+        /*
+          self.generar_pdf = function() {
+              $http.get("scripts/models/imagen_ud.json")
+                  .then(function(response) {
+                      self.imagen_ud = response.data;
+                      var personas = self.gridApi.selection.getSelectedRows();
+  
+                      if (personas.length == 0) {
+                          swal({
+                              html: $translate.instant('ALERTA_SELECCION_PERSONAS_PDF'),
+                              type: "error",
+                              showCancelButton: true,
+                              confirmButtonColor: "#449D44",
+                              cancelButtonColor: "#C9302C",
+                              confirmButtonText: $translate.instant('VOLVER'),
+                              cancelButtonText: $translate.instant('SALIR'),
+                          }).then(function() {
+                              $location.path('/nomina/nomina_consulta');
+                              $route.reload()
+  
+                          }, function(dismiss) {
+  
+                              if (dismiss === 'cancel') {
+                                  //si da click en Salir
+                                  $location.path('/nomina/nomina_consulta');
+                                  $route.reload()
+                              }
+                          })
+                      } else {
+                          self.generar_reporte_para_todos(personas);
+                      }
+                  });
+  
+          };*/
 
-                  }
-
-                  if (value.Concepto.NaturalezaConcepto.Nombre == "descuento") {
-                    total_descuentos = total_descuentos + parseInt(value.ValorCalculado);
-
-                  }
-                  //se toma el valor puntual para salud, pension y arl
-                  if (value.nombre=="salud"){
-                      salud=parseInt(value.ValorCalculado);
-                  }
-                  if (value.nombre=="pension"){
-                    pension=parseInt(value.ValorCalculado);
-                }
-                if (value.nombre=="arl"){
-                    arl=parseInt(value.ValorCalculado);
-                }
-             });
-             //como la salud, la pensión y la arl, son descuentos se suman al total que va con descuentos
-             total_a_pagar = total_devengos - total_descuentos+salud+pension+arl;
-             console.log(arl);
-             console.log(salud);
-             console.log(pension);
-             self.total_devengos_persona = total_devengos;
-             self.total_descuentos_persona = total_descuentos;
-             self.total_a_pagar_persona = total_a_pagar;
-             //este es el valor si la universidad paga la salud
-             self.total_con_salud=total_devengos - total_descuentos;
-             console.log("sel",self.total_devengos_persona);*/
-        };
-
-      
-      /*
-        self.generar_pdf = function() {
-            $http.get("scripts/models/imagen_ud.json")
-                .then(function(response) {
-                    self.imagen_ud = response.data;
-                    var personas = self.gridApi.selection.getSelectedRows();
-
-                    if (personas.length == 0) {
-                        swal({
-                            html: $translate.instant('ALERTA_SELECCION_PERSONAS_PDF'),
-                            type: "error",
-                            showCancelButton: true,
-                            confirmButtonColor: "#449D44",
-                            cancelButtonColor: "#C9302C",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                            cancelButtonText: $translate.instant('SALIR'),
-                        }).then(function() {
-                            $location.path('/nomina/nomina_consulta');
-                            $route.reload()
-
-                        }, function(dismiss) {
-
-                            if (dismiss === 'cancel') {
-                                //si da click en Salir
-                                $location.path('/nomina/nomina_consulta');
-                                $route.reload()
-                            }
-                        })
-                    } else {
-                        self.generar_reporte_para_todos(personas);
-                    }
-                });
-
-        };*/
-
-        self.generar_reporte_para_todos = function(row) {
+        self.generar_reporte_para_todos = function (row) {
 
             var content = [];
             var mes_preliquidacion = self.preliquidacion.Mes
             var ano_preliquidacion = self.preliquidacion.Ano
             var desc_nomina = self.preliquidacion.Nomina.Descripcion
-            angular.forEach(row, function(persona, index) {
+            angular.forEach(row, function (persona, index) {
 
                 var num_conceptos;
                 var cuerpo_devengos = []
@@ -357,22 +270,22 @@ angular.module('titanClienteV2App')
 
                 encabezado = {
                     columns: [{
-                            width: 'auto',
-                            stack: [{
-                                image: self.imagen_ud.imagen,
-                                alignment: 'left',
-                                width: 100,
-                                margin: [0, 0, 0, 0],
-                            }]
-                        },
-                        {
-                            width: '*',
-                            alignment: 'right',
-                            stack: [{
-                                style: 'header',
-                                text: "\n" + $translate.instant('TITULO_DETALLE_PAGO_PDF') + "\n" + fecha_generacion,
-                            }]
-                        },
+                        width: 'auto',
+                        stack: [{
+                            image: self.imagen_ud.imagen,
+                            alignment: 'left',
+                            width: 100,
+                            margin: [0, 0, 0, 0],
+                        }]
+                    },
+                    {
+                        width: '*',
+                        alignment: 'right',
+                        stack: [{
+                            style: 'header',
+                            text: "\n" + $translate.instant('TITULO_DETALLE_PAGO_PDF') + "\n" + fecha_generacion,
+                        }]
+                    },
 
                     ]
                 };
@@ -402,7 +315,7 @@ angular.module('titanClienteV2App')
                     if (self.respuesta_persona[i].IdPersona == persona.IdPersona) {
                         self.numero_de_conceptos(persona)
                         num_conceptos = (4 + self.numero_conceptos + 2) //numero de filas anteriores a los conceptos: 3 + 2 total devengos y descuentos
-                            //nota: no se internacionaliza porque son datos que se traerán de kronos
+                        //nota: no se internacionaliza porque son datos que se traerán de kronos
                         cuerpo_tabla.push([{ rowSpan: num_conceptos, text: 'Rubro asociado' }, { text: persona.NomProveedor }, '12345', { text: fecha_generacion }, 'Pago de nómina reserva sistema integral de información de diferentes cps correspondiente al mes de enero con sus respectivos soportes'], [{}, { text: $translate.instant('DETALLE_PAGO_PDF'), style: 'tableHeader', colSpan: 4, alignment: 'center' }, {}, {}, {}])
 
                         for (j = 0; j < self.respuesta_persona[i].Conceptos.length; j++) {
@@ -484,7 +397,7 @@ angular.module('titanClienteV2App')
 
         };
 
-        self.numero_de_conceptos = function(row) {
+        self.numero_de_conceptos = function (row) {
             for (var i = 0; i < self.respuesta_persona.length; i++) {
                 if (self.respuesta_persona[i].IdPersona == row.IdPersona) {
                     for (var j = 0; j < self.respuesta_persona[i].Conceptos.length; j++) {
@@ -499,23 +412,23 @@ angular.module('titanClienteV2App')
                 }
             }
         };
-    }).filter('filtro_naturaleza_concepto_detalle', function($filter) {
-        return function(input, entity) {
+    }).filter('filtro_naturaleza_concepto_detalle', function ($filter) {
+        return function (input, entity) {
             var output;
 
             if (undefined === input || null === input) {
                 return "";
             }
 
-            if (entity.NaturalezaConcepto === "devengo") {
+            if (entity.ConceptoNominaId.NaturalezaConceptoNominaId === 423) {
                 output = "Devengo";
             }
 
-            if (entity.NaturalezaConcepto === "descuento") {
+            if (entity.ConceptoNominaId.NaturalezaConceptoNominaId === 424) {
                 output = "Descuento";
             }
 
-            if (entity.NaturalezaConcepto === "seguridad_social") {
+            if (entity.ConceptoNominaId.NaturalezaConceptoNominaId === 425) {
                 output = "Seguridad Social";
             }
 
