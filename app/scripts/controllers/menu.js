@@ -128,6 +128,7 @@ angular.module('titanClienteV2App')
                 } else {
                     permission = 1;
                 }
+
                 return permission;
             }
             return 1;
@@ -174,11 +175,13 @@ angular.module('titanClienteV2App')
                         roles = roles.replace(/\//g, '-');
 
                         configuracionRequest.get('menu_opcion_padre/ArbolMenus/' + roles + '/Titan', '').then(function (response) {
+
                             $rootScope.my_menu = response.data;
                         })
                             .catch(
                                 function (response) {
                                     $rootScope.my_menu = response.data;
+
 
                                 });
                     }
@@ -207,3 +210,5 @@ angular.module('titanClienteV2App')
             });
         })(jQuery);
     });
+
+  
