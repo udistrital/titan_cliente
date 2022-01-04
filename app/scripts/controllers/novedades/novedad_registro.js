@@ -341,7 +341,7 @@ angular.module('titanClienteV2App')
 
 
         self.listar_contratos = function () {
-            titanRequest.get('contrato_preliquidacion', 'limit=-1&query=PreliquidacionId.Ano:' + self.CurrentDate.getFullYear() + ',PreliquidacionId.Mes:' + self.CurrentDate.getMonth() + ',PreliquidacionId.NominaId:' + self.tipoNom_id).then(function (response) {
+            titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + self.CurrentDate.getFullYear() + ',PreliquidacionId.Mes:' + (self.CurrentDate.getMonth()+1) + ',PreliquidacionId.NominaId:' + self.tipoNom_id+ "&limit=-1").then(function (response) {
                 if (response.data.Data.length == 0) {
                     console.log("Error")
                     swal({
