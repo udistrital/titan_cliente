@@ -88,5 +88,5 @@ var conf_local = {
 
 angular.module('titanClienteV2App')
     .constant('CONF', {
-        GENERAL: conf_local
+        GENERAL: conf_preprod
     });
