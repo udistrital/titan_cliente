@@ -198,42 +198,6 @@ angular.module('titanClienteV2App')
             
         };
 
-
-        /*
-          self.generar_pdf = function() {
-              $http.get("scripts/models/imagen_ud.json")
-                  .then(function(response) {
-                      self.imagen_ud = response.data;
-                      var personas = self.gridApi.selection.getSelectedRows();
-  
-                      if (personas.length == 0) {
-                          swal({
-                              html: $translate.instant('ALERTA_SELECCION_PERSONAS_PDF'),
-                              type: "error",
-                              showCancelButton: true,
-                              confirmButtonColor: "#449D44",
-                              cancelButtonColor: "#C9302C",
-                              confirmButtonText: $translate.instant('VOLVER'),
-                              cancelButtonText: $translate.instant('SALIR'),
-                          }).then(function() {
-                              $location.path('/nomina/nomina_consulta');
-                              $route.reload()
-  
-                          }, function(dismiss) {
-  
-                              if (dismiss === 'cancel') {
-                                  //si da click en Salir
-                                  $location.path('/nomina/nomina_consulta');
-                                  $route.reload()
-                              }
-                          })
-                      } else {
-                          self.generar_reporte_para_todos(personas);
-                      }
-                  });
-  
-          };*/
-
         self.generar_reporte_para_todos = function (row) {
 
             var content = [];
