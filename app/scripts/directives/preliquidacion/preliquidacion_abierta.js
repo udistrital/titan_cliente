@@ -34,15 +34,15 @@ angular.module('titanClienteV2App')
             enableRowHeaderSelection: true,
             columnDefs: [
               {
-                field: 'ContratoId.Documento',
+                field: 'Documento',
                 displayName: $translate.instant('DOCUMENTO'),
                 width: '20%',
                 headerCellClass: 'encabezado',
                 cellClass: 'text-center',
-                cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.d_preliquidacionAbierta.ver_detalle_persona(row)" >{{row.entity.ContratoId.Documento}}</button>',
+                cellTemplate: '<button class="btn btn-link btn-block" ng-click="grid.appScope.d_preliquidacionAbierta.ver_detalle_personaDVE(row)" >{{row.entity.Documento}}</button>',
               },
               {
-                field: 'ContratoId.NombreCompleto',
+                field: 'NombreCompleto',
                 displayName: $translate.instant('NOMBRE_PERSONA'),
                 width: '50%',
                 headerCellClass: 'encabezado',
@@ -225,10 +225,18 @@ angular.module('titanClienteV2App')
         }
 
         //*--- Listar personas a preliquidar para esa nómina --* //
-        titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + $scope.preliquidacion.Ano + ',PreliquidacionId.Mes:' + $scope.preliquidacion.Mes + ',PreliquidacionId.NominaId:' + $scope.preliquidacion.NominaId.Id + '&limit=-1').then(function (response) {
-          self.gridOptions.data = response.data.Data;
-          self.total_contratos_liquidados = response.data.length;
-        });
+        if ($scope.preliquidacion.NominaId.Id == 414) {
+          titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + $scope.preliquidacion.Ano + ',PreliquidacionId.Mes:' + $scope.preliquidacion.Mes + ',PreliquidacionId.NominaId:' + $scope.preliquidacion.NominaId.Id + '&limit=-1').then(function (response) {
+            self.gridOptions.data = response.data.Data;
+            self.total_contratos_liquidados = response.data.length;
+          });
+        } else if ($scope.preliquidacion.NominaId.Id == 415 || $scope.preliquidacion.NominaId.Id == 416) {
+          titanMidRequest.get('contratos', '/docentesDVE/' + $scope.preliquidacion.NominaId.Id + "/" + $scope.preliquidacion.Mes + "/" + $scope.preliquidacion.Ano).then(function (response) {
+            self.gridOptions.data = response.data.Data;
+            self.total_contratos_liquidados = response.data.length;
+          });
+        }
+
 
         //*--- Funciones de botones de Acción --* //
         $scope.loadrow = function (row, operacion) {
@@ -244,33 +252,6 @@ angular.module('titanClienteV2App')
           }
         };
 
-        //*--- Listar los contratos por docente --* //
-
-        self.listar_contratos_por_persona = function (row) {
-
-          var personas_a_listar = [];
-          var persona = {
-            NumDocumento: parseInt(row.entity.num_documento),
-          };
-
-          personas_a_listar.push(persona)
-
-          var datos_preliquidacion = {
-            Preliquidacion: $scope.preliquidacion,
-            PersonasPreLiquidacion: personas_a_listar
-          }
-
-          titanMidRequest.post('gestion_contratos/listar_contratos_agrupados_por_persona', datos_preliquidacion).then(function (response) {
-
-            self.informacion_contratos.data = [];
-
-            angular.forEach(response.data.Contratos, function (value, key) {
-              self.informacion_contratos.data.push(value)
-            });
-
-          });
-
-        };
 
         //*--- Previsualización de preliquidacion de persona --* //
         self.ver_detalle_persona = function (row) {
@@ -278,137 +259,18 @@ angular.module('titanClienteV2App')
           $('#modal_detalle').modal('show');
         };
 
+        self.ver_detalle_personaDVE = function (row) {
+          var auxContrato = {
+            Documento: row.entity.Documento,
+            NombreCompleto: row.entity.NombreCompleto
+          };
+          $scope.contrato = auxContrato
+          $('#modal_detalle').modal('show');
+        };
+
         $('#modal_detalle').on('hidden.bs.modal', function (e) {
           $scope.contrato = undefined
         })
-
-        //*--- Generación de preliquidacion  --* //
-        self.generar_preliquidacion = function () {
-          var i;
-          var personas = $scope.myGridApi.selection.getSelectedRows();
-          $scope.preliquidacion.Definitiva = true;
-
-          if ($scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "HCH" || $scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "HCS") {
-
-
-            for (i = 0; i < personas.length; i++) {
-              var personas_a_liquidar = [];
-              var persona = {
-                IdPersona: parseInt(personas[i].id_proveedor),
-                NumDocumento: parseInt(personas[i].num_documento),
-                NumeroContrato: personas[i].numero_contrato,
-                VigenciaContrato: parseInt(personas[i].vigencia),
-                FechaInicio: personas[i].fecha_inicio,
-                FechaFin: personas[i].fecha_fin,
-                ValorContrato: personas[i].valor_contrato,
-                Pendiente: "false",
-              };
-
-              personas_a_liquidar.push(persona);
-              personas_a_liquidar.push({});
-
-              var datos_preliquidacion = {
-                Preliquidacion: $scope.preliquidacion,
-                PersonasPreliquidacion: personas_a_liquidar
-
-              };
-
-
-              titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function (response) {
-              })
-                .catch(function (error) {
-                });
-            }
-          }
-
-          if ($scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "CT") {
-
-            swal({
-              html: 'Las personas a las que no se les ha generado cumplido, no serán agregadas para la liquidación',
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonText: 'Ok',
-              confirmButtonColor: "#FF0000",
-            }).then(function (response) {
-
-
-              for (i = 0; i < personas.length; i++) {
-
-                var personas_a_liquidar = [];
-
-                if (personas[i].Cumplido != "NO") {
-
-                  var persona = {
-                    IdPersona: parseInt(personas[i].id_proveedor),
-                    NumDocumento: parseInt(personas[i].num_documento),
-                    NumeroContrato: "c" + personas[i].numero_contrato,
-                    VigenciaContrato: parseInt(personas[i].vigencia),
-                    FechaInicio: personas[i].fecha_inicio,
-                    FechaFin: personas[i].fecha_fin,
-                    ValorContrato: "v" + personas[i].valor_contrato,
-                    Pendiente: "false",
-                  };
-
-                  personas_a_liquidar.push(persona);
-                  personas_a_liquidar.push({});
-
-                  var datos_preliquidacion = {
-                    Preliquidacion: $scope.preliquidacion,
-                    PersonasPreliquidacion: personas_a_liquidar
-
-                  };
-
-
-                  titanMidRequest.post_cola('preliquidar', datos_preliquidacion).then(function (response) {
-                  })
-                    .catch(function (error) {
-
-                    });
-
-                }
-              }
-
-
-            })
-
-
-
-          }
-
-          if ($scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "FP") {
-            for (i = 0; i < personas.length; i++) {
-              var persona = {
-                IdPersona: parseInt(personas[i].Id),
-                NumDocumento: String(personas[i].NumDocumento),
-                NumeroContrato: personas[i].NumeroContrato,
-                VigenciaContrato: parseInt(personas[i].VigenciaContrato),
-                Pendiente: "false",
-              };
-
-              //personas_a_liquidar.push(persona)
-            }
-
-          }
-
-          // var datos_preliquidacion = {
-          //       Preliquidacion: $scope.preliquidacion,
-          //       PersonasPreLiquidacion: personas_a_liquidar
-
-          //  };
-
-
-
-          //titanMidRequest.post_cola('preliquidar', datos_preliquidacion[i]).then(function(response) {
-
-          //$location.path('/preliquidacion/preliquidacion_personas');
-          // $route.reload()
-          //  });
-
-
-          // }
-        };
-
-
       },
       controllerAs: 'd_preliquidacionAbierta'
     };

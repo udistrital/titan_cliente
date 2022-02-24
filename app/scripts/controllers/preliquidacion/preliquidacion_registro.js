@@ -243,34 +243,9 @@ angular.module('titanClienteV2App')
         };
 
         self.generar_op = function (row) {
-
-            self.preliquidacion = preliquidacion;
-            self.preliquidacion.Id = row.entity.Id;
-            self.preliquidacion.Descripcion = row.entity.Descripcion;
-            self.preliquidacion.Mes = row.entity.Mes;
-            self.preliquidacion.Ano = row.entity.Ano;
-            self.preliquidacion.EstadoPreliquidacionId = row.entity.EstadoPreliquidacionId;
-            self.preliquidacion.FechaCreacion = row.entity.FechaCreacion;
-            self.preliquidacion.NominaId = self.tipo_id
-
-
-            var nueva_preliquidacion = {
-                Nomina: {
-                    Id: self.nomina.Id
-                },
-                Id: parseInt(row.entity.Id),
-                Descripcion: row.entity.Descripcion,
-                Mes: row.entity.Mes,
-                Ano: row.entity.Ano,
-                FechaRegistro: row.entity.FechaRegistro,
-                EstadoPreliquidacion: {
-                    Id: 4
-                }
-            }
-
-            titanMidRequest.post('preliquidacion/personas_x_preliquidacion', self.preliquidacion).then(function (response) {
-                console.log("response no data", response)
-                if (response.data === null) {
+            titanMidRequest.get('gestion_ops', '/generar_op/' + row.entity.Id).then(function (response) {
+                console.log("response no data", response.data)
+                if (response.data.Data === null) {
                     swal({
                         html: $translate.instant('NO_PRELIQ'),
                         type: "error",
@@ -282,7 +257,7 @@ angular.module('titanClienteV2App')
                 } else {
                     titanMidRequest.post('gestion_ops/generar_op', self.preliquidacion).then(function (response) {
                         console.log("console", response.data)
-                        if (response.data.Type == "error") {
+                        if (response.data.Data === null) {
                             swal({
                                 html: $translate.instant('CAMBIOS_ESTADO_OP_INCORRECTO'),
                                 type: "error",
