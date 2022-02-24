@@ -70,7 +70,7 @@
 </div>
 
 <div ng-if="d_verDetallePorPersona.detalle_HCH">
-    <div ng-repeat="resolucion in d_verDetallePorPersona.detalle">
+    <div ng-repeat="contrato in d_verDetallePorPersona.detalle">
 
         <legend class="text-primary" ng-if="mostrarleyenda=='false'">
             {{'CARGANDO' | translate}} ...
@@ -78,74 +78,58 @@
 
         <div class="col-md-12" ng-if="mostrarleyenda=='true'">
 
-            <legend class="text-primary" ng-click="inputpestanaResolucion=!inputpestanaResolucion"
-                ng-show="preliquidacion.NominaId.ParametroPadreId.Nombre === 'HCS' || preliquidacion.NominaId.ParametroPadreId.Nombre === 'HCH'">
-                Resolucion {{resolucion.ResolucionCompleta.NumeroResolucion}} de {{resolucion.Resolucion.NivelAcademico}}
-                <span class="fa fa-plus pull-right" ng-show="!inputpestanaResolucion"></span>
-                <span class="fa fa-minus pull-right" ng-show="inputpestanaResolucion"></span>
+            <legend class="text-primary" ng-click="inputpestanaContrato=!inputpestanaContrato"
+                ng-show="preliquidacion.NominaId.ParametroPadreId.Nombre === 'HCH' || preliquidacion.NominaId.ParametroPadreId.Nombre === 'HCS'">
+                {{contrato.Contrato}} de {{contrato.Vigencia}}
+                <span class="fa fa-plus pull-right" ng-show="!inputpestanaContrato"></span>
+                <span class="fa fa-minus pull-right" ng-show="inputpestanaContrato"></span>
             </legend class="text-primary">
-            
-            <div class="panel" ng-if="inputpestanaResolucion">
 
-                <div ng-repeat="contrato in resolucion.Detalle">
+            <div class="panel panel-primary" ng-if="inputpestanaContrato">
+                <div class="panel-body">
 
-                    <legend class="text-primary" ng-click="inputpestanaContrato=!inputpestanaContrato"
-                        ng-show="preliquidacion.NominaId.ParametroPadreId.Nombre === 'HCS' || preliquidacion.NominaId.ParametroPadreId.Nombre === 'HCH'">
-                        {{contrato.Contrato}} de {{contrato.Vigencia}}
-                        <span class="fa fa-plus pull-right" ng-show="!inputpestanaContrato"></span>
-                        <span class="fa fa-minus pull-right" ng-show="inputpestanaContrato"></span>
-                    </legend>
+                    <table class="table  table-scrollable">
+                        <tr>
+                            <th>{{'CONCEPTO' | translate}}</th>
+                            <th>{{'VALOR'|translate}}</th>
+                        </tr>
+                        <tr ng-repeat="concepto in contrato.Detalle"
+                            ng-show="concepto.ConceptoNominaId.NaturalezaConceptoNominaId === 423" class="devengo">
+                            <td class="texto">{{concepto.ConceptoNominaId.AliasConcepto}}</td>
+                            <td class="alineacion_derecha">{{concepto.ValorCalculado | currency}}</td>
+                        </tr>
+                        <tr ng-repeat="concepto in contrato.Detalle"
+                            ng-show="concepto.ConceptoNominaId.NaturalezaConceptoNominaId === 424" class="descuento">
+                            <td class="texto">{{concepto.ConceptoNominaId.AliasConcepto}}</td>
+                            <td class="alineacion_derecha">{{concepto.ValorCalculado | currency}}</td>
+                        </tr>
+                        <tr ng-repeat="concepto in contrato.Detalle"
+                            ng-show="concepto.ConceptoNominaId.NaturalezaConceptoNominaId === 425"
+                            class="seguridad_social">
+                            <td class="texto">{{concepto.ConceptoNominaId.AliasConcepto}}</td>
+                            <td class="alineacion_derecha">{{concepto.ValorCalculado | currency}}</td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table class="table">
+                        <tr>
+                            <th>{{'REALIZA_PAGO' | translate}}</th>
+                            <td class="alineacion_derecha">Listo para pago</td>
+                        </tr>
+                        <tr>
+                            <th>{{'TOTAL_DEV' | translate}}</th>
+                            <td class="alineacion_derecha">{{contrato.TotalDevengado | currency}}</td>
+                        </tr>
+                        <tr>
 
-                    <div class="panel panel-primary" ng-if="inputpestanaContrato">
-                        <div class="panel-body">
-
-                            <table class="table  table-scrollable">
-                                <tr>
-                                    <th>{{'CONCEPTO' | translate}}</th>
-                                    <th>{{'VALOR'|translate}}</th>
-                                </tr>
-                                <tr ng-repeat="concepto in contrato.Detalle"
-                                    ng-show="concepto.ConceptoNominaId.NaturalezaConceptoNominaId === 423"
-                                    class="devengo">
-                                    <td class="texto">{{concepto.ConceptoNominaId.AliasConcepto}}</td>
-                                    <td class="alineacion_derecha">{{concepto.ValorCalculado | currency}}</td>
-                                </tr>
-                                <tr ng-repeat="concepto in contrato.Detalle"
-                                    ng-show="concepto.ConceptoNominaId.NaturalezaConceptoNominaId === 424"
-                                    class="descuento">
-                                    <td class="texto">{{concepto.ConceptoNominaId.AliasConcepto}}</td>
-                                    <td class="alineacion_derecha">{{concepto.ValorCalculado | currency}}</td>
-                                </tr>
-                                <tr ng-repeat="concepto in contrato.Detalle"
-                                    ng-show="concepto.ConceptoNominaId.NaturalezaConceptoNominaId === 425"
-                                    class="seguridad_social">
-                                    <td class="texto">{{concepto.ConceptoNominaId.AliasConcepto}}</td>
-                                    <td class="alineacion_derecha">{{concepto.ValorCalculado | currency}}</td>
-                                </tr>
-                            </table>
-                            <br>
-                            <table class="table">
-                                <tr>
-                                    <th>{{'REALIZA_PAGO' | translate}}</th>
-                                    <td class="alineacion_derecha">Listo para pago</td>
-                                </tr>
-                                <tr>
-                                    <th>{{'TOTAL_DEV' | translate}}</th>
-                                    <td class="alineacion_derecha">{{contrato.TotalDevengado | currency}}</td>
-                                </tr>
-                                <tr>
-
-                                    <th>{{'TOTAL_DESC'| translate}}</th>
-                                    <td class="alineacion_derecha">{{contrato.TotalDescuentos | currency}}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{'TOTAL_PAGAR' | translate}}</th>
-                                    <td class="alineacion_derecha">{{contrato.TotalPago | currency}}</td>
-                                </tr>
-
-                            </table>
-                        </div>
-                    </div>
+                            <th>{{'TOTAL_DESC'| translate}}</th>
+                            <td class="alineacion_derecha">{{contrato.TotalDescuentos | currency}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'TOTAL_PAGAR' | translate}}</th>
+                            <td class="alineacion_derecha">{{contrato.TotalPago | currency}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
