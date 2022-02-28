@@ -15,19 +15,13 @@ angular.module('titanClienteV2App')
 
         if (self.tipo == 'CT') {
             self.tipo_id = 411
+            self.tipoNom_id = 414
         } else if (self.tipo == 'HCH') {
             self.tipo_id = 409
+            self.tipoNom_id = 415
         } else if (self.tipo == 'HCS') {
             self.tipo_id = 410
-        }
-
-
-        if (self.tipo_id == 411) {
-            self.tipoNom_id = 414
-        } else if (self.tipo_id == 419) {
-            self.tipo_id = 415
-        } else if (self.tipo == 410) {
-            self.tipo_id = 416
+            self.tipoNom_id = 416
         }
 
         self.ShowForm = function () {
