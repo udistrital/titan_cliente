@@ -1,171 +1,29 @@
 <div class="panel panel-primary panel-body">
-  <h2 class="page-header text-center">{{ 'MODULO_REPORTES' | translate}}</h2>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-3">
-         <div class="panel panel-default">
+	<h2 class="page-header text-center">{{ 'MODULO_REPORTES' | translate}}</h2>
+	<div class="panel-body">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 text-center">
+					<h2>Salarios</h2>
+					<form>
+						<a title="Salarios" target="_blank"
+							href="https://inteligenciainstitucional.portaloas.udistrital.edu.co/knowage/public/servlet/AdapterHTTP?ACTION_NAME=EXECUTE_DOCUMENT_ACTION&OBJECT_LABEL=CMTitanHCS&TOOLBAR_VISIBLE=true&ORGANIZATION=DEFAULT_TENANT&NEW_SESSION=true&PARAMETERS=anio%3D%26anio_field_visible_description%3D%26cumplido%3Dtrue%26cumplido_field_visible_description%3DSI%26mes%3D%26mes_field_visible_description%3D">
+							<img src="../../images/reporte.png"  alt="Salarios" style="border: double;" height="200" width="200" />
+						</a>
+					</form>
+				</div>
 
-         	   <legend class="text-primary" ng-click="reportesHc.reporte_a_mostrar('total_nomina_por_facultad', 'TOTAL_NOMINA_FACULTAD')">
-			     {{'TOTAL_NOMINA_FACULTAD' | translate}}
-			   </legend class="text-primary">
+				<div class="col-sm-6 text-center">
+					<h2>Honorarios</h2>
+					<form>
+						<a title="Honorarios" target="_blank"
+							href="https://inteligenciainstitucional.portaloas.udistrital.edu.co/knowage/public/servlet/AdapterHTTP?ACTION_NAME=EXECUTE_DOCUMENT_ACTION&OBJECT_LABEL=CMTitanHCH&TOOLBAR_VISIBLE=true&ORGANIZATION=DEFAULT_TENANT&NEW_SESSION=true&PARAMETERS=anio%3D%26anio_field_visible_description%3D%26cumplido%3Dtrue%26cumplido_field_visible_description%3DSI%26mes%3D%26mes_field_visible_description%3D">
+							<img src="../../images/reporte.png" alt="Honorarios" style="border: double;" height="200" width="200"/>
+						</a>
+					</form>
 
-			   <legend class="text-primary" ng-click="reportesHc.reporte_a_mostrar('total_nomina_por_pc', 'TOTAL_NOMINA_PC')">
-			    {{'TOTAL_NOMINA_PC' | translate}}
-			   </legend class="text-primary">
-
-         </div>
-      </div>
-
-
-       	 <div class="panel panel-default">
-       	 	<div class="col-md-9" ng-if="reportesHc.reporte_seleccionado == 'total_nomina_por_pc' || reportesHc.reporte_seleccionado == 'total_nomina_por_facultad' || reportesHc.reporte_seleccionado == 'desc_nomina_por_facultad'">
-       	 		<h2 class="page-header text-center"> {{reportesHc.titulo}}</h2>
-	       	 	<div class="col-md-6">
-
-	       	 		<div class="col-md-2">
-		                    <label for="input_mes">{{'MES_PRELIQ' | translate}}</label>
-		             </div>
-		              <div class="col-md-9">
-		                    <select ng-model="reportesHc.mesReporte" ng-init="reportesHc.mesPeriodo" class="form-control" required>
-		                          <option value="" disabled>{{ 'MES_PRELIQ' | translate }}</option>
-		                          <option ng-repeat="(key, value) in reportesHc.meses" value="{{key}}">{{value}}</option>
-		                          </select>
-		              <br>
-		              </div>
-
-
-		               <div class="col-md-2">
-		                    <label for="input_ano" >{{'ANO_PRELIQ' | translate}}</label>
-		                </div>
-		                <div class="col-md-9">
-		                    <select ng-model="reportesHc.anoReporte" ng-init="reportesHc.anioPeriodo" class="form-control" required>
-		                        <option value="" disabled>{{'ANO_PRELIQ' | translate}}</option>
-		                        <option ng-repeat="a in reportesHc.anios" value="{{a.anio}}" required>{{a.anio}}</option>
-		                      </select>
-		                <br>
-		                </div>
-
-
-		               <div class="col-md-2">
-		                    <label for="input_ano" >{{'TIPO_NOMINA' | translate}}</label>
-		                </div>
-		                <div class="col-md-9">
-		                    <select ng-model="reportesHc.selected_nomina" ng-init="reportesHc.anioPeriodo" class="form-control" required>
-		                        <option value="" disabled>{{'TIPO_NOMINA' | translate}}</option>
-		                        <option ng-repeat="a in reportesHc.nominas" value="{{a}}" required>{{a.Descripcion}}</option>
-		                      </select>
-		                <br>
-		                </div>
-
-
-
-		                <div class="col-md-2">
-		                    <label for="input_ano" >{{'FACULTAD' | translate}}</label>
-		                </div>
-		                <div class="col-md-9">
-		                    <select ng-model="reportesHc.selected_facultad" ng-init="reportesHc.proyecto_reporte" class="form-control" required>
-		                        <option value="" disabled>{{'FACULTAD' | translate}}</option>
-		                        <option ng-repeat="a in reportesHc.facultades" value="{{a}}" required>{{a.Nombre}}</option>
-		                      </select>
-		                <br>
-		                </div>
-
-		                <div class="col-md-2">
-		                    <label for="input_ano" >{{'NIVEL' | translate}}</label>
-		                </div>
-		                <div class="col-md-9">
-		                    <select ng-model="reportesHc.selected_nivel" class="form-control" required>
-		                        <option value="PREGRADO">{{'PREGRADO' | translate}}</option>
-		                         <option value="POSGRADO">{{'POSGRADO' | translate}}</option>
-		                    </select>
-		                <br>
-		                </div>
-
-	            	  <div ng-if="reportesHc.selected_facultad && reportesHc.selected_nivel && reportesHc.reporte_seleccionado == 'total_nomina_por_pc'">
-		                <div class="col-md-2">
-		                    <label for="input_ano" >{{'PROYECTO_CURRICULAR' | translate}}</label>
-		                </div>
-		                <div class="col-md-9">
-		                    <select ng-model="reportesHc.selected_pc" ng-init="reportesHc.proyecto_reporte" class="form-control" required>
-
-		                        <option ng-repeat="a in reportesHc.proyectos" value="{{a}}" required>{{a.Nombre}}</option>
-		                      </select>
-		                 <br>
-		                </div>
-	            		</div>
-
-                  <div class="col-md-10 col-md-offset-4">
-	            		<button ng-click="reportesHc.generar_reporte()" class="btn btn-success">{{'GENERAR' | translate}}</button>
-                  <button ng-click="reportesHc.generar_desagregado()" class="btn btn-success">{{'GENERAR_DESAGREGADO' | translate}}</button>
-                  </div>
-
-	       	 	</div>
-
-
-
-
-	       	 	<div class="col-md-4" ng-if="reportesHc.panel_generacion && (reportesHc.reporte_seleccionado == 'total_nomina_por_pc' || reportesHc.reporte_seleccionado == 'total_nomina_por_facultad')" >
-
-	       	 			<div class="col-md-4">
-                          <label>{{ 'VALOR_TOTAL' | translate }}</label>
-                        </div>
-                        <div class="col-md-8 col-md-offset-1">
-                        <div ng-show="reportesHc.cargando">
-                        	<span class="form-control input-right"><i class="fa fa-spin fa-spinner"></i></span>
-                        	<br>
-                        </div>
-                        <div ng-show="!reportesHc.cargando">
-                        	<span class="form-control right-letters">{{reportesHc.respuesta.TotalDev | currency}}</span>
-                        	<br>
-                        </div>
-                     	</div>
-
-                     	<div class="col-md-4">
-                          <label>{{ 'VALOR_TOTAL_DESCUENTOS' | translate }}</label>
-                        </div>
-                        <div class="col-md-8 col-md-offset-1">
-                          <div ng-show="reportesHc.cargando">
-                        	<span class="form-control"><i class="fa fa-spin fa-spinner"></i></span>
-                        	<br>
-                        </div>
-                        <div ng-show="!reportesHc.cargando">
-                        	<span class="form-control">{{reportesHc.respuesta.TotalDesc| currency}}</span>
-                        	<br>
-                        </div>
-                     	</div>
-
-                     	<div class="col-md-4">
-                          <label>{{ 'TOTAL_DOCENTES' | translate }}</label>
-                        </div>
-                        <div class="col-md-8 col-md-offset-1">
-                           <div ng-show="reportesHc.cargando">
-                        	<span class="form-control"><i class="fa fa-spin fa-spinner"></i></span>
-                        	<br>
-                        </div>
-                        <div ng-show="!reportesHc.cargando">
-                        	<span class="form-control">{{reportesHc.respuesta.TotalDocentes}}</span>
-                        	<br>
-                        </div>
-                     	</div>
-
-		       	 </div>
-
-
-
-             </div>
-
-
-            <div class="col-md-12" ng-if="reportesHc.desagregacion_seleccionada">
-            <br>
-            <div class="panel panel-default">
-                  <div ui-grid="reportesHc.gridOptions_desagregado" ui-grid-selection ui-grid-pagination ui-grid-auto-resize ui-grid-exporter class="myGrid"></div>
-                      <div class="watermark" ng-show="!reportesHc.hayData_grid">{{'NO_DATA'| translate}}</div>
-                      <div class="watermark" ng-show="reportesHc.cargando_grid">{{'CARGANDO'| translate}}   <i class="fa fa-spin fa-spinner"></i></div>
-                  </div>
-
-            </div>
-          	</div>
-
-</div>
-</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
