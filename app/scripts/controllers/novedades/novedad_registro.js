@@ -127,24 +127,13 @@ angular.module('titanClienteV2App')
         };
 
         $scope.gridOptions_novedades = {
-            paginationPageSizes: [5, 15, 20],
-            paginationPageSize: 5,
+            paginationPageSizes: [40, 50, 60],
+            paginationPageSize: 40,
             enableFiltering: true,
             enableSorting: true,
             enableRowSelection: false,
             enableRowHeaderSelection: false,
-            columnDefs: [{
-                field: 'Id',
-                visible: false
-            },
-            {
-                field: 'ConceptoNominaId.Id',
-                visible: false
-            },
-            {
-                field: 'ContratoId.Id',
-                visible: false
-            },
+            columnDefs: [
             {
                 field: 'ContratoId.NumeroContrato',
                 displayName: $translate.instant('NUM_CONTRATO'),
@@ -156,6 +145,13 @@ angular.module('titanClienteV2App')
                 field: 'ContratoId.Vigencia',
                 displayName: $translate.instant('VIGENCIA'),
                 width: '10%',
+                headerCellClass: 'encabezado',
+                cellClass: "text-center"
+            },
+            {
+                field: 'ContratoId.Documento',
+                displayName: $translate.instant('DOCUMENTO'),
+                width: '20%',
                 headerCellClass: 'encabezado',
                 cellClass: "text-center"
             },
@@ -336,8 +332,7 @@ angular.module('titanClienteV2App')
 
         self.listar_contratos = function () {
             titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + self.CurrentDate.getFullYear() + ',PreliquidacionId.Mes:' + (self.CurrentDate.getMonth()+1) + ',PreliquidacionId.NominaId:' + self.tipoNom_id+ "&limit=-1").then(function (response) {
-                if (response.data.Data.length == 0) {
-                    console.log("Error")
+                if (response.data.Data == null) {
                     swal({
                         html: $translate.instant('ERROR_NOV_PRELIQ'),
                         type: "error",
@@ -407,7 +402,8 @@ angular.module('titanClienteV2App')
                 }
 
                 titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
-                    if (response.data == null) {
+                    console.log("response" + response)
+                    if (response.data.Status == 400) {
                         swal({
                             html: $translate.instant('NOVEDAD_REG_ERROR'),
                             type: "error",
@@ -427,7 +423,7 @@ angular.module('titanClienteV2App')
                             $('#modal_adicion_novedad').modal('hide');
                         })
                         titanRequest.get('novedad', 'limit=-1&query=ContratoId.TipoNominaId:' + self.tipo_id + '&sortby=FechaCreacion&order=desc').then(function (response) {
-                            if (Object.keys(response.data.Data[0]).length == 0) {
+                            if (response.data.Data == null) {
                                 $scope.gridOptions_novedades.data = [];
                                 self.hayNovedad = false
                             } else {
@@ -563,7 +559,6 @@ angular.module('titanClienteV2App')
         };
 
         $('#modal_adicion_novedad').on('hidden.bs.modal', function (e) {
-
             self.mostrar_grid_contratos_ss = false;
             self.mostrar_grid_contratos_fijo = false;
             self.mostrar_grid_contratos_porcentual = false;
