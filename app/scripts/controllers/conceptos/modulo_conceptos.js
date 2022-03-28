@@ -174,7 +174,7 @@ angular.module('titanClienteV2App')
                     confirmButtonText: $translate.instant('CONFIRMAR'),
                     cancelButtonText: $translate.instant('CANCELAR'),
                 }).then(function () {
-
+                    console.log("Confirmo")
                     var naturaleza_concepto = {
                         Id: objeto_naturaleza_concepto.Id
                     };
@@ -222,10 +222,9 @@ angular.module('titanClienteV2App')
                     });
 
                 }, function (dismiss) {
+                    console.log("Desconfirmo")
                     if (dismiss === 'cancel') {
-
                         $('#modal_edicion').modal('hide');
-                        // $window.location.reload()
                     }
                 })
             } else {

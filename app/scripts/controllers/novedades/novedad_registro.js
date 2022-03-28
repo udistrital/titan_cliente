@@ -134,100 +134,100 @@ angular.module('titanClienteV2App')
             enableRowSelection: false,
             enableRowHeaderSelection: false,
             columnDefs: [
-            {
-                field: 'ContratoId.NumeroContrato',
-                displayName: $translate.instant('NUM_CONTRATO'),
-                width: '10%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'ContratoId.Vigencia',
-                displayName: $translate.instant('VIGENCIA'),
-                width: '10%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'ContratoId.Documento',
-                displayName: $translate.instant('DOCUMENTO'),
-                width: '20%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'ContratoId.NombreCompleto',
-                displayName: $translate.instant('NOMBRE_PERSONA'),
-                width: '20%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'ConceptoNominaId.AliasConcepto',
-                displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
-                width: '15%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'ConceptoNominaId.TipoConceptoNominaId',
-                visible: false
-            },
-            {
-                field: 'Valor',
-                displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
-                width: '10%',
-                cellClass: "text-center",
-                headerCellClass: 'encabezado',
-                cellFilter: "filtro_formato_valor_novedad:row.entity"
-            },
-            {
-                field: 'Cuotas',
-                displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
-                width: '10%',
-                cellClass: "text-center",
-                headerCellClass: 'encabezado',
-                cellFilter: "filtro_formato_cuotas:row.entity"
+                {
+                    field: 'ContratoId.NumeroContrato',
+                    displayName: $translate.instant('NUM_CONTRATO'),
+                    width: '10%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'ContratoId.Vigencia',
+                    displayName: $translate.instant('VIGENCIA'),
+                    width: '10%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'ContratoId.Documento',
+                    displayName: $translate.instant('DOCUMENTO'),
+                    width: '20%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'ContratoId.NombreCompleto',
+                    displayName: $translate.instant('NOMBRE_PERSONA'),
+                    width: '20%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'ConceptoNominaId.AliasConcepto',
+                    displayName: $translate.instant('NOMBRE_CONCEPTO_NOVEDAD'),
+                    width: '15%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'ConceptoNominaId.TipoConceptoNominaId',
+                    visible: false
+                },
+                {
+                    field: 'Valor',
+                    displayName: $translate.instant('VALOR_CONCEPTO_NOVEDAD'),
+                    width: '10%',
+                    cellClass: "text-center",
+                    headerCellClass: 'encabezado',
+                    cellFilter: "filtro_formato_valor_novedad:row.entity"
+                },
+                {
+                    field: 'Cuotas',
+                    displayName: $translate.instant('NUMCUOTAS_CONCEPTO_NOVEDAD'),
+                    width: '10%',
+                    cellClass: "text-center",
+                    headerCellClass: 'encabezado',
+                    cellFilter: "filtro_formato_cuotas:row.entity"
 
-            },
-            {
-                field: 'FechaInicio',
-                displayName: $translate.instant('FECHA_INICIO'),
-                cellTemplate: '<span>{{row.entity.FechaInicio| date:"yyyy-MM-dd":"+0900"}}</span>',
-                width: '10%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'FechaHasta',
-                displayName: $translate.instant('FECHA_FIN'),
-                cellTemplate: '<span>{{row.entity.FechaFin| date:"yyyy-MM-dd":"+0900"}}</span>',
-                width: '10%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'FechaCreacion',
-                displayName: $translate.instant('FECHA_REGISTRO'),
-                width: '10%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'Activo',
-                cellFilter: "filtro_activo:row.entity",
-                width: '10%',
-                headerCellClass: 'encabezado',
-                cellClass: "text-center"
-            },
-            {
-                field: 'Acciones',
-                displayName: $translate.instant('ACCIONES'),
-                width: '10%',
-                cellClass: "text-center",
-                headerCellClass: 'encabezado',
-                cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>',
-            }
+                },
+                {
+                    field: 'FechaInicio',
+                    displayName: $translate.instant('FECHA_INICIO'),
+                    cellTemplate: '<span>{{row.entity.FechaInicio| date:"yyyy-MM-dd":"+0900"}}</span>',
+                    width: '10%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'FechaHasta',
+                    displayName: $translate.instant('FECHA_FIN'),
+                    cellTemplate: '<span>{{row.entity.FechaFin| date:"yyyy-MM-dd":"+0900"}}</span>',
+                    width: '10%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'FechaCreacion',
+                    displayName: $translate.instant('FECHA_REGISTRO'),
+                    width: '10%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'Activo',
+                    cellFilter: "filtro_activo:row.entity",
+                    width: '10%',
+                    headerCellClass: 'encabezado',
+                    cellClass: "text-center"
+                },
+                {
+                    field: 'Acciones',
+                    displayName: $translate.instant('ACCIONES'),
+                    width: '10%',
+                    cellClass: "text-center",
+                    headerCellClass: 'encabezado',
+                    cellTemplate: '<btn-registro funcion="grid.appScope.loadrow(fila,operacion)" grupobotones="grid.appScope.botones" fila="row"></btn-registro>',
+                }
             ],
         };
 
@@ -331,7 +331,7 @@ angular.module('titanClienteV2App')
 
 
         self.listar_contratos = function () {
-            titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + self.CurrentDate.getFullYear() + ',PreliquidacionId.Mes:' + (self.CurrentDate.getMonth()+1) + ',PreliquidacionId.NominaId:' + self.tipoNom_id+ "&limit=-1").then(function (response) {
+            titanRequest.get('contrato_preliquidacion', 'query=PreliquidacionId.Ano:' + self.CurrentDate.getFullYear() + ',PreliquidacionId.Mes:' + (self.CurrentDate.getMonth() + 1) + ',PreliquidacionId.NominaId:' + self.tipoNom_id + "&limit=-1").then(function (response) {
                 if (response.data.Data == null) {
                     swal({
                         html: $translate.instant('ERROR_NOV_PRELIQ'),
@@ -373,7 +373,7 @@ angular.module('titanClienteV2App')
 
             if (self.ValorNovedad == undefined || self.Cuotas == undefined) {
                 swal({
-                    html: $translate.instant('NOVEDAD_REG_ERROR'),
+                    html: $translate.instant('NOVEDAD_REG_ERROR') + ": \nUno o más campos están vacíos",
                     type: "error",
                     showCancelButton: true,
                     showConfirmButton: false,
@@ -381,7 +381,7 @@ angular.module('titanClienteV2App')
                     cancelButtonText: $translate.instant('SALIR'),
                 })
             } else {
-                if ($scope.concepto.TipoConceptoNominaId === 420 || $scope.concepto.TipoConceptoNominaId) {
+                if ($scope.concepto.TipoConceptoNominaId === 420 || $scope.concepto.TipoConceptoNominaId === 419) {
                     self.novedad = {
                         ContratoId: {
                             Id: $scope.Contrato.Id
@@ -393,26 +393,70 @@ angular.module('titanClienteV2App')
                         Cuotas: self.Cuotas,
                         Activo: true
                     }
-                }
-
-                if ($scope.concepto.TipoConceptoNominaId === 421) {
+                } else if ($scope.concepto.TipoConceptoNominaId === 421) {
                     valor = 0;
                     cuotas = 0;
                     info_contratos = self.informacion_contratos_porcentual.data;
                 }
-
-                titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
-                    console.log("response" + response)
-                    if (response.data.Status == 400) {
+                titanMidRequest.post('novedad/verificar_descuentos', self.novedad).then(function (response) {
+                    console.log(response)
+                    if (response.data.Data.Estado === 1) {
                         swal({
-                            html: $translate.instant('NOVEDAD_REG_ERROR'),
+                            html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n"+ response.data.Data.Mensaje,
                             type: "error",
                             showCancelButton: true,
                             showConfirmButton: false,
                             cancelButtonColor: "#C9302C",
                             cancelButtonText: $translate.instant('SALIR'),
                         })
-                    } else {
+                    }else if(response.data.Data.Estado === 2){
+                        swal({
+                            html: $translate.instant('CONFIRMACION_NOVEDAD') +
+                                "<br><b>" + response.data.Data.Mensaje + "</b> " ,
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#449D44",
+                            cancelButtonColor: "#C9302C",
+                            confirmButtonText: $translate.instant('CONFIRMAR'),
+                            cancelButtonText: $translate.instant('CANCELAR'),
+                        }).then(function () {
+                            titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
+                                swal({
+                                    html: $translate.instant('NOVEDAD_REG_CORRECTO'),
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#449D44",
+                                    confirmButtonText: $translate.instant('VOLVER'),
+                                }).then(function () {
+                                    $('#modal_adicion_novedad').modal('hide');
+                                })
+                                titanRequest.get('novedad', 'limit=-1&query=ContratoId.TipoNominaId:' + self.tipo_id + '&sortby=FechaCreacion&order=desc').then(function (response) {
+                                    if (response.data.Data == null) {
+                                        $scope.gridOptions_novedades.data = [];
+                                        self.hayNovedad = false
+                                    } else {
+                                        $scope.gridOptions_novedades.data = response.data.Data;
+                                        self.hayNovedad = true
+                                    }
+                                })
+                            }, function (reason) {
+                                swal({
+                                    html: $translate.instant('NOVEDAD_REG_ERROR')+ ":\n"+ reason.data.Message,
+                                    type: "error",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#449D44",
+                                    confirmButtonText: $translate.instant('VOLVER'),
+                                }).then(function () {
+                                    $('#modal_edicion').modal('hide');
+        
+                                })
+                            });
+                        }, function (dismiss) {
+                            if (dismiss === 'cancel') {
+                                $('#modal_adicion_novedad').modal('hide');
+                            }
+                        })
+                    }else {
                         swal({
                             html: $translate.instant('NOVEDAD_REG_CORRECTO'),
                             type: "success",
@@ -432,6 +476,17 @@ angular.module('titanClienteV2App')
                             }
                         })
                     }
+                    //En caso de que falle
+                }, function (reason) {
+                    console.log(reason)
+                    swal({
+                        html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n"+ reason.data.Message,
+                        type: "error",
+                        showCancelButton: true,
+                        showConfirmButton: false,
+                        cancelButtonColor: "#C9302C",
+                        cancelButtonText: $translate.instant('SALIR'),
+                    })
                 });
             }
         };
@@ -449,7 +504,7 @@ angular.module('titanClienteV2App')
                     row.setSelected(false);
                 })
             } else if (parseInt(row.entity.FechaFin.split("-")[0], 10) == (fecha_actual.getFullYear)) {
-                if (parseInt(row.entity.FechaFin.split("-")[1], 10) < (fecha_actual.getMonth() + 1)){
+                if (parseInt(row.entity.FechaFin.split("-")[1], 10) < (fecha_actual.getMonth() + 1)) {
                     console.log(row.entity.FechaFin.split("-")[1])
                     console.log(fecha_actual.getMonth() + 1)
                     swal({
@@ -460,7 +515,7 @@ angular.module('titanClienteV2App')
                     }).then(function (response) {
                         row.setSelected(false);
                     })
-                }else {
+                } else {
                     swal({
                         html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.ConceptoNominaId.AliasConcepto + "?",
                         type: "warning",
@@ -494,7 +549,7 @@ angular.module('titanClienteV2App')
                     })
                 }
             } else if (parseInt(row.entity.FechaFin.split("-")[0], 10) != (fecha_actual.getFullYear)) {
-                if (parseInt(row.entity.FechaFin.split("-")[1], 10) +12 < (fecha_actual.getMonth() + 1)){
+                if (parseInt(row.entity.FechaFin.split("-")[1], 10) + 12 < (fecha_actual.getMonth() + 1)) {
                     console.log(row.entity.FechaFin.split("-")[1])
                     console.log(fecha_actual.getMonth() + 13)
                     swal({
@@ -505,7 +560,7 @@ angular.module('titanClienteV2App')
                     }).then(function (response) {
                         row.setSelected(false);
                     })
-                }else {
+                } else {
                     swal({
                         html: $translate.instant('CONFIRMACION_INACTIVIDAD_NOV') + row.entity.ConceptoNominaId.AliasConcepto + "?",
                         type: "warning",
