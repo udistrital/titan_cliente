@@ -402,17 +402,17 @@ angular.module('titanClienteV2App')
                     console.log(response)
                     if (response.data.Data.Estado === 1) {
                         swal({
-                            html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n"+ response.data.Data.Mensaje,
+                            html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n" + response.data.Data.Mensaje,
                             type: "error",
                             showCancelButton: true,
                             showConfirmButton: false,
                             cancelButtonColor: "#C9302C",
                             cancelButtonText: $translate.instant('SALIR'),
                         })
-                    }else if(response.data.Data.Estado === 2){
+                    } else if (response.data.Data.Estado === 2) {
                         swal({
                             html: $translate.instant('CONFIRMACION_NOVEDAD') +
-                                "<br><b>" + response.data.Data.Mensaje + "</b> " ,
+                                "<br><b>" + response.data.Data.Mensaje + "</b> ",
                             type: "warning",
                             showCancelButton: true,
                             confirmButtonColor: "#449D44",
@@ -441,14 +441,14 @@ angular.module('titanClienteV2App')
                                 })
                             }, function (reason) {
                                 swal({
-                                    html: $translate.instant('NOVEDAD_REG_ERROR')+ ":\n"+ reason.data.Message,
+                                    html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n" + reason.data.Message,
                                     type: "error",
                                     showCancelButton: false,
                                     confirmButtonColor: "#449D44",
                                     confirmButtonText: $translate.instant('VOLVER'),
                                 }).then(function () {
                                     $('#modal_edicion').modal('hide');
-        
+
                                 })
                             });
                         }, function (dismiss) {
@@ -456,31 +456,44 @@ angular.module('titanClienteV2App')
                                 $('#modal_adicion_novedad').modal('hide');
                             }
                         })
-                    }else {
-                        swal({
-                            html: $translate.instant('NOVEDAD_REG_CORRECTO'),
-                            type: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#449D44",
-                            confirmButtonText: $translate.instant('VOLVER'),
-                        }).then(function () {
-                            $('#modal_adicion_novedad').modal('hide');
-                        })
-                        titanRequest.get('novedad', 'limit=-1&query=ContratoId.TipoNominaId:' + self.tipo_id + '&sortby=FechaCreacion&order=desc').then(function (response) {
-                            if (response.data.Data == null) {
-                                $scope.gridOptions_novedades.data = [];
-                                self.hayNovedad = false
-                            } else {
-                                $scope.gridOptions_novedades.data = response.data.Data;
-                                self.hayNovedad = true
-                            }
-                        })
+                    } else if (response.data.Data.Estado === 3) {
+                        titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
+                            swal({
+                                html: $translate.instant('NOVEDAD_REG_CORRECTO'),
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $('#modal_adicion_novedad').modal('hide');
+                            })
+                            titanRequest.get('novedad', 'limit=-1&query=ContratoId.TipoNominaId:' + self.tipo_id + '&sortby=FechaCreacion&order=desc').then(function (response) {
+                                if (response.data.Data == null) {
+                                    $scope.gridOptions_novedades.data = [];
+                                    self.hayNovedad = false
+                                } else {
+                                    $scope.gridOptions_novedades.data = response.data.Data;
+                                    self.hayNovedad = true
+                                }
+                            })
+                        }, function (reason) {
+                            swal({
+                                html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n" + reason.data.Message,
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#449D44",
+                                confirmButtonText: $translate.instant('VOLVER'),
+                            }).then(function () {
+                                $('#modal_edicion').modal('hide');
+
+                            })
+                        });
                     }
                     //En caso de que falle
                 }, function (reason) {
                     console.log(reason)
                     swal({
-                        html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n"+ reason.data.Message,
+                        html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n" + reason.data.Message,
                         type: "error",
                         showCancelButton: true,
                         showConfirmButton: false,
