@@ -491,6 +491,15 @@ angular.module('titanClienteV2App')
                                 }
                             })
                         } else if (response.data.Data.Estado === 3) {
+                            swal({
+                                html: $translate.instant('NOVEDAD_REG_ERROR') + ":\n" + response.data.Data.Mensaje,
+                                type: "error",
+                                showCancelButton: true,
+                                showConfirmButton: false,
+                                cancelButtonColor: "#C9302C",
+                                cancelButtonText: $translate.instant('SALIR'),
+                            })
+                        }else if (response.data.Data.Estado === 4) {
                             titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
                                 swal({
                                     html: $translate.instant('NOVEDAD_REG_CORRECTO'),
