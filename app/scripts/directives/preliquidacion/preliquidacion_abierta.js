@@ -203,6 +203,24 @@ angular.module('titanClienteV2App')
 								cellFilter: 'currency',
 								cellClass: 'text-center',
 								headerCellClass: "encabezado"
+							},
+							{
+								field: 'ContratoId.Cdp',
+								displayName: "CDP",
+								visible: true,
+								width: '11%',
+								cellFilter: 'currency',
+								cellClass: 'text-center',
+								headerCellClass: "encabezado"
+							},
+							{
+								field: 'ContratoId.Rp',
+								displayName: "RP",
+								visible: true,
+								width: '11%',
+								cellFilter: 'currency',
+								cellClass: 'text-center',
+								headerCellClass: "encabezado"
 							}
 						],
 						onRegisterApi: function (gridApi) {
@@ -242,7 +260,7 @@ angular.module('titanClienteV2App')
 					var i
 					var personas = $scope.myGridApi.selection.getSelectedRows();
 					for (i = 0; i < personas.length; i++) {
-						titanMidRequest.get('contrato_preliquidacion', '/preliquidado/'+$scope.preliquidacion.Ano+'/'+$scope.preliquidacion.Mes+'/'+personas[i].ContratoId.NumeroContrato+'/'+personas[i].ContratoId.Vigencia).then(function (response) {
+						titanMidRequest.get('contrato_preliquidacion', '/preliquidado/' + $scope.preliquidacion.Ano + '/' + $scope.preliquidacion.Mes + '/' + personas[i].ContratoId.NumeroContrato + '/' + personas[i].ContratoId.Vigencia).then(function (response) {
 							if (response.data.Data === null) {
 								swal({
 									html: $translate.instant('PRELIQ_REG_INCORRECTA'),
