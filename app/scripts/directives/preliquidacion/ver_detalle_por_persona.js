@@ -7,7 +7,7 @@
  * # verRp
  */
 angular.module('titanClienteV2App')
-	.directive('verDetallePorPersona', function (titanMidRequest, titanRequest) {
+	.directive('verDetallePorPersona', function (titanMidRequest, titanRequest, $translate) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -44,7 +44,7 @@ angular.module('titanClienteV2App')
 								console.log(response.data.Data)
 								console.log(response.data.Data.length)
 								for (var i = 0; i < response.data.Data.length; i++) {
-									if (response.data.Data[i].Detalle[0].ContratoPreliquidacionId.ContratoId.Id == $scope.contrato.Id){
+									if (response.data.Data[i].Detalle[0].ContratoPreliquidacionId.ContratoId.Id == $scope.contrato.Id) {
 										self.detalle = [response.data.Data[i]];
 										break;
 									}
@@ -55,19 +55,42 @@ angular.module('titanClienteV2App')
 							});
 						} else if ($scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "HCH") {
 							titanMidRequest.get('detalle_preliquidacion', '/obtener_detalle_DVE/' + $scope.preliquidacion.Ano + '/' + $scope.preliquidacion.Mes + '/' + $scope.contrato.Documento + '/415').then(function (response) {
-								self.detalle = response.data.Data;
-								console.log(self.detalle)
-								$scope.mostrarleyenda = "true";
-								self.detalle_CT = false
-								self.detalle_HCH = true
+								if (response.data.Data != undefined) {
+									console.log(response.data.Data)
+									self.detalle = response.data.Data;
+									console.log(self.detalle)
+									$scope.mostrarleyenda = "true";
+									self.detalle_CT = false
+									self.detalle_HCH = true
+								} else {
+									swal({
+										html: 'No se encontraron detalles para este docente',
+										type: "error",
+										showCancelButton: false,
+										confirmButtonColor: "#449D44",
+										confirmButtonText: $translate.instant('VOLVER'),
+									})
+								}
+
 							});
 						} else if ($scope.preliquidacion.NominaId.ParametroPadreId.Nombre === "HCS") {
 							titanMidRequest.get('detalle_preliquidacion', '/obtener_detalle_DVE/' + $scope.preliquidacion.Ano + '/' + $scope.preliquidacion.Mes + '/' + $scope.contrato.Documento + '/416').then(function (response) {
-								self.detalle = response.data.Data;
-								console.log(self.detalle)
-								$scope.mostrarleyenda = "true";
-								self.detalle_CT = false
-								self.detalle_HCH = true
+								if (response.data.Data != undefined) {
+									console.log(response.data.Data)
+									self.detalle = response.data.Data;
+									console.log(self.detalle)
+									$scope.mostrarleyenda = "true";
+									self.detalle_CT = false
+									self.detalle_HCH = true
+								} else {
+									swal({
+										html: 'No se encontraron detalles para este docente',
+										type: "error",
+										showCancelButton: false,
+										confirmButtonColor: "#449D44",
+										confirmButtonText: $translate.instant('VOLVER'),
+									})
+								}
 							});
 						}
 					}
