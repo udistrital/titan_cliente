@@ -400,7 +400,7 @@ angular.module('titanClienteV2App')
                 }
                 //Para devengos
                 if ($scope.concepto.NaturalezaConceptoNominaId === 423) {
-                    titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
+                    titanMidRequest.post('novedadVE/agregar_novedad', self.novedad).then(function (response) {
                         swal({
                             html: $translate.instant('NOVEDAD_REG_CORRECTO'),
                             type: "success",
@@ -432,7 +432,7 @@ angular.module('titanClienteV2App')
                         })
                     });
                 } else if ($scope.concepto.NaturalezaConceptoNominaId === 424) {
-                    titanMidRequest.post('novedad/verificar_descuentos', self.novedad).then(function (response) {
+                    titanMidRequest.post('novedadVE/verificar_descuentos', self.novedad).then(function (response) {
                         console.log(response)
                         if (response.data.Data.Estado === 1) {
                             swal({
@@ -454,7 +454,7 @@ angular.module('titanClienteV2App')
                                 confirmButtonText: $translate.instant('CONFIRMAR'),
                                 cancelButtonText: $translate.instant('CANCELAR'),
                             }).then(function () {
-                                titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
+                                titanMidRequest.post('novedadVE/agregar_novedad', self.novedad).then(function (response) {
                                     swal({
                                         html: $translate.instant('NOVEDAD_REG_CORRECTO'),
                                         type: "success",
@@ -500,7 +500,7 @@ angular.module('titanClienteV2App')
                                 cancelButtonText: $translate.instant('SALIR'),
                             })
                         }else if (response.data.Data.Estado === 4) {
-                            titanMidRequest.post('novedad/agregar_novedad', self.novedad).then(function (response) {
+                            titanMidRequest.post('novedadVE/agregar_novedad', self.novedad).then(function (response) {
                                 swal({
                                     html: $translate.instant('NOVEDAD_REG_CORRECTO'),
                                     type: "success",
@@ -582,7 +582,7 @@ angular.module('titanClienteV2App')
                         confirmButtonText: $translate.instant('CONFIRMAR'),
                         cancelButtonText: $translate.instant('CANCELAR'),
                     }).then(function () {
-                        titanMidRequest.get('novedad', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
+                        titanMidRequest.get('novedadVE', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
                             swal({
                                 html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
                                 type: "success",
@@ -627,7 +627,7 @@ angular.module('titanClienteV2App')
                         confirmButtonText: $translate.instant('CONFIRMAR'),
                         cancelButtonText: $translate.instant('CANCELAR'),
                     }).then(function () {
-                        titanMidRequest.get('novedad', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
+                        titanMidRequest.get('novedadVE', '/eliminar_novedad/' + row.entity.Id).then(function (response) {
                             swal({
                                 html: $translate.instant('INACTIVIDAD_CORRECTA_NOV'),
                                 type: "success",
